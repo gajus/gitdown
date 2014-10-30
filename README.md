@@ -176,9 +176,9 @@ If you are including a code block that requires syntax highlighting, you must wr
 
 
 ```Handlebars
-```json
-{{gitdown.include}}./package.json{{/gitdown.include}}
-```
+    ```json
+    {{gitdown.include}}./package.json{{/gitdown.include}}
+    ```
 ```
 
 ### Template
