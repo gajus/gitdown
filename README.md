@@ -8,27 +8,61 @@ var gitdown = Gitdown.fromFile('./README.gitdown.md');
 gitdown.save('./README.md');
 ```
 
-### Dead URLs
+### Find Dead URL
 
-Gitdown will iterate through all of the URLs in the document and throw an error if request to the URL results in HTTP status other than 200.
-
-```js
-{
-    lookForURL: true
-}
-```
-
-### Dead Anchor URLs
-
-Gitdown will iterate through all of the URLs that use anchors to reference content an throw an error when the anchor cannot be resolved.
+Gitdown will iterate through all of the URLs and throw an error if request to the URL results in HTTP status other than 200.
 
 ```js
 {
-    lookForURLAnchor: true
+    findDeadURL: true
 }
 ```
 
-### Load JSON
+### Find Dead Fragment Identifier
+
+Gitdown will iterate through all of the URLs that use a [fragment identifier](http://www.w3.org/html/wg/drafts/html/master/browsers.html#scroll-to-fragid) (anchor) and throw an error if anchor cannot be found.
+
+```js
+{
+    findDeadFragmentIdentifier: true
+}
+```
+
+### User Variables
+
+Use an instance of `markdown.user` to define properties accessible from the `{{gitdown.user.[..]}}` namespace.
+
+```js
+{
+    user: {
+        foo: 'bar'
+    }
+}
+```
+
+This will make:
+
+```Handlebars
+{{gitdown.user.foo}}
+```
+
+To resolve "bar".
+
+### Import JSON
+
+Use `Gitdown.json(filename)` to read and parse JSON files. In combination with (User Variables)[#user-variables], it can be used to import arbitrary data (e.g. package configuration) to the document scope.
+
+The `filename` is relative to the repository.
+
+```js
+{
+    user: {
+        package: Gitdown.json('package.json')
+    }
+}
+```
+
+`Gitdown.json` will throw an error if file is not found or cannot be parsed as JSON.
 
 ### Badges
 
