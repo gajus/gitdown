@@ -29,15 +29,7 @@ You can generate Table of Contents for the document using `{{gitdown.contents}}`
 
 Table of contents is generated using the default settings of [marked-toc](https://github.com/jonschlinkert/marked-toc).
 
-### Include File
-
-You can include an arbitrary file.
-
-```Handlebars
-{{gitdown.include}}./file/path/relative/to/the/repository{{/gitdown.include}}
-```
-
-### Reference an Anchor
+### Reference an Anchor in the Repository
 
 Gitdown allows you to reference an anchor declared in the entire codebase.
 
@@ -67,4 +59,26 @@ Configure `gitdown.anchor.exclude` to exclude paths matching the expression:
 gitdown.anchor.exclude = [
     '/dist/*'
 ];
+```
+
+### File Size
+
+Use `{{gitdown.filesize}}` to get file size:
+
+```Handlebars
+{{gitdown.filesize}}./dist/foo.js{{gitdown.filesize}}
+```
+
+Use `{{gitdown.filesize.gzip}}` to calculate gziped file size:
+
+```Handlebars
+{{gitdown.filesize.gzip}}./dist/foo.js{{/gitdown.filesize.gzip}}
+```
+
+### Include File
+
+You can include an arbitrary file.
+
+```Handlebars
+{{gitdown.include}}./file/path/relative/to/the/repository{{/gitdown.include}}
 ```

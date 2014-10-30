@@ -3,7 +3,9 @@
   "description": "Github markdown preprocessor.",
   "keywords": [
     "github",
-    "markdown"
+    "markdown",
+    "table of contents",
+    "toc"
   ],
   "version": "1.0.0",
   "main": "src/gitdown.js",
