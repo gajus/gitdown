@@ -8,14 +8,23 @@ var gitdown = Gitdown.fromFile('./README.gitdown.md');
 gitdown.save('./README.md');
 ```
 
+### Will check for dead URLs
+
+### Load JSON
+
 ### Badges
 
 ```Handlebars
 {{gitdown.badge.npm}}
 {{gitdown.badge.bower}}
+{{gitdown.badge.travis-ci}}
+{{gitdown.badge.twitter.tweet}}
+{{gitdown.badge.twitter.retweet}}
 ```
 
-Badges will be generated using https://badge.fury.io/.
+Most of the badges will be generated using https://badge.fury.io/.
+
+Missing a badge? Open an issue and it will be added.
 
 In addition to inserting the markdown code for the badge, Gitdown will decache the image URL.
 
@@ -49,6 +58,12 @@ Refer to [foo]({{gitdown.anchor}}my-anchor-name{{/gitdown.anchor}}).
 
 The anchor name must match `/^[a-z]+[a-z0-9\-_:\.]*$/i`.
 
+Gitdown will thow an error if the anchor is not found.
+
+### Produce Documentation for the Doc bloc
+
+### function body for the reference
+
 #### Exclude From Index
 
 Gitdown will throw an error if there are multiple anchors in the code base using the same name.
@@ -75,6 +90,11 @@ Use `{{gitdown.filesize.gzip}}` to calculate gziped file size:
 {{gitdown.filesize.gzip}}./dist/foo.js{{/gitdown.filesize.gzip}}
 ```
 
+### Timestamp
+
+`{{gitdown.timestamp}}` returns UNIX timestamp. This is mostly useful to decache content.
+
+
 ### Include File
 
 You can include an arbitrary file.
@@ -82,3 +102,12 @@ You can include an arbitrary file.
 ```Handlebars
 {{gitdown.include}}./file/path/relative/to/the/repository{{/gitdown.include}}
 ```
+
+### Template
+
+Gitdown comes with several templates for (Install)
+
+
+### API documentation
+
+e.g. https://github.com/kimmobrunfeldt/progressbar.js#api
