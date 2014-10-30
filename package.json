@@ -1,0 +1,24 @@
+{
+  "name": "gitdown",
+  "description": "Github markdown preprocessor.",
+  "keywords": [
+    "github",
+    "markdown"
+  ],
+  "version": "1.0.0",
+  "main": "src/gitdown.js",
+  "author": "Gajus Kuizinas <gk@anuary.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gajus/gitdown"
+  },
+  "license": "BSD-3-Clause",
+  "scrips": {
+    "test": "gulp test"
+  },
+  "devDependencies": {
+    "chai": "^1.9.2",
+    "gulp-mocha": "^1.1.1",
+    "mocha": "^2.0.1"
+  }
+}
