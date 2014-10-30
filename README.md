@@ -8,7 +8,7 @@ var gitdown = Gitdown.fromFile('./README.gitdown.md');
 gitdown.save('./README.md');
 ```
 
-### Find Dead URL
+### Find Dead URLs
 
 Gitdown will iterate through all of the URLs and throw an error if request to the URL results in HTTP status other than 200.
 
@@ -18,7 +18,7 @@ Gitdown will iterate through all of the URLs and throw an error if request to th
 }
 ```
 
-### Find Dead Fragment Identifier
+### Find Dead Fragment Identifiers
 
 Gitdown will iterate through all of the URLs that use a [fragment identifier](http://www.w3.org/html/wg/drafts/html/master/browsers.html#scroll-to-fragid) (anchor) and throw an error if anchor cannot be found.
 
@@ -28,9 +28,9 @@ Gitdown will iterate through all of the URLs that use a [fragment identifier](ht
 }
 ```
 
-### User Variables
+### Variables
 
-Use an instance of `markdown.user` to define properties accessible from the `{{gitdown.user.[..]}}` namespace.
+`user` property is designed to pass arbitrary data to the document scope under `{{gitdown.user}}` namespace.
 
 ```js
 {
@@ -48,6 +48,8 @@ This will make:
 
 To resolve "bar".
 
+Beware that unresolved references will render empty.
+
 ### Import JSON
 
 Use `Gitdown.json(filename)` to read and parse JSON files. In combination with (User Variables)[#user-variables], it can be used to import arbitrary data (e.g. package configuration) to the document scope.
@@ -63,6 +65,18 @@ The `filename` is relative to the repository.
 ```
 
 `Gitdown.json` will throw an error if file is not found or cannot be parsed as JSON.
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Badges
 
@@ -130,13 +144,13 @@ gitdown.anchor.exclude = [
 
 ### File Size
 
-Use `{{gitdown.filesize}}` to get file size:
+Use `{{gitdown.filesize}}` to get the file size:
 
 ```Handlebars
 {{gitdown.filesize}}./dist/foo.js{{gitdown.filesize}}
 ```
 
-Use `{{gitdown.filesize.gzip}}` to calculate gziped file size:
+Use `{{gitdown.filesize.gzip}}` to calculate the gziped file size:
 
 ```Handlebars
 {{gitdown.filesize.gzip}}./dist/foo.js{{/gitdown.filesize.gzip}}
@@ -144,8 +158,11 @@ Use `{{gitdown.filesize.gzip}}` to calculate gziped file size:
 
 ### Timestamp
 
-`{{gitdown.timestamp}}` returns UNIX timestamp. This is mostly useful to decache content.
+`{{gitdown.timestamp}}` returns UNIX timestamp. This is mostly useful to decache content, e.g.
 
+```Handlebars
+[!foo](http://foo.com/picture.png?time={{gitdown.timestamp}})
+```
 
 ### Include File
 
@@ -153,6 +170,15 @@ You can include an arbitrary file.
 
 ```Handlebars
 {{gitdown.include}}./file/path/relative/to/the/repository{{/gitdown.include}}
+```
+
+If you are including a code block that requires syntax highlighting, you must wrap the code block yourself, e.g.
+
+
+```Handlebars
+```json
+{{gitdown.include}}./package.json{{/gitdown.include}}
+```
 ```
 
 ### Template
