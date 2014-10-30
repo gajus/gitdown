@@ -8,7 +8,25 @@ var gitdown = Gitdown.fromFile('./README.gitdown.md');
 gitdown.save('./README.md');
 ```
 
-### Will check for dead URLs
+### Dead URLs
+
+Gitdown will iterate through all of the URLs in the document and throw an error if request to the URL results in HTTP status other than 200.
+
+```js
+{
+    lookForURL: true
+}
+```
+
+### Dead Anchor URLs
+
+Gitdown will iterate through all of the URLs that use anchors to reference content an throw an error when the anchor cannot be resolved.
+
+```js
+{
+    lookForURLAnchor: true
+}
+```
 
 ### Load JSON
 
