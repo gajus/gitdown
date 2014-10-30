@@ -18,7 +18,15 @@
   },
   "devDependencies": {
     "chai": "^1.9.2",
+    "chai-spies": "^0.5.1",
     "gulp-mocha": "^1.1.1",
     "mocha": "^2.0.1"
+  },
+  "dependencies": {
+    "handlebars": "^2.0.0",
+    "jsonfile": "^2.0.0",
+    "markdown-js": "0.0.3",
+    "marked-toc": "^0.2.8",
+    "mustache": "^0.8.2"
   }
 }
