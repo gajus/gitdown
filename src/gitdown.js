@@ -1,5 +1,4 @@
 var Gitdown,
-    Input,
     Mustache = require('mustache'),
     jsonfile = require('jsonfile'),
     contents = require('marked-toc'),
@@ -41,19 +40,7 @@ Gitdown = function (input) {
     return gitdown;
 };
 
-Gitdown.render = {};
-Gitdown.render.contents = function (input) {
-    return contents.raw(input, {
-        template: '<%= depth %><%= bullet %>[<%= heading %>](#<%= url %>)\n',
-        bullet: '*',
-        maxDepth: 3,
-        firsth1: false,
-        omit: ['Table of Contents', 'TOC', 'TABLE OF CONTENTS', 'Contents'],
-        clean: [],
-        blacklist: true,
-        allowedChars: '-'
-    }).toc;
-};
+Gitdown.render = require(__dirname + '/render.js');
 
 /**
  * @param {String} dirname Path to start the iteration with.
