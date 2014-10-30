@@ -8,6 +8,17 @@ var gitdown = Gitdown.fromFile('./README.gitdown.md');
 gitdown.save('./README.md');
 ```
 
+### Badges
+
+```Handlebars
+{{gitdown.badge.npm}}
+{{gitdown.badge.bower}}
+```
+
+Badges will be generated using https://badge.fury.io/.
+
+In addition to inserting the markdown code for the badge, Gitdown will decache the image URL.
+
 ### Table of Contents
 
 You can generate Table of Contents for the document using `{{gitdown.contents}}` expression:
