@@ -15,7 +15,7 @@ Calculates the size of a file. Returns size formatted to a human friendly format
 | Method | Parameter | Description |
 | --- | --- | --- |
 | `gitdown.filesize` | Path to the file. | Size of a file. |
-| `gitdown.filesize.gzip` | Path to the file. | Size of a gzipped file. |
+| `gitdown.filesize.gzip` | Path to the file. | Size of a file after it has been gzipped. |
 
 ```Handlebars
 {{gitdown.filesize}}./dist/foo.js{{gitdown.filesize}}
