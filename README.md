@@ -11,6 +11,7 @@ gitdown.save('./README.md');
 ### File Size
 
 | Method | Description |
+| --- | --- |
 | `gitdown.filesize` | Calculates size of a file. Returns size formatted to a human friendly format. |
 | `gitdown.filesize.gzip` | Calculates the size of a file. Returns size formatted to a human friendly format. |
 
