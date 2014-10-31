@@ -22,15 +22,29 @@ Gitdown will iterate through all of the URLs in the resulting markdown document 
 
 Gitdown will iterate through all of the URLs in the resulting markdown document that use a [fragment identifier](http://www.w3.org/html/wg/drafts/html/master/browsers.html#scroll-to-fragid) (anchor) and throw an error if anchor cannot be found.
 
+### Remote
+
+To iterate the fragment identifiers that refer to documents outside of the file that is being processed:
+
 ```js
 {
-    findDeadFragmentIdentifierRemote: true,
+    findDeadFragmentIdentifierRemote: true
+}
+```
+
+Gitdown will request every URL reference that is using a fragment identifier (e.g. http://example.com/#does-not-exist) and look if the document has an element with the `id` property of the requested fragment.
+
+### Local
+
+To iterate the fragment identifiers only with local references (e.g. `[More Examples](#more-examples)`.
+
+```js
+{
     findDeadFragmentIdentifierLocal: true
 }
 ```
 
-* `findDeadFragmentIdentifierRemote` will look at fragment identifiers that refer to documents outside of the file that is being processed.
-* `findDeadFragmentIdentifierLocal` will look at fragment identifiers only with local references (e.g. `[More Examples](#more-examples)`.
+This setting does not make outgoing HTTP requests.
 
 ### Get File Size
 
