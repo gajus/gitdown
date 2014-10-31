@@ -2,10 +2,10 @@
 
 ```js
 // Read the markdown file written using the Gitdown syntactic sugar.
-var gitdown = Gitdown.fromFile('./README.gitdown.md');
+var gitdown = Gitdown.readFileSync('./README.gitdown.md');
 
 // Output the markdown file.
-gitdown.save('./README.md');
+gitdown.writeFileSync('./README.md');
 ```
 
 ## Configuration
