@@ -29,7 +29,10 @@ Gitdown will iterate through all of the URLs in the resulting markdown document 
 }
 ```
 
-### File Size
+* `findDeadFragmentIdentifierRemote` will look at fragment identifiers that refer to documents outside of the file that is being processed.
+* `findDeadFragmentIdentifierLocal` will look at fragment identifiers only with local references (e.g. `[More Examples](#more-examples)`.
+
+### Get File Size
 
 Calculates the size of a file. Returns size formatted to a human friendly format.
 
