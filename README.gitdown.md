@@ -1,58 +1,41 @@
 ## Use
 
 ```js
-// Read the markdown file written using the Gitdown syntactic sugar.
-var gitdown = Gitdown.readFileSync('./README.gitdown.md');
+var gitdown;
+
+// Read the markdown file written using the Gitdown extended markdown.
+// File name is not important. "{name}.gitdown.md", "{name}.md" is recommended convention.
+gitdown = Gitdown.read('./README.gitdown.md');
+
+// If you have the subject in a string, call the constructor itself:
+// gitdown = Gitdown('literal string');
 
 // Output the markdown file.
-gitdown.writeFileSync('./README.md');
+gitdown.write('./README.md');
 ```
 
 ## Configuration
 
-### Look For Dead URLs
-
-Gitdown will iterate through all of the URLs in the resulting markdown document and throw an error if request to the URL results in HTTP status 404.
-
 ```js
-{
-    findDeadURL: true
-}
+var config = {};
 ```
 
-### Look For Dead Fragment Identifiers
+### Find Dead URLs and Fragment Identifiers
 
-Gitdown will iterate through all of the URLs in the resulting markdown document that use a [fragment identifier](http://www.w3.org/html/wg/drafts/html/master/browsers.html#scroll-to-fragid) (anchor) and throw an error if anchor cannot be found.
+Gitdown is using [Deadlink](https://github.com/gajus/deadlink) to find dead URLs and Fragment Identifiers.
 
-#### Remote
-
-To iterate the fragment identifiers that refer to documents outside of the file that is being processed:
+Deadlink extracts all URLs from the resulting markdown document and ensure that the URL and the associated fragment identifier are resolvable. This includes all remote URLs, remote and local anchor links (e.g. `[Download](#download)`).
 
 ```js
-{
-    findDeadFragmentIdentifierRemote: true
-}
+config.findDeadURL = true;
+config.findDeadFragmentIdentifier = true;
 ```
-
-Gitdown will request every URL reference that is using a fragment identifier (e.g. http://example.com/#does-not-exist) and look if the document has an element with the `id` property of the requested fragment.
-
-#### Local
-
-To iterate the fragment identifiers only with local references (e.g. `[More Examples](#more-examples)`.
-
-```js
-{
-    findDeadFragmentIdentifierLocal: true
-}
-```
-
-This setting does not make outgoing HTTP requests.
 
 ## Gitdown API
 
 ### Get File Size
 
-Calculates the size of a file. Returns size formatted to a human friendly format.
+Calculates the file size. Returns size formatted in a human friendly format.
 
 | Method | Parameter | Description |
 | --- | --- | --- |

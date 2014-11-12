@@ -34,11 +34,14 @@
     "jsonfile": "^2.0.0",
     "mocha": "^2.0.1",
     "nock": "^0.48.2",
+    "sinon": "^1.11.1",
+    "sinon-chai": "^2.6.0",
     "suspend": "^0.6.0"
   },
   "dependencies": {
-    "bluebird": "^2.3.10",
+    "bluebird": "^2.3.11",
     "co": "^3.1.0",
+    "deadlink": "^1.0.5",
     "filesize": "^2.0.4",
     "promise": "^6.0.1",
     "q": "^2.0.2"
