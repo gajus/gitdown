@@ -25,3 +25,13 @@ Gitdown extends markdown syntax using JSON:
 The JSON object must have `gitdown` property that identifies the method you intend to execute. The rest is a regular JSON string, where each property is a named configuration property of the function you are referring to.
 
 JSON strings that are not encapsulated in `<<>>` will remain untouched.
+
+## Features
+
+### Generate Table of Contents
+
+```json
+<<{"gitdown": "contents"}>>
+```
+
+Table of contents is generated using [Contents](https://github.com/gajus/contents). The underlying implementation will render markdown file into HTML and then use Contents to generate the table of contents.
