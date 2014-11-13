@@ -143,10 +143,10 @@ Gitdown.Parser = function Parser () {
                     return !command.executed;
                 });
 
-            if (notExecutedCommands.length) {
-                return parser.play(state.markdown, state.commands);
-            } else {
+            if (state.inputMarkdown == state.markdown && !notExecutedCommands.length) {
                 return state;
+            } else {
+                return parser.play(state.markdown, state.commands);
             }
         });
     };
@@ -156,11 +156,13 @@ Gitdown.Parser = function Parser () {
      * the output of the command defined in the JSON.
      * 
      * @see http://stackoverflow.com/questions/26910402/regex-to-match-json-in-a-document/26910403
-     * @param {String} markdown
+     * @param {String} inputMarkdown
      * @param {Array} commands
      */
-    parser.parse = function (markdown, commands) {
-        markdown = markdown.replace(/<<({"gitdown"(?:[^}]+}))>>/g, function (match) {
+    parser.parse = function (inputMarkdown, commands) {
+        // console.log('parser.parse', 'inputMarkdown', inputMarkdown);
+
+        markdown = inputMarkdown.replace(/<<({"gitdown"(?:[^}]+}))>>/g, function (match) {
             var command = JSON.parse(match.slice(2, -2)),
                 name = command.gitdown,
                 parameters = command;
@@ -181,6 +183,7 @@ Gitdown.Parser = function Parser () {
         });
 
         return {
+            inputMarkdown: inputMarkdown,
             markdown: markdown,
             commands: commands
         };
@@ -221,7 +224,7 @@ Gitdown.Parser = function Parser () {
 
         // Execute each command and update markdown binding.
         lowestWeightCommands.forEach(function (command) {
-            var promise = command.util(state.markdown);
+            var promise = command.util(state.markdown, command.parameters);
 
             promise.then(function (value) {
                 state.markdown = state.markdown.replace('⊂⊂' + command.bindingIndex + '⊃⊃', value);
@@ -241,7 +244,9 @@ Gitdown.Parser = function Parser () {
 };
 
 Gitdown.utils = {};
+Gitdown.utils.test = require('./util/test.js');
 Gitdown.utils.test_weight_10 = require('./util/test_weight_10.js');
 Gitdown.utils.test_weight_20 = require('./util/test_weight_20.js');
+Gitdown.utils.include = require('./util/include.js');
 
 module.exports = Gitdown;

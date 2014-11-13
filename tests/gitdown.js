@@ -21,24 +21,33 @@ function requireNew (module) {
 };
 
 describe('Gitdown.Parser', function () {
-    var Parser,
+    var Gitdown,
         parser;
     beforeEach(function () {
-        Parser = requireNew('../src/gitdown.js').Parser;
-        parser = Parser();
+        Gitdown = requireNew('../src/gitdown.js');
+        parser = Gitdown.Parser();
     });
-    describe('.parse()', function () {
-        it('interprets occurrences of JSON stating with <<{"gitdown" and ending }>>', function () {
-            var play;
-
-            //instructions = parser.parse('<<{"gitdown":"test_weight_20"}>> <<{"gitdown":"test_weight_10"}>>');
-            //parser.execute(instructions);
-
-            play = parser.play('<<{"gitdown":"test_weight_20"}>> <<{"gitdown":"test_weight_10"}>>');
-
-            return play.then(function (state) {
-                console.log(state.markdown);
+    it('interprets occurrences of JSON stating with <<{"gitdown" and ending }>>', function () {
+        return parser
+            .play('<<{"gitdown": "test"}>>')
+            .then(function (state) {
+                expect(state.markdown).to.equal('test');
             });
-        });
+    });
+    it('invokes the utility function with the markdown and parameters', function () {
+        var spy = sinon.spy(Gitdown.utils, 'test');
+
+        return parser
+            .play('<<{"gitdown": "test", "foo": "bar"}>>')
+            .then(function (state) {
+                expect(spy).to.have.been.calledWith('⊂⊂1⊃⊃', {foo: "bar"});
+            });
+    });
+    it('descends to the command with the lowest weight after each iteration', function () {
+        return parser
+            .play('<<{"gitdown": "include", "file": "./tests/fixtures/include_test_weight_10.txt"}>>')
+            .then(function (state) {
+                expect(state.markdown).to.equal('10')
+            });
     });
 });
