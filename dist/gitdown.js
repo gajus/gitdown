@@ -5,7 +5,8 @@
  */
 var Gitdown = {},
     Promise = require('bluebird'),
-    fs = require('fs');
+    fs = require('fs'),
+    bindingIndex = 0;
 
 /**
  * @param {String|Promise} input
@@ -21,36 +22,24 @@ Gitdown = function Gitdown (input) {
 
     input = Promise.resolve(input);
 
+    /**
+     * 
+     */
     gitdown._execute = function (command) {
         if (command.gitdown == 'test') {
             return Promise.resolve('test');
         }
-    }; 
+    };
 
-    /**
-     * @see
-     */
-    gitdown._parse = function (inputString) {
-        var promises = [];
-
-        inputString = inputString.replace(/<<({"gitdown"(?:[^}]+}))>>/, function (match) {
-            var command = JSON.parse(match.slice(2, -2));
-
-            promises.push(gitdown._execute(command));
-
-            return '⊂' + promises.length + '⊃';
-        });
-
-        return Promise
-            .all(promises)
+    /*return Promise
+            .all(commands)
             .then(function () {
-                promises.forEach(function (promise, i) {
+                commands.forEach(function (promise, i) {
                     inputString = inputString.replace('⊂' + (i + 1) + '⊃', promise.value());
                 });
 
                 return inputString;
-            });
-    };
+            });*/
 
     /**
      * Process input.
@@ -91,6 +80,8 @@ Gitdown.read = function (fileName) {
 };
 
 /**
+ * 
+ * 
  * @return {String} Path to the .git directory.
  */
 Gitdown._getGitPath = function () {
@@ -124,8 +115,138 @@ Gitdown._getRepositoryPath = function () {
     return fs.realpathSync(Gitdown._getGitPath() + '/..');
 };
 
-Gitdown.util = {};
-Gitdown.util.size = require('./util/size.js');
-Gitdown.util.link = require('./util/link.js');
+Gitdown.Parser = function Parser () {
+    var parser;
+
+    if (!(this instanceof Parser)) {
+        return new Parser();
+    }
+
+    parser = this;
+
+    /**
+     * Iterates markdown parsing and execution of the parsed commands
+     * until there are no more commands to execute.
+     * 
+     * @param {String} markdown
+     * @param {Array} commands
+     */
+    parser.play = function (markdown, commands) {
+        var state;
+
+        commands = commands || [];
+
+        state = parser.parse(markdown, commands);
+
+        act = parser.execute(state);
+
+        return act.then(function (state) {
+            var notExecutedCommands;
+
+            notExecutedCommands = state.commands
+                .filter(function (command) {
+                    return !command.executed;
+                });
+
+            if (notExecutedCommands.length) {
+                return parser.play(state.markdown, state.commands);
+            } else {
+                return state;
+            }
+        });
+    };
+
+    /**
+     * Parses the markdown for Gitdown JSON. Replaces the said JSON with placeholders for
+     * the output of the command defined in the JSON.
+     * 
+     * @see http://stackoverflow.com/questions/26910402/regex-to-match-json-in-a-document/26910403
+     * @param {String} markdown
+     * @param {Array} commands
+     */
+    parser.parse = function (markdown, commands) {
+        markdown = markdown.replace(/<<({"gitdown"(?:[^}]+}))>>/g, function (match) {
+            var command = JSON.parse(match.slice(2, -2)),
+                name = command.gitdown,
+                parameters = command;
+
+            delete parameters.gitdown;
+
+            bindingIndex++;
+
+            commands.push({
+                bindingIndex: bindingIndex,
+                name: name,
+                parameters: parameters,
+                util: Gitdown.utils[name],
+                executed: false
+            });
+
+            return '⊂⊂' + (bindingIndex) + '⊃⊃';
+        });
+
+        return {
+            markdown: markdown,
+            commands: commands
+        };
+    };
+
+    /**
+     * Execute all of the commands sharing the lowest common weight against
+     * the current state of the markdown document.
+     * 
+     * @param {Object} state
+     * @return {Promise} Promise resolves to a state after all of the commands have been resolved.
+     */
+    parser.execute = function (state) {
+        var lowestWeight,
+            lowestWeightCommands,
+            notExecutedCommands,
+            act = [];
+
+        notExecutedCommands = state.commands.filter(function (command) {
+            return !command.executed;
+        });
+
+        if (!notExecutedCommands.length) {
+            return Promise.resolve(state);
+        }
+
+        // Find the lowest weight among all of the not executed commands.
+        lowestWeight = notExecutedCommands.map(function (command) {
+            return command.util._weight();
+        }).sort()[0];
+
+        // Find all commands with the lowest weight.
+        lowestWeightCommands = notExecutedCommands.filter(function (command) {
+            var commandWeight = command.util._weight();
+
+            return commandWeight == lowestWeight;
+        });
+
+        // Execute each command and update markdown binding.
+        lowestWeightCommands.forEach(function (command) {
+            var promise = command.util(state.markdown);
+
+            promise.then(function (value) {
+                state.markdown = state.markdown.replace('⊂⊂' + command.bindingIndex + '⊃⊃', value);
+
+                command.executed = true;
+            });
+
+            act.push(promise);
+        });
+
+        return Promise
+            .all(act)
+            .then(function () {
+                return state;
+            });
+    };
+};
+
+Gitdown.utils = {};
+Gitdown.utils.test_weight_10 = require('./util/test_weight_10.js');
+Gitdown.utils.test_weight_20 = require('./util/test_weight_20.js');
 
 module.exports = Gitdown;

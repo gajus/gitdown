@@ -34,4 +34,6 @@ JSON strings that are not encapsulated in `<<>>` will remain untouched.
 <<{"gitdown": "contents"}>>
 ```
 
-Table of contents is generated using [Contents](https://github.com/gajus/contents). The underlying implementation will render markdown file into HTML and then use Contents to generate the table of contents.
+Table of contents is generated using [Contents](https://github.com/gajus/contents).
+
+The underlying implementation will render markdown file into HTML and then use Contents to generate the table of contents.

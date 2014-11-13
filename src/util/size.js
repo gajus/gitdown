@@ -44,4 +44,9 @@ util.format = function (bytes) {
     return fileSize(bytes);
 };
 
+
+util._weight = function () {
+    return 1;
+};
+
 module.exports = util;
