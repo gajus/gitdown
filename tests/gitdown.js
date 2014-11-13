@@ -25,6 +25,23 @@ describe('Gitdown', function () {
     beforeEach(function () {
         Gitdown = requireNew('../src/gitdown.js');
     });
+    describe('._getGitPath()', function () {
+        it('returns absolute path to the .git directory', function () {
+            expect(Gitdown._getGitPath()).to.equal(fs.realpathSync(__dirname + '/../.git'));
+        });
+    });
+    describe('._getRepositoryPath()', function () {
+        it('returns absolute path to the parent of the _getGitPath() directory', function () {
+            expect(Gitdown._getRepositoryPath()).to.equal(fs.realpathSync(Gitdown._getGitPath() + '/..'));
+        });
+    });
+});
+
+describe('gitdown', function () {
+    var Gitdown;
+    beforeEach(function () {
+        Gitdown = requireNew('../src/gitdown.js');
+    });
     describe('.get()', function () {
         it('returns the Gitdown instance input', function () {
             return expect(Gitdown('foo').get()).eventually.equal('foo');

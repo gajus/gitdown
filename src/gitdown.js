@@ -17,7 +17,7 @@ Gitdown = function Gitdown (input) {
     input = Promise.resolve(input);
 
     /**
-     * Renders input.
+     * Process input.
      * 
      * @return {Promise}
      */
@@ -28,6 +28,11 @@ Gitdown = function Gitdown (input) {
             });
     };
 
+    /**
+     * Write processed input to a file.
+     *
+     * @param {String} fileName
+     */
     gitdown.write = function (fileName) {
         return gitdown
             .get()
@@ -52,13 +57,12 @@ Gitdown.read = function (fileName) {
 };
 
 /**
- * @param {String} dirname Path to start the iteration with.
- * @return {String} Path to the .git directory
+ * @return {String} Path to the .git directory.
  */
-Gitdown.getGitPath = function (dirname) {
+Gitdown._getGitPath = function () {
     var gitpath;
 
-    dirname = dirname || __dirname;
+    dirname = __dirname;
 
     do {
         if (fs.existsSync(dirname + '/.git')) {
@@ -78,10 +82,12 @@ Gitdown.getGitPath = function (dirname) {
 };
 
 /**
+ * Returns the parent path of the .git path.
+ * 
  * @return {String} Path to the repository.
  */
-Gitdown.getRepositoryPath = function () {
-    return fs.realpathSync(Gitdown.getGitPath() + '/..');
+Gitdown._getRepositoryPath = function () {
+    return fs.realpathSync(Gitdown._getGitPath() + '/..');
 };
 
 Gitdown.util = {};
