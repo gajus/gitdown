@@ -18,7 +18,7 @@ gitdown.write('./README.md');
 
 Gitdown extends markdown syntax using JSON:
 
-```
+```json
 <<{"gitdown": "method name", "parameter name": "parameter value"}>>
 ```
 
