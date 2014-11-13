@@ -16,6 +16,37 @@ Gitdown = function Gitdown (input) {
 
     input = Promise.resolve(input);
 
+    gitdown._execute = function (command) {
+        if (command.gitdown == 'test') {
+            return Promise.resolve('test');
+        }
+    }; 
+
+    /**
+     * @see
+     */
+    gitdown._parse = function (inputString) {
+        var promises = [];
+
+        inputString = inputString.replace(/<<({"gitdown"(?:[^}]+}))>>/, function (match) {
+            var command = JSON.parse(match.slice(2, -2));
+
+            promises.push(gitdown._execute(command));
+
+            return '⊂' + promises.length + '⊃';
+        });
+
+        return Promise
+            .all(promises)
+            .then(function () {
+                promises.forEach(function (promise, i) {
+                    inputString = inputString.replace('⊂' + (i + 1) + '⊃', promise.value());
+                });
+
+                return inputString;
+            });
+    };
+
     /**
      * Process input.
      * 
@@ -23,9 +54,7 @@ Gitdown = function Gitdown (input) {
      */
     gitdown.get = function () {
         return input
-            .then(function (inputString) {
-                return inputString;
-            });
+            .then(gitdown._parse);
     };
 
     /**

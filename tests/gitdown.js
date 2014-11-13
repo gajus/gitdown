@@ -46,6 +46,9 @@ describe('gitdown', function () {
         it('returns the Gitdown instance input', function () {
             return expect(Gitdown('foo').get()).eventually.equal('foo');
         });
+        it('interprets JSON <<{"github"}>>', function () {
+            return expect(Gitdown('<<{"gitdown": "test"}>>').get()).eventually.equal('test');
+        });
     });
     describe('.read()', function () {
         it('returns an instance of Gitdown', function () {

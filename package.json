@@ -19,10 +19,8 @@
     "test": "gulp test"
   },
   "devDependencies": {
-    "6to5": "^1.10.7",
     "chai": "^1.9.2",
     "chai-as-promised": "^4.1.1",
-    "chai-spies": "^0.5.1",
     "gulp": "^3.8.9",
     "gulp-clean": "^0.3.1",
     "gulp-header": "^1.2.2",
@@ -35,15 +33,11 @@
     "mocha": "^2.0.1",
     "nock": "^0.48.2",
     "sinon": "^1.11.1",
-    "sinon-chai": "^2.6.0",
-    "suspend": "^0.6.0"
+    "sinon-chai": "^2.6.0"
   },
   "dependencies": {
     "bluebird": "^2.3.11",
-    "co": "^3.1.0",
     "deadlink": "^1.0.5",
-    "filesize": "^2.0.4",
-    "promise": "^6.0.1",
-    "q": "^2.0.2"
+    "filesize": "^2.0.4"
   }
 }

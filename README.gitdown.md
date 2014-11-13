@@ -13,3 +13,15 @@ gitdown = Gitdown.read('./README.gitdown.md');
 // Output the markdown file.
 gitdown.write('./README.md');
 ```
+
+## Syntax
+
+Gitdown extends markdown syntax using JSON:
+
+```
+<<{"gitdown": "method name", "parameter name": "parameter value"}>>
+```
+
+JSON strings that are not encapsulated in `<<>>` will remain untouched.
+
+The JSON object must have `gitdown` property that identifies the method. The rest is a regular JSON string, where each property refers to named configuration property of the method you are using.
