@@ -19,7 +19,7 @@ gitdown.write('./README.md');
 Gitdown extends markdown syntax using JSON:
 
 ```json
-⦚{"gitdown": "method name", "parameter name": "parameter value"}⦚
+{"gitdown": "method name", "parameter name": "parameter value"}>>❳⦘﹞
 ```
 
 The JSON object must have `gitdown` property that identifies the method you intend to execute. The rest is a regular JSON string, where each property is a named configuration property of the function you are referring to.
