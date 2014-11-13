@@ -34,15 +34,11 @@ Gitdown = function Gitdown (input) {
     };
 
     gitdown.write = function (fileName) {
-        return new Promise(function (resolve, reject) {
-            gitdown
-                .get()
-                .then(function (outputString) {
-                    fs.writeFile(fileName, outputString, function () {
-                        resolve();
-                    });
-                });
-        });
+        return gitdown
+            .get()
+            .then(function (outputString) {
+                return fs.writeFileSync(fileName, outputString);
+            });
     };
 };
 
@@ -53,19 +49,44 @@ Gitdown = function Gitdown (input) {
  * @return {Gitdown}
  */
 Gitdown.read = function (fileName) {
-    var input = new Promise(function (resolve, reject) {
-        fs.readFile(fileName, {
-            encoding: 'utf8'
-        }, function (err, data) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(data);
-            }
-        });
+    var input = fs.readFileSync(fileName, {
+        encoding: 'utf8'
     });
 
     return Gitdown(input);
+};
+
+/**
+ * @param {String} dirname Path to start the iteration with.
+ * @return {String} Path to the .git directory
+ */
+Gitdown.getGitPath = function (dirname) {
+    var gitpath;
+
+    dirname = dirname || __dirname;
+
+    do {
+        if (fs.existsSync(dirname + '/.git')) {
+            gitpath = dirname + '/.git';
+
+            break;
+        }
+
+        dirname = fs.realpathSync(dirname + '/..');
+    } while (fs.existsSync(dirname) && dirname != '/');
+
+    if (!gitpath) {
+        throw new Error('.git path cannot be located.');
+    }
+
+    return gitpath;
+};
+
+/**
+ * @return {String} Path to the repository.
+ */
+Gitdown.getRepositoryPath = function () {
+    return fs.realpathSync(Gitdown.getGitPath() + '/..');
 };
 
 Gitdown.util = {};
