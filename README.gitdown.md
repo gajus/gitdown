@@ -49,4 +49,6 @@ Returns file size formatted in human friendly format.
 #### Configuration
 
 | Name | Description | Default |
+| --- | --- | --- |
+| `file` | A relative (to the repository) path to the file. | N/A |
 | `gzip` | A boolean value indicating whether to gzip the file first. | `false` |
