@@ -3,7 +3,6 @@ var chai = require('chai'),
     chaiAsPromised = require('chai-as-promised'),
     sinon = require('sinon'),
     sinonChai = require('sinon-chai'),
-    nock = require('nock'),
     fs = require('fs');
 
 chai.use(chaiAsPromised);
@@ -27,11 +26,34 @@ describe('Gitdown.Parser', function () {
         Gitdown = requireNew('../src/gitdown.js');
         parser = Gitdown.Parser();
     });
+    it('returns the input content', function () {
+        return parser
+            .play('foo')
+            .then(function (state) {
+                expect(state.markdown).to.equal('foo');
+            });
+    });
     it('interprets occurrences of JSON stating with <<{"gitdown" and ending }>>', function () {
         return parser
             .play('<<{"gitdown": "test"}>>')
             .then(function (state) {
                 expect(state.markdown).to.equal('test');
+            });
+    });
+    it('ignores content starting <!-- gitdown: off -->', function () {
+        return parser
+            .play('<<{"gitdown": "test"}>><!-- gitdown: off --><<{"gitdown": "test"}>>')
+            .then(function (state) {
+                //console.log(state);
+                expect(state.markdown).to.equal('test<!-- gitdown: off --><<{"gitdown": "test"}>>');
+            });
+    });
+    it('ignores content between <!-- gitdown: off --> and <!-- gitdown: on --> HTML comment tags', function () {
+        return parser
+            .play('<!-- gitdown: off --><<{"gitdown": "test"}>><!-- gitdown: on --><!-- gitdown: off --><<{"gitdown": "test"}>><!-- gitdown: on -->')
+            .then(function (state) {
+                //console.log(state);
+                expect(state.markdown).to.equal('<!-- gitdown: off --><<{"gitdown": "test"}>><!-- gitdown: on --><!-- gitdown: off --><<{"gitdown": "test"}>><!-- gitdown: on -->');
             });
     });
     it('invokes the utility function with the markdown and parameters', function () {
@@ -65,6 +87,45 @@ describe('Gitdown', function () {
     describe('._repositoryPath()', function () {
         it('returns absolute path to the parent of the _getGitPath() directory', function () {
             expect(Gitdown._pathRepository()).to.equal(fs.realpathSync(Gitdown._pathGit() + '/..'));
+        });
+    });
+});
+
+describe('gitdown', function () {
+    var Gitdown;
+    beforeEach(function () {
+        Gitdown = requireNew('../src/gitdown.js');
+    });
+
+    describe('.get()', function () {
+        it('returns the Gitdown instance input', function () {
+            return expect(Gitdown('foo').get()).eventually.equal('foo');
+        });
+        it('interprets JSON <<{"gitdown"}>>', function () {
+            return expect(Gitdown('<<{"gitdown": "test"}>>').get()).eventually.equal('test');
+        });
+    });
+    describe('.read()', function () {
+        it('returns an instance of Gitdown', function () {
+            return expect(Gitdown.read(__dirname + '/fixtures/foo.txt')).to.instanceof(Gitdown);
+        });
+        it('calls Gitdown using the contents of the file', function () {
+            var gitdown = Gitdown.read(__dirname + '/fixtures/foo.txt');
+
+            return expect(gitdown.get()).eventually.equal('bar');
+        });
+    });
+    describe('.write()', function () {
+        it('writes the output of .get() to a file', function () {
+            var fileName = __dirname + '/fixtures/write.txt',
+                randomString = Math.random() + '',
+                gitdown = Gitdown(randomString);
+
+            return gitdown
+                .write(fileName)
+                .then(function () {
+                    expect(fs.readFileSync(fileName, {encoding: 'utf8'})).to.equal(randomString);
+                });
         });
     });
 });

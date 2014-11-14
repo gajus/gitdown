@@ -33,6 +33,18 @@ The JSON object must have a `gitdown` property that identifies the helper you in
 
 JSON strings that are not encapsulated in `<<>>` and do not start with "gitdown" will remain untouched.
 
+### Ignoring Sections of the Document
+
+Use HTML comment tags to ignore sections of the document:
+
+```html
+Gitdown JSON will be interpreted.
+<!--gitdown: off -->
+Gitdown JSON will not be interpreted.
+<!--gitdown: on -->
+Gitdown JSON will be interpreted.
+```
+
 ## Features
 
 <<{"gitdown": "./.gitdown/helpers/contents.md"}>>

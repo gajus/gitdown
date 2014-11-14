@@ -1,8 +1,8 @@
-var util = {},
+var helper = {},
     Promise = require('bluebird'),
     fs = require('fs');
 
-util = function (markdown, parameters) {
+helper = function (markdown, parameters) {
     return new Promise(function (resolve) {
         if (!parameters.file) {
             throw new Error('File parameter is required.');
@@ -16,8 +16,8 @@ util = function (markdown, parameters) {
     });
 };
 
-util.weight = function () {
+helper.weight = function () {
     return 20;
 };
 
-module.exports = util;
+module.exports = helper;

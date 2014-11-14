@@ -158,8 +158,15 @@ Gitdown.Parser = function Parser () {
      * @param {Array} commands
      */
     parser.parse = function (markdown, commands) {
-        var bindingIndexStart = bindingIndex;
-        // console.log('parser.parse', 'inputMarkdown', inputMarkdown);
+        var bindingIndexStart = bindingIndex,
+            ignoreSection = [];
+
+        // @see http://regex101.com/r/zO0eV6/2
+        markdown = markdown.replace(/<!--\sgitdown:\soff\s-->.*?(?:$|<!--\sgitdown:\son\s-->)/g, function (match) {
+            ignoreSection.push(match);
+
+            return '⊂i⊂' + ignoreSection.length + '⊃i⊃';
+        });
 
         markdown = markdown.replace(/<<({"gitdown"(?:[^}]+}))>>/g, function (match) {
             var command = JSON.parse(match.slice(2, -2)),
@@ -170,6 +177,10 @@ Gitdown.Parser = function Parser () {
 
             bindingIndex++;
 
+            if (!Gitdown.helpers[name]) {
+                throw new Error('Unknown module "' + name + '".');
+            }
+
             commands.push({
                 bindingIndex: bindingIndex,
                 name: name,
@@ -179,6 +190,10 @@ Gitdown.Parser = function Parser () {
             });
 
             return '⊂⊂' + (bindingIndex) + '⊃⊃';
+        });
+
+        markdown = markdown.replace(/⊂i⊂([0-9]+)⊃i⊃/g, function (match, p1) {
+            return ignoreSection[parseInt(p1, 10) - 1];
         });
 
         return {
