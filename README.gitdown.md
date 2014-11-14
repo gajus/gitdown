@@ -38,6 +38,18 @@ Table of contents is generated using [Contents](https://github.com/gajus/content
 
 The underlying implementation will render markdown file into HTML and then use Contents to generate the table of contents.
 
+### Include File
+
+```json
+<<{"gitdown": "include"}>>
+```
+
+Includes the contents of the file to the document. The included file can have Gitdown JSON hooks.
+
+| Name | Description | Default |
+| --- | --- | --- |
+| `file` | A relative (to the repository) path to the file. | N/A |
+
 ### Get File Size
 
 ```json
