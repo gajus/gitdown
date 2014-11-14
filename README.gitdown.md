@@ -23,10 +23,10 @@ gitdown.write('./README.md');
 Gitdown extends markdown syntax using JSON:
 
 ```json
-<<{"gitdown": "method name", "parameter name": "parameter value"}>>
+<<{"gitdown": "helper name", "parameter name": "parameter value"}>>
 ```
 
-The JSON object must have `gitdown` property that identifies the method you intend to execute. The rest is a regular JSON string, where each property is a named configuration property of the function you are referring to.
+The JSON object must have `gitdown` property that identifies the helper you intend to execute. The rest is a regular JSON string, where each property is a named configuration property of the function you are referring to.
 
 JSON strings that are not encapsulated in `<<>>` will remain untouched.
 
@@ -76,3 +76,43 @@ Returns file size formatted in human friendly format.
 | --- | --- | --- |
 | `file` | Path to the file. The path is relative to the root of the repository. | N/A |
 | `gzip` | A boolean value indicating whether to gzip the file first. | `false` |
+
+### Generate Badges
+
+```json
+<<{"gitdown": "badge"}>>
+```
+
+Generates badge markdown for the requested service, e.g.
+
+```
+[![NPM version](https://badge.fury.io/js/brim.svg?time=1415967099)](http://badge.fury.io/js/brim)
+[![Bower version](https://badge.fury.io/bo/brim.svg?time=1415967099)](http://badge.fury.io/bo/brim)
+```
+
+Gitdown will be using the environment to load the info required to generate the badge, e.g. if it is NPM badge, it will lookup `package.json` file in the root directory of the repository.
+
+In addition to generating the markdown code, Gitdown will de-cache the image URL (using `?time` parameter).
+
+Most of the badges will be generated using https://badge.fury.io/.
+
+#### Supported Services
+
+* https://www.npmjs.org/
+* http://bower.io/
+* https://travis-ci.org/
+
+Missing a badge? [Raise an issue](https://github.com/gajus/gitdown/issues) and I will add it.
+
+#### Configuration
+
+| Name | Description | Default |
+| --- | --- | --- |
+| `name` | Name of the service. | N/A |
+
+{{gitdown.badge.npm}}
+{{gitdown.badge.bower}}
+{{gitdown.badge.travis-ci}}
+{{gitdown.badge.twitter.tweet}}
+{{gitdown.badge.twitter.retweet}}
+```
