@@ -40,7 +40,9 @@ The underlying implementation will render markdown file into HTML and then use C
 
 #### Configuration
 
-N/A
+| Name | Description | Default |
+| --- | --- | --- |
+| `maxDepth` | The maximum the level of the heading. | 3 |
 
 ### Include File
 
