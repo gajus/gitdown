@@ -1,6 +1,6 @@
 Gitdown is a markdown preprocessor for Github. It is a tool to help to maintain the documentation. Gitdown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
 
-Is there anything that Gitdown doesn't do already that would streamline the documentation maintenance? [Raise an issue](https://github.com/gajus/gitdown/issues).
+Is there anything that Gitdown can do better to streamline the documentation maintenance? [Raise an issue](https://github.com/gajus/gitdown/issues).
 
 ## Usage
 
