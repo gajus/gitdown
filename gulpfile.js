@@ -39,7 +39,7 @@ gulp.task('test', ['version'], function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch(['./src/*', './src/util/*', './tests/*'], ['default']);
+    gulp.watch(['./src/*', './src/helpers/*', './tests/*'], ['default']);
 });
 
 gulp.task('default', ['test']);

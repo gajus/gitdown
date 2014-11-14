@@ -1,9 +1,12 @@
-var util = {},
+var helper,
     Promise = require('promise'),
     fs = require('fs'),
     zlib = require('zlib'),
     fileSize = require('filesize');
 
+helper = function () {
+    
+};
 
 /**
  * Calculates size of a file. If gzip parameter is true,
@@ -12,10 +15,8 @@ var util = {},
  * @param {String} file
  * @param {Boolean} gzip
  */
-util.file = function (file, gzip) {
+helper.file = function (file, gzip) {
     return new Promise(function (resolve, reject) {
-        var fileSize;
-
         if (!fs.existsSync(file)) {
             throw new Error('Input file does not exist.');
         }
@@ -40,13 +41,13 @@ util.file = function (file, gzip) {
  * @param {Number} bytes
  * @param {String}
  */
-util.format = function (bytes) {
+helper.format = function (bytes) {
     return fileSize(bytes);
 };
 
 
-util._weight = function () {
+helper.weight = function () {
     return 1;
 };
 
-module.exports = util;
+module.exports = helper

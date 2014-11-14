@@ -35,7 +35,7 @@ describe('Gitdown.Parser', function () {
             });
     });
     it('invokes the utility function with the markdown and parameters', function () {
-        var spy = sinon.spy(Gitdown.utils, 'test');
+        var spy = sinon.spy(Gitdown.helpers, 'test');
 
         return parser
             .play('<<{"gitdown": "test", "foo": "bar"}>>')
@@ -47,7 +47,49 @@ describe('Gitdown.Parser', function () {
         return parser
             .play('<<{"gitdown": "include", "file": "./tests/fixtures/include_test_weight_10.txt"}>>')
             .then(function (state) {
-                expect(state.markdown).to.equal('10')
+                expect(state.markdown).to.equal('test')
             });
+    });
+});
+
+describe('Gitdown', function () {
+    var Gitdown;
+    beforeEach(function () {
+        Gitdown = requireNew('../src/gitdown.js');
+    });
+    describe('._gitPath()', function () {
+        it('returns absolute path to the .git directory', function () {
+            expect(Gitdown._pathGit()).to.equal(fs.realpathSync(__dirname + '/../.git'));
+        });
+    });
+    describe('._repositoryPath()', function () {
+        it('returns absolute path to the parent of the _getGitPath() directory', function () {
+            expect(Gitdown._pathRepository()).to.equal(fs.realpathSync(Gitdown._pathGit() + '/..'));
+        });
+    });
+});
+
+describe('Gitdown.helpers.size', function () {
+    var helper;
+    beforeEach(function () {
+        helper = requireNew('../src/gitdown.js').helpers.size;
+    });
+    describe('.file(filename)', function () {
+        it('throws an error if file is not found', function () {
+            return expect(helper.file(__dirname + '/does-not-exist')).rejectedWith(Error, 'Input file does not exist.');
+        });
+        it('returns file size in bytes', function () {
+            return expect(helper.file(__dirname + '/fixtures/filesize.txt')).eventually.equal(191);
+        });
+    });
+    describe('.file(filename, true)', function () {
+        it('returns gziped file size in bytes', function () {
+            return expect(helper.file(__dirname + '/fixtures/filesize.txt', true)).eventually.equal(148);
+        });
+    });
+    describe('.format(size)', function () {
+        it('returns file size as human readable string', function () {
+            expect(helper.format(1000)).to.equal('1.00 kB');
+        });
     });
 });
