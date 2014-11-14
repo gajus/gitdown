@@ -29,9 +29,9 @@ Gitdown extends markdown syntax using JSON:
 <<{"gitdown": "helper name", "parameter name": "parameter value"}>>
 ```
 
-The JSON object must have `gitdown` property that identifies the helper you intend to execute. The rest is a regular JSON string, where each property is a named configuration property of the function you are referring to.
+The JSON object must have a `gitdown` property that identifies the helper you intend to execute. The rest is a regular JSON string, where each property is a named configuration property of the helper that you are referring to.
 
-JSON strings that are not encapsulated in `<<>>` will remain untouched.
+JSON strings that are not encapsulated in `<<>>` and do not start with "gitdown" will remain untouched.
 
 ## Features
 
