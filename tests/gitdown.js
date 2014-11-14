@@ -69,21 +69,21 @@ describe('Gitdown', function () {
     });
 });
 
-describe('Gitdown.helpers.size', function () {
+describe('Gitdown.helpers.filesize', function () {
     var helper;
     beforeEach(function () {
-        helper = requireNew('../src/gitdown.js').helpers.size;
+        helper = requireNew('../src/gitdown.js').helpers.filesize;
     });
     describe('.file(filename)', function () {
         it('throws an error if file is not found', function () {
             return expect(helper.file(__dirname + '/does-not-exist')).rejectedWith(Error, 'Input file does not exist.');
         });
-        it('returns file size in bytes', function () {
+        it('returns file filesize in bytes', function () {
             return expect(helper.file(__dirname + '/fixtures/filesize.txt')).eventually.equal(191);
         });
     });
     describe('.file(filename, true)', function () {
-        it('returns gziped file size in bytes', function () {
+        it('returns gziped file filesize in bytes', function () {
             return expect(helper.file(__dirname + '/fixtures/filesize.txt', true)).eventually.equal(148);
         });
     });

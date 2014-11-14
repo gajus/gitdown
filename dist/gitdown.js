@@ -250,6 +250,6 @@ Gitdown.Parser = function Parser () {
 Gitdown.helpers = {};
 Gitdown.helpers.test = require('./helpers/test.js');
 Gitdown.helpers.include = require('./helpers/include.js');
-Gitdown.helpers.size = require('./helpers/size.js');
+Gitdown.helpers.filesize = require('./helpers/filesize.js');
 
 module.exports = Gitdown;

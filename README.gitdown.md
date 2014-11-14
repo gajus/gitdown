@@ -37,3 +37,16 @@ JSON strings that are not encapsulated in `<<>>` will remain untouched.
 Table of contents is generated using [Contents](https://github.com/gajus/contents).
 
 The underlying implementation will render markdown file into HTML and then use Contents to generate the table of contents.
+
+### Get File Size
+
+```json
+<<{"gitdown": "filesize"}>>
+```
+
+Returns file size formatted in human friendly format.
+
+#### Configuration
+
+| Name | Description | Default |
+| `gzip` | A boolean value indicating whether to gzip the file first. | `false` |
