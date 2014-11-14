@@ -86,8 +86,8 @@ Returns file size formatted in human friendly format.
 Generates badge markdown for the requested service, e.g.
 
 ```
-[![NPM version](https://badge.fury.io/js/brim.svg?time=1415967099)](http://badge.fury.io/js/brim)
-[![Bower version](https://badge.fury.io/bo/brim.svg?time=1415967099)](http://badge.fury.io/bo/brim)
+[![NPM version](https://badge.fury.io/js/gitdown.svg?time=1415967099)](http://badge.fury.io/js/gitdown)
+[![Bower version](https://badge.fury.io/bo/gitdown.svg?time=1415967099)](http://badge.fury.io/bo/gitdown)
 ```
 
 Gitdown will be using the environment to load the info required to generate the badge, e.g. if it is NPM badge, it will lookup `package.json` file in the root directory of the repository.
@@ -98,9 +98,9 @@ Most of the badges will be generated using https://badge.fury.io/.
 
 #### Supported Services
 
-* https://www.npmjs.org/
-* http://bower.io/
-* https://travis-ci.org/
+* https://www.npmjs.org/ (npm)
+* http://bower.io/ (bower)
+* https://travis-ci.org/ (travis-ci)
 
 Missing a badge? [Raise an issue](https://github.com/gajus/gitdown/issues) and I will add it.
 
@@ -109,10 +109,3 @@ Missing a badge? [Raise an issue](https://github.com/gajus/gitdown/issues) and I
 | Name | Description | Default |
 | --- | --- | --- |
 | `name` | Name of the service. | N/A |
-
-{{gitdown.badge.npm}}
-{{gitdown.badge.bower}}
-{{gitdown.badge.travis-ci}}
-{{gitdown.badge.twitter.tweet}}
-{{gitdown.badge.twitter.retweet}}
-```
