@@ -5,7 +5,8 @@ What can Gitdown do better to streamline the documentation maintenance? [Raise a
 ## Usage
 
 ```js
-var gitdown;
+var Gitdown = require('gitdown'),
+    gitdown;
 
 // Read the markdown file written using the Gitdown extended markdown.
 // File name is not important.
