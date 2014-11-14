@@ -1,7 +1,7 @@
 var gulp = require('gulp'),
     mocha = require('gulp-mocha'),
     jshint = require('gulp-jshint'),
-    gitdown = require('./src/gitdown.js');
+    Gitdown = require('./src/gitdown.js');
 
 gulp.task('lint', function () {
     return gulp
@@ -17,7 +17,11 @@ gulp.task('test', ['lint'], function () {
 });
 
 gulp.task('gitdown', function (cb) {
+    var gitdown;
 
+    gitdown = Gitdown.read('.gitdown/README.md');
+
+    return gitdown.write('README.md');
 });
 
 gulp.task('watch', function () {

@@ -9,7 +9,7 @@ Gitdown = function Gitdown (GFM) {
     var gitdown;
 
     if (!(this instanceof Gitdown)) {
-        return new Gitdown(input);
+        return new Gitdown(GFM);
     }
 
     gitdown = this;

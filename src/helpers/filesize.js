@@ -1,8 +1,8 @@
 var helper,
-    Promise = require('promise'),
+    Promise = require('bluebird'),
     fs = require('fs'),
     zlib = require('zlib'),
-    fileSize = require('filesize');
+    formatFileSize = require('filesize');
 
 helper = function () {
     
@@ -42,7 +42,7 @@ helper.file = function (file, gzip) {
  * @param {String}
  */
 helper.format = function (bytes) {
-    return fileSize(bytes);
+    return formatFileSize(bytes);
 };
 
 
