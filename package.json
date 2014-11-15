@@ -24,9 +24,8 @@
     "gulp": "^3.8.9",
     "gulp-jshint": "^1.8.6",
     "gulp-mocha": "^1.1.1",
-    "mocha": "^2.0.1",
-    "sinon": "^1.11.1",
-    "sinon-chai": "^2.6.0"
+    "require-new": "^1.0.1",
+    "sinon": "^1.11.1"
   },
   "dependencies": {
     "bluebird": "^2.3.11",

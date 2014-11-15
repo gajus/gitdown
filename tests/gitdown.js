@@ -1,36 +1,40 @@
-var chai = require('chai'),
-    expect = chai.expect,
-    chaiAsPromised = require('chai-as-promised'),
+var expect = require('chai').expect,
     sinon = require('sinon'),
-    sinonChai = require('sinon-chai'),
-    fs = require('fs');
-
-chai.use(chaiAsPromised);
-chai.use(sinonChai);
-
-/**
- * @see http://stackoverflow.com/a/11477602/368691
- */
-function requireNew (module) {
-    var modulePath = require.resolve(module);
+    fs = require('fs'),
+    requireNew = require('require-new');
     
-    delete require.cache[modulePath];
-
-    return require(modulePath);
-};
-
 describe('Gitdown.Parser', function () {
-    var Gitdown,
-        parser;
+    var Parser,
+        parser,
+        spy;
     beforeEach(function () {
-        Gitdown = requireNew('../src/gitdown.js');
-        parser = Gitdown.Parser();
+        Parser = requireNew('../src/main.js').Parser;
+        parser = Parser();
+    });
+    afterEach(function () {
+        if (spy) {
+            spy.restore();
+        }
     });
     it('returns the input content', function () {
         return parser
             .play('foo')
             .then(function (state) {
                 expect(state.markdown).to.equal('foo');
+            });
+    });
+    it('ignores content starting with a <!-- gitdown: off --> HTML comment tag', function () {
+        return parser
+            .play('<<{"gitdown": "test"}>><!-- gitdown: off --><<{"gitdown": "test"}>>')
+            .then(function (state) {
+                expect(state.markdown).to.equal('test<!-- gitdown: off --><<{"gitdown": "test"}>>');
+            });
+    });
+    it('ignores content between <!-- gitdown: off --> and <!-- gitdown: on --> HTML comment tags', function () {
+        return parser
+            .play('<!-- gitdown: off --><<{"gitdown": "test"}>><!-- gitdown: on --><!-- gitdown: off --><<{"gitdown": "test"}>><!-- gitdown: on -->')
+            .then(function (state) {
+                expect(state.markdown).to.equal('<!-- gitdown: off --><<{"gitdown": "test"}>><!-- gitdown: on --><!-- gitdown: off --><<{"gitdown": "test"}>><!-- gitdown: on -->');
             });
     });
     it('interprets JSON starting with \'<<{"gitdown"\' and ending with \'}>>\'', function () {
@@ -40,30 +44,20 @@ describe('Gitdown.Parser', function () {
                 expect(state.markdown).to.equal('testtest');
             });
     });
-    it('ignores content starting with a <!-- gitdown: off --> HTML comment tag', function () {
-        return parser
-            .play('<<{"gitdown": "test"}>><!-- gitdown: off --><<{"gitdown": "test"}>>')
-            .then(function (state) {
-                //console.log(state);
-                expect(state.markdown).to.equal('test<!-- gitdown: off --><<{"gitdown": "test"}>>');
-            });
-    });
-    it('ignores content between <!-- gitdown: off --> and <!-- gitdown: on --> HTML comment tags', function () {
-        return parser
-            .play('<!-- gitdown: off --><<{"gitdown": "test"}>><!-- gitdown: on --><!-- gitdown: off --><<{"gitdown": "test"}>><!-- gitdown: on -->')
-            .then(function (state) {
-                //console.log(state);
-                expect(state.markdown).to.equal('<!-- gitdown: off --><<{"gitdown": "test"}>><!-- gitdown: on --><!-- gitdown: off --><<{"gitdown": "test"}>><!-- gitdown: on -->');
-            });
-    });
     it('invokes a helper function with the markdown and the definition parameters', function () {
-        var spy = sinon.spy(Gitdown.helpers, 'test');
+        spy = sinon.spy(Parser.helpers, 'test');
 
         return parser
             .play('<<{"gitdown": "test", "foo": "bar"}>>')
             .then(function (state) {
-                expect(spy).to.have.been.calledWith('⊂⊂1⊃⊃', {foo: "bar"});
+                expect(spy.calledWith('⊂⊂1⊃⊃', {foo: "bar"})).to.true;
             });
+    });
+    it('throws an error if an unknown helper is invoked', function () {
+        return expect(function () {
+            parser
+                .play('<<{"gitdown": "does-not-exist"}>>');
+        }).to.throw(Error, 'Unknown helper "does-not-exist".');
     });
     it('descends to the helper with the lowest weight after each iteration', function () {
         // Helper "include" is weight 20
@@ -101,7 +95,11 @@ describe('gitdown', function () {
 
     describe('.get()', function () {
         it('is using Parser to produce the response', function () {
-            return expect(Gitdown('<<{"gitdown": "test"}>>').get()).eventually.equal('test');
+            return Gitdown('<<{"gitdown": "test"}>>')
+                .get()
+                .then(function (response) {
+                    expect(response).to.equal('test');
+                });
         });
     });
     describe('.read()', function () {
@@ -111,7 +109,11 @@ describe('gitdown', function () {
         it('calls Gitdown using the contents of the file', function () {
             var gitdown = Gitdown.read(__dirname + '/fixtures/foo.txt');
 
-            return expect(gitdown.get()).eventually.equal('bar');
+            return gitdown
+                .get()
+                .then(function (response) {
+                    expect(response).to.equal('bar');
+                });
         });
     });
     describe('.write()', function () {
@@ -125,31 +127,6 @@ describe('gitdown', function () {
                 .then(function () {
                     expect(fs.readFileSync(fileName, {encoding: 'utf8'})).to.equal(randomString);
                 });
-        });
-    });
-});
-
-describe('Gitdown.helpers.filesize', function () {
-    var helper;
-    beforeEach(function () {
-        helper = requireNew('../src/gitdown.js').helpers.filesize;
-    });
-    describe('.file(filename)', function () {
-        it('throws an error if file is not found', function () {
-            return expect(helper.file(__dirname + '/does-not-exist')).rejectedWith(Error, 'Input file does not exist.');
-        });
-        it('returns the file size in bytes', function () {
-            return expect(helper.file(__dirname + '/fixtures/filesize.txt')).eventually.equal(191);
-        });
-    });
-    describe('.file(filename, true)', function () {
-        it('returns gziped file size in bytes', function () {
-            return expect(helper.file(__dirname + '/fixtures/filesize.txt', true)).eventually.equal(148);
-        });
-    });
-    describe('.format(size)', function () {
-        it('returns file size as a human readable string', function () {
-            expect(helper.format(1000)).to.equal('1.00 kB');
         });
     });
 });

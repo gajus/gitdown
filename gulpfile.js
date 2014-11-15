@@ -12,7 +12,7 @@ gulp.task('lint', function () {
 
 gulp.task('test', ['lint'], function () {
     return gulp
-        .src('./tests/*.js', {read: false})
+        .src(['./tests/*.js', './tests/helpers/*.js'], {read: false})
         .pipe(mocha());
 });
 
@@ -25,7 +25,7 @@ gulp.task('gitdown', function (cb) {
 });
 
 gulp.task('watch', function () {
-    gulp.watch(['./src/*', './src/helpers/*', './tests/*'], ['default']);
+    gulp.watch(['./src/*', './src/helpers/*', './tests/*', './tests/helpers/*'], ['default']);
     gulp.watch(['./.gitdown/*', './.gitdown/helpers/*'], ['gitdown']);
 });
 
