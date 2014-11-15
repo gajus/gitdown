@@ -16,7 +16,7 @@ gulp.task('test', ['lint'], function () {
         .pipe(mocha());
 });
 
-gulp.task('gitdown', function (cb) {
+gulp.task('gitdown', function () {
     var gitdown;
 
     gitdown = Gitdown.read('.gitdown/README.md');

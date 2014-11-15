@@ -69,9 +69,9 @@ Parser = function Parser () {
             ignoreSection = [];
 
         // @see http://regex101.com/r/zO0eV6/2
-        markdown = markdown.replace(/<!--\sgitdown:\soff\s-->.*?(?:$|<!--\sgitdown:\son\s-->)/g, function (match) {
+        // /[\s\S]/ is an equivalent of /./m
+        markdown = markdown.replace(/<!--\sgitdown:\soff\s-->[\s\S]*?(?:$|<!--\sgitdown:\son\s-->)/g, function (match) {
             ignoreSection.push(match);
-
             return '⊂i⊂' + ignoreSection.length + '⊃i⊃';
         });
 
