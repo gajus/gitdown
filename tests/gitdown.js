@@ -33,14 +33,14 @@ describe('Gitdown.Parser', function () {
                 expect(state.markdown).to.equal('foo');
             });
     });
-    it('interprets occurrences of JSON stating with <<{"gitdown" and ending }>>', function () {
+    it('interprets JSON starting with \'<<{"gitdown"\' and ending with \'}>>\'', function () {
         return parser
-            .play('<<{"gitdown": "test"}>>')
+            .play('<<{"gitdown": "test"}>><<{"gitdown": "test"}>>')
             .then(function (state) {
-                expect(state.markdown).to.equal('test');
+                expect(state.markdown).to.equal('testtest');
             });
     });
-    it('ignores content starting <!-- gitdown: off -->', function () {
+    it('ignores content starting with a <!-- gitdown: off --> HTML comment tag', function () {
         return parser
             .play('<<{"gitdown": "test"}>><!-- gitdown: off --><<{"gitdown": "test"}>>')
             .then(function (state) {
@@ -56,7 +56,7 @@ describe('Gitdown.Parser', function () {
                 expect(state.markdown).to.equal('<!-- gitdown: off --><<{"gitdown": "test"}>><!-- gitdown: on --><!-- gitdown: off --><<{"gitdown": "test"}>><!-- gitdown: on -->');
             });
     });
-    it('invokes the utility function with the markdown and parameters', function () {
+    it('invokes a helper function with the markdown and the definition parameters', function () {
         var spy = sinon.spy(Gitdown.helpers, 'test');
 
         return parser
@@ -65,7 +65,9 @@ describe('Gitdown.Parser', function () {
                 expect(spy).to.have.been.calledWith('⊂⊂1⊃⊃', {foo: "bar"});
             });
     });
-    it('descends to the command with the lowest weight after each iteration', function () {
+    it('descends to the helper with the lowest weight after each iteration', function () {
+        // Helper "include" is weight 20
+        // Helper "test" is weight 10
         return parser
             .play('<<{"gitdown": "include", "file": "./tests/fixtures/include_test_weight_10.txt"}>>')
             .then(function (state) {
@@ -79,12 +81,12 @@ describe('Gitdown', function () {
     beforeEach(function () {
         Gitdown = requireNew('../src/gitdown.js');
     });
-    describe('._gitPath()', function () {
-        it('returns absolute path to the .git directory', function () {
+    describe('._pathGit()', function () {
+        it('returns absolute path to the .git/ directory', function () {
             expect(Gitdown._pathGit()).to.equal(fs.realpathSync(__dirname + '/../.git'));
         });
     });
-    describe('._repositoryPath()', function () {
+    describe('._pathRepository()', function () {
         it('returns absolute path to the parent of the _getGitPath() directory', function () {
             expect(Gitdown._pathRepository()).to.equal(fs.realpathSync(Gitdown._pathGit() + '/..'));
         });
@@ -98,10 +100,7 @@ describe('gitdown', function () {
     });
 
     describe('.get()', function () {
-        it('returns the Gitdown instance input', function () {
-            return expect(Gitdown('foo').get()).eventually.equal('foo');
-        });
-        it('interprets JSON <<{"gitdown"}>>', function () {
+        it('is using Parser to produce the response', function () {
             return expect(Gitdown('<<{"gitdown": "test"}>>').get()).eventually.equal('test');
         });
     });
@@ -139,17 +138,17 @@ describe('Gitdown.helpers.filesize', function () {
         it('throws an error if file is not found', function () {
             return expect(helper.file(__dirname + '/does-not-exist')).rejectedWith(Error, 'Input file does not exist.');
         });
-        it('returns file filesize in bytes', function () {
+        it('returns the file size in bytes', function () {
             return expect(helper.file(__dirname + '/fixtures/filesize.txt')).eventually.equal(191);
         });
     });
     describe('.file(filename, true)', function () {
-        it('returns gziped file filesize in bytes', function () {
+        it('returns gziped file size in bytes', function () {
             return expect(helper.file(__dirname + '/fixtures/filesize.txt', true)).eventually.equal(148);
         });
     });
     describe('.format(size)', function () {
-        it('returns file size as human readable string', function () {
+        it('returns file size as a human readable string', function () {
             expect(helper.format(1000)).to.equal('1.00 kB');
         });
     });
