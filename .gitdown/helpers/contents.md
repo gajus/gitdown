@@ -1,8 +1,10 @@
 ### Generate Table of Contents
 
+<!-- gitdown: off -->
 ```json
 <<{"gitdown": "contents"}>>
 ```
+<!-- gitdown: on -->
 
 Table of contents is generated using [Contents](https://github.com/gajus/contents).
 

@@ -41,18 +41,17 @@ Use HTML comment tags to ignore sections of the document:
 
 ```html
 Gitdown JSON will be interpreted.
-<!--gitdown: off -->
+<!-- gitdown: off -->
 Gitdown JSON will not be interpreted.
-<!--gitdown: on -->
+<!-- gitdown: on -->
 Gitdown JSON will be interpreted.
 ```
 
 ## Features
 
-<!-- gitdown: off -->
-<<{"gitdown": "./.gitdown/helpers/contents.md"}>>
-<<{"gitdown": "./.gitdown/helpers/anchor.md"}>>
-<<{"gitdown": "./.gitdown/helpers/include.md"}>>
-<<{"gitdown": "./.gitdown/helpers/filesize.md"}>>
-<<{"gitdown": "./.gitdown/helpers/badge.md"}>>
-<<{"gitdown": "./.gitdown/helpers/timestamp.md"}>>
+<<{"gitdown": "include", "file": ".gitdown/helpers/contents.md"}>>
+<<{"gitdown": "include", "file": ".gitdown/helpers/anchor.md"}>>
+<<{"gitdown": "include", "file": ".gitdown/helpers/include.md"}>>
+<<{"gitdown": "include", "file": ".gitdown/helpers/filesize.md"}>>
+<<{"gitdown": "include", "file": ".gitdown/helpers/badge.md"}>>
+<<{"gitdown": "include", "file": ".gitdown/helpers/timestamp.md"}>>

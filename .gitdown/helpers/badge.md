@@ -1,12 +1,14 @@
 ### Generate Badges
 
+<!-- gitdown: off -->
 ```json
 <<{"gitdown": "badge"}>>
 ```
+<!-- gitdown: on -->
 
 Generates badge markdown for the requested service, e.g.
 
-```
+```markdown
 [![NPM version](https://badge.fury.io/js/gitdown.svg?time=1415967099)](http://badge.fury.io/js/gitdown)
 [![Bower version](https://badge.fury.io/bo/gitdown.svg?time=1415967099)](http://badge.fury.io/bo/gitdown)
 ```

@@ -1,8 +1,10 @@
 ### Timestamp
 
+<!-- gitdown: off -->
 ```json
 <<{"gitdown": "timestamp"}>>
 ```
+<!-- gitdown: on -->
 
 Prints UNIX timestamp. This is designed to be used to de-cache content, e.g.
 

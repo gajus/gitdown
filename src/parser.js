@@ -69,11 +69,15 @@ Parser = function Parser () {
             ignoreSection = [];
 
         // @see http://regex101.com/r/zO0eV6/2
+        // console.log('markdown (before)', markdown);
+
         // /[\s\S]/ is an equivalent of /./m
         markdown = markdown.replace(/<!--\sgitdown:\soff\s-->[\s\S]*?(?:$|<!--\sgitdown:\son\s-->)/g, function (match) {
             ignoreSection.push(match);
             return '⊂i⊂' + ignoreSection.length + '⊃i⊃';
         });
+
+        // console.log('markdown (after)', markdown);
 
         markdown = markdown.replace(/<<({"gitdown"(?:[^}]+}))>>/g, function (match) {
             var command = JSON.parse(match.slice(2, -2)),

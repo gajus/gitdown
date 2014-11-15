@@ -1,8 +1,10 @@
 ### Get File Size
 
+<!-- gitdown: off -->
 ```json
 <<{"gitdown": "filesize"}>>
 ```
+<!-- gitdown: on -->
 
 Returns file size formatted in human friendly format.
 
