@@ -1,4 +1,4 @@
-undefined
+[!http://img.shields.io/npm/v/gitdown.svg?style=flat](https://www.npmjs.org/package/gitdown)
 
 Gitdown is a markdown preprocessor for Github. It is a tool to help to maintain the documentation. Gitdown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
 
@@ -148,6 +148,15 @@ Returns file size formatted in human friendly format.
 
 Gitdown is using the environment variables to generate the markdown for the badge, e.g. if it is an NPM badge, Gitdown will lookup the package name for the `package.json`.
 
+Badges are generated using http://shields.io/.
+
+### Supported Services
+
+* npm-version
+* travis
+
+### Example
+
 <!-- gitdown: off -->
 ```json
 <<{"gitdown": "badge", "name": "npm"}>>
@@ -155,11 +164,12 @@ Gitdown is using the environment variables to generate the markdown for the badg
 ```
 <!-- gitdown: on -->
 
-Badges are generated using http://shields.io/.
+Generates:
 
-### Supported Services
-
-* npm-version
+```markdown
+<<{"gitdown": "badge", "name": "npm-version"}>>
+<<{"gitdown": "badge", "name": "travis"}>>
+```
 
 #### Configuration
 
