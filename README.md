@@ -69,7 +69,7 @@ Gitdown JSON will be interpreted.
 
 ## Features
 
-### Generate Table of Contents
+### Table of Contents
 
 <!-- gitdown: off -->
 ```json
@@ -244,7 +244,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416150534
+1416150595
 2014
 ```
 
