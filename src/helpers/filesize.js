@@ -9,7 +9,7 @@ helper = function (markdown, config) {
     config.gzip = config.gzip || false;
 
     if (!config.file) {
-        return Promise.reject(new Error('Badge config.file must be provided.'));
+        return Promise.reject(new Error('config.file must be provided.'));
     }
 
     return helper.file(config.file, config.gzip)

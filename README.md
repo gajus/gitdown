@@ -118,6 +118,10 @@ Gitdown will throw an error if the anchor is not found.
 
 Includes the contents of the file to the document. The included file can have Gitdown JSON hooks.
 
+#### Example
+
+See source code of [.gitdown/README.md](https://github.com/gajus/gitdown/blob/master/.gitdown/README.md).
+
 #### Configuration
 
 | Name | Description | Default |
@@ -215,7 +219,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416147467
+1416147632
 2014
 ```
 

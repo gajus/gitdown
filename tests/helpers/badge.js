@@ -11,12 +11,12 @@ describe('Parser.helpers.badge', function () {
     it('throws an error when config.name is not provided', function () {
         expect(function () {
             helper()
-        }).to.throw(Error, 'Badge config.name must be provided.');
+        }).to.throw(Error, 'config.name must be provided.');
     });
     it('throws an error if unknown config.name is provided', function () {
         expect(function () {
             helper('', {name: 'foo'})
-        }).to.throw(Error, 'Badge config.name "foo" is unknown service.');
+        }).to.throw(Error, 'config.name "foo" is unknown service.');
     });
     describe('.service_npm_version()', function () {
         it('throws an error if package.json is not found in the root of the repository', function () {

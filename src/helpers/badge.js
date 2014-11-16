@@ -8,7 +8,7 @@ helper = function (markdown, config, Locator) {
     config = config || {};
 
     if (!config.name) {
-        throw new Error('Badge config.name must be provided.');
+        throw new Error('config.name must be provided.');
     }
 
     helper.service_npm_version = function () {
@@ -34,7 +34,7 @@ helper = function (markdown, config, Locator) {
     };
 
     if (!helper['service_' + config.name.replace(/-/g, '_')]) {
-        throw new Error('Badge config.name "' + config.name + '" is unknown service.');
+        throw new Error('config.name "' + config.name + '" is unknown service.');
     }
 
     return helper['service_' + config.name.replace(/-/g, '_')]();
