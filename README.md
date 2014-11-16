@@ -7,6 +7,7 @@ What can Gitdown do better to streamline the documentation maintenance? [Raise a
 
 ## Contents
 
+* [Contents](#contents)
 * [Usage](#usage)
 * [Syntax](#syntax)
   * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
@@ -241,7 +242,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416150394
+1416150428
 2014
 ```
 

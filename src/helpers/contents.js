@@ -11,7 +11,7 @@ helper = function (markdown, config) {
         bullet: '*',
         maxDepth: config.maxDepth,
         firsth1: false,
-        omit: ['Table of Contents', 'TOC', 'TABLE OF CONTENTS', 'Contents'],
+        omit: [],
         clean: [],
         blacklist: true,
         allowedChars: '-'
