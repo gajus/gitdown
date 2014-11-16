@@ -1,5 +1,7 @@
 ### Generate Table of Contents
 
+> This feature is under development.
+
 <!-- gitdown: off -->
 ```json
 <<{"gitdown": "contents"}>>

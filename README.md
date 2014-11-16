@@ -54,6 +54,8 @@ Gitdown JSON will be interpreted.
 
 ### Generate Table of Contents
 
+> This feature is under development.
+
 <!-- gitdown: off -->
 ```json
 <<{"gitdown": "contents"}>>
@@ -70,6 +72,8 @@ The underlying implementation will render markdown file into HTML and then use C
 | --- | --- | --- |
 | `maxDepth` | The maximum the level of the heading. | 3 |
 ### Reference an Anchor in the Repository
+
+> This feature is under development.
 
 <!-- gitdown: off -->
 ```json
@@ -102,11 +106,13 @@ Gitdown will throw an error if the anchor is not found.
 #### JSON Configuration
 
 | Name | Description | Default |
+| --- | --- | --- |
 | `name` | Anchor name. | N/A |
 
 #### Parser Configuration
 
 | Name | Description | Default |
+| --- | --- | --- |
 | `anchor.exclude` | Array of paths to exclude. | `['./dist/*']` |
 ### Include File
 
@@ -219,7 +225,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416147632
+1416148863
 2014
 ```
 

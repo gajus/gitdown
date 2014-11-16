@@ -1,5 +1,7 @@
 ### Reference an Anchor in the Repository
 
+> This feature is under development.
+
 <!-- gitdown: off -->
 ```json
 <<{"gitdown": "anchor"}>>
@@ -31,9 +33,11 @@ Gitdown will throw an error if the anchor is not found.
 #### JSON Configuration
 
 | Name | Description | Default |
+| --- | --- | --- |
 | `name` | Anchor name. | N/A |
 
 #### Parser Configuration
 
 | Name | Description | Default |
+| --- | --- | --- |
 | `anchor.exclude` | Array of paths to exclude. | `['./dist/*']` |
