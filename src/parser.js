@@ -143,9 +143,12 @@ Parser = function Parser () {
         }
 
         // Find the lowest weight among all of the not executed commands.
-        lowestWeight = notExecutedCommands.map(function (command) {
+
+        lowestWeight = Math.min.apply(null, notExecutedCommands.map(function (command) {
             return command.helper.weight();
-        }).sort()[0];
+        }));
+
+        // console.log('lowestWeight', lowestWeight);
 
         // Find all commands with the lowest weight.
         lowestWeightCommands = notExecutedCommands.filter(function (command) {
@@ -166,6 +169,8 @@ Parser = function Parser () {
 
             act.push(promise);
         });
+
+        // console.log('lowestWeightCommands', lowestWeightCommands, '\n\n\n\n');
 
         return Promise
             .all(act)
