@@ -77,9 +77,13 @@ Gitdown JSON will be interpreted.
 ```
 <!-- gitdown: on -->
 
+Generate table of contents.
+
+<!--
 Table of contents is generated using [Contents](https://github.com/gajus/contents).
 
 The underlying implementation will render markdown file into HTML and then use Contents to generate the table of contents.
+-->
 
 #### Configuration
 
@@ -240,7 +244,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416150492
+1416150534
 2014
 ```
 
