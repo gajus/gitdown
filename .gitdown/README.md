@@ -54,4 +54,4 @@ Gitdown JSON will be interpreted.
 <<{"gitdown": "include", "file": ".gitdown/helpers/include.md"}>>
 <<{"gitdown": "include", "file": ".gitdown/helpers/filesize.md"}>>
 <<{"gitdown": "include", "file": ".gitdown/helpers/badge.md"}>>
-<<{"gitdown": "include", "file": ".gitdown/helpers/timestamp.md"}>>
+<<{"gitdown": "include", "file": ".gitdown/helpers/date.md"}>>

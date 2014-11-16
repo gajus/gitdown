@@ -30,6 +30,7 @@
   "dependencies": {
     "bluebird": "^2.3.11",
     "deadlink": "^1.0.5",
-    "filesize": "^2.0.4"
+    "filesize": "^2.0.4",
+    "moment": "^2.8.3"
   }
 }

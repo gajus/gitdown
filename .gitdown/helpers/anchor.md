@@ -6,7 +6,7 @@
 ```
 <!-- gitdown: on -->
 
-Generates a URL to the line in the source code where the anchor appears.
+Generates a Github URL to the line in the source code with the anchor documentation tag of the same name.
 
 Place a documentation tag `@gitdownanchor <name>` anywhere in the code base, e.g.
 
@@ -26,9 +26,14 @@ Refer to [foo](<<{"gitdown": "anchor", "name": "my-anchor-name"}>>).
 
 The anchor name must match `/^[a-z]+[a-z0-9\-_:\.]*$/i`.
 
-Gitdown will thow an error if the anchor is not found.
+Gitdown will throw an error if the anchor is not found.
 
-#### Configuration
+#### JSON Configuration
 
 | Name | Description | Default |
 | `name` | Anchor name. | N/A |
+
+#### Parser Configuration
+
+| Name | Description | Default |
+| `anchor.exclude` | Array of paths to exclude. | `['./dist/*']` |
