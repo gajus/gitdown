@@ -5,7 +5,7 @@ Gitdown is a markdown preprocessor for Github. It is a tool to help to maintain 
 
 What can Gitdown do better to streamline the documentation maintenance? [Raise an issue](https://github.com/gajus/gitdown/issues).
 
-<<{"gitdown": "contents"}>>
+<<{"gitdown": "contents", "maxDepth": 4}>>
 
 ## Usage
 
