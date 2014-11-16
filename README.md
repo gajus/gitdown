@@ -19,6 +19,9 @@ gitdown = Gitdown.read('.gitdown/README.md');
 // If you have the subject in a string, call the constructor itself:
 // gitdown = Gitdown('literal string');
 
+// Provide parser configuration.
+gitdown.config({});
+
 // Output the markdown file.
 // All of the file system operations are relative to the root of the repository.
 gitdown.write('README.md');
@@ -225,7 +228,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416148863
+1416148937
 2014
 ```
 
