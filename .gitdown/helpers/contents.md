@@ -14,7 +14,7 @@ Table of contents is generated using [Contents](https://github.com/gajus/content
 The underlying implementation will render markdown file into HTML and then use Contents to generate the table of contents.
 -->
 
-#### Configuration
+#### JSON Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |

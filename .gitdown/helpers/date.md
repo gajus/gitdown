@@ -24,7 +24,7 @@ Generates:
 <<{"gitdown": "date", "format": "YYYY"}>>
 ```
 
-#### Configuration
+#### JSON Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |

@@ -24,7 +24,7 @@ Generates:
 <<{"gitdown": "filesize", "file": "src/gitdown.js", "gzip": true}>>
 ```
 
-#### Configuration
+#### JSON Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |

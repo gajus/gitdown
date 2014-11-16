@@ -31,7 +31,7 @@ Generates:
 <<{"gitdown": "badge", "name": "travis"}>>
 ```
 
-#### Configuration
+#### JSON Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |

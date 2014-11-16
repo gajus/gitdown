@@ -14,7 +14,6 @@ What can Gitdown do better to streamline the documentation maintenance? [Raise a
 * [Features](#features)
   * [Generate Table  of Contents](#generate-table-of-contents)
   * [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers)
-  * [Parser Configuration](#parser-configuration)
   * [Reference an Anchor in the Repository](#reference-an-anchor-in-the-repository)
   * [Include File](#include-file)
   * [Get File Size](#get-file-size)
@@ -88,7 +87,7 @@ Table of contents is generated using [Contents](https://github.com/gajus/content
 The underlying implementation will render markdown file into HTML and then use Contents to generate the table of contents.
 -->
 
-#### Configuration
+#### JSON Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
@@ -97,7 +96,7 @@ The underlying implementation will render markdown file into HTML and then use C
 
 Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the URLs in the resulting document and throw an error if the request resolves in HTTP status other than 200 or fragment identifier (anchor) is not found.
 
-### Parser Configuration
+#### Parser Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
@@ -160,7 +159,7 @@ Includes the contents of the file to the document. The included file can have Gi
 
 See source code of [.gitdown/README.md](https://github.com/gajus/gitdown/blob/master/.gitdown/README.md).
 
-#### Configuration
+#### JSON Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
@@ -191,7 +190,7 @@ Generates:
 450 B
 ```
 
-#### Configuration
+#### JSON Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
@@ -230,7 +229,7 @@ Generates:
 [![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
 ```
 
-#### Configuration
+#### JSON Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
@@ -257,11 +256,11 @@ Prints date.
 Generates:
 
 ```markdown
-1416151182
+1416151255
 2014
 ```
 
-#### Configuration
+#### JSON Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
