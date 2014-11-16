@@ -1,8 +1,7 @@
 var chai = require('chai'),
     expect = chai.expect,
-    fs = require('fs'),
-    requireNew = require('require-new'),
-    chaiAsPromised = require('chai-as-promised');
+    chaiAsPromised = require('chai-as-promised'),
+    requireNew = require('require-new');
 
 chai.use(chaiAsPromised);
 

@@ -12,4 +12,4 @@ Prints date.
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `format` | [Moment format](http://momentjs.com/docs/#/displaying/format/). | `X` (Unix timestamp) |
+| `format` | [Moment format](http://momentjs.com/docs/#/displaying/format/). | `X` (UNIX timestamp) |

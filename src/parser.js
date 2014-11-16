@@ -1,6 +1,8 @@
 var Parser,
     Promise = require('bluebird'),
-    fs = require('fs');
+    fs = require('fs'),
+    glob = require('glob'),
+    path = require('path');
 
 /**
  * Parser is responsible for matching all of the instances of the Gitdown JSON and invoking
@@ -169,8 +171,9 @@ Parser = function Parser () {
 };
 
 Parser.helpers = {};
-Parser.helpers.test = require('./helpers/test.js');
-Parser.helpers.include = require('./helpers/include.js');
-Parser.helpers.filesize = require('./helpers/filesize.js');
+
+glob.sync(__dirname + '/helpers/*.js').forEach(function (helper) {
+    Parser.helpers[path.basename(helper, '.js')] = require(helper);
+});
 
 module.exports = Parser;
