@@ -9,23 +9,11 @@ What can Gitdown do better to streamline the documentation maintenance? [Raise a
 * [Syntax](#syntax)
   * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
 * [Features](#features)
-    * [Configuration](#configuration)
   * [Reference an Anchor in the Repository](#reference-an-anchor-in-the-repository)
-    * [JSON Configuration](#json-configuration)
-    * [Parser Configuration](#parser-configuration)
   * [Include File](#include-file)
-    * [Example](#example)
-    * [Configuration](#configuration)
   * [Get File Size](#get-file-size)
-    * [Example](#example)
-    * [Configuration](#configuration)
   * [Generate Badges](#generate-badges)
-    * [Supported Services](#supported-services)
-    * [Example](#example)
-    * [Configuration](#configuration)
   * [Date](#date)
-    * [Example](#example)
-    * [Configuration](#configuration)
 
 
 ## Usage
@@ -251,7 +239,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416150357
+1416150376
 2014
 ```
 
