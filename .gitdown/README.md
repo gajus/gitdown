@@ -20,7 +20,7 @@ gitdown = Gitdown.read('.gitdown/README.md');
 // gitdown = Gitdown('literal string');
 
 // Provide parser configuration.
-gitdown.config({});
+// gitdown.config({});
 
 // Output the markdown file.
 // All of the file system operations are relative to the root of the repository.
