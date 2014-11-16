@@ -1,3 +1,4 @@
+[![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
 
 
 Gitdown is a markdown preprocessor for Github. It is a tool to help to maintain the documentation. Gitdown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
@@ -69,8 +70,8 @@ Badges are generated using http://shields.io/.
 Generates:
 
 ```markdown
-[![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
-[![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
+<<{"gitdown": "badge", "name": "npm-version"}>>
+<<{"gitdown": "badge", "name": "travis"}>>
 ```
 
 #### Configuration
