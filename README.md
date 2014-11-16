@@ -133,6 +133,22 @@ Includes the contents of the file to the document. The included file can have Gi
 
 Returns file size formatted in human friendly format.
 
+#### Example
+
+<!-- gitdown: off -->
+```json
+<<{"gitdown": "filesize", "file": "src/gitdown.js"}>>
+<<{"gitdown": "filesize", "file": "src/gitdown.js", "gzip": true}>>
+```
+<!-- gitdown: on -->
+
+Generates:
+
+```markdown
+1.17 kB
+450 B
+```
+
 #### Configuration
 
 | Name | Description | Default |
@@ -199,7 +215,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416145538
+1416147467
 2014
 ```
 

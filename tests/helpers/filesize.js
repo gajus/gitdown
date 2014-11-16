@@ -10,6 +10,24 @@ describe('Parser.helpers.filesize', function () {
     beforeEach(function () {
         helper = requireNew('../../src/helpers/filesize.js');
     });
+    it('is rejected with an error when config.file is not provided', function () {
+        return expect(helper())
+            .to.rejectedWith(Error, 'Badge config.file must be provided.');
+    });
+    it('is rejected with an error when file is not found', function () {
+        return expect(helper('', {file: __dirname + '/does-not-exist'}))
+            .to.rejectedWith(Error, 'Input file does not exist.');
+    });
+
+    it('returns formatted file size', function () {
+        return expect(helper('', {file: __dirname + '/../fixtures/filesize.txt'}))
+            .to.eventually.equal('191 B');
+    });
+    it('returns gziped formatted file size', function () {
+        return expect(helper('', {file: __dirname + '/../fixtures/filesize.txt', gzip: true}))
+            .to.eventually.equal('148 B');
+    });
+    
     describe('.file(filename)', function () {
         it('throws an error if file is not found', function () {
             return expect(helper.file(__dirname + '/does-not-exist')).rejectedWith(Error, 'Input file does not exist.');

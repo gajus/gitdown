@@ -4,8 +4,18 @@ var helper,
     zlib = require('zlib'),
     formatFileSize = require('filesize');
 
-helper = function () {
-    
+helper = function (markdown, config) {
+    config = config || {};
+    config.gzip = config.gzip || false;
+
+    if (!config.file) {
+        return Promise.reject(new Error('Badge config.file must be provided.'));
+    }
+
+    return helper.file(config.file, config.gzip)
+        .then(function (fileSize) {
+            return helper.format(fileSize);
+        });
 };
 
 /**
@@ -18,7 +28,7 @@ helper = function () {
 helper.file = function (file, gzip) {
     return new Promise(function (resolve, reject) {
         if (!fs.existsSync(file)) {
-            throw new Error('Input file does not exist.');
+            return reject(new Error('Input file does not exist.'));
         }
 
         if (gzip) {
