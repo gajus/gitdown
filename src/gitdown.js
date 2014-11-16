@@ -59,40 +59,4 @@ Gitdown.read = function (fileName) {
     return Gitdown(input);
 };
 
-/**
- * Returns path to the .git directory.
- * 
- * @return {String}
- */
-Gitdown._pathGit = function () {
-    var gitpath;
-
-    dirname = __dirname;
-
-    do {
-        if (fs.existsSync(dirname + '/.git')) {
-            gitpath = dirname + '/.git';
-
-            break;
-        }
-
-        dirname = fs.realpathSync(dirname + '/..');
-    } while (fs.existsSync(dirname) && dirname != '/');
-
-    if (!gitpath) {
-        throw new Error('.git path cannot be located.');
-    }
-
-    return gitpath;
-};
-
-/**
- * Returns the parent path of the .git path.
- * 
- * @return {String} Path to the repository.
- */
-Gitdown._pathRepository = function () {
-    return fs.realpathSync(Gitdown._pathGit() + '/..');
-};
-
 module.exports = Gitdown;

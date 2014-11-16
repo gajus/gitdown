@@ -32,6 +32,7 @@
     "deadlink": "^1.0.5",
     "filesize": "^2.0.4",
     "glob": "^4.0.6",
+    "jsonfile": "^2.0.0",
     "moment": "^2.8.3"
   }
 }

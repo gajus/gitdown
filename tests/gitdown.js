@@ -7,33 +7,6 @@ describe('Gitdown', function () {
     beforeEach(function () {
         Gitdown = requireNew('../src/gitdown.js');
     });
-    describe('._pathGit()', function () {
-        it('returns absolute path to the .git/ directory', function () {
-            expect(Gitdown._pathGit()).to.equal(fs.realpathSync(__dirname + '/../.git'));
-        });
-    });
-    describe('._pathRepository()', function () {
-        it('returns absolute path to the parent of the _getGitPath() directory', function () {
-            expect(Gitdown._pathRepository()).to.equal(fs.realpathSync(Gitdown._pathGit() + '/..'));
-        });
-    });
-});
-
-describe('gitdown', function () {
-    var Gitdown;
-    beforeEach(function () {
-        Gitdown = requireNew('../src/gitdown.js');
-    });
-
-    describe('.get()', function () {
-        it('is using Parser to produce the response', function () {
-            return Gitdown('<<{"gitdown": "test"}>>')
-                .get()
-                .then(function (response) {
-                    expect(response).to.equal('test');
-                });
-        });
-    });
     describe('.read()', function () {
         it('returns an instance of Gitdown', function () {
             return expect(Gitdown.read(__dirname + '/fixtures/foo.txt')).to.instanceof(Gitdown);
@@ -45,6 +18,22 @@ describe('gitdown', function () {
                 .get()
                 .then(function (response) {
                     expect(response).to.equal('bar');
+                });
+        });
+    });
+});
+
+describe('gitdown', function () {
+    var Gitdown;
+    beforeEach(function () {
+        Gitdown = requireNew('../src/gitdown.js');
+    });
+    describe('.get()', function () {
+        it('is using Parser to produce the response', function () {
+            return Gitdown('<<{"gitdown": "test"}>>')
+                .get()
+                .then(function (response) {
+                    expect(response).to.equal('test');
                 });
         });
     });

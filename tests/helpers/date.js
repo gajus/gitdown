@@ -1,9 +1,5 @@
-var chai = require('chai'),
-    expect = chai.expect,
-    chaiAsPromised = require('chai-as-promised'),
+var expect = require('chai').expect,
     requireNew = require('require-new');
-
-chai.use(chaiAsPromised);
 
 describe('Parser.helpers.date', function () {
     var helper;

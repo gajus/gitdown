@@ -6,29 +6,23 @@
 ```
 <!-- gitdown: on -->
 
-Generates badge markdown for the requested service, e.g.
+Gitdown is using the environment variables to generate the markdown for the badge, e.g. if it is an NPM badge, Gitdown will lookup the package name for the `package.json`.
 
-```markdown
-[![NPM version](https://badge.fury.io/js/gitdown.svg?time=1415967099)](http://badge.fury.io/js/gitdown)
-[![Bower version](https://badge.fury.io/bo/gitdown.svg?time=1415967099)](http://badge.fury.io/bo/gitdown)
+<!-- gitdown: off -->
+```json
+<<{"gitdown": "badge", "name": "npm"}>>
+<<{"gitdown": "badge", "name": "travis"}>>
 ```
+<!-- gitdown: on -->
 
-Gitdown will be using the environment to load the info required to generate the badge, e.g. if it is NPM badge, it will lookup `package.json` file in the root directory of the repository.
+Badges are generated using http://shields.io/.
 
-In addition to generating the markdown code, Gitdown will de-cache the image URL (using `?time` parameter).
+### Supported Services
 
-Most of the badges will be generated using https://badge.fury.io/.
-
-#### Supported Services
-
-* https://www.npmjs.org/ (npm)
-* http://bower.io/ (bower)
-* https://travis-ci.org/ (travis-ci)
-
-Missing a badge? [Raise an issue](https://github.com/gajus/gitdown/issues) and I will add it.
+* npm-version
 
 #### Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `name` | Name of the service. | N/A |
+| `name` | Name of the service. See http://shields.io/. | N/A |
