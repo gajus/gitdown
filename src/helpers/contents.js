@@ -13,7 +13,7 @@ helper = function (markdown, config) {
         firsth1: false,
         omit: ['xxx'],
         clean: [],
-        blacklist: true,
+        blacklist: false,
         allowedChars: '-'
     });
 };
