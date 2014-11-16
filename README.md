@@ -151,12 +151,12 @@ Gitdown is using the environment variables to generate the markdown for the badg
 
 Badges are generated using http://shields.io/.
 
-### Supported Services
+#### Supported Services
 
 * npm-version
 * travis
 
-### Example
+#### Example
 
 <!-- gitdown: off -->
 ```json
