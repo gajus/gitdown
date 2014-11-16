@@ -1,13 +1,10 @@
 ### Find Dead URLs and Fragment Identifiers
 
-To iterate through all of the URLs and throw an error if request to the URL results in HTTP status other than 200:
+Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the URLs in the resulting document and throw an error if the request resolves in HTTP status other than 200 or fragment identifier (anchor) is not found.
 
-```js
-findDeadURLs();
-```
+### Parser Configuration
 
-To iterate through all of the URLs that have a [fragment identifier](http://www.w3.org/html/wg/drafts/html/master/browsers.html#scroll-to-fragid) (anchor) and throw an error if anchor cannot be found:
-
-```js
-findDeadFragmentIdentifiers();
-```
+| Name | Description | Default |
+| --- | --- | --- |
+| `findDeadURLs` | Find dead URLs. | `false` |
+| `findDeadFragmentIdentifiers` | Find dead fragment identifiers. | `true` |

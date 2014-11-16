@@ -13,6 +13,8 @@ What can Gitdown do better to streamline the documentation maintenance? [Raise a
   * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
 * [Features](#features)
   * [Generate Table  of Contents](#generate-table-of-contents)
+  * [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers)
+  * [Parser Configuration](#parser-configuration)
   * [Reference an Anchor in the Repository](#reference-an-anchor-in-the-repository)
   * [Include File](#include-file)
   * [Get File Size](#get-file-size)
@@ -91,6 +93,16 @@ The underlying implementation will render markdown file into HTML and then use C
 | Name | Description | Default |
 | --- | --- | --- |
 | `maxDepth` | The maximum the level of the heading. | 3 |
+### Find Dead URLs and Fragment Identifiers
+
+Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the URLs in the resulting document and throw an error if the request resolves in HTTP status other than 200 or fragment identifier (anchor) is not found.
+
+### Parser Configuration
+
+| Name | Description | Default |
+| --- | --- | --- |
+| `findDeadURLs` | Find dead URLs. | `false` |
+| `findDeadFragmentIdentifiers` | Find dead fragment identifiers. | `true` |
 ### Reference an Anchor in the Repository
 
 > This feature is under development.
@@ -245,7 +257,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416150774
+1416151182
 2014
 ```
 

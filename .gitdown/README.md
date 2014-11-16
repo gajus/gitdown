@@ -60,6 +60,7 @@ Gitdown JSON will be interpreted.
 ## Features
 
 <<{"gitdown": "include", "file": ".gitdown/helpers/contents.md"}>>
+<<{"gitdown": "include", "file": ".gitdown/helpers/deadlink.md"}>>
 <<{"gitdown": "include", "file": ".gitdown/helpers/anchor.md"}>>
 <<{"gitdown": "include", "file": ".gitdown/helpers/include.md"}>>
 <<{"gitdown": "include", "file": ".gitdown/helpers/filesize.md"}>>
