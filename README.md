@@ -5,6 +5,8 @@ Gitdown is a markdown preprocessor for Github. It is a tool to help to maintain 
 
 What can Gitdown do better to streamline the documentation maintenance? [Raise an issue](https://github.com/gajus/gitdown/issues).
 
+## Contents
+
 * [Usage](#usage)
 * [Syntax](#syntax)
   * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
@@ -239,7 +241,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416150376
+1416150394
 2014
 ```
 
