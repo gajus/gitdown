@@ -20,7 +20,7 @@ helper = function (markdown, config, Locator) {
 
         pkg = jsonfile.readFileSync(pkg);
 
-        return '[[!NPM version](http://img.shields.io/npm/v/' + pkg.name + '.svg?style=flat)](https://www.npmjs.org/package/' + pkg.name + ')';
+        return '[![NPM version](http://img.shields.io/npm/v/' + pkg.name + '.svg?style=flat)](https://www.npmjs.org/package/' + pkg.name + ')';
     };
 
     helper.service_travis = function () {
@@ -28,7 +28,7 @@ helper = function (markdown, config, Locator) {
             exec('git config --get remote.origin.url | cut -d: -f2 | rev | cut -c 5- | rev; git rev-parse --abbrev-ref HEAD', function (err, env) {
                 env = env.trim().split('\n');
 
-                resolve('[[!Travis build status](http://img.shields.io/travis/' + env[0] + '/' + env[1] + '.svg?style=flat)](https://travis-ci.org/' + env[0] + ')');
+                resolve('[![Travis build status](http://img.shields.io/travis/' + env[0] + '/' + env[1] + '.svg?style=flat)](https://travis-ci.org/' + env[0] + ')');
             })
         });
     };
