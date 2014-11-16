@@ -1,6 +1,8 @@
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
 [![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
 
+> Hello, Gitdown is **not production ready**. This library has been made public for early preview. Please raise an issue with your suggestions.
+
 Gitdown is a markdown preprocessor for Github. It is a tool to help to maintain the documentation. Gitdown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
 
 What can Gitdown do better to streamline the documentation maintenance? [Raise an issue](https://github.com/gajus/gitdown/issues).
@@ -256,7 +258,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416151255
+1416151322
 2014
 ```
 

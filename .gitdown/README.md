@@ -1,6 +1,8 @@
 <<{"gitdown": "badge", "name": "npm-version"}>>
 <<{"gitdown": "badge", "name": "travis"}>>
 
+> Hello, Gitdown is **not production ready**. This library has been made public for early preview. Please raise an issue with your suggestions.
+
 Gitdown is a markdown preprocessor for Github. It is a tool to help to maintain the documentation. Gitdown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
 
 What can Gitdown do better to streamline the documentation maintenance? [Raise an issue](https://github.com/gajus/gitdown/issues).
