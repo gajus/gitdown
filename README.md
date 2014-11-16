@@ -12,6 +12,7 @@ What can Gitdown do better to streamline the documentation maintenance? [Raise a
 * [Syntax](#syntax)
   * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
 * [Features](#features)
+  * [T<!-- -->able of Contents](#t-able-of-contents)
   * [Reference an Anchor in the Repository](#reference-an-anchor-in-the-repository)
   * [Include File](#include-file)
   * [Get File Size](#get-file-size)
@@ -69,7 +70,7 @@ Gitdown JSON will be interpreted.
 
 ## Features
 
-### Table of Contents
+### T<!-- -->able of Contents
 
 <!-- gitdown: off -->
 ```json
@@ -244,7 +245,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416150662
+1416150747
 2014
 ```
 
