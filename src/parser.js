@@ -51,7 +51,7 @@ Parser = function Parser () {
                     return !command.executed;
                 });
 
-            if (!state.change && !notExecutedCommands.length) {
+            if (state.done) {
                 return state;
             } else {
                 return parser.play(state.markdown, state.commands);
@@ -64,12 +64,13 @@ Parser = function Parser () {
      * the output of the command defined in the JSON.
      * 
      * @see http://stackoverflow.com/questions/26910402/regex-to-match-json-in-a-document/26910403
-     * @param {String} markdown
+     * @param {String} _markdown
      * @param {Array} commands
      */
     parser.parse = function (markdown, commands) {
-        var bindingIndexStart = bindingIndex,
-            ignoreSection = [];
+        var ignoreSection = [];
+
+        // console.log('\n\n\n\ninput markdown:\n\n', markdown);
 
         // @see http://regex101.com/r/zO0eV6/2
         // console.log('markdown (before)', markdown);
@@ -110,10 +111,11 @@ Parser = function Parser () {
             return ignoreSection[parseInt(p1, 10) - 1];
         });
 
+        // console.log('\n\n\n\nmarkdown:\n\n', markdown);
+
         return {
             markdown: markdown,
-            commands: commands,
-            change: bindingIndexStart != bindingIndex,
+            commands: commands
         };
     };
 
@@ -135,6 +137,8 @@ Parser = function Parser () {
         });
 
         if (!notExecutedCommands.length) {
+            state.done = true;
+
             return Promise.resolve(state);
         }
 
