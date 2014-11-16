@@ -8,12 +8,6 @@
 
 Prints date.
 
-<!-- gitdown: off -->
-```markdown
-[!foo](http://foo.com/picture.png?time=<<{"gitdown": "date"}>>)
-```
-<!-- gitdown: on -->
-
 #### Configuration
 
 | Name | Description | Default |
