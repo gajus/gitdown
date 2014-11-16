@@ -1,4 +1,4 @@
-### Table  of Contents
+### Generate Table  of Contents
 
 <!-- gitdown: off -->
 ```json
