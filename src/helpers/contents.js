@@ -4,10 +4,12 @@ var helper = {},
 helper = function (markdown, config) {
     config = config || {};
 
+    config.maxDepth = config.maxDepth || 3;
+
     return contents(markdown, {
         template: '<%= depth %><%= bullet %> [<%= heading %>](#<%= url %>)\n',
         bullet: '*',
-        maxDepth: config.maxDepth || 3,
+        maxDepth: config.maxDepth,
         firsth1: false,
         omit: ['Table of Contents', 'TOC', 'TABLE OF CONTENTS', 'Contents'],
         clean: [],
