@@ -187,6 +187,22 @@ Generates:
 
 Prints date.
 
+#### Example
+
+<!-- gitdown: off -->
+```json
+<<{"gitdown": "date"}>>
+<<{"gitdown": "date", "format": "YYYY"}>>
+```
+<!-- gitdown: on -->
+
+Generates:
+
+```markdown
+1416145538
+2014
+```
+
 #### Configuration
 
 | Name | Description | Default |
