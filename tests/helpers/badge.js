@@ -27,7 +27,7 @@ describe('Parser.helpers.badge', function () {
         it('returns markdown for the NPM badge', function () {
             var badge = helper('', {name: 'npm-version'}, {repositoryPath: function () { return __dirname + '/../fixtures/badge'; }});
 
-            expect(badge).to.equal('[!http://img.shields.io/npm/v/gitdown.svg?style=flat](https://www.npmjs.org/package/gitdown)');
+            expect(badge).to.equal('[[!NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)');
         });
     });
     describe('.service_travis()', function () {
@@ -36,7 +36,7 @@ describe('Parser.helpers.badge', function () {
 
             return badge
                 .then(function (badgeMarkdown) {
-                    expect(badgeMarkdown).to.equal('[!http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat](https://travis-ci.org/gajus/gitdown)');
+                    expect(badgeMarkdown).to.equal('[[!Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)');
                 });
         });
     });
