@@ -156,9 +156,7 @@ Gitdown will throw an error if the anchor is not found.
 ```
 <!-- gitdown: on -->
 
-Prints the value of a property defined in a parser `variable` configuration.
-
-Throws an error if property is not set.
+Prints the value of a property defined in a parser `variable` configuration. Throws an error at the time of compilation if property is not set.
 
 `_` property is reserved for Gitdown.
 
@@ -306,7 +304,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416209930
+1416210005
 2014
 ```
 
