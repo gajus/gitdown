@@ -23,6 +23,18 @@ helper = function (markdown, config, Locator) {
         return '[![NPM version](http://img.shields.io/npm/v/' + pkg.name + '.svg?style=flat)](https://www.npmjs.org/package/' + pkg.name + ')';
     };
 
+    helper.service_bower_version = function () {
+        var pkg = Locator.repositoryPath() + '/bower.json';
+
+        if (!fs.existsSync(pkg)) {
+            throw new Error('./bower.json is not found.');
+        }
+
+        pkg = jsonfile.readFileSync(pkg);
+
+        return '[![Bower version](http://img.shields.io/bower/v/' + pkg.name + '.svg?style=flat)](http://bower.io/search/?q=' + pkg.name + ')';
+    };
+
     helper.service_travis = function () {
         return new Promise(function (resolve) {
             exec('git config --get remote.origin.url | cut -d: -f2 | rev | cut -c 5- | rev; git rev-parse --abbrev-ref HEAD', function (err, env) {

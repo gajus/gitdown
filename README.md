@@ -259,6 +259,7 @@ Badges are generated using http://shields.io/.
 #### Supported Services
 
 * npm-version
+* bower-version
 * travis
 
 #### Example
@@ -304,7 +305,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416210133
+1416210221
 2014
 ```
 

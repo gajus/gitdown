@@ -13,6 +13,7 @@ Badges are generated using http://shields.io/.
 #### Supported Services
 
 * npm-version
+* bower-version
 * travis
 
 #### Example

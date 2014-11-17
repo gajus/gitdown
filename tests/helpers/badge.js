@@ -30,6 +30,18 @@ describe('Parser.helpers.badge', function () {
             expect(badge).to.equal('[![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)');
         });
     });
+    describe('.service_bower_version()', function () {
+        it('throws an error if bower.json is not found in the root of the repository', function () {
+            expect(function () {
+                helper('', {name: 'bower-version'}, {repositoryPath: function () { return __dirname; }})
+            }).to.throw(Error, './bower.json is not found.');
+        });
+        it('returns markdown for the Bower badge', function () {
+            var badge = helper('', {name: 'bower-version'}, {repositoryPath: function () { return __dirname + '/../fixtures/badge'; }});
+
+            expect(badge).to.equal('[![Bower version](http://img.shields.io/bower/v/gitdown.svg?style=flat)](http://bower.io/search/?q=gitdown)');
+        });
+    });
     describe('.service_travis()', function () {
         xit('returns markdown for the NPM badge', function () {
             var badge = helper('', {name: 'travis'}, Locator);
