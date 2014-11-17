@@ -16,6 +16,8 @@ Badges are generated using http://shields.io/.
 * bower-version
 * travis
 
+What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/issues).
+
 #### Example
 
 <!-- gitdown: off -->

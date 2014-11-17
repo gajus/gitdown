@@ -262,6 +262,8 @@ Badges are generated using http://shields.io/.
 * bower-version
 * travis
 
+What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/issues).
+
 #### Example
 
 <!-- gitdown: off -->
@@ -305,7 +307,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416210221
+1416210554
 2014
 ```
 
