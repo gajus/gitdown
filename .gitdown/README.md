@@ -1,17 +1,17 @@
 {"gitdown": "badge", "name": "npm-version"}
 {"gitdown": "badge", "name": "travis"}
 
-> Hello, Gitdown is **not production ready**. This library has been made public for early preview. Please raise an issue with your suggestions.
+Gitdown is a markdown preprocessor for Github. Gitdown streamlines common tasks associated with maintaining a documentation page for GitHub repository.
 
-Gitdown is a markdown preprocessor for Github. It is a tool to help to maintain the documentation. Gitdown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
+What can Gitdown [do better](https://github.com/gajus/gitdown/issues)?
 
-What can Gitdown do better to streamline the documentation maintenance? [Raise an issue](https://github.com/gajus/gitdown/issues).
+## Features
 
-## Contents
-
-{"gitdown": "contents", "maxDepth": 2}
+{"gitdown": "contents", "maxDepth": 2, "under": "features"}
 
 ## Usage
+
+Gitdown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
 
 ```js
 var Gitdown = require('gitdown'),

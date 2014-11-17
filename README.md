@@ -1,15 +1,13 @@
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
 [![Travis build status](http://img.shields.io/travis/gajus/gitdown/dev.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
 
-> Hello, Gitdown is **not production ready**. This library has been made public for early preview. Please raise an issue with your suggestions.
+Gitdown is a markdown preprocessor for Github. Gitdown streamlines common tasks associated with maintaining a documentation page for GitHub repository.
 
-Gitdown is a markdown preprocessor for Github. It is a tool to help to maintain the documentation. Gitdown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
+What can Gitdown [do better](https://github.com/gajus/gitdown/issues)?
 
-What can Gitdown do better to streamline the documentation maintenance? [Raise an issue](https://github.com/gajus/gitdown/issues).
+## Features
 
-## Contents
-
-* [Contents](#contents)
+* [Features](#features)
 * [Usage](#usage)
 * [Syntax](#syntax)
   * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
@@ -25,6 +23,8 @@ What can Gitdown do better to streamline the documentation maintenance? [Raise a
 
 
 ## Usage
+
+Gitdown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
 
 ```js
 var Gitdown = require('gitdown'),
@@ -84,6 +84,48 @@ Gitdown JSON will be interpreted.
 
 Generate table of contents.
 
+#### Example
+
+<!-- gitdown: off -->
+```json
+{"gitdown": "contents", "root": "generate-table-of-contents"}
+```
+<!-- gitdown: on -->
+
+```markdown
+* [Features](#features)
+* [Usage](#usage)
+* [Syntax](#syntax)
+  * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
+* [Features](#features)
+  * [Generate Table  of Contents](#generate-table-of-contents)
+    * [Example](#example)
+    * [JSON Configuration](#json-configuration)
+  * [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers)
+    * [Parser Configuration](#parser-configuration)
+  * [Reference an Anchor in the Repository](#reference-an-anchor-in-the-repository)
+    * [JSON Configuration](#json-configuration)
+    * [Parser Configuration](#parser-configuration)
+  * [Variables](#variables)
+    * [Example](#example)
+    * [JSON Configuration](#json-configuration)
+    * [Parser Configuration](#parser-configuration)
+  * [Include File](#include-file)
+    * [Example](#example)
+    * [JSON Configuration](#json-configuration)
+  * [Get File Size](#get-file-size)
+    * [Example](#example)
+    * [JSON Configuration](#json-configuration)
+  * [Generate Badges](#generate-badges)
+    * [Supported Services](#supported-services)
+    * [Example](#example)
+    * [JSON Configuration](#json-configuration)
+  * [Print Date](#print-date)
+    * [Example](#example)
+    * [JSON Configuration](#json-configuration)
+
+```
+
 <!--
 Table of contents is generated using [Contents](https://github.com/gajus/contents).
 
@@ -95,6 +137,7 @@ The underlying implementation will render markdown file into HTML and then use C
 | Name | Description | Default |
 | --- | --- | --- |
 | `maxDepth` | The maximum the level of the heading. | 3 |
+| `root` | ID of the root heading. Provide it when you need table of contents for a specific section of the document. Throws an error if element with the said ID does not exist in the document. | N/A |
 ### Find Dead URLs and Fragment Identifiers
 
 Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the URLs in the resulting document and throw an error if the request resolves in HTTP status other than 200 or fragment identifier (anchor) is not found.
@@ -284,7 +327,7 @@ Generates:
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `name` | Name of the service. See http://shields.io/. | N/A |
+| `name` | Name of the service. | N/A |
 ### Print Date
 
 <!-- gitdown: off -->
@@ -307,7 +350,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416210554
+1416220595
 2014
 ```
 

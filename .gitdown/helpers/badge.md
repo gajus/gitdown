@@ -38,4 +38,4 @@ Generates:
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `name` | Name of the service. See http://shields.io/. | N/A |
+| `name` | Name of the service. | N/A |
