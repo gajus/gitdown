@@ -10,6 +10,16 @@ Prints the value of a property defined in a parser `variable` configuration. Thr
 
 `_` property is reserved for Gitdown.
 
+#### Predefined Variables
+
+> Under development.
+
+| Name | Value |
+| --- | --- |
+| `_.github.starCount` | Number of stars. |
+| `_.github.watcherCount` | Number of watchers. |
+| `_.github.forkCount` | Number of forks. |
+
 #### Example
 
 <!-- gitdown: off -->

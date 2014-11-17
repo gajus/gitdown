@@ -84,6 +84,8 @@ Gitdown JSON will be interpreted.
 
 Generate table of contents.
 
+The table of contents is generated using [markdown-contents](https://github.com/gajus/markdown-contents).
+
 #### Example
 
 <!-- gitdown: off -->
@@ -108,12 +110,6 @@ Generate table of contents.
   * [Print Date](#print-date)
 
 ```
-
-<!--
-Table of contents is generated using [Contents](https://github.com/gajus/contents).
-
-The underlying implementation will render markdown file into HTML and then use Contents to generate the table of contents.
--->
 
 #### JSON Configuration
 
@@ -185,6 +181,16 @@ Gitdown will throw an error if the anchor is not found.
 Prints the value of a property defined in a parser `variable` configuration. Throws an error at the time of compilation if property is not set.
 
 `_` property is reserved for Gitdown.
+
+#### Predefined Variables
+
+> Under development.
+
+| Name | Value |
+| --- | --- |
+| `_.github.starCount` | Number of stars. |
+| `_.github.watcherCount` | Number of watchers. |
+| `_.github.forkCount` | Number of forks. |
 
 #### Example
 
@@ -333,7 +339,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416220731
+1416232326
 2014
 ```
 

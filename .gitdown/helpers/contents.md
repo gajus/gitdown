@@ -8,6 +8,8 @@
 
 Generate table of contents.
 
+The table of contents is generated using [markdown-contents](https://github.com/gajus/markdown-contents).
+
 #### Example
 
 <!-- gitdown: off -->
@@ -19,12 +21,6 @@ Generate table of contents.
 ```markdown
 {"gitdown": "contents", "maxDepth": 2, "root": "features"}
 ```
-
-<!--
-Table of contents is generated using [Contents](https://github.com/gajus/contents).
-
-The underlying implementation will render markdown file into HTML and then use Contents to generate the table of contents.
--->
 
 #### JSON Configuration
 
