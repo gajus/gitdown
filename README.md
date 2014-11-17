@@ -171,6 +171,7 @@ gitdown.config({
         foo: 'Foo'
     }
 });
+```
 <!-- gitdown: on -->
 
 #### JSON Configuration
@@ -295,7 +296,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416208155
+1416208208
 2014
 ```
 
