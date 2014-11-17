@@ -17,6 +17,7 @@ What can Gitdown do better to streamline the documentation maintenance? [Raise a
   * [Generate Table  of Contents](#generate-table-of-contents)
   * [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers)
   * [Reference an Anchor in the Repository](#reference-an-anchor-in-the-repository)
+  * [Variables](#variables)
   * [Include File](#include-file)
   * [Get File Size](#get-file-size)
   * [Generate Badges](#generate-badges)
@@ -147,6 +148,42 @@ Gitdown will throw an error if the anchor is not found.
 | Name | Description | Default |
 | --- | --- | --- |
 | `anchor.exclude` | Array of paths to exclude. | `['./dist/*']` |
+### Variables
+
+<!-- gitdown: off -->
+```json
+{"gitdown": "variable"}
+```
+<!-- gitdown: on -->
+
+Prints date.
+
+#### Example
+
+<!-- gitdown: off -->
+```js
+var gitdown;
+
+gitdown = Gitdown('{"gitdown": "variable", "name": "foo"}');
+
+gitdown.config({
+    variable: {
+        foo: 'Foo'
+    }
+});
+<!-- gitdown: on -->
+
+#### JSON Configuration
+
+| Name | Description | Default |
+| --- | --- | --- |
+| `name` | Name of the parser `variable` configuration property.  | N/A |
+
+#### Parser Configuration
+
+| Name | Description | Default |
+| --- | --- | --- |
+| `variable` | Variable object | `{}` |
 ### Include File
 
 <!-- gitdown: off -->
@@ -258,7 +295,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416207797
+1416208155
 2014
 ```
 
