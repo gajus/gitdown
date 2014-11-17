@@ -156,7 +156,11 @@ Gitdown will throw an error if the anchor is not found.
 ```
 <!-- gitdown: on -->
 
-Prints date.
+Prints the value of a property defined in a parser `variable` configuration.
+
+Throws an error if property is not set.
+
+`_` property is reserved for Gitdown.
 
 #### Example
 
@@ -164,11 +168,17 @@ Prints date.
 ```js
 var gitdown;
 
-gitdown = Gitdown('{"gitdown": "variable", "name": "foo"}');
+gitdown = Gitdown(
+    '{"gitdown": "variable", "name": "user.firstName"}' +
+    '{"gitdown": "variable", "name": "user.lastName"}'
+);
 
 gitdown.config({
     variable: {
-        foo: 'Foo'
+        user: {
+            firstName: "Gajus",
+            lastName: "Kuizinas"
+        }
     }
 });
 ```
@@ -296,7 +306,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416208208
+1416209930
 2014
 ```
 

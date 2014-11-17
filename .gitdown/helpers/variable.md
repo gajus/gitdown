@@ -6,7 +6,11 @@
 ```
 <!-- gitdown: on -->
 
-Prints date.
+Prints the value of a property defined in a parser `variable` configuration.
+
+Throws an error if property is not set.
+
+`_` property is reserved for Gitdown.
 
 #### Example
 
@@ -14,11 +18,17 @@ Prints date.
 ```js
 var gitdown;
 
-gitdown = Gitdown('{"gitdown": "variable", "name": "foo"}');
+gitdown = Gitdown(
+    '{"gitdown": "variable", "name": "user.firstName"}' +
+    '{"gitdown": "variable", "name": "user.lastName"}'
+);
 
 gitdown.config({
     variable: {
-        foo: 'Foo'
+        user: {
+            firstName: "Gajus",
+            lastName: "Kuizinas"
+        }
     }
 });
 ```
