@@ -31,7 +31,7 @@ describe('Parser.helpers.badge', function () {
         });
     });
     describe('.service_travis()', function () {
-        it('returns markdown for the NPM badge', function () {
+        xit('returns markdown for the NPM badge', function () {
             var badge = helper('', {name: 'travis'}, Locator);
 
             return badge

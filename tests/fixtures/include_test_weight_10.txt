@@ -1,1 +1,1 @@
-<<{"gitdown": "test"}>>
+{"gitdown": "test"}

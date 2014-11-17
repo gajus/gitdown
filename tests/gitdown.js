@@ -30,7 +30,7 @@ describe('gitdown', function () {
     });
     describe('.get()', function () {
         it('is using Parser to produce the response', function () {
-            return Gitdown('<<{"gitdown": "test"}>>')
+            return Gitdown('{"gitdown": "test"}')
                 .get()
                 .then(function (response) {
                     expect(response).to.equal('test');

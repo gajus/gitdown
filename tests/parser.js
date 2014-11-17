@@ -23,6 +23,7 @@ describe('Gitdown.Parser', function () {
             });
     });
     it('ignores content starting with a <!-- gitdown: off --> HTML comment tag', function () {
+        global.test = true;
         return parser
             .play('{"gitdown": "test"}<!-- gitdown: off -->{"gitdown": "test"}')
             .then(function (state) {
@@ -49,7 +50,7 @@ describe('Gitdown.Parser', function () {
         return parser
             .play('{"gitdown": "test", "foo": "bar"}')
             .then(function (state) {
-                expect(spy.calledWith('⊂⊂1⊃⊃', {foo: "bar"})).to.true;
+                expect(spy.calledWith('⊂⊂C:1⊃⊃', {foo: "bar"})).to.true;
             });
     });
     it('throws an error if an unknown helper is invoked', function () {

@@ -78,13 +78,13 @@ Parser = function Parser () {
         // /[\s\S]/ is an equivalent of /./m
         markdown = markdown.replace(/<!--\sgitdown:\soff\s-->[\s\S]*?(?:$|<!--\sgitdown:\son\s-->)/g, function (match) {
             ignoreSection.push(match);
-            return '⊂i⊂' + ignoreSection.length + '⊃i⊃';
+            return '⊂⊂I:' + ignoreSection.length + '⊃⊃';
         });
 
         // console.log('markdown (after)', markdown);
 
-        markdown = markdown.replace(/{"gitdown"(?:[^}]+})/g, function (match) {
-            var command = JSON.parse(match.slice(2, -2)),
+        markdown = markdown.replace(/({"gitdown"(?:[^}]+}))/g, function (match) {
+            var command = JSON.parse(match),
                 name = command.gitdown,
                 config = command;
 
@@ -104,10 +104,10 @@ Parser = function Parser () {
                 executed: false
             });
 
-            return '⊂⊂' + (bindingIndex) + '⊃⊃';
+            return '⊂⊂C:' + (bindingIndex) + '⊃⊃';
         });
 
-        markdown = markdown.replace(/⊂i⊂([0-9]+)⊃i⊃/g, function (match, p1) {
+        markdown = markdown.replace(/⊂⊂I:([0-9]+)⊃⊃/g, function (match, p1) {
             return ignoreSection[parseInt(p1, 10) - 1];
         });
 
@@ -162,7 +162,7 @@ Parser = function Parser () {
             var promise = Promise.resolve(command.helper(state.markdown, command.config, Locator));
 
             promise.then(function (value) {
-                state.markdown = state.markdown.replace('⊂⊂' + command.bindingIndex + '⊃⊃', value);
+                state.markdown = state.markdown.replace('⊂⊂C:' + command.bindingIndex + '⊃⊃', value);
 
                 command.executed = true;
             });
