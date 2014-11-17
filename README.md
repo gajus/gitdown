@@ -5,9 +5,9 @@ Gitdown is a markdown preprocessor for Github. Gitdown streamlines common tasks 
 
 What can Gitdown [do better](https://github.com/gajus/gitdown/issues)?
 
-## Features
+## Contents
 
-* [Features](#features)
+* [Contents](#contents)
 * [Usage](#usage)
 * [Syntax](#syntax)
   * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
@@ -93,7 +93,7 @@ Generate table of contents.
 <!-- gitdown: on -->
 
 ```markdown
-* [Features](#features)
+* [Contents](#contents)
 * [Usage](#usage)
 * [Syntax](#syntax)
   * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
@@ -333,7 +333,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416220674
+1416220731
 2014
 ```
 

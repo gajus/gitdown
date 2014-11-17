@@ -5,9 +5,9 @@ Gitdown is a markdown preprocessor for Github. Gitdown streamlines common tasks 
 
 What can Gitdown [do better](https://github.com/gajus/gitdown/issues)?
 
-## Features
+## Contents
 
-{"gitdown": "contents", "maxDepth": 2, "under": "features"}
+{"gitdown": "contents", "maxDepth": 2}
 
 ## Usage
 
