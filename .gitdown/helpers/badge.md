@@ -2,7 +2,7 @@
 
 <!-- gitdown: off -->
 ```json
-<<{"gitdown": "badge"}>>
+{"gitdown": "badge"}
 ```
 <!-- gitdown: on -->
 
@@ -19,16 +19,16 @@ Badges are generated using http://shields.io/.
 
 <!-- gitdown: off -->
 ```json
-<<{"gitdown": "badge", "name": "npm"}>>
-<<{"gitdown": "badge", "name": "travis"}>>
+{"gitdown": "badge", "name": "npm"}
+{"gitdown": "badge", "name": "travis"}
 ```
 <!-- gitdown: on -->
 
 Generates:
 
 ```markdown
-<<{"gitdown": "badge", "name": "npm-version"}>>
-<<{"gitdown": "badge", "name": "travis"}>>
+{"gitdown": "badge", "name": "npm-version"}
+{"gitdown": "badge", "name": "travis"}
 ```
 
 #### JSON Configuration

@@ -1,8 +1,8 @@
-### Date
+### Print Date
 
 <!-- gitdown: off -->
 ```json
-<<{"gitdown": "date"}>>
+{"gitdown": "date"}
 ```
 <!-- gitdown: on -->
 
@@ -12,16 +12,16 @@ Prints date.
 
 <!-- gitdown: off -->
 ```json
-<<{"gitdown": "date"}>>
-<<{"gitdown": "date", "format": "YYYY"}>>
+{"gitdown": "date"}
+{"gitdown": "date", "format": "YYYY"}
 ```
 <!-- gitdown: on -->
 
 Generates:
 
 ```markdown
-<<{"gitdown": "date"}>>
-<<{"gitdown": "date", "format": "YYYY"}>>
+{"gitdown": "date"}
+{"gitdown": "date", "format": "YYYY"}
 ```
 
 #### JSON Configuration

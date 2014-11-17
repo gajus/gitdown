@@ -4,7 +4,7 @@
 
 <!-- gitdown: off -->
 ```json
-<<{"gitdown": "anchor"}>>
+{"gitdown": "anchor"}
 ```
 <!-- gitdown: on -->
 
@@ -22,7 +22,7 @@ Then reference the tag in the Gitdown document:
 
 <!-- gitdown: off -->
 ```
-Refer to [foo](<<{"gitdown": "anchor", "name": "my-anchor-name"}>>).
+Refer to [foo]({"gitdown": "anchor", "name": "my-anchor-name"}).
 ```
 <!-- gitdown: on -->
 

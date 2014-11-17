@@ -1,5 +1,5 @@
-<<{"gitdown": "badge", "name": "npm-version"}>>
-<<{"gitdown": "badge", "name": "travis"}>>
+{"gitdown": "badge", "name": "npm-version"}
+{"gitdown": "badge", "name": "travis"}
 
 > Hello, Gitdown is **not production ready**. This library has been made public for early preview. Please raise an issue with your suggestions.
 
@@ -9,7 +9,7 @@ What can Gitdown do better to streamline the documentation maintenance? [Raise a
 
 ## Contents
 
-<<{"gitdown": "contents", "maxDepth": 2}>>
+{"gitdown": "contents", "maxDepth": 2}
 
 ## Usage
 
@@ -39,13 +39,13 @@ Gitdown extends markdown syntax using JSON:
 
 <!-- gitdown: off -->
 ```json
-<<{"gitdown": "helper name", "parameter name": "parameter value"}>>
+{"gitdown": "helper name", "parameter name": "parameter value"}
 ```
 <!-- gitdown: on -->
 
 The JSON object must have a `gitdown` property that identifies the helper you intend to execute. The rest is a regular JSON string, where each property is a named configuration property of the helper that you are referring to.
 
-JSON strings that are not encapsulated in `<<>>` and do not start with "gitdown" will remain untouched.
+JSON that does not start with a "gitdown" property will remain untouched.
 
 ### Ignoring Sections of the Document
 
@@ -61,10 +61,10 @@ Gitdown JSON will be interpreted.
 
 ## Features
 
-<<{"gitdown": "include", "file": ".gitdown/helpers/contents.md"}>>
-<<{"gitdown": "include", "file": ".gitdown/helpers/deadlink.md"}>>
-<<{"gitdown": "include", "file": ".gitdown/helpers/anchor.md"}>>
-<<{"gitdown": "include", "file": ".gitdown/helpers/include.md"}>>
-<<{"gitdown": "include", "file": ".gitdown/helpers/filesize.md"}>>
-<<{"gitdown": "include", "file": ".gitdown/helpers/badge.md"}>>
-<<{"gitdown": "include", "file": ".gitdown/helpers/date.md"}>>
+{"gitdown": "include", "file": ".gitdown/helpers/contents.md"}
+{"gitdown": "include", "file": ".gitdown/helpers/deadlink.md"}
+{"gitdown": "include", "file": ".gitdown/helpers/anchor.md"}
+{"gitdown": "include", "file": ".gitdown/helpers/include.md"}
+{"gitdown": "include", "file": ".gitdown/helpers/filesize.md"}
+{"gitdown": "include", "file": ".gitdown/helpers/badge.md"}
+{"gitdown": "include", "file": ".gitdown/helpers/date.md"}

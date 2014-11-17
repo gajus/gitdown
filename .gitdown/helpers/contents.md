@@ -2,7 +2,7 @@
 
 <!-- gitdown: off -->
 ```json
-<<{"gitdown": "contents"}>>
+{"gitdown": "contents"}
 ```
 <!-- gitdown: on -->
 

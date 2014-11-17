@@ -1,5 +1,5 @@
-[![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
-[![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
+{"gitdown": "badge", "name": "npm-version"}
+{"gitdown": "badge", "name": "travis"}
 
 > Hello, Gitdown is **not production ready**. This library has been made public for early preview. Please raise an issue with your suggestions.
 
@@ -9,19 +9,7 @@ What can Gitdown do better to streamline the documentation maintenance? [Raise a
 
 ## Contents
 
-* [Contents](#contents)
-* [Usage](#usage)
-* [Syntax](#syntax)
-  * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
-* [Features](#features)
-  * [Generate Table  of Contents](#generate-table-of-contents)
-  * [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers)
-  * [Reference an Anchor in the Repository](#reference-an-anchor-in-the-repository)
-  * [Include File](#include-file)
-  * [Get File Size](#get-file-size)
-  * [Generate Badges](#generate-badges)
-  * [Date](#date)
-
+{"gitdown": "contents", "maxDepth": 2}
 
 ## Usage
 
@@ -51,13 +39,13 @@ Gitdown extends markdown syntax using JSON:
 
 <!-- gitdown: off -->
 ```json
-<<{"gitdown": "helper name", "parameter name": "parameter value"}>>
+{"gitdown": "helper name", "parameter name": "parameter value"}
 ```
 <!-- gitdown: on -->
 
 The JSON object must have a `gitdown` property that identifies the helper you intend to execute. The rest is a regular JSON string, where each property is a named configuration property of the helper that you are referring to.
 
-JSON strings that are not encapsulated in `<<>>` and do not start with "gitdown" will remain untouched.
+JSON that does not start with a "gitdown" property will remain untouched.
 
 ### Ignoring Sections of the Document
 
@@ -73,197 +61,10 @@ Gitdown JSON will be interpreted.
 
 ## Features
 
-### Generate Table  of Contents
-
-<!-- gitdown: off -->
-```json
-<<{"gitdown": "contents"}>>
-```
-<!-- gitdown: on -->
-
-Generate table of contents.
-
-<!--
-Table of contents is generated using [Contents](https://github.com/gajus/contents).
-
-The underlying implementation will render markdown file into HTML and then use Contents to generate the table of contents.
--->
-
-#### JSON Configuration
-
-| Name | Description | Default |
-| --- | --- | --- |
-| `maxDepth` | The maximum the level of the heading. | 3 |
-### Find Dead URLs and Fragment Identifiers
-
-Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the URLs in the resulting document and throw an error if the request resolves in HTTP status other than 200 or fragment identifier (anchor) is not found.
-
-#### Parser Configuration
-
-| Name | Description | Default |
-| --- | --- | --- |
-| `findDeadURLs` | Find dead URLs. | `false` |
-| `findDeadFragmentIdentifiers` | Find dead fragment identifiers. | `true` |
-### Reference an Anchor in the Repository
-
-> This feature is under development.
-
-<!-- gitdown: off -->
-```json
-<<{"gitdown": "anchor"}>>
-```
-<!-- gitdown: on -->
-
-Generates a Github URL to the line in the source code with the anchor documentation tag of the same name.
-
-Place a documentation tag `@gitdownanchor <name>` anywhere in the code base, e.g.
-
-```js
-/**
- * @gitdownanchor my-anchor-name
- */
-```
-
-Then reference the tag in the Gitdown document:
-
-<!-- gitdown: off -->
-```
-Refer to [foo](<<{"gitdown": "anchor", "name": "my-anchor-name"}>>).
-```
-<!-- gitdown: on -->
-
-The anchor name must match `/^[a-z]+[a-z0-9\-_:\.]*$/i`.
-
-Gitdown will throw an error if the anchor is not found.
-
-#### JSON Configuration
-
-| Name | Description | Default |
-| --- | --- | --- |
-| `name` | Anchor name. | N/A |
-
-#### Parser Configuration
-
-| Name | Description | Default |
-| --- | --- | --- |
-| `anchor.exclude` | Array of paths to exclude. | `['./dist/*']` |
-### Include File
-
-<!-- gitdown: off -->
-```json
-<<{"gitdown": "include"}>>
-```
-<!-- gitdown: on -->
-
-Includes the contents of the file to the document. The included file can have Gitdown JSON hooks.
-
-#### Example
-
-See source code of [.gitdown/README.md](https://github.com/gajus/gitdown/blob/master/.gitdown/README.md).
-
-#### JSON Configuration
-
-| Name | Description | Default |
-| --- | --- | --- |
-| `file` | Path to the file. The path is relative to the root of the repository. | N/A |
-### Get File Size
-
-<!-- gitdown: off -->
-```json
-<<{"gitdown": "filesize"}>>
-```
-<!-- gitdown: on -->
-
-Returns file size formatted in human friendly format.
-
-#### Example
-
-<!-- gitdown: off -->
-```json
-<<{"gitdown": "filesize", "file": "src/gitdown.js"}>>
-<<{"gitdown": "filesize", "file": "src/gitdown.js", "gzip": true}>>
-```
-<!-- gitdown: on -->
-
-Generates:
-
-```markdown
-1.17 kB
-450 B
-```
-
-#### JSON Configuration
-
-| Name | Description | Default |
-| --- | --- | --- |
-| `file` | Path to the file. The path is relative to the root of the repository. | N/A |
-| `gzip` | A boolean value indicating whether to gzip the file first. | `false` |
-### Generate Badges
-
-<!-- gitdown: off -->
-```json
-<<{"gitdown": "badge"}>>
-```
-<!-- gitdown: on -->
-
-Gitdown is using the environment variables to generate the markdown for the badge, e.g. if it is an NPM badge, Gitdown will lookup the package name for the `package.json`.
-
-Badges are generated using http://shields.io/.
-
-#### Supported Services
-
-* npm-version
-* travis
-
-#### Example
-
-<!-- gitdown: off -->
-```json
-<<{"gitdown": "badge", "name": "npm"}>>
-<<{"gitdown": "badge", "name": "travis"}>>
-```
-<!-- gitdown: on -->
-
-Generates:
-
-```markdown
-[![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
-[![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
-```
-
-#### JSON Configuration
-
-| Name | Description | Default |
-| --- | --- | --- |
-| `name` | Name of the service. See http://shields.io/. | N/A |
-### Date
-
-<!-- gitdown: off -->
-```json
-<<{"gitdown": "date"}>>
-```
-<!-- gitdown: on -->
-
-Prints date.
-
-#### Example
-
-<!-- gitdown: off -->
-```json
-<<{"gitdown": "date"}>>
-<<{"gitdown": "date", "format": "YYYY"}>>
-```
-<!-- gitdown: on -->
-
-Generates:
-
-```markdown
-1416151322
-2014
-```
-
-#### JSON Configuration
-
-| Name | Description | Default |
-| --- | --- | --- |
-| `format` | [Moment format](http://momentjs.com/docs/#/displaying/format/). | `X` (UNIX timestamp) |
+{"gitdown": "include", "file": ".gitdown/helpers/contents.md"}
+{"gitdown": "include", "file": ".gitdown/helpers/deadlink.md"}
+{"gitdown": "include", "file": ".gitdown/helpers/anchor.md"}
+{"gitdown": "include", "file": ".gitdown/helpers/include.md"}
+{"gitdown": "include", "file": ".gitdown/helpers/filesize.md"}
+{"gitdown": "include", "file": ".gitdown/helpers/badge.md"}
+{"gitdown": "include", "file": ".gitdown/helpers/date.md"}

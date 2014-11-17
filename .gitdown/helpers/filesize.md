@@ -2,7 +2,7 @@
 
 <!-- gitdown: off -->
 ```json
-<<{"gitdown": "filesize"}>>
+{"gitdown": "filesize"}
 ```
 <!-- gitdown: on -->
 
@@ -12,16 +12,16 @@ Returns file size formatted in human friendly format.
 
 <!-- gitdown: off -->
 ```json
-<<{"gitdown": "filesize", "file": "src/gitdown.js"}>>
-<<{"gitdown": "filesize", "file": "src/gitdown.js", "gzip": true}>>
+{"gitdown": "filesize", "file": "src/gitdown.js"}
+{"gitdown": "filesize", "file": "src/gitdown.js", "gzip": true}
 ```
 <!-- gitdown: on -->
 
 Generates:
 
 ```markdown
-<<{"gitdown": "filesize", "file": "src/gitdown.js"}>>
-<<{"gitdown": "filesize", "file": "src/gitdown.js", "gzip": true}>>
+{"gitdown": "filesize", "file": "src/gitdown.js"}
+{"gitdown": "filesize", "file": "src/gitdown.js", "gzip": true}
 ```
 
 #### JSON Configuration

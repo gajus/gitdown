@@ -83,7 +83,7 @@ Parser = function Parser () {
 
         // console.log('markdown (after)', markdown);
 
-        markdown = markdown.replace(/<<({"gitdown"(?:[^}]+}))>>/g, function (match) {
+        markdown = markdown.replace(/{"gitdown"(?:[^}]+})/g, function (match) {
             var command = JSON.parse(match.slice(2, -2)),
                 name = command.gitdown,
                 config = command;
