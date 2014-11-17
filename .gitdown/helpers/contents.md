@@ -12,12 +12,12 @@ Generate table of contents.
 
 <!-- gitdown: off -->
 ```json
-{"gitdown": "contents", "root": "generate-table-of-contents"}
+{"gitdown": "contents", "maxDepth": 2, "root": "features"}
 ```
 <!-- gitdown: on -->
 
 ```markdown
-{"gitdown": "contents", "root": "generate-table-of-contents"}
+{"gitdown": "contents", "maxDepth": 2, "root": "features"}
 ```
 
 <!--
