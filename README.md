@@ -290,7 +290,7 @@ Generates:
 ```
 <!-- gitdown: on -->
 
-Prints date.
+Prints a string formatted according to the given [moment format](http://momentjs.com/docs/#/displaying/format/) string using the current time.
 
 #### Example
 
@@ -304,7 +304,7 @@ Prints date.
 Generates:
 
 ```markdown
-1416210005
+1416210133
 2014
 ```
 

@@ -6,7 +6,7 @@
 ```
 <!-- gitdown: on -->
 
-Prints date.
+Prints a string formatted according to the given [moment format](http://momentjs.com/docs/#/displaying/format/) string using the current time.
 
 #### Example
 
