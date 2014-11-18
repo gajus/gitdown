@@ -10,6 +10,6 @@ describe('Parser.helpers.date', function () {
         expect(helper()).to.equal( ~~(new Date().getTime()/1000) + '' );
     });
     it('uses format parameter to adjust the format', function () {
-        expect(helper('', {format: 'YYYY'})).to.equal(new Date().getUTCFullYear() + '');
+        expect(helper({format: 'YYYY'})).to.equal(new Date().getUTCFullYear() + '');
     });
 });

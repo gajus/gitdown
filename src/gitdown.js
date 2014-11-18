@@ -3,10 +3,11 @@ var Gitdown,
     fs = require('fs');
 
 /**
- * @param {String} GFM Gitdown favored markdown.
+ * @param {String} GFM Gitdown flavored markdown.
  */
 Gitdown = function Gitdown (GFM) {
-    var gitdown;
+    var gitdown,
+        config = {};
 
     if (!(this instanceof Gitdown)) {
         return new Gitdown(GFM);
@@ -15,14 +16,14 @@ Gitdown = function Gitdown (GFM) {
     gitdown = this;
 
     /**
-     * Parse and process input.
+     * Process template.
      * 
      * @return {Promise}
      */
     gitdown.get = function () {
         var parser;
 
-        parser = Parser();
+        parser = Parser(gitdown);
 
         return parser
             .play(GFM)
@@ -32,9 +33,10 @@ Gitdown = function Gitdown (GFM) {
     };
 
     /**
-     * Write processed input to a file.
+     * Write processed template to a file.
      *
      * @param {String} fileName
+     * @return {Promise}
      */
     gitdown.write = function (fileName) {
         return gitdown
@@ -42,6 +44,20 @@ Gitdown = function Gitdown (GFM) {
             .then(function (outputString) {
                 return fs.writeFileSync(fileName, outputString);
             });
+    };
+
+    /**
+     * Get or set the configuration.
+     * 
+     * @param {Object} setConfig
+     * @return {Object} Current configuration.
+     */
+    gitdown.config = function (setConfig) {
+        if (_config === undefined) {
+            return config;
+        } else {
+            config = _config;
+        }
     };
 };
 

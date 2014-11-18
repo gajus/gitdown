@@ -4,7 +4,7 @@ var helper,
     zlib = require('zlib'),
     formatFileSize = require('filesize');
 
-helper = function (markdown, config) {
+helper = function (config) {
     config = config || {};
     config.gzip = config.gzip || false;
 

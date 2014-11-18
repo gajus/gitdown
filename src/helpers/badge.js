@@ -4,7 +4,7 @@ var helper = {},
     exec = require('child_process').exec
     Promise = require('bluebird');
 
-helper = function (markdown, config, Locator) {
+helper = function (config, context) {
     config = config || {};
 
     if (!config.name) {
@@ -12,7 +12,7 @@ helper = function (markdown, config, Locator) {
     }
 
     helper.service_npm_version = function () {
-        var pkg = Locator.repositoryPath() + '/package.json';
+        var pkg = context.locator.repositoryPath() + '/package.json';
 
         if (!fs.existsSync(pkg)) {
             throw new Error('./package.json is not found.');
@@ -24,7 +24,7 @@ helper = function (markdown, config, Locator) {
     };
 
     helper.service_bower_version = function () {
-        var pkg = Locator.repositoryPath() + '/bower.json';
+        var pkg = context.locator.repositoryPath() + '/bower.json';
 
         if (!fs.existsSync(pkg)) {
             throw new Error('./bower.json is not found.');

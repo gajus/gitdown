@@ -2,7 +2,7 @@ var helper = {},
     Promise = require('bluebird'),
     fs = require('fs');
 
-helper = function (markdown, config) {
+helper = function (config) {
     config = config || {};
 
     return new Promise(function (resolve, reject) {

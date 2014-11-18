@@ -1,6 +1,6 @@
 var helper = {};
 
-helper = function (markdown, parameters) {
+helper = function (markdown, context) {
     return 'test';
 };
 

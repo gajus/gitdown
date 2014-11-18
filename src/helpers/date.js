@@ -1,7 +1,7 @@
 var helper = {},
     moment = require('moment');
 
-helper = function (markdown, config) {
+helper = function (config) {
     config = config || {};
     config.format = config.format || 'X';
 

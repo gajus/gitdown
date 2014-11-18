@@ -15,7 +15,7 @@ describe('Parser.helpers.include', function () {
             .to.rejectedWith(Error, 'config.file must be provided.');
     });
     it('is rejected with an error when file is not found', function () {
-        return expect(helper('', {file: __dirname + '/does-not-exist'}))
+        return expect(helper({file: __dirname + '/does-not-exist'}))
             .to.rejectedWith(Error, 'Input file does not exist.');
     });
 });

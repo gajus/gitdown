@@ -6,7 +6,7 @@
 ```
 <!-- gitdown: on -->
 
-Prints the value of a property defined in a parser `variable` configuration. Throws an error at the time of compilation if property is not set.
+Prints the value of a property defined under a parser `variable` configuration. Throws an error at the time of template processing if property is not set.
 
 `_` property is reserved for Gitdown.
 

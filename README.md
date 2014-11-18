@@ -7,20 +7,7 @@ What can Gitdown [do better](https://github.com/gajus/gitdown/issues)?
 
 ## Contents
 
-* [Contents](#contents)
-* [Usage](#usage)
-* [Syntax](#syntax)
-  * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
-* [Features](#features)
-  * [Generate Table  of Contents](#generate-table-of-contents)
-  * [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers)
-  * [Reference an Anchor in the Repository](#reference-an-anchor-in-the-repository)
-  * [Variables](#variables)
-  * [Include File](#include-file)
-  * [Get File Size](#get-file-size)
-  * [Generate Badges](#generate-badges)
-  * [Print Date](#print-date)
-
+[Table of contents has been temporary removed.]
 
 ## Usage
 
@@ -95,20 +82,7 @@ The table of contents is generated using [markdown-contents](https://github.com/
 <!-- gitdown: on -->
 
 ```markdown
-* [Contents](#contents)
-* [Usage](#usage)
-* [Syntax](#syntax)
-  * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
-* [Features](#features)
-  * [Generate Table  of Contents](#generate-table-of-contents)
-  * [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers)
-  * [Reference an Anchor in the Repository](#reference-an-anchor-in-the-repository)
-  * [Variables](#variables)
-  * [Include File](#include-file)
-  * [Get File Size](#get-file-size)
-  * [Generate Badges](#generate-badges)
-  * [Print Date](#print-date)
-
+[Table of contents has been temporary removed.]
 ```
 
 #### JSON Configuration
@@ -178,7 +152,7 @@ Gitdown will throw an error if the anchor is not found.
 ```
 <!-- gitdown: on -->
 
-Prints the value of a property defined in a parser `variable` configuration. Throws an error at the time of compilation if property is not set.
+Prints the value of a property defined under a parser `variable` configuration. Throws an error at the time of template processing if property is not set.
 
 `_` property is reserved for Gitdown.
 
@@ -266,8 +240,8 @@ Returns file size formatted in human friendly format.
 Generates:
 
 ```markdown
-1.17 kB
-450 B
+1.19 kB
+457 B
 ```
 
 #### JSON Configuration
@@ -339,7 +313,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416232326
+1416294508
 2014
 ```
 

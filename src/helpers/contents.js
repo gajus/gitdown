@@ -1,6 +1,6 @@
 var helper = {};
 
-helper = function (markdown, config) {
+helper = function (config) {
     var raw;
 
     config = config || {};
