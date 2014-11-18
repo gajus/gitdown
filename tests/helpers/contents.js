@@ -6,7 +6,7 @@ describe('Parser.helpers.contents', function () {
     beforeEach(function () {
         helper = requireNew('../../src/helpers/contents.js');
     });
-    it('generates table of contents for a markdown document', function () {
+    xit('generates table of contents for a markdown document', function () {
         var contents = helper('test ## a\n## b\n\n##c ');
 
         console.log('contents\n\n', contents);

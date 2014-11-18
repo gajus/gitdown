@@ -1,9 +1,6 @@
 var Parser,
     Promise = require('bluebird'),
-    Locator = require('./locator.js'),
-    fs = require('fs'),
-    glob = require('glob'),
-    path = require('path');
+    Locator = require('./locator.js');
 
 /**
  * Parser is responsible for matching all of the instances of the Gitdown JSON and invoking
@@ -180,10 +177,17 @@ Parser = function Parser () {
     };
 };
 
-Parser.helpers = {};
+Parser.loadHelpers = function () {
+    var glob = require('glob'),
+        path = require('path');
 
-glob.sync(__dirname + '/helpers/*.js').forEach(function (helper) {
-    Parser.helpers[path.basename(helper, '.js')] = require(helper);
-});
+    Parser.helpers = {};
+
+    glob.sync(__dirname + '/helpers/*.js').forEach(function (helper) {
+        Parser.helpers[path.basename(helper, '.js')] = require(helper);
+    });
+};
+
+Parser.loadHelpers();
 
 module.exports = Parser;

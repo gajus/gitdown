@@ -1,5 +1,4 @@
-var helper = {},
-    contents = require(__dirname + '/../../../2014 09 11 contents/src/contents.js');
+var helper = {};
 
 helper = function (markdown, config) {
     var raw;
@@ -7,6 +6,8 @@ helper = function (markdown, config) {
     config = config || {};
 
     config.maxDepth = config.maxDepth || 3;
+
+    return '[Table of contents has been temporary removed.]';
 
     /*raw = contents.raw(markdown, {
         template: '<%= depth %><%= bullet %> [<%= heading %>](#<%= url %>)\n',
