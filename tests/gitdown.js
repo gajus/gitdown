@@ -56,9 +56,12 @@ describe('gitdown', function () {
                 config = gitdown.config(),
                 expectedConfig = {};
 
-            expectedConfig.gitinfo = {
-                gitPath: __dirname
-            };
+            expectedConfig = {};
+            expectedConfig.deadlink = {};
+            expectedConfig.deadlink.findDeadURLs = true;
+            expectedConfig.deadlink.findDeadFragmentIdentifiers = true;
+            expectedConfig.gitinfo = {};
+            expectedConfig.gitinfo.gitPath = __dirname;
 
             expect(config).to.deep.equal(expectedConfig);
         });

@@ -96,13 +96,13 @@ The table of contents is generated using [markdown-contents](https://github.com/
 | `root` | ID of the root heading. Provide it when you need table of contents for a specific section of the document. Throws an error if element with the said ID does not exist in the document. | N/A |
 ### Find Dead URLs and Fragment Identifiers
 
-Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the URLs in the resulting document. Throws an error if the request resolves in HTTP status other than 200 or fragment identifier (anchor) is not found.
+Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the URLs in the resulting document. Throws an error if either of the URLs is resolved with an HTTP status other than 200 or fragment identifier (anchor) is not found.
 
 #### Parser Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `deadlink.findDeadURLs` | Find dead URLs. | `false` |
+| `deadlink.findDeadURLs` | Find dead URLs. | `true` |
 | `deadlink.findDeadFragmentIdentifiers` | Find dead fragment identifiers. | `true` |
 | `deadlink.ignoreURLs` | URLs matching the regex will be ignored. | N/A |
 ### Reference an Anchor in the Repository
@@ -317,7 +317,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416417945
+1416418079
 2014
 ```
 

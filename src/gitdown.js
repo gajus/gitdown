@@ -15,9 +15,6 @@ Gitdown = function Gitdown (input) {
 
     gitdown = this;
 
-    config = {};
-    config.gitinfo = {};
-
     /**
      * Process template.
      * 
@@ -86,6 +83,11 @@ Gitdown = function Gitdown (input) {
         throw new Error('Execution context cannot be determined.');
     };
 
+    config = {};
+    config.deadlink = {};
+    config.deadlink.findDeadURLs = true;
+    config.deadlink.findDeadFragmentIdentifiers = true;
+    config.gitinfo = {};
     config.gitinfo.gitPath = gitdown._executionContext();
 };
 
