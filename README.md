@@ -1,5 +1,5 @@
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
-[![Travis build status](http://img.shields.io/travis/gajus/gitdown/dev.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
+[![Travis build status](http://img.shields.io/travis/gajus/gitdown/dev.svg?style=flat)](https://travis-ci.org/undefined)
 
 Gitdown is a markdown preprocessor for Github. Gitdown streamlines common tasks associated with maintaining a documentation page for GitHub repository.
 
@@ -241,8 +241,8 @@ Returns file size formatted in human friendly format.
 Generates:
 
 ```markdown
-1.55 kB
-554 B
+2.36 kB
+819 B
 ```
 
 #### JSON Configuration
@@ -284,7 +284,7 @@ Generates:
 
 ```markdown
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
-[![Travis build status](http://img.shields.io/travis/gajus/gitdown/dev.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
+[![Travis build status](http://img.shields.io/travis/gajus/gitdown/dev.svg?style=flat)](https://travis-ci.org/undefined)
 ```
 
 #### JSON Configuration
@@ -314,7 +314,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416412749
+1416417587
 2014
 ```
 
@@ -323,3 +323,51 @@ Generates:
 | Name | Description | Default |
 | --- | --- | --- |
 | `format` | [Moment format](http://momentjs.com/docs/#/displaying/format/). | `X` (UNIX timestamp) |
+### Gitinfo
+
+<!-- gitdown: off -->
+```json
+{"gitdown": "gitinfo"}
+```
+<!-- gitdown: on -->
+
+[Gitinfo](https://github.com/gajus/gitinfo) gets info about a local GitHub repository.
+
+#### Example
+
+<!-- gitdown: off -->
+```json
+{"gitdown": "gitinfo", "name": "username"}
+{"gitdown": "gitinfo", "name": "name"}
+{"gitdown": "gitinfo", "name": "url"}
+{"gitdown": "gitinfo", "name": "branch"}
+```
+<!-- gitdown: on -->
+
+```
+gajus
+gitdown
+https://github.com/gajus/gitdown
+dev
+```
+
+#### Supported Properties
+
+|Name|Description|
+|---|---|
+|`username`|Username of the repository author.|
+|`name`|Repository name.|
+|`url`|Repository URL.|
+|`branch`|Current branch name.|
+
+#### JSON Configuration
+
+| Name | Description | Default |
+| --- | --- | --- |
+| `name` | Name of [Gitinfo](https://github.com/gajus/gitinfo) property. | N/A |
+
+#### Parser Configuration
+
+| Name | Description | Default |
+| --- | --- | --- |
+| `gitinfo.gitPath` | Path to the `.git/` directory or a descendant. | `__dirname` of the script constructing an instance of `Gitdown`. |

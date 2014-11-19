@@ -19,7 +19,7 @@ Parser = function Parser (gitdown) {
         bindingIndex = 0;
 
     if (!(this instanceof Parser)) {
-        return new Parser();
+        return new Parser(gitdown);
     }
 
     parser = this;

@@ -45,9 +45,8 @@ helper = function (config, context) {
         rep.username = gitinfo({name: 'username'}, context);
         rep.name = gitinfo({name: 'name'}, context);
         rep.branch = gitinfo({name: 'branch'}, context);
-        rep.fullname = repository.username + '/' + repository.name;
 
-        badge = '![Travis build status](http://img.shields.io/travis/' + rep.fullname + '/' + rep.branch + '.svg?style=flat)';
+        badge = '![Travis build status](http://img.shields.io/travis/' + rep.username + '/' + rep.name + '/' + rep.branch + '.svg?style=flat)';
 
         return '[' + badge + '](https://travis-ci.org/' + rep.fullname + ')';
     };
