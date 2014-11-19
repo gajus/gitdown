@@ -44,13 +44,13 @@ describe('Gitdown.Parser', function () {
                 expect(state.markdown).to.equal('testtest');
             });
     });
-    it('invokes a helper function with the markdown and the definition parameters', function () {
+    it('invokes a helper function with the markdown', function () {
         spy = sinon.spy(Parser.helpers, 'test');
 
         return parser
             .play('{"gitdown": "test", "foo": "bar"}')
             .then(function (state) {
-                expect(spy.calledWith('⊂⊂C:1⊃⊃', {foo: "bar"})).to.true;
+                expect(spy.calledWith({foo: "bar"})).to.true;
             });
     });
     it('throws an error if an unknown helper is invoked', function () {

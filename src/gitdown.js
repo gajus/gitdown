@@ -14,7 +14,9 @@ Gitdown = function Gitdown (input) {
     }
 
     gitdown = this;
+
     config = {};
+    config.gitinfo = {};
 
     /**
      * Process template.
@@ -54,12 +56,37 @@ Gitdown = function Gitdown (input) {
      * @return {Object} Current configuration.
      */
     gitdown.config = function (setConfig) {
-        if (_config === undefined) {
+        if (setConfig === undefined) {
             return config;
         } else {
-            config = _config;
+            config = setConfig;
         }
     };
+
+    /**
+     * Returns the first directory in the callstack that is not this directory.
+     *
+     * @return {String} Path to the directory where Gitdown was invoked.
+     */
+    gitdown._executionContext = function () {
+        var stackTrace = require('stack-trace').get(),
+            path = require('path'),
+            stackTraceLength = stackTrace.length,
+            stackDirectory,
+            i = 0;
+
+        while (i++ < stackTraceLength) {
+            stackDirectory = path.dirname(stackTrace[i].getFileName());
+            
+            if (__dirname != stackDirectory) {
+                return stackDirectory;
+            }
+        }
+
+        throw new Error('Execution context cannot be determined.');
+    };
+
+    config.gitinfo.gitPath = gitdown._executionContext();
 };
 
 /**

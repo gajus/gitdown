@@ -34,6 +34,7 @@
     "gitinfo": "^1.1.0",
     "glob": "^4.0.6",
     "jsonfile": "^2.0.0",
-    "moment": "^2.8.3"
+    "moment": "^2.8.3",
+    "stack-trace": "0.0.9"
   }
 }

@@ -70,3 +70,4 @@ Gitdown JSON will be interpreted.
 {"gitdown": "include", "file": ".gitdown/helpers/filesize.md"}
 {"gitdown": "include", "file": ".gitdown/helpers/badge.md"}
 {"gitdown": "include", "file": ".gitdown/helpers/date.md"}
+{"gitdown": "include", "file": ".gitdown/helpers/gitinfo.md"}

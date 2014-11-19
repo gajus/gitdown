@@ -50,4 +50,25 @@ describe('gitdown', function () {
                 });
         });
     });
+    describe('.config()', function () {
+        it('returns the current configuration', function () {
+            var gitdown = Gitdown(''),
+                config = gitdown.config(),
+                expectedConfig = {};
+
+            expectedConfig.gitinfo = {
+                gitPath: __dirname
+            };
+
+            expect(config).to.deep.equal(expectedConfig);
+        });
+        it('sets a configuration', function () {
+            var gitdown = Gitdown(''),
+                config = {};
+
+            gitdown.config(config);
+
+            expect(config).to.equal(gitdown.config());
+        });
+    });
 });
