@@ -3,17 +3,18 @@ var Gitdown,
     fs = require('fs');
 
 /**
- * @param {String} GFM Gitdown flavored markdown.
+ * @param {String} input Gitdown flavored markdown.
  */
-Gitdown = function Gitdown (GFM) {
+Gitdown = function Gitdown (input) {
     var gitdown,
-        config = {};
+        config;
 
     if (!(this instanceof Gitdown)) {
-        return new Gitdown(GFM);
+        return new Gitdown(input);
     }
 
     gitdown = this;
+    config = {};
 
     /**
      * Process template.
@@ -26,7 +27,7 @@ Gitdown = function Gitdown (GFM) {
         parser = Parser(gitdown);
 
         return parser
-            .play(GFM)
+            .play(input)
             .then(function (state) {
                 return state.markdown;
             });

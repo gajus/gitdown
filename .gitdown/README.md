@@ -15,7 +15,8 @@ Gitdown is designed to be run using either of the build systems, such as [Gulp](
 
 ```js
 var Gitdown = require('gitdown'),
-    gitdown;
+    gitdown,
+    config = {};
 
 // Read the markdown file written using the Gitdown extended markdown.
 // File name is not important.
@@ -26,7 +27,7 @@ gitdown = Gitdown.read('.gitdown/README.md');
 // gitdown = Gitdown('literal string');
 
 // Provide parser configuration.
-// gitdown.config({});
+// gitdown.config(config);
 
 // Output the markdown file.
 // All of the file system operations are relative to the root of the repository.
