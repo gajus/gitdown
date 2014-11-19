@@ -7,7 +7,7 @@ helper = function (config) {
 
     config.maxDepth = config.maxDepth || 3;
 
-    return '[Table of contents has been temporary removed.]';
+    return '[Table of contents has been temporarily removed.]';
 
     /*raw = contents.raw(markdown, {
         template: '<%= depth %><%= bullet %> [<%= heading %>](#<%= url %>)\n',

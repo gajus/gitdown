@@ -1,12 +1,14 @@
 ### Generate Table  of Contents
 
+> Under development.
+
 <!-- gitdown: off -->
 ```json
 {"gitdown": "contents"}
 ```
 <!-- gitdown: on -->
 
-Generate table of contents.
+Generates table of contents.
 
 The table of contents is generated using [markdown-contents](https://github.com/gajus/markdown-contents).
 

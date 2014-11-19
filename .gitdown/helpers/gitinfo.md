@@ -6,7 +6,7 @@
 ```
 <!-- gitdown: on -->
 
-[Gitinfo](https://github.com/gajus/gitinfo) gets info about a local GitHub repository.
+[Gitinfo](https://github.com/gajus/gitinfo) gets info about the local GitHub repository.
 
 #### Example
 

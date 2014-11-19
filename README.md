@@ -7,7 +7,7 @@ What can Gitdown [do better](https://github.com/gajus/gitdown/issues)?
 
 ## Contents
 
-[Table of contents has been temporary removed.]
+[Table of contents has been temporarily removed.]
 
 ## Usage
 
@@ -64,13 +64,15 @@ Gitdown JSON will be interpreted.
 
 ### Generate Table  of Contents
 
+> Under development.
+
 <!-- gitdown: off -->
 ```json
 {"gitdown": "contents"}
 ```
 <!-- gitdown: on -->
 
-Generate table of contents.
+Generates table of contents.
 
 The table of contents is generated using [markdown-contents](https://github.com/gajus/markdown-contents).
 
@@ -83,7 +85,7 @@ The table of contents is generated using [markdown-contents](https://github.com/
 <!-- gitdown: on -->
 
 ```markdown
-[Table of contents has been temporary removed.]
+[Table of contents has been temporarily removed.]
 ```
 
 #### JSON Configuration
@@ -94,14 +96,15 @@ The table of contents is generated using [markdown-contents](https://github.com/
 | `root` | ID of the root heading. Provide it when you need table of contents for a specific section of the document. Throws an error if element with the said ID does not exist in the document. | N/A |
 ### Find Dead URLs and Fragment Identifiers
 
-Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the URLs in the resulting document and throw an error if the request resolves in HTTP status other than 200 or fragment identifier (anchor) is not found.
+Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the URLs in the resulting document. Throws an error if the request resolves in HTTP status other than 200 or fragment identifier (anchor) is not found.
 
 #### Parser Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `findDeadURLs` | Find dead URLs. | `false` |
-| `findDeadFragmentIdentifiers` | Find dead fragment identifiers. | `true` |
+| `deadlink.findDeadURLs` | Find dead URLs. | `false` |
+| `deadlink.findDeadFragmentIdentifiers` | Find dead fragment identifiers. | `true` |
+| `deadlink.ignoreURLs` | URLs matching the regex will be ignored. | N/A |
 ### Reference an Anchor in the Repository
 
 > This feature is under development.
@@ -314,7 +317,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416417587
+1416417945
 2014
 ```
 
@@ -331,7 +334,7 @@ Generates:
 ```
 <!-- gitdown: on -->
 
-[Gitinfo](https://github.com/gajus/gitinfo) gets info about a local GitHub repository.
+[Gitinfo](https://github.com/gajus/gitinfo) gets info about the local GitHub repository.
 
 #### Example
 
