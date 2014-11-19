@@ -28,6 +28,15 @@ This is a wrapper around [Gitinfo](https://github.com/gajus/gitinfo).
 {"gitdown": "gitinfo", "name": "branch"}
 ```
 
+#### Supported Properties
+
+|Name|Description|
+|---|---|
+|`username`|Username of the repository author.|
+|`name`|Repository name.|
+|`url`|Repository URL.|
+|`branch`|Current branch name.|
+
 #### JSON Configuration
 
 | Name | Description | Default |

@@ -2,8 +2,11 @@ var helper = {},
     Gitinfo = require('gitinfo');
 
 helper = function (config, context) {
-    var parserConfig = context.gitdown.config().gitinfo,
-        gitinfo = Gitinfo({gitPath: parserConfig.gitPath});
+    var parserConfig,
+        gitinfo;
+
+    parserConfig = context.gitdown.config().gitinfo;
+    gitinfo = Gitinfo({gitPath: parserConfig.gitPath});
 
     if (!config.name) {
         throw new Error('config.name must be provided.');
