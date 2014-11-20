@@ -3,19 +3,18 @@ var expect = require('chai').expect,
 
 describe('Parser.helpers.gitinfo', function () {
     var helper,
+        context;
+    beforeEach(function () {
+        helper = requireNew('../../src/helpers/gitinfo.js');
         context = {
             gitdown: {
-                config: function () {
-                    return {
-                        gitinfo: {
-                            gitPath: __dirname
-                        }
+                config: {
+                    gitinfo: {
+                        gitPath: __dirname
                     }
                 }
             }
         };
-    beforeEach(function () {
-        helper = requireNew('../../src/helpers/gitinfo.js');
     });
     it('throws an error if config.name is not provided', function () {
         expect(function () {

@@ -5,7 +5,7 @@ helper = function (config, context) {
     var parserConfig,
         gitinfo;
 
-    parserConfig = context.gitdown.config().gitinfo;
+    parserConfig = context.gitdown.config.gitinfo;
     gitinfo = Gitinfo({gitPath: parserConfig.gitPath});
 
     if (!config.name) {

@@ -1,7 +1,7 @@
 var helper;
 
 helper = function (config, context) {
-    var variables = context.gitdown.config().variables,
+    var scope = context.gitdown.config.variable.scope,
         value;
 
     config = config || {};
@@ -10,7 +10,7 @@ helper = function (config, context) {
         throw new Error('config.name must be provided.');
     }
 
-    value = helper.resolve(variables, config.name);
+    value = helper.resolve(scope, config.name);
 
     if (value === false) {
         throw new Error('config.name "' + config.name + '" does not resolve to a defined value.');

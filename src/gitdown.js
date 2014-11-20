@@ -8,9 +8,7 @@ var Gitdown,
  * @param {String} input Gitdown flavored markdown.
  */
 Gitdown = function Gitdown (input) {
-    var gitdown,
-        config,
-        logger;
+    var gitdown;
 
     if (!(this instanceof Gitdown)) {
         return new Gitdown(input);
@@ -53,20 +51,6 @@ Gitdown = function Gitdown (input) {
     };
 
     /**
-     * Get or set the configuration.
-     * 
-     * @param {Object} setConfig
-     * @return {Object} Current configuration.
-     */
-    gitdown.config = function (setConfig) {
-        if (setConfig === undefined) {
-            return config;
-        } else {
-            config = setConfig;
-        }
-    };
-
-    /**
      * Returns the first directory in the callstack that is not this directory.
      *
      * @return {String} Path to the directory where Gitdown was invoked.
@@ -101,11 +85,11 @@ Gitdown = function Gitdown (input) {
         urls = deadlink.matchURLs(markdown);
 
         return new Promise(function (resolve, reject) {
-            if (!urls.length || !config.deadlink.findDeadURLs) {
+            if (!urls.length || !gitdown.config.deadlink.findDeadURLs) {
                 return resolve();
             }
 
-            if (config.deadlink.findDeadFragmentIdentifiers) {
+            if (gitdown.config.deadlink.findDeadFragmentIdentifiers) {
                 promises = deadlink.resolve(urls);
             } else {
                 promises = deadlink.resolveURLs(urls);
@@ -117,15 +101,15 @@ Gitdown = function Gitdown (input) {
 
                     if (Resolution.error) {
                         if (Resolution.fragmentIdentifier) {
-                            logger.warn('Unresolved URL and/or the fragment identifier:', Resolution.url, Resolution.fragmentIdentifier);
+                            gitdown.logger.warn('Unresolved URL and/or the fragment identifier:', Resolution.url, Resolution.fragmentIdentifier);
                         } else {
-                            logger.warn('Unresolved URL:', Resolution.url);
+                            gitdown.logger.warn('Unresolved URL:', Resolution.url);
                         }  
                     } else {
                         if (Resolution.fragmentIdentifier) {
-                            logger.info('Resolved URL and the fragment identifier:', Resolution.url, Resolution.fragmentIdentifier);
+                            gitdown.logger.info('Resolved URL and the fragment identifier:', Resolution.url, Resolution.fragmentIdentifier);
                         } else {
-                            logger.info('Resolved URL:', Resolution.url);
+                            gitdown.logger.info('Resolved URL:', Resolution.url);
                         }                        
                     }
                 });
@@ -135,38 +119,71 @@ Gitdown = function Gitdown (input) {
         });
     };
 
-    config = {};
-    config.deadlink = {};
-    config.deadlink.findDeadURLs = true;
-    config.deadlink.findDeadFragmentIdentifiers = true;
-    config.gitinfo = {};
-    config.gitinfo.gitPath = gitdown._executionContext();
+    (function () {
+        var config,
+            logger;
 
-    /**
-     * Get/set 
-     */
-    gitdown.logger = function (_logger) {
-        if (!_logger) {
-            return logger;
+        Object.defineProperty(gitdown, 'config', {
+            get: function () {
+                return config;
+            },
+            set: function (_config) {
+                if (!_config.variable || typeof _config.variable.scope != 'object') {
+                    throw new Error('config.variable.scope must be set and must be an object.');
+                }
+
+                if (!_config.deadlink || typeof _config.deadlink.findDeadURLs != 'boolean') {
+                    console.log(_config);
+                    throw new Error('config.deadlink.findDeadURLs must be set and must be a boolean value');
+                }
+
+                if (!_config.deadlink || typeof _config.deadlink.findDeadFragmentIdentifiers != 'boolean') {
+                    throw new Error('config.deadlink.findDeadFragmentIdentifiers must be set and must be a boolean value');
+                }
+
+                if (!_config.gitinfo || !fs.realpathSync(_config.gitinfo.gitPath)) {
+                    throw new Error('config.gitinfo.gitPath must be set and must resolve an existing file path.');
+                }
+
+                config = _config;
+            }
+        });
+
+        Object.defineProperty(gitdown, 'logger', {
+            get: function () {
+                return logger;
+            },
+            set: function (_logger) {
+                if (!_logger.info) {
+                    throw new Error('Logger must implement logger.info method.');
+                }
+
+                if (!_logger.warn) {
+                    throw new Error('Logger must implement logger.warn method.');
+                }
+
+                logger = {
+                    info: _logger.info,
+                    warn: _logger.warn
+                };
+            }
+        });
+
+        gitdown.config = {
+            variable: {
+                scope: {}
+            },
+            deadlink: {
+                findDeadURLs: true,
+                findDeadFragmentIdentifiers: true
+            },
+            gitinfo: {
+                gitPath: gitdown._executionContext()
+            }
         }
 
-        if (!_logger.info) {
-            throw new Error('Logger must implement logger.info method.');
-        }
-
-        if (!_logger.warn) {
-            throw new Error('Logger must implement logger.warn method.');
-        }
-
-        logger = {
-            info: _logger.info,
-            warn: _logger.warn
-        };
-
-        return logger;
-    };
-
-    gitdown.logger(console);
+        gitdown.logger = console;
+    } ());
 };
 
 /**

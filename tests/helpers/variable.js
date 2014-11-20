@@ -6,21 +6,18 @@ describe('Parser.helpers.variable', function () {
         contextFactory;
     beforeEach(function () {
         helper = requireNew('../../src/helpers/variable.js');
-        contextFactory = function (variables) {
-            var context,
-                config;
-
-            config = function () {
-                return {
-                    variables: variables
-                }
-            };
-
-            context = {
+        contextFactory = function (scope) {
+            var context = {
                 gitdown: {
-                    config: config
+                    config: {
+                        variable: {
+                            scope: scope
+                        }
+                    }
                 }
             };
+
+            // console.log(context);
 
             return context;
         };
@@ -39,7 +36,7 @@ describe('Parser.helpers.variable', function () {
             helper({name: 'a.b.c'}, context);
         }).to.throw(Error, 'config.name "a.b.c" does not resolve to a defined value.');
     });
-    it('returns the resolves value if it is defined', function () {
+    it('returns the resolved value', function () {
         var context = contextFactory({
             a: {
                 b: {
