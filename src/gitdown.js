@@ -1,13 +1,16 @@
 var Gitdown,
     Parser = require('./parser.js'),
-    fs = require('fs');
+    fs = require('fs'),
+    Deadlink = require('deadlink'),
+    Promise = require('bluebird');
 
 /**
  * @param {String} input Gitdown flavored markdown.
  */
 Gitdown = function Gitdown (input) {
     var gitdown,
-        config;
+        config,
+        logger;
 
     if (!(this instanceof Gitdown)) {
         return new Gitdown(input);
@@ -28,7 +31,10 @@ Gitdown = function Gitdown (input) {
         return parser
             .play(input)
             .then(function (state) {
-                return state.markdown;
+                return gitdown._resolveURLs(state.markdown)
+                    .then(function () {
+                        return state.markdown;
+                    });
             });
     };
 
@@ -83,12 +89,84 @@ Gitdown = function Gitdown (input) {
         throw new Error('Execution context cannot be determined.');
     };
 
+    /**
+     * @param {String} markdown
+     */
+    gitdown._resolveURLs = function (markdown) {
+        var deadlink,
+            urls,
+            promises;
+
+        deadlink = Deadlink();
+        urls = deadlink.matchURLs(markdown);
+
+        return new Promise(function (resolve, reject) {
+            if (!urls.length || !config.deadlink.findDeadURLs) {
+                return resolve();
+            }
+
+            if (config.deadlink.findDeadFragmentIdentifiers) {
+                promises = deadlink.resolve(urls);
+            } else {
+                promises = deadlink.resolveURLs(urls);
+            }
+
+            Promise.all(promises).then(function () {
+                promises.forEach(function (promise) {
+                    var Resolution = promise.value();
+
+                    if (Resolution.error) {
+                        if (Resolution.fragmentIdentifier) {
+                            logger.warn('Unresolved URL and/or the fragment identifier:', Resolution.url, Resolution.fragmentIdentifier);
+                        } else {
+                            logger.warn('Unresolved URL:', Resolution.url);
+                        }  
+                    } else {
+                        if (Resolution.fragmentIdentifier) {
+                            logger.info('Resolved URL and the fragment identifier:', Resolution.url, Resolution.fragmentIdentifier);
+                        } else {
+                            logger.info('Resolved URL:', Resolution.url);
+                        }                        
+                    }
+                });
+
+                resolve();
+            });
+        });
+    };
+
     config = {};
     config.deadlink = {};
     config.deadlink.findDeadURLs = true;
     config.deadlink.findDeadFragmentIdentifiers = true;
     config.gitinfo = {};
     config.gitinfo.gitPath = gitdown._executionContext();
+
+    /**
+     * Get/set 
+     */
+    gitdown.logger = function (_logger) {
+        if (!_logger) {
+            return logger;
+        }
+
+        if (!_logger.info) {
+            throw new Error('Logger must implement logger.info method.');
+        }
+
+        if (!_logger.warn) {
+            throw new Error('Logger must implement logger.warn method.');
+        }
+
+        logger = {
+            info: _logger.info,
+            warn: _logger.warn
+        };
+
+        return logger;
+    };
+
+    gitdown.logger(console);
 };
 
 /**
