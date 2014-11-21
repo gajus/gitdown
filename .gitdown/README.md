@@ -27,11 +27,46 @@ gitdown = Gitdown.read('.gitdown/README.md');
 // gitdown = Gitdown('literal string');
 
 // Provide parser configuration.
-// gitdown.config(config);
+// gitdown.config = config;
 
 // Output the markdown file.
 // All of the file system operations are relative to the root of the repository.
 gitdown.write('README.md');
+```
+
+### Parser Configuration
+
+Parser configuration is an [access descriptor property](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) `gitdown.config`.
+
+```js
+var config;
+
+// Get parser configuration.
+config = gitdown.config;
+
+// Modify configuration.
+config.gitinfo.gitPath = __dirname;
+
+// Set parser configuration.
+gitdown.config = config;
+```
+
+Modifying property of a resolved configuration object will bypass the configuration object validation:
+
+```js
+// Do not do this.
+gitdown.config.gitinfo.gitPath = __dirname;
+```
+
+### Logging
+
+Gitdown using `console` object to log messages. You can set your own logger:
+
+```js
+gitdown.logger = {
+    info: function () {},
+    warn: function () {}
+};
 ```
 
 ## Syntax

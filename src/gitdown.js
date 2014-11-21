@@ -2,7 +2,8 @@ var Gitdown,
     Parser = require('./parser.js'),
     fs = require('fs'),
     Deadlink = require('deadlink'),
-    Promise = require('bluebird');
+    Promise = require('bluebird'),
+    URLExtractor = require('url-extractor');
 
 /**
  * @param {String} input Gitdown flavored markdown.
@@ -82,7 +83,7 @@ Gitdown = function Gitdown (input) {
             promises;
 
         deadlink = Deadlink();
-        urls = deadlink.matchURLs(markdown);
+        urls = URLExtractor.extract(markdown, URLExtractor.SOURCE_TYPE_MARKDOWN);
 
         return new Promise(function (resolve, reject) {
             if (!urls.length || !gitdown.config.deadlink.findDeadURLs) {
@@ -94,6 +95,8 @@ Gitdown = function Gitdown (input) {
             } else {
                 promises = deadlink.resolveURLs(urls);
             }
+
+            gitdown.logger.info('Resolving URLs', urls);
 
             Promise.all(promises).then(function () {
                 promises.forEach(function (promise) {
@@ -133,7 +136,6 @@ Gitdown = function Gitdown (input) {
                 }
 
                 if (!_config.deadlink || typeof _config.deadlink.findDeadURLs != 'boolean') {
-                    console.log(_config);
                     throw new Error('config.deadlink.findDeadURLs must be set and must be a boolean value');
                 }
 
