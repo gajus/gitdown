@@ -315,8 +315,8 @@ Returns file size formatted in human friendly format.
 Generates:
 
 ```markdown
-6.80 kB
-1.77 kB
+7.95 kB
+2.13 kB
 ```
 
 #### JSON Configuration
@@ -388,7 +388,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416576371
+1416577705
 2014
 ```
 
