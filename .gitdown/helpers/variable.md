@@ -6,19 +6,7 @@
 ```
 <!-- gitdown: on -->
 
-Prints the value of a property defined under a parser `variable` configuration. Throws an error at the time of template processing if property is not set.
-
-`_` property is reserved for Gitdown.
-
-#### Predefined Variables
-
-> Under development.
-
-| Name | Value |
-| --- | --- |
-| `_.github.starCount` | Number of stars. |
-| `_.github.watcherCount` | Number of watchers. |
-| `_.github.forkCount` | Number of forks. |
+Prints the value of a property defined under a parser `variable.scope` configuration property. Throws an error if property is not set.
 
 #### Example
 
@@ -27,15 +15,17 @@ Prints the value of a property defined under a parser `variable` configuration. 
 var gitdown;
 
 gitdown = Gitdown(
-    '{"gitdown": "variable", "name": "user.firstName"}' +
-    '{"gitdown": "variable", "name": "user.lastName"}'
+    '{"gitdown": "variable", "name": "name.first"}' +
+    '{"gitdown": "variable", "name": "name.last"}'
 );
 
 gitdown.config({
     variable: {
-        user: {
-            firstName: "Gajus",
-            lastName: "Kuizinas"
+        scope: {
+            name: {
+                first: "Gajus",
+                last: "Kuizinas"
+            }
         }
     }
 });
@@ -46,10 +36,10 @@ gitdown.config({
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `name` | Name of the parser `variable` configuration property.  | N/A |
+| `name` | Name of the property defined under a parser `variable.scope` configuration property. | N/A |
 
 #### Parser Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `variable` | Variable object | `{}` |
+| `variable.scope` | Variable scope object. | `{}` |

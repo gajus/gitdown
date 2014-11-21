@@ -60,8 +60,8 @@ describe('gitdown', function () {
                     scope: {}
                 },
                 deadlink: {
-                    findDeadURLs: true,
-                    findDeadFragmentIdentifiers: true
+                    findDeadURLs: false,
+                    findDeadFragmentIdentifiers: false
                 },
                 gitinfo: {
                     gitPath: __dirname

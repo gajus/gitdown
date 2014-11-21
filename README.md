@@ -1,5 +1,5 @@
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
-[![Travis build status](http://img.shields.io/travis/gajus/gitdown/dev.svg?style=flat)](https://travis-ci.org/undefined)
+[![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/undefined)
 
 Gitdown is a markdown preprocessor for Github. Gitdown streamlines common tasks associated with maintaining a documentation page for GitHub repository.
 
@@ -151,8 +151,8 @@ Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `deadlink.findDeadURLs` | Find dead URLs. | `true` |
-| `deadlink.findDeadFragmentIdentifiers` | Find dead fragment identifiers. | `true` |
+| `deadlink.findDeadURLs` | Find dead URLs. | `false` |
+| `deadlink.findDeadFragmentIdentifiers` | Find dead fragment identifiers. | `false` |
 | `deadlink.ignoreURLs` | URLs matching the regex will be ignored. | N/A |
 ### Reference an Anchor in the Repository
 
@@ -205,19 +205,7 @@ Gitdown will throw an error if the anchor is not found.
 ```
 <!-- gitdown: on -->
 
-Prints the value of a property defined under a parser `variable` configuration. Throws an error at the time of template processing if property is not set.
-
-`_` property is reserved for Gitdown.
-
-#### Predefined Variables
-
-> Under development.
-
-| Name | Value |
-| --- | --- |
-| `_.github.starCount` | Number of stars. |
-| `_.github.watcherCount` | Number of watchers. |
-| `_.github.forkCount` | Number of forks. |
+Prints the value of a property defined under a parser `variable.scope` configuration property. Throws an error if property is not set.
 
 #### Example
 
@@ -226,15 +214,17 @@ Prints the value of a property defined under a parser `variable` configuration. 
 var gitdown;
 
 gitdown = Gitdown(
-    '{"gitdown": "variable", "name": "user.firstName"}' +
-    '{"gitdown": "variable", "name": "user.lastName"}'
+    '{"gitdown": "variable", "name": "name.first"}' +
+    '{"gitdown": "variable", "name": "name.last"}'
 );
 
 gitdown.config({
     variable: {
-        user: {
-            firstName: "Gajus",
-            lastName: "Kuizinas"
+        scope: {
+            name: {
+                first: "Gajus",
+                last: "Kuizinas"
+            }
         }
     }
 });
@@ -245,13 +235,13 @@ gitdown.config({
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `name` | Name of the parser `variable` configuration property.  | N/A |
+| `name` | Name of the property defined under a parser `variable.scope` configuration property. | N/A |
 
 #### Parser Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `variable` | Variable object | `{}` |
+| `variable.scope` | Variable scope object. | `{}` |
 ### Include File
 
 <!-- gitdown: off -->
@@ -336,7 +326,7 @@ Generates:
 
 ```markdown
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
-[![Travis build status](http://img.shields.io/travis/gajus/gitdown/dev.svg?style=flat)](https://travis-ci.org/undefined)
+[![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/undefined)
 ```
 
 #### JSON Configuration
@@ -366,7 +356,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416569048
+1416570984
 2014
 ```
 
@@ -400,7 +390,7 @@ Generates:
 gajus
 gitdown
 https://github.com/gajus/gitdown
-dev
+master
 ```
 
 #### Supported Properties

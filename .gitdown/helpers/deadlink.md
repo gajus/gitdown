@@ -6,6 +6,6 @@ Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `deadlink.findDeadURLs` | Find dead URLs. | `true` |
-| `deadlink.findDeadFragmentIdentifiers` | Find dead fragment identifiers. | `true` |
+| `deadlink.findDeadURLs` | Find dead URLs. | `false` |
+| `deadlink.findDeadFragmentIdentifiers` | Find dead fragment identifiers. | `false` |
 | `deadlink.ignoreURLs` | URLs matching the regex will be ignored. | N/A |

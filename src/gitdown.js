@@ -192,8 +192,8 @@ Gitdown = function Gitdown (input) {
                 scope: {}
             },
             deadlink: {
-                findDeadURLs: true,
-                findDeadFragmentIdentifiers: true
+                findDeadURLs: false,
+                findDeadFragmentIdentifiers: false
             },
             gitinfo: {
                 gitPath: gitdown._executionContext()
