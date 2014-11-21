@@ -92,7 +92,7 @@ Gitdown = function Gitdown (input) {
             // @todo What if it isn't /README.md?
             // @todo Test case.
             if (url.indexOf('#') === 0) {
-                url = repositoryURL + url;
+                url = repositoryURL + '#user-content-' + url.substr(1);
             }
 
             return url;
