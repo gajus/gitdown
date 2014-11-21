@@ -16,22 +16,14 @@ What can Gitdown [do better](https://github.com/gajus/gitdown/issues)?
 * [Features](#features)
     * [Generate Table of Contents](#features-generate-table-of-contents)
     * [Heading Nesting](#features-heading-nesting)
-* [Foo](#foo)
-    * [Something](#foo-something)
-* [Bar](#bar)
-    * [Something](#bar-something)
-* [Foo](#foo)
-    * [Something](#foo-something)
-* [Bar](#bar)
-    * [Something](#bar-something)
-        * [Find Dead URLs and Fragment Identifiers](#bar-something-find-dead-urls-and-fragment-identifiers)
-        * [Reference an Anchor in the Repository](#bar-something-reference-an-anchor-in-the-repository)
-        * [Variables](#bar-something-variables)
-        * [Include File](#bar-something-include-file)
-        * [Get File Size](#bar-something-get-file-size)
-        * [Generate Badges](#bar-something-generate-badges)
-        * [Print Date](#bar-something-print-date)
-        * [Gitinfo](#bar-something-gitinfo)
+    * [Find Dead URLs and Fragment Identifiers](#features-find-dead-urls-and-fragment-identifiers)
+    * [Reference an Anchor in the Repository](#features-reference-an-anchor-in-the-repository)
+    * [Variables](#features-variables)
+    * [Include File](#features-include-file)
+    * [Get File Size](#features-get-file-size)
+    * [Generate Badges](#features-generate-badges)
+    * [Print Date](#features-print-date)
+    * [Gitinfo](#features-gitinfo)
 
 
 ## Usage
@@ -149,6 +141,34 @@ The table of contents is generated using [markdown-contents](https://github.com/
     * [Example](#features-generate-table-of-contents-example)
     * [JSON Configuration](#features-generate-table-of-contents-json-configuration)
 * [Heading Nesting](#features-heading-nesting)
+    * [Parser Configuration](#features-heading-nesting-parser-configuration)
+* [Find Dead URLs and Fragment Identifiers](#features-find-dead-urls-and-fragment-identifiers)
+    * [Parser Configuration](#features-find-dead-urls-and-fragment-identifiers-parser-configuration)
+* [Reference an Anchor in the Repository](#features-reference-an-anchor-in-the-repository)
+    * [JSON Configuration](#features-reference-an-anchor-in-the-repository-json-configuration)
+    * [Parser Configuration](#features-reference-an-anchor-in-the-repository-parser-configuration)
+* [Variables](#features-variables)
+    * [Example](#features-variables-example)
+    * [JSON Configuration](#features-variables-json-configuration)
+    * [Parser Configuration](#features-variables-parser-configuration)
+* [Include File](#features-include-file)
+    * [Example](#features-include-file-example)
+    * [JSON Configuration](#features-include-file-json-configuration)
+* [Get File Size](#features-get-file-size)
+    * [Example](#features-get-file-size-example)
+    * [JSON Configuration](#features-get-file-size-json-configuration)
+* [Generate Badges](#features-generate-badges)
+    * [Supported Services](#features-generate-badges-supported-services)
+    * [Example](#features-generate-badges-example)
+    * [JSON Configuration](#features-generate-badges-json-configuration)
+* [Print Date](#features-print-date)
+    * [Example](#features-print-date-example)
+    * [JSON Configuration](#features-print-date-json-configuration)
+* [Gitinfo](#features-gitinfo)
+    * [Example](#features-gitinfo-example)
+    * [Supported Properties](#features-gitinfo-supported-properties)
+    * [JSON Configuration](#features-gitinfo-json-configuration)
+    * [Parser Configuration](#features-gitinfo-parser-configuration)
 
 ```
 
@@ -414,7 +434,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416579292
+1416580477
 2014
 ```
 
