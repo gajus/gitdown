@@ -15,14 +15,23 @@ What can Gitdown [do better](https://github.com/gajus/gitdown/issues)?
     * [Ignoring Sections of the Document](#syntax-ignoring-sections-of-the-document)
 * [Features](#features)
     * [Generate Table of Contents](#features-generate-table-of-contents)
-    * [Find Dead URLs and Fragment Identifiers](#features-find-dead-urls-and-fragment-identifiers)
-    * [Reference an Anchor in the Repository](#features-reference-an-anchor-in-the-repository)
-    * [Variables](#features-variables)
-    * [Include File](#features-include-file)
-    * [Get File Size](#features-get-file-size)
-    * [Generate Badges](#features-generate-badges)
-    * [Print Date](#features-print-date)
-    * [Gitinfo](#features-gitinfo)
+    * [Heading Nesting](#features-heading-nesting)
+* [Foo](#foo)
+    * [Something](#foo-something)
+* [Bar](#bar)
+    * [Something](#bar-something)
+* [Foo](#foo)
+    * [Something](#foo-something)
+* [Bar](#bar)
+    * [Something](#bar-something)
+        * [Find Dead URLs and Fragment Identifiers](#bar-something-find-dead-urls-and-fragment-identifiers)
+        * [Reference an Anchor in the Repository](#bar-something-reference-an-anchor-in-the-repository)
+        * [Variables](#bar-something-variables)
+        * [Include File](#bar-something-include-file)
+        * [Get File Size](#bar-something-get-file-size)
+        * [Generate Badges](#bar-something-generate-badges)
+        * [Print Date](#bar-something-print-date)
+        * [Gitinfo](#bar-something-gitinfo)
 
 
 ## Usage
@@ -139,33 +148,7 @@ The table of contents is generated using [markdown-contents](https://github.com/
 * [Generate Table of Contents](#features-generate-table-of-contents)
     * [Example](#features-generate-table-of-contents-example)
     * [JSON Configuration](#features-generate-table-of-contents-json-configuration)
-* [Find Dead URLs and Fragment Identifiers](#features-find-dead-urls-and-fragment-identifiers)
-    * [Parser Configuration](#features-find-dead-urls-and-fragment-identifiers-parser-configuration)
-* [Reference an Anchor in the Repository](#features-reference-an-anchor-in-the-repository)
-    * [JSON Configuration](#features-reference-an-anchor-in-the-repository-json-configuration)
-    * [Parser Configuration](#features-reference-an-anchor-in-the-repository-parser-configuration)
-* [Variables](#features-variables)
-    * [Example](#features-variables-example)
-    * [JSON Configuration](#features-variables-json-configuration)
-    * [Parser Configuration](#features-variables-parser-configuration)
-* [Include File](#features-include-file)
-    * [Example](#features-include-file-example)
-    * [JSON Configuration](#features-include-file-json-configuration)
-* [Get File Size](#features-get-file-size)
-    * [Example](#features-get-file-size-example)
-    * [JSON Configuration](#features-get-file-size-json-configuration)
-* [Generate Badges](#features-generate-badges)
-    * [Supported Services](#features-generate-badges-supported-services)
-    * [Example](#features-generate-badges-example)
-    * [JSON Configuration](#features-generate-badges-json-configuration)
-* [Print Date](#features-print-date)
-    * [Example](#features-print-date-example)
-    * [JSON Configuration](#features-print-date-json-configuration)
-* [Gitinfo](#features-gitinfo)
-    * [Example](#features-gitinfo-example)
-    * [Supported Properties](#features-gitinfo-supported-properties)
-    * [JSON Configuration](#features-gitinfo-json-configuration)
-    * [Parser Configuration](#features-gitinfo-parser-configuration)
+* [Heading Nesting](#features-heading-nesting)
 
 ```
 
@@ -175,6 +158,49 @@ The table of contents is generated using [markdown-contents](https://github.com/
 | --- | --- | --- |
 | `maxLevel` | The maximum heading level after which headings are excluded. | 3 |
 | `rootId` | ID of the root heading. Provide it when you need table of contents for a specific section of the document. Throws an error if element with the said ID does not exist in the document. | N/A |
+### Heading Nesting
+
+Github markdown processor generates heading ID based on the text of the heading.
+
+The conflicting IDs are solved with a numerical suffix, e.g.
+
+```markdown
+# Foo
+## Something
+# Bar
+## Something
+```
+
+```html
+<h1 id="foo">Foo</h1>
+<h2 id="something">Something</h1>
+<h1 id="bar">Bar</h1>
+<h2 id="something-1">Something</h1>
+```
+
+The problem with this approach is that it makes the order of the content important.
+
+Gitdown will nest the headings using parent heading names to ensure uniqueness, e.g.
+
+```markdown
+# Foo
+## Something
+# Bar
+## Something
+```
+
+```html
+<h1 id="foo">Foo</h1>
+<h2 id="foo-something">Something</h1>
+<h1 id="bar">Bar</h1>
+<h2 id="bar-something">Something</h1>
+```
+
+#### Parser Configuration
+
+| Name | Description | Default |
+| --- | --- | --- |
+| `headingNesting.enabled` | Boolean flag indicating whether to nest headings. | `true` |
 ### Find Dead URLs and Fragment Identifiers
 
 Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the URLs in the resulting document. Throws an error if either of the URLs is resolved with an HTTP status other than 200 or fragment identifier (anchor) is not found.
@@ -388,7 +414,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416577705
+1416578323
 2014
 ```
 

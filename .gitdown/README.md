@@ -100,6 +100,7 @@ Gitdown JSON will be interpreted.
 ## Features
 
 {"gitdown": "include", "file": ".gitdown/helpers/contents.md"}
+{"gitdown": "include", "file": ".gitdown/helpers/heading-nesting.md"}
 {"gitdown": "include", "file": ".gitdown/helpers/deadlink.md"}
 {"gitdown": "include", "file": ".gitdown/helpers/anchor.md"}
 {"gitdown": "include", "file": ".gitdown/helpers/variable.md"}
