@@ -49,4 +49,33 @@ describe('Parser.helpers.contents', function () {
             expect(helper.maxLevel(tree, 2)).to.deep.equal(treeAfterMaxDepth);
         });
     });
+    describe('.findRoot()', function () {
+        it('find the object with ID', function () {
+            var tree;
+
+            tree = [
+                {
+                    id: 'foo',
+                    descendants: [
+                        {
+                            id: 'bar',
+                            descendants: [
+                                {
+                                    id: 'baz',
+                                    descendants: []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ];
+
+            expect(helper.findRoot(tree, 'bar')).to.equal(tree[0].descendants[0]);
+        });
+        it('throws an error if article with ID cannot be found', function () {
+            expect(function () {
+                helper.findRoot({}, 'bar');
+            }).to.throw(Error, 'Heading does not exist with rootId ("bar").');
+        });
+    });
 });

@@ -14,12 +14,12 @@ The table of contents is generated using [markdown-contents](https://github.com/
 
 <!-- gitdown: off -->
 ```json
-{"gitdown": "contents", "maxLevel": 2, "root": "features"}
+{"gitdown": "contents", "maxLevel": 2, "rootId": "features"}
 ```
 <!-- gitdown: on -->
 
 ```markdown
-{"gitdown": "contents", "maxLevel": 2, "root": "features"}
+{"gitdown": "contents", "maxLevel": 2, "rootId": "features"}
 ```
 
 #### JSON Configuration
@@ -27,4 +27,4 @@ The table of contents is generated using [markdown-contents](https://github.com/
 | Name | Description | Default |
 | --- | --- | --- |
 | `maxLevel` | The maximum heading level after which headings are excluded. | 3 |
-| `root` | ID of the root heading. Provide it when you need table of contents for a specific section of the document. Throws an error if element with the said ID does not exist in the document. | N/A |
+| `rootId` | ID of the root heading. Provide it when you need table of contents for a specific section of the document. Throws an error if element with the said ID does not exist in the document. | N/A |

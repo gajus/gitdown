@@ -4,7 +4,7 @@ var expect = require('chai').expect,
     nock = require('nock'),
     sinon = require('sinon');
 
-xdescribe('Gitdown', function () {
+describe('Gitdown', function () {
     var Gitdown;
     beforeEach(function () {
         Gitdown = requireNew('../src/gitdown.js');
@@ -25,7 +25,7 @@ xdescribe('Gitdown', function () {
     });
 });
 
-xdescribe('gitdown', function () {
+describe('gitdown', function () {
     var Gitdown;
     beforeEach(function () {
         Gitdown = requireNew('../src/gitdown.js');
@@ -151,7 +151,7 @@ xdescribe('gitdown', function () {
 
             return gitdown.get()
                 .then(function () {
-                    expect(spy.calledWith('Resolved URL and the fragment identifier:', 'http://foo.com/#ok', 'ok')).to.be.true;
+                    expect(spy.calledWith('Resolved URL and the fragment identifier:', 'http://foo.com/#ok')).to.be.true;
                 });
         });
         it('logs unsuccessful URL resolution using logger.warn', function () {
@@ -177,7 +177,7 @@ xdescribe('gitdown', function () {
 
             return gitdown.get()
                 .then(function () {
-                    expect(spy.calledWith('Unresolved URL and/or the fragment identifier:', 'http://bar.com/#not-ok', 'not-ok')).to.be.true;
+                    expect(spy.calledWith('Unresolved URL and/or the fragment identifier:', 'http://bar.com/#not-ok')).to.be.true;
                 });
         });
     });

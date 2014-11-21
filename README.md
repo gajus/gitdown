@@ -15,36 +15,14 @@ What can Gitdown [do better](https://github.com/gajus/gitdown/issues)?
     * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
 * [Features](#features)
     * [Generate Table  of Contents](#generate-table-of-contents)
-        * [Example](#example)
-        * [JSON Configuration](#json-configuration)
     * [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers)
-        * [Parser Configuration](#parser-configuration-1)
     * [Reference an Anchor in the Repository](#reference-an-anchor-in-the-repository)
-        * [JSON Configuration](#json-configuration-1)
-        * [Parser Configuration](#parser-configuration-2)
     * [Variables](#variables)
-        * [Predefined Variables](#predefined-variables)
-        * [Example](#example-1)
-        * [JSON Configuration](#json-configuration-2)
-        * [Parser Configuration](#parser-configuration-3)
     * [Include File](#include-file)
-        * [Example](#example-2)
-        * [JSON Configuration](#json-configuration-3)
     * [Get File Size](#get-file-size)
-        * [Example](#example-3)
-        * [JSON Configuration](#json-configuration-4)
     * [Generate Badges](#generate-badges)
-        * [Supported Services](#supported-services)
-        * [Example](#example-4)
-        * [JSON Configuration](#json-configuration-5)
     * [Print Date](#print-date)
-        * [Example](#example-5)
-        * [JSON Configuration](#json-configuration-6)
     * [Gitinfo](#gitinfo)
-        * [Example](#example-6)
-        * [Supported Properties](#supported-properties)
-        * [JSON Configuration](#json-configuration-7)
-        * [Parser Configuration](#parser-configuration-4)
 
 
 ## Usage
@@ -151,49 +129,11 @@ The table of contents is generated using [markdown-contents](https://github.com/
 
 <!-- gitdown: off -->
 ```json
-{"gitdown": "contents", "maxDepth": 2, "root": "features"}
+{"gitdown": "contents", "maxLevel": 2, "rootId": "features"}
 ```
 <!-- gitdown: on -->
 
 ```markdown
-* [Contents](#contents)
-* [Usage](#usage)
-    * [Parser Configuration](#parser-configuration)
-    * [Logging](#logging)
-* [Syntax](#syntax)
-    * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
-* [Features](#features)
-    * [Generate Table  of Contents](#generate-table-of-contents)
-        * [Example](#example)
-        * [JSON Configuration](#json-configuration)
-    * [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers)
-        * [Parser Configuration](#parser-configuration-1)
-    * [Reference an Anchor in the Repository](#reference-an-anchor-in-the-repository)
-        * [JSON Configuration](#json-configuration-1)
-        * [Parser Configuration](#parser-configuration-2)
-    * [Variables](#variables)
-        * [Predefined Variables](#predefined-variables)
-        * [Example](#example-1)
-        * [JSON Configuration](#json-configuration-2)
-        * [Parser Configuration](#parser-configuration-3)
-    * [Include File](#include-file)
-        * [Example](#example-2)
-        * [JSON Configuration](#json-configuration-3)
-    * [Get File Size](#get-file-size)
-        * [Example](#example-3)
-        * [JSON Configuration](#json-configuration-4)
-    * [Generate Badges](#generate-badges)
-        * [Supported Services](#supported-services)
-        * [Example](#example-4)
-        * [JSON Configuration](#json-configuration-5)
-    * [Print Date](#print-date)
-        * [Example](#example-5)
-        * [JSON Configuration](#json-configuration-6)
-    * [Gitinfo](#gitinfo)
-        * [Example](#example-6)
-        * [Supported Properties](#supported-properties)
-        * [JSON Configuration](#json-configuration-7)
-        * [Parser Configuration](#parser-configuration-4)
 
 ```
 
@@ -202,7 +142,7 @@ The table of contents is generated using [markdown-contents](https://github.com/
 | Name | Description | Default |
 | --- | --- | --- |
 | `maxLevel` | The maximum heading level after which headings are excluded. | 3 |
-| `root` | ID of the root heading. Provide it when you need table of contents for a specific section of the document. Throws an error if element with the said ID does not exist in the document. | N/A |
+| `rootId` | ID of the root heading. Provide it when you need table of contents for a specific section of the document. Throws an error if element with the said ID does not exist in the document. | N/A |
 ### Find Dead URLs and Fragment Identifiers
 
 Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the URLs in the resulting document. Throws an error if either of the URLs is resolved with an HTTP status other than 200 or fragment identifier (anchor) is not found.
@@ -353,8 +293,8 @@ Returns file size formatted in human friendly format.
 Generates:
 
 ```markdown
-6.51 kB
-1.64 kB
+6.45 kB
+1.63 kB
 ```
 
 #### JSON Configuration
@@ -426,7 +366,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416565281
+1416566432
 2014
 ```
 

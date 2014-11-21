@@ -117,13 +117,13 @@ Gitdown = function Gitdown (input) {
 
                     if (Resolution.error) {
                         if (Resolution.fragmentIdentifier) {
-                            gitdown.logger.warn('Unresolved URL and/or the fragment identifier:', Resolution.url, Resolution.fragmentIdentifier);
+                            gitdown.logger.warn('Unresolved URL and/or the fragment identifier:', Resolution.url);
                         } else {
                             gitdown.logger.warn('Unresolved URL:', Resolution.url);
                         }  
                     } else {
                         if (Resolution.fragmentIdentifier) {
-                            gitdown.logger.info('Resolved URL and the fragment identifier:', Resolution.url, Resolution.fragmentIdentifier);
+                            gitdown.logger.info('Resolved URL and the fragment identifier:', Resolution.url);
                         } else {
                             gitdown.logger.info('Resolved URL:', Resolution.url);
                         }                        
