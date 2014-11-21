@@ -60,7 +60,7 @@ gitdown.config.gitinfo.gitPath = __dirname;
 
 ### Logging
 
-Gitdown using `console` object to log messages. You can set your own logger:
+Gitdown is using `console` object to log messages. You can set your own logger:
 
 ```js
 gitdown.logger = {
@@ -68,6 +68,8 @@ gitdown.logger = {
     warn: function () {}
 };
 ```
+
+The logger is used to [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers).
 
 ## Syntax
 
