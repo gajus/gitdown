@@ -6,9 +6,9 @@ describe('Parser.helpers.contents', function () {
     beforeEach(function () {
         helper = requireNew('../../src/helpers/contents.js');
     });
-    xit('generates table of contents for a markdown document', function () {
-        var contents = helper('test ## a\n## b\n\n##c ');
+    it('generates table of contents for a markdown document', function () {
+        var contents = helper({}, {markdown: '\n# a\n## b\n\n##c '});
 
-        console.log('contents\n\n', contents);
+        expect(contents).to.equal('* [a](#a)\n    * [b](#b)\n    * [c](#c)\n');
     });
 });

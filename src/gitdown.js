@@ -79,11 +79,24 @@ Gitdown = function Gitdown (input) {
      */
     gitdown._resolveURLs = function (markdown) {
         var deadlink,
+            repositoryURL = Parser.helpers.gitinfo({name: 'url'}, {gitdown: gitdown}),
             urls,
             promises;
 
+        // Parser.helpers.gitinfo({name: 'url'}, gitdown.config)
+
         deadlink = Deadlink();
         urls = URLExtractor.extract(markdown, URLExtractor.SOURCE_TYPE_MARKDOWN);
+
+        urls = urls.map(function (url) {
+            // @todo What if it isn't /README.md?
+            // @todo Test case.
+            if (url.indexOf('#') === 0) {
+                url = repositoryURL + url;
+            }
+
+            return url;
+        });
 
         return new Promise(function (resolve, reject) {
             if (!urls.length || !gitdown.config.deadlink.findDeadURLs) {

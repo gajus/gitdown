@@ -7,7 +7,45 @@ What can Gitdown [do better](https://github.com/gajus/gitdown/issues)?
 
 ## Contents
 
-[Table of contents has been temporarily removed.]
+* [Contents](#contents)
+* [Usage](#usage)
+    * [Parser Configuration](#parser-configuration)
+    * [Logging](#logging)
+* [Syntax](#syntax)
+    * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
+* [Features](#features)
+    * [Generate Table  of Contents](#generate-table-of-contents)
+        * [Example](#example)
+        * [JSON Configuration](#json-configuration)
+    * [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers)
+        * [Parser Configuration](#parser-configuration-1)
+    * [Reference an Anchor in the Repository](#reference-an-anchor-in-the-repository)
+        * [JSON Configuration](#json-configuration-1)
+        * [Parser Configuration](#parser-configuration-2)
+    * [Variables](#variables)
+        * [Predefined Variables](#predefined-variables)
+        * [Example](#example-1)
+        * [JSON Configuration](#json-configuration-2)
+        * [Parser Configuration](#parser-configuration-3)
+    * [Include File](#include-file)
+        * [Example](#example-2)
+        * [JSON Configuration](#json-configuration-3)
+    * [Get File Size](#get-file-size)
+        * [Example](#example-3)
+        * [JSON Configuration](#json-configuration-4)
+    * [Generate Badges](#generate-badges)
+        * [Supported Services](#supported-services)
+        * [Example](#example-4)
+        * [JSON Configuration](#json-configuration-5)
+    * [Print Date](#print-date)
+        * [Example](#example-5)
+        * [JSON Configuration](#json-configuration-6)
+    * [Gitinfo](#gitinfo)
+        * [Example](#example-6)
+        * [Supported Properties](#supported-properties)
+        * [JSON Configuration](#json-configuration-7)
+        * [Parser Configuration](#parser-configuration-4)
+
 
 ## Usage
 
@@ -99,8 +137,6 @@ Gitdown JSON will be interpreted.
 
 ### Generate Table  of Contents
 
-> Under development.
-
 <!-- gitdown: off -->
 ```json
 {"gitdown": "contents"}
@@ -120,7 +156,45 @@ The table of contents is generated using [markdown-contents](https://github.com/
 <!-- gitdown: on -->
 
 ```markdown
-[Table of contents has been temporarily removed.]
+* [Contents](#contents)
+* [Usage](#usage)
+    * [Parser Configuration](#parser-configuration)
+    * [Logging](#logging)
+* [Syntax](#syntax)
+    * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
+* [Features](#features)
+    * [Generate Table  of Contents](#generate-table-of-contents)
+        * [Example](#example)
+        * [JSON Configuration](#json-configuration)
+    * [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers)
+        * [Parser Configuration](#parser-configuration-1)
+    * [Reference an Anchor in the Repository](#reference-an-anchor-in-the-repository)
+        * [JSON Configuration](#json-configuration-1)
+        * [Parser Configuration](#parser-configuration-2)
+    * [Variables](#variables)
+        * [Predefined Variables](#predefined-variables)
+        * [Example](#example-1)
+        * [JSON Configuration](#json-configuration-2)
+        * [Parser Configuration](#parser-configuration-3)
+    * [Include File](#include-file)
+        * [Example](#example-2)
+        * [JSON Configuration](#json-configuration-3)
+    * [Get File Size](#get-file-size)
+        * [Example](#example-3)
+        * [JSON Configuration](#json-configuration-4)
+    * [Generate Badges](#generate-badges)
+        * [Supported Services](#supported-services)
+        * [Example](#example-4)
+        * [JSON Configuration](#json-configuration-5)
+    * [Print Date](#print-date)
+        * [Example](#example-5)
+        * [JSON Configuration](#json-configuration-6)
+    * [Gitinfo](#gitinfo)
+        * [Example](#example-6)
+        * [Supported Properties](#supported-properties)
+        * [JSON Configuration](#json-configuration-7)
+        * [Parser Configuration](#parser-configuration-4)
+
 ```
 
 #### JSON Configuration
@@ -279,8 +353,8 @@ Returns file size formatted in human friendly format.
 Generates:
 
 ```markdown
-6.10 kB
-1.49 kB
+6.51 kB
+1.64 kB
 ```
 
 #### JSON Configuration
@@ -352,7 +426,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416532308
+1416539910
 2014
 ```
 

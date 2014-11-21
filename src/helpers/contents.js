@@ -1,13 +1,12 @@
-var helper = {};
+var helper = {},
+    MarkdownContents = require('markdown-contents');
 
-helper = function (config) {
-    var raw;
+helper = function (config, context) {
+    //var raw;
+    //config = config || {};
+    //config.maxDepth = config.maxDepth || 3;
 
-    config = config || {};
-
-    config.maxDepth = config.maxDepth || 3;
-
-    return '[Table of contents has been temporarily removed.]';
+    return MarkdownContents(context.markdown).markdown();
 
     /*raw = contents.raw(markdown, {
         template: '<%= depth %><%= bullet %> [<%= heading %>](#<%= url %>)\n',
