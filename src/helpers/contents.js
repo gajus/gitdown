@@ -2,33 +2,29 @@ var helper = {},
     MarkdownContents = require('markdown-contents');
 
 helper = function (config, context) {
-    //var raw;
-    //config = config || {};
-    //config.maxDepth = config.maxDepth || 3;
+    var tree;
 
-    return MarkdownContents(context.markdown).markdown();
+    config = config || {};
+    config.maxDepth = config.maxDepth || 3;
 
-    /*raw = contents.raw(markdown, {
-        template: '<%= depth %><%= bullet %> [<%= heading %>](#<%= url %>)\n',
-        bullet: '*',
-        maxDepth: config.maxDepth,
-        firsth1: false,
-        omit: ['xxx'],
-        clean: [],
-        blacklist: false,
-        allowedChars: '-'
+    tree = MarkdownContents(context.markdown).tree();
+    tree = helper.maxDepth(tree, config.maxDepth);
+
+    return MarkdownContents.treeToMarkdown(tree);
+};
+
+helper.maxDepth = function (tree, maxDepth) {
+    maxDepth = maxDepth || 1;
+
+    tree.forEach(function (article, index) {
+        if (article.level > maxDepth) {
+            delete tree[index];
+        } else {
+            article.descendants = helper.maxDepth(article.descendants, maxDepth)
+        }
     });
 
-    return contents(markdown, {
-        template: '<%= depth %><%= bullet %> [<%= heading %>](#<%= url %>)\n',
-        bullet: '*',
-        maxDepth: config.maxDepth,
-        firsth1: false,
-        omit: ['xxx'],
-        clean: [],
-        blacklist: false,
-        allowedChars: '-'
-    });*/
+    return tree;
 };
 
 helper.weight = function () {
