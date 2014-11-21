@@ -116,7 +116,7 @@ Gitdown JSON will be interpreted.
 
 <h2 id="features-generate-table-of-contents-json-configuration">Features</h2>
 
-<h3 id="foo-something">Generate Table of Contents</h3>
+<h3 id="features-find-dead-urls-and-fragment-identifiers-parser-configuration">Generate Table of Contents</h3>
 
 <!-- gitdown: off -->
 ```json
@@ -128,7 +128,7 @@ Generates table of contents.
 
 The table of contents is generated using [markdown-contents](https://github.com/gajus/markdown-contents).
 
-<h4 id="bar-something">Example</h4>
+<h4 id="features-reference-an-anchor-in-the-repository-json-configuration">Example</h4>
 
 <!-- gitdown: off -->
 ```json
@@ -172,23 +172,23 @@ The table of contents is generated using [markdown-contents](https://github.com/
 
 ```
 
-<h4 id="bar-something-parser-configuration">JSON Configuration</h4>
+<h4 id="features-reference-an-anchor-in-the-repository-parser-configuration">JSON Configuration</h4>
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `maxLevel` | The maximum heading level after which headings are excluded. | 3 |
 | `rootId` | ID of the root heading. Provide it when you need table of contents for a specific section of the document. Throws an error if element with the said ID does not exist in the document. | N/A |
-<h3 id="bar-something-find-dead-urls-and-fragment-identifiers">Heading Nesting</h3>
+<h3 id="features-variables-json-configuration">Heading Nesting</h3>
 
 Github markdown processor generates heading ID based on the text of the heading.
 
 The conflicting IDs are solved with a numerical suffix, e.g.
 
 ```markdown
-<h1 id="bar-something-find-dead-urls-and-fragment-identifiers-parser-configuration">Foo</h1>
-<h2 id="bar-something-reference-an-anchor-in-the-repository-json-configuration">Something</h2>
-<h1 id="bar-something-reference-an-anchor-in-the-repository-parser-configuration">Bar</h1>
-<h2 id="bar-something-variables-json-configuration">Something</h2>
+# Foo
+## Something
+# Bar
+## Something
 ```
 
 ```html
@@ -203,10 +203,10 @@ The problem with this approach is that it makes the order of the content importa
 Gitdown will nest the headings using parent heading names to ensure uniqueness, e.g.
 
 ```markdown
-<h1 id="bar-something-variables-parser-configuration">Foo</h1>
-<h2 id="bar-something-get-file-size-json-configuration">Something</h2>
-<h1 id="bar-something-generate-badges-example">Bar</h1>
-<h2 id="bar-something-generate-badges-json-configuration">Something</h2>
+# Foo
+## Something
+# Bar
+## Something
 ```
 
 ```html
@@ -216,23 +216,23 @@ Gitdown will nest the headings using parent heading names to ensure uniqueness, 
 <h2 id="bar-something">Something</h1>
 ```
 
-<h4 id="bar-something-gitinfo-supported-properties">Parser Configuration</h4>
+<h4 id="features-variables-parser-configuration">Parser Configuration</h4>
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `headingNesting.enabled` | Boolean flag indicating whether to nest headings. | `true` |
-<h3 id="bar-something-gitinfo-json-configuration">Find Dead URLs and Fragment Identifiers</h3>
+<h3 id="features-get-file-size-json-configuration">Find Dead URLs and Fragment Identifiers</h3>
 
 Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the URLs in the resulting document. Throws an error if either of the URLs is resolved with an HTTP status other than 200 or fragment identifier (anchor) is not found.
 
-<h4 id="bar-something-gitinfo-parser-configuration">Parser Configuration</h4>
+<h4 id="features-generate-badges-example">Parser Configuration</h4>
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `deadlink.findDeadURLs` | Find dead URLs. | `false` |
 | `deadlink.findDeadFragmentIdentifiers` | Find dead fragment identifiers. | `false` |
 | `deadlink.ignoreURLs` | URLs matching the regex will be ignored. | N/A |
-<h3 id="⊂⊂H:23⊃⊃">Reference an Anchor in the Repository</h3>
+<h3 id="features-generate-badges-json-configuration">Reference an Anchor in the Repository</h3>
 
 > This feature is under development.
 
@@ -264,18 +264,18 @@ The anchor name must match `/^[a-z]+[a-z0-9\-_:\.]*$/i`.
 
 Gitdown will throw an error if the anchor is not found.
 
-<h4 id="⊂⊂H:24⊃⊃">JSON Configuration</h4>
+<h4 id="features-gitinfo-supported-properties">JSON Configuration</h4>
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `name` | Anchor name. | N/A |
 
-<h4 id="⊂⊂H:25⊃⊃">Parser Configuration</h4>
+<h4 id="features-gitinfo-json-configuration">Parser Configuration</h4>
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `anchor.exclude` | Array of paths to exclude. | `['./dist/*']` |
-<h3 id="⊂⊂H:26⊃⊃">Variables</h3>
+<h3 id="features-gitinfo-parser-configuration">Variables</h3>
 
 <!-- gitdown: off -->
 ```json
@@ -285,7 +285,7 @@ Gitdown will throw an error if the anchor is not found.
 
 Prints the value of a property defined under a parser `variable.scope` configuration property. Throws an error if property is not set.
 
-<h4 id="⊂⊂H:27⊃⊃">Example</h4>
+<h4 id="⊂⊂H:19⊃⊃">Example</h4>
 
 <!-- gitdown: off -->
 ```js
@@ -309,18 +309,18 @@ gitdown.config({
 ```
 <!-- gitdown: on -->
 
-<h4 id="⊂⊂H:28⊃⊃">JSON Configuration</h4>
+<h4 id="⊂⊂H:20⊃⊃">JSON Configuration</h4>
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `name` | Name of the property defined under a parser `variable.scope` configuration property. | N/A |
 
-<h4 id="⊂⊂H:29⊃⊃">Parser Configuration</h4>
+<h4 id="⊂⊂H:21⊃⊃">Parser Configuration</h4>
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `variable.scope` | Variable scope object. | `{}` |
-<h3 id="⊂⊂H:30⊃⊃">Include File</h3>
+<h3 id="⊂⊂H:22⊃⊃">Include File</h3>
 
 <!-- gitdown: off -->
 ```json
@@ -330,16 +330,16 @@ gitdown.config({
 
 Includes the contents of the file to the document. The included file can have Gitdown JSON hooks.
 
-<h4 id="⊂⊂H:31⊃⊃">Example</h4>
+<h4 id="⊂⊂H:23⊃⊃">Example</h4>
 
 See source code of [.gitdown/README.md](https://github.com/gajus/gitdown/blob/master/.gitdown/README.md).
 
-<h4 id="⊂⊂H:32⊃⊃">JSON Configuration</h4>
+<h4 id="⊂⊂H:24⊃⊃">JSON Configuration</h4>
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `file` | Path to the file. The path is relative to the root of the repository. | N/A |
-<h3 id="⊂⊂H:33⊃⊃">Get File Size</h3>
+<h3 id="⊂⊂H:25⊃⊃">Get File Size</h3>
 
 <!-- gitdown: off -->
 ```json
@@ -349,7 +349,7 @@ See source code of [.gitdown/README.md](https://github.com/gajus/gitdown/blob/ma
 
 Returns file size formatted in human friendly format.
 
-<h4 id="⊂⊂H:34⊃⊃">Example</h4>
+<h4 id="⊂⊂H:26⊃⊃">Example</h4>
 
 <!-- gitdown: off -->
 ```json
@@ -361,17 +361,17 @@ Returns file size formatted in human friendly format.
 Generates:
 
 ```markdown
-8.20 kB
-2.19 kB
+8.51 kB
+2.27 kB
 ```
 
-<h4 id="⊂⊂H:35⊃⊃">JSON Configuration</h4>
+<h4 id="⊂⊂H:27⊃⊃">JSON Configuration</h4>
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `file` | Path to the file. The path is relative to the root of the repository. | N/A |
 | `gzip` | A boolean value indicating whether to gzip the file first. | `false` |
-<h3 id="⊂⊂H:36⊃⊃">Generate Badges</h3>
+<h3 id="⊂⊂H:28⊃⊃">Generate Badges</h3>
 
 <!-- gitdown: off -->
 ```json
@@ -383,7 +383,7 @@ Gitdown is using the environment variables to generate the markdown for the badg
 
 Badges are generated using http://shields.io/.
 
-<h4 id="⊂⊂H:37⊃⊃">Supported Services</h4>
+<h4 id="⊂⊂H:29⊃⊃">Supported Services</h4>
 
 * npm-version
 * bower-version
@@ -391,7 +391,7 @@ Badges are generated using http://shields.io/.
 
 What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/issues).
 
-<h4 id="⊂⊂H:38⊃⊃">Example</h4>
+<h4 id="⊂⊂H:30⊃⊃">Example</h4>
 
 <!-- gitdown: off -->
 ```json
@@ -407,12 +407,12 @@ Generates:
 [![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
 ```
 
-<h4 id="⊂⊂H:39⊃⊃">JSON Configuration</h4>
+<h4 id="⊂⊂H:31⊃⊃">JSON Configuration</h4>
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `name` | Name of the service. | N/A |
-<h3 id="⊂⊂H:40⊃⊃">Print Date</h3>
+<h3 id="⊂⊂H:32⊃⊃">Print Date</h3>
 
 <!-- gitdown: off -->
 ```json
@@ -422,7 +422,7 @@ Generates:
 
 Prints a string formatted according to the given [moment format](http://momentjs.com/docs/#/displaying/format/) string using the current time.
 
-<h4 id="⊂⊂H:41⊃⊃">Example</h4>
+<h4 id="⊂⊂H:33⊃⊃">Example</h4>
 
 <!-- gitdown: off -->
 ```json
@@ -434,16 +434,16 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416580567
+1416580767
 2014
 ```
 
-<h4 id="⊂⊂H:42⊃⊃">JSON Configuration</h4>
+<h4 id="⊂⊂H:34⊃⊃">JSON Configuration</h4>
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `format` | [Moment format](http://momentjs.com/docs/#/displaying/format/). | `X` (UNIX timestamp) |
-<h3 id="⊂⊂H:43⊃⊃">Gitinfo</h3>
+<h3 id="⊂⊂H:35⊃⊃">Gitinfo</h3>
 
 <!-- gitdown: off -->
 ```json
@@ -453,7 +453,7 @@ Generates:
 
 [Gitinfo](https://github.com/gajus/gitinfo) gets info about the local GitHub repository.
 
-<h4 id="⊂⊂H:44⊃⊃">Example</h4>
+<h4 id="⊂⊂H:36⊃⊃">Example</h4>
 
 <!-- gitdown: off -->
 ```json
@@ -471,7 +471,7 @@ https://github.com/gajus/gitdown
 master
 ```
 
-<h4 id="⊂⊂H:45⊃⊃">Supported Properties</h4>
+<h4 id="⊂⊂H:37⊃⊃">Supported Properties</h4>
 
 |Name|Description|
 |---|---|
@@ -480,13 +480,13 @@ master
 |`url`|Repository URL.|
 |`branch`|Current branch name.|
 
-<h4 id="⊂⊂H:46⊃⊃">JSON Configuration</h4>
+<h4 id="⊂⊂H:38⊃⊃">JSON Configuration</h4>
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `name` | Name of [Gitinfo](https://github.com/gajus/gitinfo) property. | N/A |
 
-<h4 id="⊂⊂H:47⊃⊃">Parser Configuration</h4>
+<h4 id="⊂⊂H:39⊃⊃">Parser Configuration</h4>
 
 | Name | Description | Default |
 | --- | --- | --- |

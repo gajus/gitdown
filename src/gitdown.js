@@ -232,7 +232,14 @@ Gitdown._nestHeadingIds = function (markdown) {
     var MarkdownContents = require('markdown-contents'),
         contents = Parser.helpers.contents,
         articles = [],
-        tree;
+        tree,
+        codeblocks = [];
+
+    markdown = markdown.replace(/^```[\s\S]*?\n```/mg, function (match) {
+        codeblocks.push(match);
+
+        return '```' + codeblocks.length + '```';
+    });
 
     markdown = markdown.replace(/^(#+)(.*$)/mg, function (match, level, name) {
         level = level.length;
@@ -245,6 +252,10 @@ Gitdown._nestHeadingIds = function (markdown) {
         });
 
         return '<h' + level + ' id="⊂⊂H:' + articles.length + '⊃⊃">' + name + '</h' + level + '>'
+    });
+
+    markdown = markdown.replace(/^```(\d+)```/mg, function (match) {
+        return codeblocks.shift();
     });
 
     tree = contents.nestIds(MarkdownContents.tree(articles));
