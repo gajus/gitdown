@@ -14,7 +14,7 @@ What can Gitdown [do better](https://github.com/gajus/gitdown/issues)?
 * [Syntax](#syntax)
     * [Ignoring Sections of the Document](#ignoring-sections-of-the-document)
 * [Features](#features)
-    * [Generate Table  of Contents](#generate-table-of-contents)
+    * [Generate Table of Contents](#generate-table-of-contents)
     * [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers)
     * [Reference an Anchor in the Repository](#reference-an-anchor-in-the-repository)
     * [Variables](#variables)
@@ -115,7 +115,7 @@ Gitdown JSON will be interpreted.
 
 ## Features
 
-### Generate Table  of Contents
+### Generate Table of Contents
 
 <!-- gitdown: off -->
 ```json
@@ -131,11 +131,20 @@ The table of contents is generated using [markdown-contents](https://github.com/
 
 <!-- gitdown: off -->
 ```json
-{"gitdown": "contents", "maxLevel": 2, "rootId": "features"}
+{"gitdown": "contents", "maxLevel": 3, "rootId": "features"}
 ```
 <!-- gitdown: on -->
 
 ```markdown
+* [Generate Table of Contents](#generate-table-of-contents)
+* [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers)
+* [Reference an Anchor in the Repository](#reference-an-anchor-in-the-repository)
+* [Variables](#variables)
+* [Include File](#include-file)
+* [Get File Size](#get-file-size)
+* [Generate Badges](#generate-badges)
+* [Print Date](#print-date)
+* [Gitinfo](#gitinfo)
 
 ```
 
@@ -358,7 +367,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416571160
+1416571282
 2014
 ```
 

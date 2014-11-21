@@ -1,4 +1,4 @@
-### Generate Table  of Contents
+### Generate Table of Contents
 
 <!-- gitdown: off -->
 ```json
@@ -14,12 +14,12 @@ The table of contents is generated using [markdown-contents](https://github.com/
 
 <!-- gitdown: off -->
 ```json
-{"gitdown": "contents", "maxLevel": 2, "rootId": "features"}
+{"gitdown": "contents", "maxLevel": 3, "rootId": "features"}
 ```
 <!-- gitdown: on -->
 
 ```markdown
-{"gitdown": "contents", "maxLevel": 2, "rootId": "features"}
+{"gitdown": "contents", "maxLevel": 3, "rootId": "features"}
 ```
 
 #### JSON Configuration
