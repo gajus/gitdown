@@ -11,10 +11,10 @@ describe('Parser.helpers.contents', function () {
 
         expect(contents).to.equal('* [a](#a)\n    * [b](#a-b)\n    * [c](#a-c)\n');
     });
-    xit('generates table of contents with a maxLevel', function () {
+    it('generates table of contents with a maxLevel', function () {
         var contents = helper({maxLevel: 2}, {markdown: '\n# a\n## b\n###c'});
 
-        expect(contents).to.equal('* [a](#a)\n    * [b](#b)\n');
+        expect(contents).to.equal('* [a](#a)\n    * [b](#a-b)\n');
     })
     describe('.maxLevel()', function () {
         it('removes nodes with level equal to maxLevel', function () {

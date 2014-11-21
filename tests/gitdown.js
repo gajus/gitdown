@@ -4,12 +4,12 @@ var expect = require('chai').expect,
     nock = require('nock'),
     sinon = require('sinon');
 
-xdescribe('Gitdown', function () {
+describe('Gitdown', function () {
     var Gitdown;
     beforeEach(function () {
         Gitdown = requireNew('../src/gitdown.js');
     });
-    describe('.read()', function () {
+    xdescribe('.read()', function () {
         it('returns an instance of Gitdown', function () {
             return expect(Gitdown.read(__dirname + '/fixtures/foo.txt')).to.instanceof(Gitdown);
         });
@@ -21,6 +21,14 @@ xdescribe('Gitdown', function () {
                 .then(function (response) {
                     expect(response).to.equal('bar');
                 });
+        });
+    });
+    describe('._nestHeadingIds()', function () {
+        it('replaces heading markup with HTML', function () {
+            expect(Gitdown._nestHeadingIds('# Foo\n# Bar')).to.equal('<h1 id="foo">Foo</h1>\n<h1 id="bar">Bar</h1>');
+        });
+        it('nests heading ids', function () {
+            expect(Gitdown._nestHeadingIds('# Foo\n## Bar')).to.equal('<h1 id="foo">Foo</h1>\n<h2 id="foo-bar">Bar</h2>');
         });
     });
 });
@@ -182,4 +190,3 @@ xdescribe('gitdown', function () {
         });
     });
 });
-

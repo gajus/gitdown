@@ -219,4 +219,44 @@ Gitdown.read = function (fileName) {
     return Gitdown(input);
 };
 
+Gitdown._nestHeadingIds = function (markdown) {
+    var MarkdownContents = require('markdown-contents'),
+        contents = Parser.helpers.contents,
+        articles = [],
+        tree;
+
+    markdown = markdown.replace(/^(#+)(.*$)/mg, function (match, level, name) {
+        level = level.length;
+        name = name.trim();
+
+        articles.push({
+            level: level,
+            id: name.toLowerCase().replace(/[^\w]+/g, '-'),
+            name: name
+        });
+
+        return '<h' + level + ' id="⊂⊂H:' + articles.length + '⊃⊃">' + name + '</h' + level + '>'
+    });
+
+    tree = contents.nestIds(MarkdownContents.tree(articles));
+
+    Gitdown._nestHeadingIds.iterate(tree, function (index, article) {
+        markdown = markdown.replace('⊂⊂H:' + index + '⊃⊃', article.id);
+    });
+
+    return markdown;
+};
+
+Gitdown._nestHeadingIds.iterate = function (tree, callback, index) {
+    index = index || 1;
+
+    tree.forEach(function (article) {
+        callback(index++, article);
+
+        if (article.descendants) {
+            Gitdown._nestHeadingIds.iterate(article.descendants, callback, index);
+        }
+    });
+};
+
 module.exports = Gitdown;
