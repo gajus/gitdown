@@ -151,7 +151,7 @@ describe('gitdown', function () {
 
             return gitdown.get()
                 .then(function () {
-                    expect(spy.calledWith('Resolved URL and the fragment identifier:', 'http://foo.com/#ok')).to.be.true;
+                    expect(spy.calledWith('Resolved fragment identifier:', 'http://foo.com/#ok')).to.be.true;
                 });
         });
         it('logs unsuccessful URL resolution using logger.warn', function () {
@@ -177,7 +177,7 @@ describe('gitdown', function () {
 
             return gitdown.get()
                 .then(function () {
-                    expect(spy.calledWith('Unresolved URL and/or the fragment identifier:', 'http://bar.com/#not-ok')).to.be.true;
+                    expect(spy.calledWith('Unresolved fragment identifier:', 'http://bar.com/#not-ok')).to.be.true;
                 });
         });
     });

@@ -79,7 +79,7 @@ Gitdown = function Gitdown (input) {
      */
     gitdown._resolveURLs = function (markdown) {
         var deadlink,
-            repositoryURL = Parser.helpers.gitinfo({name: 'url'}, {gitdown: gitdown}),
+            repositoryURL = Parser.helpers.gitinfo({name: 'url'}, {gitdown: gitdown}) + '/tree/' + Parser.helpers.gitinfo({name: 'branch'}, {gitdown: gitdown}),
             urls,
             promises;
 
@@ -117,13 +117,16 @@ Gitdown = function Gitdown (input) {
 
                     if (Resolution.error) {
                         if (Resolution.fragmentIdentifier) {
-                            gitdown.logger.warn('Unresolved URL and/or the fragment identifier:', Resolution.url);
+                            // Ignore the error if resource resolution failed.
+                            if (!(Resolution.error instanceof Deadlink.URLResolution && !Resolution.error.error)) {
+                                gitdown.logger.warn('Unresolved fragment identifier:', Resolution.url);
+                            }
                         } else {
                             gitdown.logger.warn('Unresolved URL:', Resolution.url);
                         }  
                     } else {
                         if (Resolution.fragmentIdentifier) {
-                            gitdown.logger.info('Resolved URL and the fragment identifier:', Resolution.url);
+                            gitdown.logger.info('Resolved fragment identifier:', Resolution.url);
                         } else {
                             gitdown.logger.info('Resolved URL:', Resolution.url);
                         }                        
