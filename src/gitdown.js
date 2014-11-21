@@ -36,9 +36,9 @@ Gitdown = function Gitdown (input) {
                     markdown = Gitdown._nestHeadingIds(markdown);
                 }
 
-                return gitdown._resolveURLs(state.markdown)
+                return gitdown._resolveURLs(markdown)
                     .then(function () {
-                        return state.markdown;
+                        return markdown;
                     });
             });
     };
