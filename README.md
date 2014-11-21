@@ -131,20 +131,41 @@ The table of contents is generated using [markdown-contents](https://github.com/
 
 <!-- gitdown: off -->
 ```json
-{"gitdown": "contents", "maxLevel": 3, "rootId": "features"}
+{"gitdown": "contents", "maxLevel": 4, "rootId": "features"}
 ```
 <!-- gitdown: on -->
 
 ```markdown
 * [Generate Table of Contents](#generate-table-of-contents)
+    * [Example](#example)
+    * [JSON Configuration](#json-configuration)
 * [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers)
+    * [Parser Configuration](#parser-configuration-1)
 * [Reference an Anchor in the Repository](#reference-an-anchor-in-the-repository)
+    * [JSON Configuration](#json-configuration-1)
+    * [Parser Configuration](#parser-configuration-2)
 * [Variables](#variables)
+    * [Example](#example-1)
+    * [JSON Configuration](#json-configuration-2)
+    * [Parser Configuration](#parser-configuration-3)
 * [Include File](#include-file)
+    * [Example](#example-2)
+    * [JSON Configuration](#json-configuration-3)
 * [Get File Size](#get-file-size)
+    * [Example](#example-3)
+    * [JSON Configuration](#json-configuration-4)
 * [Generate Badges](#generate-badges)
+    * [Supported Services](#supported-services)
+    * [Example](#example-4)
+    * [JSON Configuration](#json-configuration-5)
 * [Print Date](#print-date)
+    * [Example](#example-5)
+    * [JSON Configuration](#json-configuration-6)
 * [Gitinfo](#gitinfo)
+    * [Example](#example-6)
+    * [Supported Properties](#supported-properties)
+    * [JSON Configuration](#json-configuration-7)
+    * [Parser Configuration](#parser-configuration-4)
 
 ```
 
@@ -367,7 +388,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416571282
+1416571324
 2014
 ```
 
