@@ -201,7 +201,7 @@ The table of contents is generated using [markdown-contents](https://github.com/
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `maxDepth` | The maximum the level of the heading. | 3 |
+| `maxLevel` | The maximum heading level after which headings are excluded. | 3 |
 | `root` | ID of the root heading. Provide it when you need table of contents for a specific section of the document. Throws an error if element with the said ID does not exist in the document. | N/A |
 ### Find Dead URLs and Fragment Identifiers
 
@@ -426,7 +426,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416539910
+1416565281
 2014
 ```
 

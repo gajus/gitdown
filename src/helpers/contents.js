@@ -5,22 +5,25 @@ helper = function (config, context) {
     var tree;
 
     config = config || {};
-    config.maxDepth = config.maxDepth || 3;
+    config.maxLevel = config.maxLevel || 3;
 
     tree = MarkdownContents(context.markdown).tree();
-    tree = helper.maxDepth(tree, config.maxDepth);
+    tree = helper.maxLevel(tree, config.maxLevel);
 
     return MarkdownContents.treeToMarkdown(tree);
 };
 
-helper.maxDepth = function (tree, maxDepth) {
-    maxDepth = maxDepth || 1;
+/**
+ * Removes tree descendants with level greater than maxLevel
+ */
+helper.maxLevel = function (tree, maxLevel) {
+    maxLevel = maxLevel || 1;
 
     tree.forEach(function (article, index) {
-        if (article.level > maxDepth) {
+        if (article.level > maxLevel) {
             delete tree[index];
         } else {
-            article.descendants = helper.maxDepth(article.descendants, maxDepth)
+            article.descendants = helper.maxLevel(article.descendants, maxLevel)
         }
     });
 

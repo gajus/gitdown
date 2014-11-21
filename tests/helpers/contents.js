@@ -11,13 +11,13 @@ describe('Parser.helpers.contents', function () {
 
         expect(contents).to.equal('* [a](#a)\n    * [b](#b)\n    * [c](#c)\n');
     });
-    xit('generates table of contents with a maxDepth', function () {
-        var contents = helper({maxDepth: 2}, {markdown: '\n# a\n## b\n###c'});
+    xit('generates table of contents with a maxLevel', function () {
+        var contents = helper({maxLevel: 2}, {markdown: '\n# a\n## b\n###c'});
 
         expect(contents).to.equal('* [a](#a)\n    * [b](#b)\n');
     })
-    describe('.maxDepth()', function () {
-        it('removes nodes with level equal to maxDepth', function () {
+    describe('.maxLevel()', function () {
+        it('removes nodes with level equal to maxLevel', function () {
             var tree,
                 treeAfterMaxDepth;
 
@@ -46,7 +46,7 @@ describe('Parser.helpers.contents', function () {
                 ]
             }];
 
-            expect(helper.maxDepth(tree, 2)).to.deep.equal(treeAfterMaxDepth);
+            expect(helper.maxLevel(tree, 2)).to.deep.equal(treeAfterMaxDepth);
         });
     });
 });
