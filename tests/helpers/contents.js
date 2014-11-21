@@ -9,7 +9,7 @@ describe('Parser.helpers.contents', function () {
     it('generates table of contents for a markdown document', function () {
         var contents = helper({}, {markdown: '\n# a\n## b\n##c '});
 
-        expect(contents).to.equal('* [a](#a)\n    * [b](#b)\n    * [c](#c)\n');
+        expect(contents).to.equal('* [a](#a)\n    * [b](#a-b)\n    * [c](#a-c)\n');
     });
     xit('generates table of contents with a maxLevel', function () {
         var contents = helper({maxLevel: 2}, {markdown: '\n# a\n## b\n###c'});

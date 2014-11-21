@@ -4,7 +4,7 @@ var expect = require('chai').expect,
     nock = require('nock'),
     sinon = require('sinon');
 
-describe('Gitdown', function () {
+xdescribe('Gitdown', function () {
     var Gitdown;
     beforeEach(function () {
         Gitdown = requireNew('../src/gitdown.js');
@@ -25,7 +25,7 @@ describe('Gitdown', function () {
     });
 });
 
-describe('gitdown', function () {
+xdescribe('gitdown', function () {
     var Gitdown;
     beforeEach(function () {
         Gitdown = requireNew('../src/gitdown.js');

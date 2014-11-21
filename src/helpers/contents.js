@@ -2,13 +2,15 @@ var helper = {},
     MarkdownContents = require('markdown-contents');
 
 helper = function (config, context) {
-    var tree;
+    var articles,
+        tree;
 
     config = config || {};
     config.maxLevel = config.maxLevel || 3;
 
     tree = MarkdownContents(context.markdown).tree();
-    
+    tree = helper.nestIds(tree);
+
     if (config.rootId) {
         tree = helper.findRoot(tree, config.rootId).descendants;
     }
@@ -57,6 +59,23 @@ helper.findRoot = function (tree, rootId, notFirst) {
     }
 
     return found;
+};
+
+/**
+ * 
+ */
+helper.nestIds = function (tree, parentIds) {
+    parentIds = parentIds || [];
+
+    tree.forEach(function (article) {
+        var ids = parentIds.concat([article.id]);
+        
+        article.id = ids.join('-');
+
+        helper.nestIds(article.descendants, ids);
+    });
+
+    return tree;
 };
 
 helper.weight = function () {

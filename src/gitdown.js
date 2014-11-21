@@ -79,19 +79,20 @@ Gitdown = function Gitdown (input) {
      */
     gitdown._resolveURLs = function (markdown) {
         var deadlink,
-            repositoryURL = Parser.helpers.gitinfo({name: 'url'}, {gitdown: gitdown}) + '/tree/' + Parser.helpers.gitinfo({name: 'branch'}, {gitdown: gitdown}),
+            repositoryURL,
             urls,
             promises;
 
-        // Parser.helpers.gitinfo({name: 'url'}, gitdown.config)
+        repositoryURL = Parser.helpers.gitinfo({name: 'url'}, {gitdown: gitdown}) + '/tree/' + Parser.helpers.gitinfo({name: 'branch'}, {gitdown: gitdown});
 
         deadlink = Deadlink();
         urls = URLExtractor.extract(markdown, URLExtractor.SOURCE_TYPE_MARKDOWN);
 
         urls = urls.map(function (url) {
             // @todo What if it isn't /README.md?
-            // @todo Test case.
+            // @todo Test.
             if (url.indexOf('#') === 0) {
+                // Github is using JavaScript to resolve anchor tags under #uses-content- ID.
                 url = repositoryURL + '#user-content-' + url.substr(1);
             }
 
