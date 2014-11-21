@@ -30,6 +30,12 @@ Gitdown = function Gitdown (input) {
         return parser
             .play(input)
             .then(function (state) {
+                var markdown = state.markdown;
+
+                if (gitdown.config.headingNesting.enabled) {
+                    markdown = Gitdown._nestHeadingIds(markdown);
+                }
+
                 return gitdown._resolveURLs(state.markdown)
                     .then(function () {
                         return state.markdown;
@@ -189,6 +195,9 @@ Gitdown = function Gitdown (input) {
         });
 
         gitdown.config = {
+            headingNesting: {
+                enabled: true
+            },
             variable: {
                 scope: {}
             },

@@ -8,8 +8,13 @@ helper = function (config, context) {
     config = config || {};
     config.maxLevel = config.maxLevel || 3;
 
-    tree = MarkdownContents(context.markdown).tree();
-    tree = helper.nestIds(tree);
+    if (context.gitdown.config.headingNesting.enabled) {
+        tree = MarkdownContents(context.markdown).tree();
+        tree = helper.nestIds(tree);
+    } else {
+        articles = MarkdownContents(context.markdown).articles();
+        tree = MarkdownContents.tree(articles, true, []);
+    }
 
     if (config.rootId) {
         tree = helper.findRoot(tree, config.rootId).descendants;

@@ -6,16 +6,58 @@ describe('Parser.helpers.contents', function () {
     beforeEach(function () {
         helper = requireNew('../../src/helpers/contents.js');
     });
-    it('generates table of contents for a markdown document', function () {
-        var contents = helper({}, {markdown: '\n# a\n## b\n##c '});
+    describe('when heading nesting is disabled', function () {
+        var context;
+        beforeEach(function () {
+            context = {markdown: '', gitdown: {config: {headingNesting: {enabled: false}}}};
+        });
 
-        expect(contents).to.equal('* [a](#a)\n    * [b](#a-b)\n    * [c](#a-c)\n');
+        it('generates table of contents for a markdown document', function () {
+            var contents;
+
+            context.markdown = '\n# a\n## b\n##c ';
+
+            contents = helper({}, context);
+
+            expect(contents).to.equal('* [a](#a)\n    * [b](#b)\n    * [c](#c)\n');
+        });
+        it('generates table of contents with a maxLevel', function () {
+            var contents;
+
+            context.markdown = '\n# a\n## b\n###c';
+
+            contents = helper({maxLevel: 2}, context);
+
+            expect(contents).to.equal('* [a](#a)\n    * [b](#b)\n');
+        });
+        it('generates unique IDs using incrementing index', function () {
+            var contents;
+
+            context.markdown = '\n# a\n## b\n## b';
+
+            contents = helper({}, context);
+
+            expect(contents).to.equal('* [a](#a)\n    * [b](#b)\n    * [b](#b-1)\n');
+        });
     });
-    it('generates table of contents with a maxLevel', function () {
-        var contents = helper({maxLevel: 2}, {markdown: '\n# a\n## b\n###c'});
+    describe('when heading nesting is enabled', function () {
+        var context;
+        beforeEach(function () {
+            context = {markdown: '', gitdown: {config: {headingNesting: {enabled: true}}}};
+        });
+        it('generates unique IDs using parent IDs', function () {
+            var contents;
 
-        expect(contents).to.equal('* [a](#a)\n    * [b](#a-b)\n');
-    })
+            context.markdown = '\n# a\n## b\n# c\n## b';
+
+            contents = helper({}, context);
+
+            expect(contents).to.equal('* [a](#a)\n    * [b](#a-b)\n* [c](#c)\n    * [b](#c-b)\n');
+        });
+        xdescribe('when unique ID pool is exhausted', function () {
+            
+        });
+    });
     describe('.maxLevel()', function () {
         it('removes nodes with level equal to maxLevel', function () {
             var tree,

@@ -64,6 +64,9 @@ xdescribe('gitdown', function () {
         var defaultConfiguration;
         beforeEach(function () {
             defaultConfiguration = {
+                headingNesting: {
+                    enabled: true
+                },
                 variable: {
                     scope: {}
                 },
