@@ -48,7 +48,7 @@ helper = function (config, context) {
 
         badge = '![Travis build status](http://img.shields.io/travis/' + rep.username + '/' + rep.name + '/' + rep.branch + '.svg?style=flat)';
 
-        return '[' + badge + '](https://travis-ci.org/' + rep.fullname + ')';
+        return '[' + badge + '](https://travis-ci.org/' + rep.username + '/' + rep.name + ')';
     };
 
     if (!helper.service[config.name.replace(/-/g, '_')]) {
