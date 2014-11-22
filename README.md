@@ -1,7 +1,7 @@
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
 [![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
 
-Gitdown is a markdown preprocessor for Github. Gitdown streamlines common tasks associated with maintaining a documentation page for a GitHub repository.
+GitDown is a markdown preprocessor for GitHub. GitDown streamlines common tasks associated with maintaining a documentation page for a GitHub repository.
 
 [Get Down On It](http://youtu.be/qchPLaiKocI?t=20s).
 
@@ -458,7 +458,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416644251
+1416644369
 2014
 ```
 
