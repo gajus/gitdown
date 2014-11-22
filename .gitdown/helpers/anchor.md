@@ -19,7 +19,7 @@ Place a documentation tag `@gitdownanchor <name>` anywhere in the code base, e.g
  */
 ```
 
-Then reference the tag in the GitDown document:
+Then reference the tag in the Gitdown document:
 
 <!-- gitdown: off -->
 ```
@@ -29,7 +29,7 @@ Refer to [foo]({"gitdown": "anchor", "name": "my-anchor-name"}).
 
 The anchor name must match `/^[a-z]+[a-z0-9\-_:\.]*$/i`.
 
-GitDown will throw an error if the anchor is not found.
+Gitdown will throw an error if the anchor is not found.
 
 #### JSON Configuration
 

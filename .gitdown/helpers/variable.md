@@ -14,7 +14,7 @@ Prints the value of a property defined under a parser `variable.scope` configura
 ```js
 var gitdown;
 
-gitdown = GitDown(
+gitdown = Gitdown(
     '{"gitdown": "variable", "name": "name.first"}' +
     '{"gitdown": "variable", "name": "name.last"}'
 );

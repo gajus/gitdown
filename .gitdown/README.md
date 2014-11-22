@@ -1,7 +1,7 @@
 {"gitdown": "badge", "name": "npm-version"}
 {"gitdown": "badge", "name": "travis"}
 
-GitDown is a markdown preprocessor for GitHub. GitDown streamlines common tasks associated with maintaining a documentation page for a GitHub repository.
+Gitdown is a markdown preprocessor for GitHub. Gitdown streamlines common tasks associated with maintaining a documentation page for a GitHub repository.
 
 [Get Down On It](http://youtu.be/qchPLaiKocI?t=20s).
 

@@ -20,7 +20,7 @@ The conflicting IDs are solved with a numerical suffix, e.g.
 
 The problem with this approach is that it makes the order of the content important.
 
-GitDown will nest the headings using parent heading names to ensure uniqueness, e.g.
+Gitdown will nest the headings using parent heading names to ensure uniqueness, e.g.
 
 ```markdown
 # Foo

@@ -6,7 +6,7 @@
 ```
 <!-- gitdown: on -->
 
-GitDown generates markdown for badges using the environment variables, e.g. if it is an NPM badge, GitDown will lookup the package name from `package.json`.
+Gitdown generates markdown for badges using the environment variables, e.g. if it is an NPM badge, Gitdown will lookup the package name from `package.json`.
 
 Badges are generated using http://shields.io/.
 
