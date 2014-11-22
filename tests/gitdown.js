@@ -9,7 +9,7 @@ describe('Gitdown', function () {
     beforeEach(function () {
         Gitdown = requireNew('../src/gitdown.js');
     });
-    xdescribe('.read()', function () {
+    describe('.read()', function () {
         it('returns an instance of Gitdown', function () {
             return expect(Gitdown.read(__dirname + '/fixtures/foo.txt')).to.instanceof(Gitdown);
         });
@@ -58,7 +58,7 @@ describe('Gitdown', function () {
     });
 });
 
-xdescribe('gitdown', function () {
+describe('gitdown', function () {
     var Gitdown;
     beforeEach(function () {
         Gitdown = requireNew('../src/gitdown.js');
