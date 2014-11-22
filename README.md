@@ -1,4 +1,7 @@
-[![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
+    <!--
+    This file has been generated using GitDown (https://github.com/gajus/gitdown).
+    Direct edits to this will be be overwritten. Look for GitDown markup file under ./.gitdown/ path.
+    -->[![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
 [![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
 
 GitDown is a markdown preprocessor for GitHub. GitDown streamlines common tasks associated with maintaining a documentation page for a GitHub repository.
@@ -458,7 +461,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416647230
+1416647246
 2014
 ```
 
