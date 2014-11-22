@@ -1,6 +1,7 @@
 ### Reference an Anchor in the Repository
 
 > This feature is under development.
+> Please suggest ideas https://github.com/gajus/gitdown/issues
 
 <!-- gitdown: off -->
 ```json

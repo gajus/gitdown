@@ -1,9 +1,7 @@
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
 [![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
 
-Gitdown is a markdown preprocessor for Github. Gitdown streamlines common tasks associated with maintaining a documentation page for GitHub repository.
-
-What can Gitdown [do better](https://github.com/gajus/gitdown/issues)?
+Gitdown is a markdown preprocessor for Github. Gitdown streamlines common tasks associated with maintaining a documentation page for a GitHub repository.
 
 <h2 id="contents">Contents</h2>
 
@@ -42,9 +40,6 @@ gitdown = Gitdown.read('.gitdown/README.md');
 
 // If you have the subject in a string, call the constructor itself:
 // gitdown = Gitdown('literal string');
-
-// Provide parser configuration.
-// gitdown.config = config;
 
 // Output the markdown file.
 // All of the file system operations are relative to the root of the repository.
@@ -86,7 +81,7 @@ gitdown.logger = {
 };
 ```
 
-The logger is used to [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers).
+The logger is used to inform about [Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers).
 
 <h2 id="features-generate-table-of-contents">Syntax</h2>
 
@@ -107,11 +102,11 @@ JSON that does not start with a "gitdown" property will remain untouched.
 Use HTML comment tags to ignore sections of the document:
 
 ```html
-Gitdown JSON will be interpreted.
+Gitdown JSON will be interpolated.
 <!-- gitdown: off -->
-Gitdown JSON will not be interpreted.
+Gitdown JSON will not be interpolated.
 <!-- gitdown: on -->
-Gitdown JSON will be interpreted.
+Gitdown JSON will be interpolated.
 ```
 
 <h2 id="features-generate-table-of-contents-json-configuration">Features</h2>
@@ -231,10 +226,11 @@ Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the
 | --- | --- | --- |
 | `deadlink.findDeadURLs` | Find dead URLs. | `false` |
 | `deadlink.findDeadFragmentIdentifiers` | Find dead fragment identifiers. | `false` |
-| `deadlink.ignoreURLs` | URLs matching the regex will be ignored. | N/A |
+<!--| `deadlink.ignoreURLs` | URLs matching the regex will be ignored. | N/A |-->
 <h3 id="features-generate-badges-json-configuration">Reference an Anchor in the Repository</h3>
 
 > This feature is under development.
+> Please suggest ideas https://github.com/gajus/gitdown/issues
 
 <!-- gitdown: off -->
 ```json
@@ -328,7 +324,9 @@ gitdown.config({
 ```
 <!-- gitdown: on -->
 
-Includes the contents of the file to the document. The included file can have Gitdown JSON hooks.
+Includes the contents of the file to the document.
+
+The included file can have Gitdown JSON hooks.
 
 <h4 id="⊂⊂H:23⊃⊃">Example</h4>
 
@@ -379,15 +377,17 @@ Generates:
 ```
 <!-- gitdown: on -->
 
-Gitdown is using the environment variables to generate the markdown for the badge, e.g. if it is an NPM badge, Gitdown will lookup the package name for the `package.json`.
+Gitdown generates markdown for badges using the environment variables, e.g. if it is an NPM badge, Gitdown will lookup the package name from `package.json`.
 
 Badges are generated using http://shields.io/.
 
 <h4 id="⊂⊂H:29⊃⊃">Supported Services</h4>
 
-* npm-version
-* bower-version
-* travis
+| Name | Description |
+| --- | --- |
+| `npm-version` | [NPM](https://www.npmjs.org/) package version. |
+| `bower-version` | [Bower](http://bower.io/) package version. |
+| `travis` | State of the [Travis](https://travis-ci.org/) build. |
 
 What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/issues).
 
@@ -434,7 +434,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416580767
+1416640782
 2014
 ```
 
@@ -484,7 +484,7 @@ master
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `name` | Name of [Gitinfo](https://github.com/gajus/gitinfo) property. | N/A |
+| `name` | Name of the property. | N/A |
 
 <h4 id="⊂⊂H:39⊃⊃">Parser Configuration</h4>
 

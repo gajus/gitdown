@@ -6,15 +6,17 @@
 ```
 <!-- gitdown: on -->
 
-Gitdown is using the environment variables to generate the markdown for the badge, e.g. if it is an NPM badge, Gitdown will lookup the package name for the `package.json`.
+Gitdown generates markdown for badges using the environment variables, e.g. if it is an NPM badge, Gitdown will lookup the package name from `package.json`.
 
 Badges are generated using http://shields.io/.
 
 #### Supported Services
 
-* npm-version
-* bower-version
-* travis
+| Name | Description |
+| --- | --- |
+| `npm-version` | [NPM](https://www.npmjs.org/) package version. |
+| `bower-version` | [Bower](http://bower.io/) package version. |
+| `travis` | State of the [Travis](https://travis-ci.org/) build. |
 
 What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/issues).
 

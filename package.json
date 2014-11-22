@@ -5,7 +5,9 @@
     "github",
     "markdown",
     "table of contents",
-    "toc"
+    "toc",
+    "include",
+    "variable"
   ],
   "version": "1.0.0",
   "main": "src/gitdown.js",

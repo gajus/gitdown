@@ -39,7 +39,7 @@
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `name` | Name of [Gitinfo](https://github.com/gajus/gitinfo) property. | N/A |
+| `name` | Name of the property. | N/A |
 
 #### Parser Configuration
 

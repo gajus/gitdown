@@ -1,9 +1,7 @@
 {"gitdown": "badge", "name": "npm-version"}
 {"gitdown": "badge", "name": "travis"}
 
-Gitdown is a markdown preprocessor for Github. Gitdown streamlines common tasks associated with maintaining a documentation page for GitHub repository.
-
-What can Gitdown [do better](https://github.com/gajus/gitdown/issues)?
+Gitdown is a markdown preprocessor for Github. Gitdown streamlines common tasks associated with maintaining a documentation page for a GitHub repository.
 
 ## Contents
 
@@ -25,9 +23,6 @@ gitdown = Gitdown.read('.gitdown/README.md');
 
 // If you have the subject in a string, call the constructor itself:
 // gitdown = Gitdown('literal string');
-
-// Provide parser configuration.
-// gitdown.config = config;
 
 // Output the markdown file.
 // All of the file system operations are relative to the root of the repository.
@@ -69,7 +64,7 @@ gitdown.logger = {
 };
 ```
 
-The logger is used to [Find Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers).
+The logger is used to inform about [Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers).
 
 ## Syntax
 
@@ -90,11 +85,11 @@ JSON that does not start with a "gitdown" property will remain untouched.
 Use HTML comment tags to ignore sections of the document:
 
 ```html
-Gitdown JSON will be interpreted.
+Gitdown JSON will be interpolated.
 <!-- gitdown: off -->
-Gitdown JSON will not be interpreted.
+Gitdown JSON will not be interpolated.
 <!-- gitdown: on -->
-Gitdown JSON will be interpreted.
+Gitdown JSON will be interpolated.
 ```
 
 ## Features
