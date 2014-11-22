@@ -15,7 +15,7 @@ helper.compile = function (config, context) {
     /**
      *
      */
-    services.npm_version = function () {
+    services['npm-version'] = function () {
         var pkg = context.locator.repositoryPath() + '/package.json';
 
         if (!fs.existsSync(pkg)) {
@@ -30,7 +30,7 @@ helper.compile = function (config, context) {
     /**
      *
      */
-    services.bower_version = function () {
+    services['bower-version'] = function () {
         var bower = context.locator.repositoryPath() + '/bower.json';
 
         if (!fs.existsSync(bower)) {
@@ -49,20 +49,20 @@ helper.compile = function (config, context) {
         var rep = {},
             badge;
 
-        rep.username = gitinfo({name: 'username'}, context);
-        rep.name = gitinfo({name: 'name'}, context);
-        rep.branch = gitinfo({name: 'branch'}, context);
+        rep.username = gitinfo.compile({name: 'username'}, context);
+        rep.name = gitinfo.compile({name: 'name'}, context);
+        rep.branch = gitinfo.compile({name: 'branch'}, context);
 
         badge = '![Travis build status](http://img.shields.io/travis/' + rep.username + '/' + rep.name + '/' + rep.branch + '.svg?style=flat)';
 
         return '[' + badge + '](https://travis-ci.org/' + rep.username + '/' + rep.name + ')';
     };
 
-    if (!services[config.name.replace(/-/g, '_')]) {
+    if (!services[config.name]) {
         throw new Error('config.name "' + config.name + '" is unknown service.');
     }
 
-    return services[config.name.replace(/-/g, '_')]();
+    return services[config.name]();
 };
 
 helper.weight = 10;

@@ -50,7 +50,7 @@ describe('Gitdown.Parser', function () {
         }).to.throw(Error, 'Invalid Gitdown JSON ("{"gitdown": invalid}").');
     });
     it('invokes a helper function with the markdown', function () {
-        spy = sinon.spy(Parser.helpers, 'test');
+        spy = sinon.spy(parser.helpers().test, 'compile');
 
         return parser
             .play('{"gitdown": "test", "foo": "bar"}')
@@ -76,12 +76,19 @@ describe('Gitdown.Parser', function () {
 });
 
 describe('Parser.helpers', function () {
-    var helpers = requireNew('../src/main.js').Parser.helpers;
+    var glob = require('glob'),
+        path = require('path');
 
-    Object.keys(helpers).forEach(function (helperName) {
-        describe(helperName, function () {
-            it('has weight()', function () {
-                expect(helpers[helperName].weight()).to.not.equal(0);
+    glob.sync(__dirname + '/../src/helpers/*.js').forEach(function (helper) {
+        var name = path.basename(helper, '.js'),
+            helper = require(helper);
+
+        describe(name, function () {
+            it('has compile method', function () {
+                expect(helper.compile).to.be.defined;
+            });
+            it('has weight property', function () {
+                expect(helper.weight).to.be.defined;
             });
         });
     });

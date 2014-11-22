@@ -139,7 +139,7 @@ GitDown JSON will be interpolated.
 <h3 id="syntax-register-a-custom-helper">Register a Custom Helper</h3>
 
 ```js
-gitdown.registerHelper({
+gitdown.registerHelper('my-helper-name', {
     /**
      * @var {Number} Weight determines the processing order of the helper function in the document. Default: 10.
      */
@@ -148,9 +148,21 @@ gitdown.registerHelper({
      * @param {Object} config JSON configuration.
      */
     compile: function (config) {
-        
+        return 'foo: ' + config.foo;
     }
 });
+```
+
+<!-- gitdown: off -->
+```json
+{"gitdown": "my-helper-name", "foo": "bar"}
+```
+<!-- gitdown: on -->
+
+Produces:
+
+```markdown
+foo: bar
 ```
 
 <h2 id="features">Features</h2>
@@ -405,8 +417,8 @@ Returns file size formatted in human friendly format.
 Generates:
 
 ```markdown
-9.18 kB
-2.50 kB
+9.42 kB
+2.56 kB
 ```
 
 <h4 id="features-get-file-size-json-configuration">JSON Configuration</h4>
@@ -480,7 +492,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416652620
+1416655921
 2014
 ```
 

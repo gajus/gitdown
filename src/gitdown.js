@@ -7,13 +7,15 @@ var Gitdown,
  * @param {String} input Gitdown flavored markdown.
  */
 Gitdown = function Gitdown (input) {
-    var gitdown;
+    var gitdown,
+        parser;
 
     if (!(this instanceof Gitdown)) {
         return new Gitdown(input);
     }
 
     gitdown = this;
+    parser = Parser(gitdown);
 
     /**
      * Process template.
@@ -21,10 +23,6 @@ Gitdown = function Gitdown (input) {
      * @return {Promise}
      */
     gitdown.get = function () {
-        var parser;
-
-        parser = Parser(gitdown);
-
         return parser
             .play(input)
             .then(function (state) {
@@ -56,6 +54,14 @@ Gitdown = function Gitdown (input) {
     };
 
     /**
+     * @param {String} name
+     * @param {Object} helper
+     */
+    gitdown.registerHelper = function (name, helper) {
+        parser.registerHelper(name, helper);
+    }
+
+    /**
      * Returns the first directory in the callstack that is not this directory.
      *
      * @return {String} Path to the directory where Gitdown was invoked.
@@ -84,12 +90,13 @@ Gitdown = function Gitdown (input) {
     gitdown._resolveURLs = function (markdown) {
         var Deadlink = require('deadlink'),
             URLExtractor = require('url-extractor'),
+            gitinfo = require(__dirname + '/helpers/gitinfo.js'),
             deadlink,
             repositoryURL,
             urls,
             promises;
 
-        repositoryURL = Parser.helpers.gitinfo({name: 'url'}, {gitdown: gitdown}) + '/tree/' + Parser.helpers.gitinfo({name: 'branch'}, {gitdown: gitdown});
+        repositoryURL = gitinfo.compile({name: 'url'}, {gitdown: gitdown}) + '/tree/' + gitinfo.compile({name: 'branch'}, {gitdown: gitdown});
 
         deadlink = Deadlink();
         urls = URLExtractor.extract(markdown, URLExtractor.SOURCE_TYPE_MARKDOWN);
@@ -244,7 +251,7 @@ Gitdown.notice = function () {
  */
 Gitdown._nestHeadingIds = function (markdown) {
     var MarkdownContents = require('markdown-contents'),
-        contents = Parser.helpers.contents,
+        contents = require(__dirname + '/helpers/contents.js'),
         articles = [],
         tree,
         codeblocks = [];
@@ -272,7 +279,7 @@ Gitdown._nestHeadingIds = function (markdown) {
         return codeblocks.shift();
     });
 
-    tree = contents.nestIds(MarkdownContents.tree(articles));
+    tree = contents._nestIds(MarkdownContents.tree(articles));
 
     Gitdown._nestHeadingIds.iterateTree(tree, function (index, article) {
         markdown = markdown.replace('⊂⊂⊂H:' + index + '⊃⊃⊃', article.id);

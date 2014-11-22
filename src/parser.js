@@ -16,7 +16,8 @@ var Parser,
  */
 Parser = function Parser (gitdown) {
     var parser,
-        bindingIndex = 0;
+        bindingIndex = 0,
+        helpers = {};
 
     if (!(this instanceof Parser)) {
         return new Parser(gitdown);
@@ -99,7 +100,7 @@ Parser = function Parser (gitdown) {
 
             bindingIndex++;
 
-            if (!Parser.helpers[name]) {
+            if (!helpers[name]) {
                 throw new Error('Unknown helper "' + name + '".');
             }
 
@@ -107,7 +108,7 @@ Parser = function Parser (gitdown) {
                 bindingIndex: bindingIndex,
                 name: name,
                 config: config,
-                helper: Parser.helpers[name],
+                helper: helpers[name],
                 executed: false
             });
 
@@ -152,14 +153,14 @@ Parser = function Parser (gitdown) {
         // Find the lowest weight among all of the not executed commands.
 
         lowestWeight = Math.min.apply(null, notExecutedCommands.map(function (command) {
-            return command.helper.weight();
+            return command.helper.weight;
         }));
 
         // console.log('lowestWeight', lowestWeight);
 
         // Find all commands with the lowest weight.
         lowestWeightCommands = notExecutedCommands.filter(function (command) {
-            var commandWeight = command.helper.weight();
+            var commandWeight = command.helper.weight;
 
             return commandWeight == lowestWeight;
         });
@@ -175,7 +176,7 @@ Parser = function Parser (gitdown) {
                 gitdown: gitdown
             };
 
-            promise = Promise.resolve(command.helper(command.config, context));
+            promise = Promise.resolve(command.helper.compile(command.config, context));
 
             promise.then(function (value) {
                 state.markdown = state.markdown.replace('⊂⊂C:' + command.bindingIndex + '⊃⊃', value);
@@ -194,19 +195,49 @@ Parser = function Parser (gitdown) {
                 return state;
             });
     };
+
+    /**
+     * Load in-built helpers.
+     */
+    parser._loadHelpers = function () {
+        var glob = require('glob'),
+            path = require('path');
+
+        glob.sync(__dirname + '/helpers/*.js').forEach(function (helper) {
+            parser.registerHelper(path.basename(helper, '.js'), require(helper));
+        });
+    };
+
+    /**
+     * @param {String} name
+     * @param {Object} helper
+     */
+    parser.registerHelper = function (name, helper) {
+        if (helpers[name]) {
+            throw new Error('There is already a helper with a name "' + name + '".');
+        }
+
+        helper = helper || {};
+
+        if (typeof helper.weight === 'undefined') {
+            helper.weight = 10;
+        }
+
+        if (typeof helper.compile === 'undefined') {
+            throw new Error('Helper object must defined "compile" property.');
+        }
+
+        helpers[name] = helper;
+    };
+
+    /**
+     * @return {Object}
+     */
+    parser.helpers = function () {
+        return helpers;
+    };
+
+    parser._loadHelpers();
 };
-
-Parser.loadHelpers = function () {
-    var glob = require('glob'),
-        path = require('path');
-
-    Parser.helpers = {};
-
-    glob.sync(__dirname + '/helpers/*.js').forEach(function (helper) {
-        Parser.helpers[path.basename(helper, '.js')] = require(helper);
-    });
-};
-
-Parser.loadHelpers();
 
 module.exports = Parser;

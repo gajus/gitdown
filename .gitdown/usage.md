@@ -105,7 +105,7 @@ GitDown JSON will be interpolated.
 ### Register a Custom Helper
 
 ```js
-gitdown.registerHelper({
+gitdown.registerHelper('my-helper-name', {
     /**
      * @var {Number} Weight determines the processing order of the helper function in the document. Default: 10.
      */
@@ -114,7 +114,19 @@ gitdown.registerHelper({
      * @param {Object} config JSON configuration.
      */
     compile: function (config) {
-        
+        return 'foo: ' + config.foo;
     }
 });
+```
+
+<!-- gitdown: off -->
+```json
+{"gitdown": "my-helper-name", "foo": "bar"}
+```
+<!-- gitdown: on -->
+
+Produces:
+
+```markdown
+foo: bar
 ```

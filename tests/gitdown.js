@@ -85,6 +85,33 @@ describe('gitdown', function () {
                 });
         });
     });
+    describe('.registerHelper()', function () {
+        it('throws an error if registering a helper using name of an existing helper', function () {
+            var gitdown = Gitdown('');
+            expect(function () {
+                gitdown.registerHelper('test');
+            }).to.throw(Error, 'There is already a helper with a name "test".');
+        });
+        it('throws an error if registering a helper object without compile property', function () {
+            var gitdown = Gitdown('');
+            expect(function () {
+                gitdown.registerHelper('new-helper');
+            }).to.throw(Error, 'Helper object must defined "compile" property.');
+        });
+        it('registers a new helper', function () {
+            var gitdown = Gitdown('{"gitdown": "new-helper", "testProp": "foo"}');
+            gitdown.registerHelper('new-helper', {
+                compile: function (config) {
+                    return 'Test prop: ' + config.testProp;
+                }
+            });
+            return gitdown
+                .get()
+                .then(function (markdown) {
+                    expect(markdown).to.equal(Gitdown.notice() + 'Test prop: foo');
+                });
+        });
+    });
     describe('.config', function () {
         var defaultConfiguration;
         beforeEach(function () {
