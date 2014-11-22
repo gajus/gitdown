@@ -112,6 +112,7 @@ gitdown.registerHelper('my-helper-name', {
     weight: 10,
     /**
      * @param {Object} config JSON configuration.
+     * @return {mixed|Promise}
      */
     compile: function (config) {
         return 'foo: ' + config.foo;

@@ -146,6 +146,7 @@ gitdown.registerHelper('my-helper-name', {
     weight: 10,
     /**
      * @param {Object} config JSON configuration.
+     * @return {mixed|Promise}
      */
     compile: function (config) {
         return 'foo: ' + config.foo;
@@ -492,7 +493,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416672659
+1416672781
 2014
 ```
 
