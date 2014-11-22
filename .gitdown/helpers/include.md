@@ -8,7 +8,7 @@
 
 Includes the contents of the file to the document.
 
-The included file can have Gitdown JSON hooks.
+The included file can have GitDown JSON hooks.
 
 #### Example
 

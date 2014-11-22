@@ -45,4 +45,4 @@
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `gitinfo.gitPath` | Path to the `.git/` directory or a descendant. | `__dirname` of the script constructing an instance of `Gitdown`. |
+| `gitinfo.gitPath` | Path to the `.git/` directory or a descendant. | `__dirname` of the script constructing an instance of `GitDown`. |

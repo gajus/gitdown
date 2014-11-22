@@ -29,20 +29,20 @@ GitDown is a markdown preprocessor for GitHub. GitDown streamlines common tasks 
 
 <h2 id="usage">Usage</h2>
 
-Gitdown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
+GitDown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
 
 ```js
-var Gitdown = require('gitdown'),
+var GitDown = require('gitdown'),
     gitdown,
     config = {};
 
-// Read the markdown file written using the Gitdown extended markdown.
+// Read the markdown file written using the GitDown extended markdown.
 // File name is not important.
-// Having all of the Gitdown markdown files under .gitdown/ path is a recommended convention.
-gitdown = Gitdown.read('.gitdown/README.md');
+// Having all of the GitDown markdown files under .gitdown/ path is a recommended convention.
+gitdown = GitDown.read('.gitdown/README.md');
 
 // If you have the subject in a string, call the constructor itself:
-// gitdown = Gitdown('literal string');
+// gitdown = GitDown('literal string');
 
 // Output the markdown file.
 // All of the file system operations are relative to the root of the repository.
@@ -51,14 +51,14 @@ gitdown.write('README.md');
 
 <h3 id="usage-gulp">Gulp</h3>
 
-Gitdown `write` method returns a promise, that will make Gulp wait until the task is completed. No third-party plugins needed.
+GitDown `write` method returns a promise, that will make Gulp wait until the task is completed. No third-party plugins needed.
 
 ```js
 var gulp = require('gulp'),
-    Gitdown = require('gitdown');
+    GitDown = require('gitdown');
 
 gulp.task('gitdown', function () {
-    return Gitdown
+    return GitDown
         .read('.gitdown/README.md')
         .write('README.md');
 });
@@ -94,7 +94,7 @@ gitdown.config.gitinfo.gitPath = __dirname;
 
 <h3 id="usage-logging">Logging</h3>
 
-Gitdown is using `console` object to log messages. You can set your own logger:
+GitDown is using `console` object to log messages. You can set your own logger:
 
 ```js
 gitdown.logger = {
@@ -107,7 +107,7 @@ The logger is used to inform about [Dead URLs and Fragment Identifiers](#find-de
 
 <h2 id="syntax">Syntax</h2>
 
-Gitdown extends markdown syntax using JSON:
+GitDown extends markdown syntax using JSON:
 
 <!-- gitdown: off -->
 ```json
@@ -124,11 +124,11 @@ JSON that does not start with a "gitdown" property will remain untouched.
 Use HTML comment tags to ignore sections of the document:
 
 ```html
-Gitdown JSON will be interpolated.
+GitDown JSON will be interpolated.
 <!-- gitdown: off -->
-Gitdown JSON will not be interpolated.
+GitDown JSON will not be interpolated.
 <!-- gitdown: on -->
-Gitdown JSON will be interpolated.
+GitDown JSON will be interpolated.
 ```
 
 <h2 id="features">Features</h2>
@@ -217,7 +217,7 @@ The conflicting IDs are solved with a numerical suffix, e.g.
 
 The problem with this approach is that it makes the order of the content important.
 
-Gitdown will nest the headings using parent heading names to ensure uniqueness, e.g.
+GitDown will nest the headings using parent heading names to ensure uniqueness, e.g.
 
 ```markdown
 # Foo
@@ -272,7 +272,7 @@ Place a documentation tag `@gitdownanchor <name>` anywhere in the code base, e.g
  */
 ```
 
-Then reference the tag in the Gitdown document:
+Then reference the tag in the GitDown document:
 
 <!-- gitdown: off -->
 ```
@@ -282,7 +282,7 @@ Refer to [foo]({"gitdown": "anchor", "name": "my-anchor-name"}).
 
 The anchor name must match `/^[a-z]+[a-z0-9\-_:\.]*$/i`.
 
-Gitdown will throw an error if the anchor is not found.
+GitDown will throw an error if the anchor is not found.
 
 <h4 id="features-reference-an-anchor-in-the-repository-json-configuration">JSON Configuration</h4>
 
@@ -311,7 +311,7 @@ Prints the value of a property defined under a parser `variable.scope` configura
 ```js
 var gitdown;
 
-gitdown = Gitdown(
+gitdown = GitDown(
     '{"gitdown": "variable", "name": "name.first"}' +
     '{"gitdown": "variable", "name": "name.last"}'
 );
@@ -350,7 +350,7 @@ gitdown.config({
 
 Includes the contents of the file to the document.
 
-The included file can have Gitdown JSON hooks.
+The included file can have GitDown JSON hooks.
 
 <h4 id="features-include-file-example">Example</h4>
 
@@ -401,7 +401,7 @@ Generates:
 ```
 <!-- gitdown: on -->
 
-Gitdown generates markdown for badges using the environment variables, e.g. if it is an NPM badge, Gitdown will lookup the package name from `package.json`.
+GitDown generates markdown for badges using the environment variables, e.g. if it is an NPM badge, GitDown will lookup the package name from `package.json`.
 
 Badges are generated using http://shields.io/.
 
@@ -458,7 +458,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416644369
+1416644453
 2014
 ```
 
@@ -514,4 +514,4 @@ master
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `gitinfo.gitPath` | Path to the `.git/` directory or a descendant. | `__dirname` of the script constructing an instance of `Gitdown`. |
+| `gitinfo.gitPath` | Path to the `.git/` directory or a descendant. | `__dirname` of the script constructing an instance of `GitDown`. |

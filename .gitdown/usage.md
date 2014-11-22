@@ -1,19 +1,19 @@
 ## Usage
 
-Gitdown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
+GitDown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
 
 ```js
-var Gitdown = require('gitdown'),
+var GitDown = require('gitdown'),
     gitdown,
     config = {};
 
-// Read the markdown file written using the Gitdown extended markdown.
+// Read the markdown file written using the GitDown extended markdown.
 // File name is not important.
-// Having all of the Gitdown markdown files under .gitdown/ path is a recommended convention.
-gitdown = Gitdown.read('.gitdown/README.md');
+// Having all of the GitDown markdown files under .gitdown/ path is a recommended convention.
+gitdown = GitDown.read('.gitdown/README.md');
 
 // If you have the subject in a string, call the constructor itself:
-// gitdown = Gitdown('literal string');
+// gitdown = GitDown('literal string');
 
 // Output the markdown file.
 // All of the file system operations are relative to the root of the repository.
@@ -22,14 +22,14 @@ gitdown.write('README.md');
 
 ### Gulp
 
-Gitdown `write` method returns a promise, that will make Gulp wait until the task is completed. No third-party plugins needed.
+GitDown `write` method returns a promise, that will make Gulp wait until the task is completed. No third-party plugins needed.
 
 ```js
 var gulp = require('gulp'),
-    Gitdown = require('gitdown');
+    GitDown = require('gitdown');
 
 gulp.task('gitdown', function () {
-    return Gitdown
+    return GitDown
         .read('.gitdown/README.md')
         .write('README.md');
 });
@@ -65,7 +65,7 @@ gitdown.config.gitinfo.gitPath = __dirname;
 
 ### Logging
 
-Gitdown is using `console` object to log messages. You can set your own logger:
+GitDown is using `console` object to log messages. You can set your own logger:
 
 ```js
 gitdown.logger = {
@@ -78,7 +78,7 @@ The logger is used to inform about [Dead URLs and Fragment Identifiers](#find-de
 
 ## Syntax
 
-Gitdown extends markdown syntax using JSON:
+GitDown extends markdown syntax using JSON:
 
 <!-- gitdown: off -->
 ```json
@@ -95,9 +95,9 @@ JSON that does not start with a "gitdown" property will remain untouched.
 Use HTML comment tags to ignore sections of the document:
 
 ```html
-Gitdown JSON will be interpolated.
+GitDown JSON will be interpolated.
 <!-- gitdown: off -->
-Gitdown JSON will not be interpolated.
+GitDown JSON will not be interpolated.
 <!-- gitdown: on -->
-Gitdown JSON will be interpolated.
+GitDown JSON will be interpolated.
 ```
