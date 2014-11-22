@@ -44,6 +44,11 @@ describe('Gitdown.Parser', function () {
                 expect(state.markdown).to.equal('testtest');
             });
     });
+    it('throws an error if invalid Gitdown JSON hook is encountered', function () {
+        return expect(function () {
+            parser.play('{"gitdown": invalid}');
+        }).to.throw(Error, 'Invalid Gitdown JSON ("{"gitdown": invalid}").');
+    });
     it('invokes a helper function with the markdown', function () {
         spy = sinon.spy(Parser.helpers, 'test');
 

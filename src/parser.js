@@ -82,9 +82,18 @@ Parser = function Parser (gitdown) {
         // console.log('markdown (after)', markdown);
 
         markdown = markdown.replace(/({"gitdown"(?:[^}]+}))/g, function (match) {
-            var command = JSON.parse(match),
-                name = command.gitdown,
-                config = command;
+            var command,
+                name,
+                config;
+
+            try {
+                command = JSON.parse(match);
+            } catch (e) {
+                throw new Error('Invalid Gitdown JSON ("' + match + '").');
+            }
+            
+            name = command.gitdown;
+            config = command;
 
             delete config.gitdown;
 
