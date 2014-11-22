@@ -9,7 +9,7 @@ var GitDown = require('gitdown'),
 
 // Read the markdown file written using the GitDown extended markdown.
 // File name is not important.
-// Having all of the GitDown markdown files under .gitdown/ path is a recommended convention.
+// Having all of the GitDown markdown files under .gitdown/ path is the recommended convention.
 gitdown = GitDown.read('.gitdown/README.md');
 
 // If you have the subject in a string, call the constructor itself:

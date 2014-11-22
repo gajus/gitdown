@@ -36,7 +36,7 @@ Gitdown = function Gitdown (input) {
 
                 return gitdown._resolveURLs(markdown)
                     .then(function () {
-                        return markdown;
+                        return Gitdown.notice() + markdown;
                     });
             });
     };
@@ -226,6 +226,17 @@ Gitdown.read = function (fileName) {
     });
 
     return Gitdown(input);
+};
+
+/**
+ * @return {String}
+ */
+Gitdown.notice = function () {
+    return '\
+    <!--\n\
+    This file has been generated using GitDown (https://github.com/gajus/gitdown).\n\
+    Direct edits to this will be be overwritten. Look for GitDown markup file under ./.gitdown/ path.\n\
+    -->';
 };
 
 /**

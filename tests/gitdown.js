@@ -19,7 +19,7 @@ describe('Gitdown', function () {
             return gitdown
                 .get()
                 .then(function (response) {
-                    expect(response).to.equal('bar');
+                    expect(response).to.equal(Gitdown.notice() + 'bar');
                 });
         });
     });
@@ -68,7 +68,7 @@ describe('gitdown', function () {
             return Gitdown('{"gitdown": "test"}')
                 .get()
                 .then(function (response) {
-                    expect(response).to.equal('test');
+                    expect(response).to.equal(Gitdown.notice() + 'test');
                 });
         });
     });
@@ -81,7 +81,7 @@ describe('gitdown', function () {
             return gitdown
                 .write(fileName)
                 .then(function () {
-                    expect(fs.readFileSync(fileName, {encoding: 'utf8'})).to.equal(randomString);
+                    expect(fs.readFileSync(fileName, {encoding: 'utf8'})).to.equal(Gitdown.notice() + randomString);
                 });
         });
     });

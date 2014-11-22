@@ -38,7 +38,7 @@ var GitDown = require('gitdown'),
 
 // Read the markdown file written using the GitDown extended markdown.
 // File name is not important.
-// Having all of the GitDown markdown files under .gitdown/ path is a recommended convention.
+// Having all of the GitDown markdown files under .gitdown/ path is the recommended convention.
 gitdown = GitDown.read('.gitdown/README.md');
 
 // If you have the subject in a string, call the constructor itself:
@@ -383,8 +383,8 @@ Returns file size formatted in human friendly format.
 Generates:
 
 ```markdown
-8.89 kB
-2.36 kB
+9.20 kB
+2.51 kB
 ```
 
 <h4 id="features-get-file-size-json-configuration">JSON Configuration</h4>
@@ -458,7 +458,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416644453
+1416647230
 2014
 ```
 
