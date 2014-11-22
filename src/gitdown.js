@@ -229,7 +229,8 @@ Gitdown.read = function (fileName) {
 };
 
 /**
- * 
+ * Iterates through each heading in the document (defined using markdown)
+ * and prefixes heading ID using parent heading ID.
  * 
  * @param {String} markdown
  * @return {String} markdown
