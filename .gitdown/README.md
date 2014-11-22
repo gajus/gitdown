@@ -3,6 +3,8 @@
 
 Gitdown is a markdown preprocessor for Github. Gitdown streamlines common tasks associated with maintaining a documentation page for a GitHub repository.
 
+[Get Down On It](http://youtu.be/qchPLaiKocI?t=20s).
+
 ## Contents
 
 {"gitdown": "contents", "maxDepth": 2}

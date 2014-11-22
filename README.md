@@ -3,6 +3,8 @@
 
 Gitdown is a markdown preprocessor for Github. Gitdown streamlines common tasks associated with maintaining a documentation page for a GitHub repository.
 
+[Get Down On It](http://youtu.be/qchPLaiKocI?t=20s).
+
 <h2 id="contents">Contents</h2>
 
 * [Contents](#contents)
@@ -381,8 +383,8 @@ Returns file size formatted in human friendly format.
 Generates:
 
 ```markdown
-8.77 kB
-2.31 kB
+8.89 kB
+2.36 kB
 ```
 
 <h4 id="features-get-file-size-json-configuration">JSON Configuration</h4>
@@ -456,7 +458,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416642609
+1416644251
 2014
 ```
 
