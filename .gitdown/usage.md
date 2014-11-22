@@ -107,7 +107,7 @@ GitDown JSON will be interpolated.
 ```js
 gitdown.registerHelper('my-helper-name', {
     /**
-     * @var {Number} Weight determines the processing order of the helper function in the document. Default: 10.
+     * @var {Number} Weight determines the processing order of the helper function. Default: 10.
      */
     weight: 10,
     /**

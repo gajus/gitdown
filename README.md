@@ -141,7 +141,7 @@ GitDown JSON will be interpolated.
 ```js
 gitdown.registerHelper('my-helper-name', {
     /**
-     * @var {Number} Weight determines the processing order of the helper function in the document. Default: 10.
+     * @var {Number} Weight determines the processing order of the helper function. Default: 10.
      */
     weight: 10,
     /**
@@ -492,7 +492,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416655921
+1416656012
 2014
 ```
 
