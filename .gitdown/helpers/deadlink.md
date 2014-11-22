@@ -8,4 +8,6 @@ Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the
 | --- | --- | --- |
 | `deadlink.findDeadURLs` | Find dead URLs. | `false` |
 | `deadlink.findDeadFragmentIdentifiers` | Find dead fragment identifiers. | `false` |
+
+<!-- -->
 <!--| `deadlink.ignoreURLs` | URLs matching the regex will be ignored. | N/A |-->

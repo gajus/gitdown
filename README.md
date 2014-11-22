@@ -226,6 +226,8 @@ Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the
 | --- | --- | --- |
 | `deadlink.findDeadURLs` | Find dead URLs. | `false` |
 | `deadlink.findDeadFragmentIdentifiers` | Find dead fragment identifiers. | `false` |
+
+<!-- -->
 <!--| `deadlink.ignoreURLs` | URLs matching the regex will be ignored. | N/A |-->
 <h3 id="features-generate-badges-json-configuration">Reference an Anchor in the Repository</h3>
 
@@ -434,7 +436,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416640782
+1416641243
 2014
 ```
 
