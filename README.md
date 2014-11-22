@@ -1,7 +1,8 @@
-    <!--
-    This file has been generated using GitDown (https://github.com/gajus/gitdown).
-    Direct edits to this will be be overwritten. Look for GitDown markup file under ./.gitdown/ path.
-    -->[![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
+<!--
+This file has been generated using GitDown (https://github.com/gajus/gitdown).
+Direct edits to this will be be overwritten. Look for GitDown markup file under ./.gitdown/ path.
+-->
+[![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
 [![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
 
 GitDown is a markdown preprocessor for GitHub. GitDown streamlines common tasks associated with maintaining a documentation page for a GitHub repository.
@@ -386,8 +387,8 @@ Returns file size formatted in human friendly format.
 Generates:
 
 ```markdown
-9.20 kB
-2.51 kB
+9.18 kB
+2.50 kB
 ```
 
 <h4 id="features-get-file-size-json-configuration">JSON Configuration</h4>
@@ -461,7 +462,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416647246
+1416647330
 2014
 ```
 

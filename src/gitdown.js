@@ -232,11 +232,7 @@ Gitdown.read = function (fileName) {
  * @return {String}
  */
 Gitdown.notice = function () {
-    return '\
-    <!--\n\
-    This file has been generated using GitDown (https://github.com/gajus/gitdown).\n\
-    Direct edits to this will be be overwritten. Look for GitDown markup file under ./.gitdown/ path.\n\
-    -->';
+    return '<!--\nThis file has been generated using GitDown (https://github.com/gajus/gitdown).\nDirect edits to this will be be overwritten. Look for GitDown markup file under ./.gitdown/ path.\n-->\n';
 };
 
 /**
