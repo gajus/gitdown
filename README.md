@@ -53,11 +53,10 @@ Gitdown `write` method returns a promise, that will make Gulp wait until the tas
 
 ```js
 var gulp = require('gulp'),
-    gitdown = require('gitdown');
+    Gitdown = require('gitdown');
 
 gulp.task('gitdown', function () {
-    var Gitdown = require('gitdown'),
-        gitdown = Gitdown.read('.gitdown/README.md');
+    var gitdown = Gitdown.read('.gitdown/README.md');
     return gitdown.write('README.md');
 });
 
@@ -456,7 +455,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416642539
+1416642557
 2014
 ```
 

@@ -26,11 +26,10 @@ Gitdown `write` method returns a promise, that will make Gulp wait until the tas
 
 ```js
 var gulp = require('gulp'),
-    gitdown = require('gitdown');
+    Gitdown = require('gitdown');
 
 gulp.task('gitdown', function () {
-    var Gitdown = require('gitdown'),
-        gitdown = Gitdown.read('.gitdown/README.md');
+    var gitdown = Gitdown.read('.gitdown/README.md');
     return gitdown.write('README.md');
 });
 
