@@ -29,8 +29,9 @@ var gulp = require('gulp'),
     Gitdown = require('gitdown');
 
 gulp.task('gitdown', function () {
-    var gitdown = Gitdown.read('.gitdown/README.md');
-    return gitdown.write('README.md');
+    return Gitdown
+        .read('.gitdown/README.md')
+        .write('README.md');
 });
 
 gulp.task('watch', function () {

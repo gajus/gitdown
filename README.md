@@ -56,8 +56,9 @@ var gulp = require('gulp'),
     Gitdown = require('gitdown');
 
 gulp.task('gitdown', function () {
-    var gitdown = Gitdown.read('.gitdown/README.md');
-    return gitdown.write('README.md');
+    return Gitdown
+        .read('.gitdown/README.md')
+        .write('README.md');
 });
 
 gulp.task('watch', function () {
@@ -455,7 +456,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416642557
+1416642609
 2014
 ```
 
