@@ -1,7 +1,7 @@
 var helper = {},
     MarkdownContents = require('markdown-contents');
 
-helper = function (config, context) {
+helper.compile = function (config, context) {
     var articles,
         tree;
 
@@ -10,17 +10,17 @@ helper = function (config, context) {
 
     if (context.gitdown.config.headingNesting.enabled) {
         tree = MarkdownContents(context.markdown).tree();
-        tree = helper.nestIds(tree);
+        tree = helper._nestIds(tree);
     } else {
         articles = MarkdownContents(context.markdown).articles();
         tree = MarkdownContents.tree(articles, true, []);
     }
 
     if (config.rootId) {
-        tree = helper.findRoot(tree, config.rootId).descendants;
+        tree = helper._findRoot(tree, config.rootId).descendants;
     }
 
-    tree = helper.maxLevel(tree, config.maxLevel);
+    tree = helper._maxLevel(tree, config.maxLevel);
 
     return MarkdownContents.treeToMarkdown(tree);
 };
@@ -28,14 +28,14 @@ helper = function (config, context) {
 /**
  * Removes tree descendants with level greater than maxLevel
  */
-helper.maxLevel = function (tree, maxLevel) {
+helper._maxLevel = function (tree, maxLevel) {
     maxLevel = maxLevel || 1;
 
     tree.forEach(function (article, index) {
         if (article.level > maxLevel) {
             delete tree[index];
         } else {
-            article.descendants = helper.maxLevel(article.descendants, maxLevel)
+            article.descendants = helper._maxLevel(article.descendants, maxLevel)
         }
     });
 
@@ -45,7 +45,7 @@ helper.maxLevel = function (tree, maxLevel) {
 /**
  * 
  */
-helper.findRoot = function (tree, rootId, notFirst) {
+helper._findRoot = function (tree, rootId, notFirst) {
     var found,
         i = tree.length;
 
@@ -55,7 +55,7 @@ helper.findRoot = function (tree, rootId, notFirst) {
 
             break;
         } else {
-            found = helper.findRoot(tree[i].descendants, rootId, true);
+            found = helper._findRoot(tree[i].descendants, rootId, true);
         }
     }
 
@@ -69,7 +69,7 @@ helper.findRoot = function (tree, rootId, notFirst) {
 /**
  * 
  */
-helper.nestIds = function (tree, parentIds) {
+helper._nestIds = function (tree, parentIds) {
     parentIds = parentIds || [];
 
     tree.forEach(function (article) {
@@ -77,14 +77,12 @@ helper.nestIds = function (tree, parentIds) {
         
         article.id = ids.join('-');
 
-        helper.nestIds(article.descendants, ids);
+        helper._nestIds(article.descendants, ids);
     });
 
     return tree;
 };
 
-helper.weight = function () {
-    return 100;
-};
+helper.weight = 100;
 
 module.exports = helper;

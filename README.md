@@ -18,6 +18,7 @@ GitDown is a markdown preprocessor for GitHub. GitDown streamlines common tasks 
     * [Logging](#usage-logging)
 * [Syntax](#syntax)
     * [Ignoring Sections of the Document](#syntax-ignoring-sections-of-the-document)
+    * [Register a Custom Helper](#syntax-register-a-custom-helper)
 * [Features](#features)
     * [Generate Table of Contents](#features-generate-table-of-contents)
     * [Heading Nesting](#features-heading-nesting)
@@ -133,6 +134,23 @@ GitDown JSON will be interpolated.
 GitDown JSON will not be interpolated.
 <!-- gitdown: on -->
 GitDown JSON will be interpolated.
+```
+
+<h3 id="syntax-register-a-custom-helper">Register a Custom Helper</h3>
+
+```js
+gitdown.registerHelper({
+    /**
+     * @var {Number} Weight determines the processing order of the helper function in the document. Default: 10.
+     */
+    weight: 10,
+    /**
+     * @param {Object} config JSON configuration.
+     */
+    compile: function (config) {
+        
+    }
+});
 ```
 
 <h2 id="features">Features</h2>
@@ -462,7 +480,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416647330
+1416652620
 2014
 ```
 

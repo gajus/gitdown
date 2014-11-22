@@ -8,12 +8,12 @@ describe('Parser.helpers.badge', function () {
     });
     it('throws an error when config.name is not provided', function () {
         expect(function () {
-            helper()
+            helper.compile()
         }).to.throw(Error, 'config.name must be provided.');
     });
     it('throws an error if unknown config.name is provided', function () {
         expect(function () {
-            helper({name: 'foo'})
+            helper.compile({name: 'foo'})
         }).to.throw(Error, 'config.name "foo" is unknown service.');
     });
     describe('.service_npm_version()', function () {
@@ -23,7 +23,7 @@ describe('Parser.helpers.badge', function () {
             context = {locator: {repositoryPath: function () { return __dirname; }}};
 
             expect(function () {
-                helper({name: 'npm-version'}, context);
+                helper.compile({name: 'npm-version'}, context);
             }).to.throw(Error, './package.json is not found.');
         });
         it('returns markdown for the NPM badge', function () {
@@ -31,7 +31,7 @@ describe('Parser.helpers.badge', function () {
                 badge;
 
             context = {locator: {repositoryPath: function () { return __dirname + '/../fixtures/badge'; }}};
-            badge = helper({name: 'npm-version'}, context);
+            badge = helper.compile({name: 'npm-version'}, context);
 
             expect(badge).to.equal('[![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)');
         });
@@ -43,7 +43,7 @@ describe('Parser.helpers.badge', function () {
             context = {locator: {repositoryPath: function () { return __dirname; }}};
 
             expect(function () {
-                helper({name: 'bower-version'}, context);
+                helper.compile({name: 'bower-version'}, context);
             }).to.throw(Error, './bower.json is not found.');
         });
         it('returns markdown for the Bower badge', function () {
@@ -52,7 +52,7 @@ describe('Parser.helpers.badge', function () {
 
             context = {locator: {repositoryPath: function () { return __dirname + '/../fixtures/badge'; }}};
 
-            badge = helper({name: 'bower-version'}, context);
+            badge = helper.compile({name: 'bower-version'}, context);
 
             expect(badge).to.equal('[![Bower version](http://img.shields.io/bower/v/gitdown.svg?style=flat)](http://bower.io/search/?q=gitdown)');
         });
@@ -66,7 +66,7 @@ describe('Parser.helpers.badge', function () {
                 locator: requireNew('../../src/locator.js')
             };
 
-            badge = helper({name: 'travis'}, context);
+            badge = helper.compile({name: 'travis'}, context);
 
             return badge
                 .then(function (badgeMarkdown) {

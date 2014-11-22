@@ -1,9 +1,5 @@
-var chai = require('chai'),
-    expect = chai.expect,
-    chaiAsPromised = require('chai-as-promised'),
+var expect = require('chai').expect,
     requireNew = require('require-new');
-
-chai.use(chaiAsPromised);
 
 describe('Parser.helpers.include', function () {
     var helper;
@@ -11,11 +7,13 @@ describe('Parser.helpers.include', function () {
         helper = requireNew('../../src/helpers/include.js');
     });
     it('is rejected with an error when config.file is not provided', function () {
-        return expect(helper())
-            .to.rejectedWith(Error, 'config.file must be provided.');
+        expect(function () {
+            helper.compile();
+        }).to.throw(Error, 'config.file must be provided.');
     });
     it('is rejected with an error when file is not found', function () {
-        return expect(helper({file: __dirname + '/does-not-exist'}))
-            .to.rejectedWith(Error, 'Input file does not exist.');
+        expect(function () {
+            helper.compile({file: __dirname + '/does-not-exist'});
+        }).to.throw(Error, 'Input file does not exist.');
     });
 });

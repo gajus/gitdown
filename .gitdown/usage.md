@@ -101,3 +101,20 @@ GitDown JSON will not be interpolated.
 <!-- gitdown: on -->
 GitDown JSON will be interpolated.
 ```
+
+### Register a Custom Helper
+
+```js
+gitdown.registerHelper({
+    /**
+     * @var {Number} Weight determines the processing order of the helper function in the document. Default: 10.
+     */
+    weight: 10,
+    /**
+     * @param {Object} config JSON configuration.
+     */
+    compile: function (config) {
+        
+    }
+});
+```

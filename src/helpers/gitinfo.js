@@ -1,7 +1,7 @@
 var helper = {},
     Gitinfo = require('gitinfo');
 
-helper = function (config, context) {
+helper.compile = function (config, context) {
     var parserConfig,
         gitinfo;
 
@@ -23,8 +23,6 @@ helper = function (config, context) {
     return gitinfo[config.name]();
 };
 
-helper.weight = function () {
-    return 10;
-};
+helper.weight = 10;
 
 module.exports = helper;

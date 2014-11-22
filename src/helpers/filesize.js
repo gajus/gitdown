@@ -1,10 +1,10 @@
-var helper,
+var helper = {},
     Promise = require('bluebird'),
     fs = require('fs'),
     zlib = require('zlib'),
     formatFileSize = require('filesize');
 
-helper = function (config) {
+helper.compile = function (config) {
     config = config || {};
     config.gzip = config.gzip || false;
 
@@ -12,9 +12,9 @@ helper = function (config) {
         return Promise.reject(new Error('config.file must be provided.'));
     }
 
-    return helper.file(config.file, config.gzip)
+    return helper._file(config.file, config.gzip)
         .then(function (fileSize) {
-            return helper.format(fileSize);
+            return helper._format(fileSize);
         });
 };
 
@@ -25,7 +25,7 @@ helper = function (config) {
  * @param {String} file
  * @param {Boolean} gzip
  */
-helper.file = function (file, gzip) {
+helper._file = function (file, gzip) {
     return new Promise(function (resolve, reject) {
         if (!fs.existsSync(file)) {
             return reject(new Error('Input file does not exist.'));
@@ -51,15 +51,10 @@ helper.file = function (file, gzip) {
  * @param {Number} bytes
  * @param {String}
  */
-helper.format = function (bytes) {
+helper._format = function (bytes) {
     return formatFileSize(bytes);
 };
 
-/**
- *
- */
-helper.weight = function () {
-    return 10;
-};
+helper.weight = 10;
 
 module.exports = helper

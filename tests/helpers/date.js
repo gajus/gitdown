@@ -7,9 +7,9 @@ describe('Parser.helpers.date', function () {
         helper = requireNew('../../src/helpers/date.js');
     });
     it('returns current UNIX timestamp', function () {
-        expect(helper()).to.equal( ~~(new Date().getTime()/1000) + '' );
+        expect(helper.compile()).to.equal( ~~(new Date().getTime()/1000) + '' );
     });
     it('uses format parameter to adjust the format', function () {
-        expect(helper({format: 'YYYY'})).to.equal(new Date().getUTCFullYear() + '');
+        expect(helper.compile({format: 'YYYY'})).to.equal(new Date().getUTCFullYear() + '');
     });
 });

@@ -1,20 +1,21 @@
 var helper = {},
     fs = require('fs'),
     jsonfile = require('jsonfile'),
-    exec = require('child_process').exec
-    Promise = require('bluebird'),
     gitinfo = require(__dirname + '/gitinfo.js');
 
-helper = function (config, context) {
+helper.compile = function (config, context) {
+    var services = {};
+
     config = config || {};
 
     if (!config.name) {
         throw new Error('config.name must be provided.');
     }
 
-    helper.service = {};
-
-    helper.service.npm_version = function () {
+    /**
+     *
+     */
+    services.npm_version = function () {
         var pkg = context.locator.repositoryPath() + '/package.json';
 
         if (!fs.existsSync(pkg)) {
@@ -26,19 +27,25 @@ helper = function (config, context) {
         return '[![NPM version](http://img.shields.io/npm/v/' + pkg.name + '.svg?style=flat)](https://www.npmjs.org/package/' + pkg.name + ')';
     };
 
-    helper.service.bower_version = function () {
-        var pkg = context.locator.repositoryPath() + '/bower.json';
+    /**
+     *
+     */
+    services.bower_version = function () {
+        var bower = context.locator.repositoryPath() + '/bower.json';
 
-        if (!fs.existsSync(pkg)) {
+        if (!fs.existsSync(bower)) {
             throw new Error('./bower.json is not found.');
         }
 
-        pkg = jsonfile.readFileSync(pkg);
+        bower = jsonfile.readFileSync(bower);
 
-        return '[![Bower version](http://img.shields.io/bower/v/' + pkg.name + '.svg?style=flat)](http://bower.io/search/?q=' + pkg.name + ')';
+        return '[![Bower version](http://img.shields.io/bower/v/' + bower.name + '.svg?style=flat)](http://bower.io/search/?q=' + bower.name + ')';
     };
 
-    helper.service.travis = function () {
+    /**
+     *
+     */
+    services.travis = function () {
         var rep = {},
             badge;
 
@@ -51,15 +58,13 @@ helper = function (config, context) {
         return '[' + badge + '](https://travis-ci.org/' + rep.username + '/' + rep.name + ')';
     };
 
-    if (!helper.service[config.name.replace(/-/g, '_')]) {
+    if (!services[config.name.replace(/-/g, '_')]) {
         throw new Error('config.name "' + config.name + '" is unknown service.');
     }
 
-    return helper.service[config.name.replace(/-/g, '_')]();
+    return services[config.name.replace(/-/g, '_')]();
 };
 
-helper.weight = function () {
-    return 10;
-};
+helper.weight = 10;
 
 module.exports = helper;

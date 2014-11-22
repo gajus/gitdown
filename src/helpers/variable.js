@@ -1,6 +1,9 @@
-var helper;
+var helper = {};
 
-helper = function (config, context) {
+/**
+ *
+ */
+helper.compile = function (config, context) {
     var scope = context.gitdown.config.variable.scope,
         value;
 
@@ -10,7 +13,7 @@ helper = function (config, context) {
         throw new Error('config.name must be provided.');
     }
 
-    value = helper.resolve(scope, config.name);
+    value = helper._resolve(scope, config.name);
 
     if (value === false) {
         throw new Error('config.name "' + config.name + '" does not resolve to a defined value.');
@@ -19,7 +22,10 @@ helper = function (config, context) {
     return value;
 };
 
-helper.resolve = function (obj, path) {
+/**
+ *
+ */
+helper._resolve = function (obj, path) {
     var stone;
 
     path = path || '';
@@ -51,8 +57,6 @@ helper.resolve = function (obj, path) {
 /**
  *
  */
-helper.weight = function () {
-    return 10;
-};
+helper.weight = 10;
 
 module.exports = helper
