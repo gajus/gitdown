@@ -7,6 +7,7 @@ Gitdown is a markdown preprocessor for Github. Gitdown streamlines common tasks 
 
 * [Contents](#contents)
 * [Usage](#usage)
+    * [Gulp](#usage-gulp)
     * [Parser Configuration](#usage-parser-configuration)
     * [Logging](#usage-logging)
 * [Syntax](#syntax)
@@ -44,6 +45,27 @@ gitdown = Gitdown.read('.gitdown/README.md');
 // Output the markdown file.
 // All of the file system operations are relative to the root of the repository.
 gitdown.write('README.md');
+```
+
+<h3 id="usage-gulp">Gulp</h3>
+
+Third-party plugin is not needed.
+
+```js
+var gulp = require('gulp'),
+    gitdown = require('gitdown');
+
+gulp.task('gitdown', function () {
+    var Gitdown = require('gitdown'),
+        gitdown;
+
+    gitdown = Gitdown.read('.gitdown/README.md');
+    return gitdown.write('README.md');
+});
+
+gulp.task('watch', function () {
+    gulp.watch(['./.gitdown/*'], ['gitdown']);
+});
 ```
 
 <h3 id="usage-parser-configuration">Parser Configuration</h3>
@@ -436,7 +458,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416642263
+1416642413
 2014
 ```
 
