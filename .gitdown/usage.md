@@ -22,7 +22,7 @@ gitdown.write('README.md');
 
 ### Gulp
 
-Third-party plugin is not needed.
+Gitdown `write` method returns a promise, that will make Gulp wait until the task is completed. No third-party plugins needed.
 
 ```js
 var gulp = require('gulp'),

@@ -49,7 +49,7 @@ gitdown.write('README.md');
 
 <h3 id="usage-gulp">Gulp</h3>
 
-Third-party plugin is not needed.
+Gitdown `write` method returns a promise, that will make Gulp wait until the task is completed. No third-party plugins needed.
 
 ```js
 var gulp = require('gulp'),
@@ -458,7 +458,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416642413
+1416642505
 2014
 ```
 
