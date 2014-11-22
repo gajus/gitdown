@@ -31,6 +31,31 @@ describe('Gitdown', function () {
             expect(Gitdown._nestHeadingIds('# Foo\n## Bar')).to.equal('<h1 id="foo">Foo</h1>\n<h2 id="foo-bar">Bar</h2>');
         });
     });
+    describe('._nestHeadingIds.iterateTree()', function () {
+        it('iterates through each leaf of tree', function () {
+            var tree,
+                result = [];
+
+            tree = [
+                {
+                    id: 'a',
+                    descendants: [
+                        {id: 'b', descendants: []},
+                        {id: 'c', descendants: []}
+                    ]
+                },
+                {
+                    id: 'd', descendants: []
+                }
+            ];
+
+            Gitdown._nestHeadingIds.iterateTree(tree, function (index, leaf) {
+                result.push(index + '-' + leaf.id);
+            });
+
+            expect(result).to.deep.equal(['1-a', '2-b', '3-c', '4-d']);
+        });
+    });
 });
 
 xdescribe('gitdown', function () {

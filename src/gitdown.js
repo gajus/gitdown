@@ -1,9 +1,7 @@
 var Gitdown,
     Parser = require('./parser.js'),
     fs = require('fs'),
-    Deadlink = require('deadlink'),
-    Promise = require('bluebird'),
-    URLExtractor = require('url-extractor');
+    Promise = require('bluebird');
 
 /**
  * @param {String} input Gitdown flavored markdown.
@@ -84,7 +82,9 @@ Gitdown = function Gitdown (input) {
      * @param {String} markdown
      */
     gitdown._resolveURLs = function (markdown) {
-        var deadlink,
+        var Deadlink = require('deadlink'),
+            URLExtractor = require('url-extractor'),
+            deadlink,
             repositoryURL,
             urls,
             promises;
@@ -228,6 +228,12 @@ Gitdown.read = function (fileName) {
     return Gitdown(input);
 };
 
+/**
+ * 
+ * 
+ * @param {String} markdown
+ * @return {String} markdown
+ */
 Gitdown._nestHeadingIds = function (markdown) {
     var MarkdownContents = require('markdown-contents'),
         contents = Parser.helpers.contents,
@@ -238,7 +244,7 @@ Gitdown._nestHeadingIds = function (markdown) {
     markdown = markdown.replace(/^```[\s\S]*?\n```/mg, function (match) {
         codeblocks.push(match);
 
-        return '```' + codeblocks.length + '```';
+        return '⊂⊂⊂C:' + codeblocks.length + '⊃⊃⊃';
     });
 
     markdown = markdown.replace(/^(#+)(.*$)/mg, function (match, level, name) {
@@ -251,32 +257,41 @@ Gitdown._nestHeadingIds = function (markdown) {
             name: name
         });
 
-        return '<h' + level + ' id="⊂⊂H:' + articles.length + '⊃⊃">' + name + '</h' + level + '>'
+        return '<h' + level + ' id="⊂⊂⊂H:' + articles.length + '⊃⊃⊃">' + name + '</h' + level + '>'
     });
 
-    markdown = markdown.replace(/^```(\d+)```/mg, function (match) {
+    markdown = markdown.replace(/^⊂⊂⊂C:(\d+)⊃⊃⊃/mg, function (match) {
         return codeblocks.shift();
     });
 
     tree = contents.nestIds(MarkdownContents.tree(articles));
 
-    Gitdown._nestHeadingIds.iterate(tree, function (index, article) {
-        markdown = markdown.replace('⊂⊂H:' + index + '⊃⊃', article.id);
+    Gitdown._nestHeadingIds.iterateTree(tree, function (index, article) {
+        markdown = markdown.replace('⊂⊂⊂H:' + index + '⊃⊃⊃', article.id);
     });
 
     return markdown;
 };
 
-Gitdown._nestHeadingIds.iterate = function (tree, callback, index) {
+/**
+ * 
+ * 
+ * @param {Array} tree
+ * @param {Function} callback
+ * @param {Number} index
+ */
+Gitdown._nestHeadingIds.iterateTree = function (tree, callback, index) {
     index = index || 1;
 
     tree.forEach(function (article) {
         callback(index++, article);
 
         if (article.descendants) {
-            Gitdown._nestHeadingIds.iterate(article.descendants, callback, index);
+            index = Gitdown._nestHeadingIds.iterateTree(article.descendants, callback, index);
         }
     });
+
+    return index;
 };
 
 module.exports = Gitdown;
