@@ -448,8 +448,8 @@ Badges are generated using http://shields.io/.
 | `npm-version` | [NPM](https://www.npmjs.org/) package version. |
 | `bower-version` | [Bower](http://bower.io/) package version. |
 | `travis` | State of the [Travis](https://travis-ci.org/) build. |
-| `david` | [David](https://david-dm.org/) state of dependencies. |
-| `david-dev` | [David](https://david-dm.org/) state of dev dependencies. |
+| `david` | [David](https://david-dm.org/) state of the dependencies. |
+| `david-dev` | [David](https://david-dm.org/) state of the development dependencies. |
 
 What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/issues).
 
@@ -498,7 +498,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1417550549
+1417550761
 2014
 ```
 
