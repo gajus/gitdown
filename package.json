@@ -17,7 +17,7 @@
     "url": "https://github.com/gajus/gitdown"
   },
   "license": "BSD-3-Clause",
-  "scrips": {
+  "scripts": {
     "test": "gulp test"
   },
   "devDependencies": {
