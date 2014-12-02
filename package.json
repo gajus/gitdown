@@ -35,7 +35,7 @@
     "bluebird": "^2.3.11",
     "deadlink": "^1.0.9",
     "filesize": "^2.0.4",
-    "gitinfo": "^1.1.0",
+    "gitinfo": "^1.1.1",
     "glob": "^4.0.6",
     "jsonfile": "^2.0.0",
     "markdown-contents": "^1.0.1",
