@@ -26,6 +26,7 @@
     "gulp": "^3.8.9",
     "gulp-jshint": "^1.8.6",
     "gulp-mocha": "^1.1.1",
+    "jshint-stylish": "^1.0.0",
     "nock": "^0.50.0",
     "require-new": "^1.0.1",
     "sinon": "^1.11.1"
