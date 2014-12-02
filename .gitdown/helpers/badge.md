@@ -17,6 +17,8 @@ Badges are generated using http://shields.io/.
 | `npm-version` | [NPM](https://www.npmjs.org/) package version. |
 | `bower-version` | [Bower](http://bower.io/) package version. |
 | `travis` | State of the [Travis](https://travis-ci.org/) build. |
+| `david` | [David](https://david-dm.org/) state of dependencies. |
+| `david-dev` | [David](https://david-dm.org/) state of dev dependencies. |
 
 What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/issues).
 
@@ -26,6 +28,7 @@ What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/
 ```json
 {"gitdown": "badge", "name": "npm"}
 {"gitdown": "badge", "name": "travis"}
+{"gitdown": "badge", "name": "david"}
 ```
 <!-- gitdown: on -->
 
@@ -34,6 +37,7 @@ Generates:
 ```markdown
 {"gitdown": "badge", "name": "npm-version"}
 {"gitdown": "badge", "name": "travis"}
+{"gitdown": "badge", "name": "david"}
 ```
 
 #### JSON Configuration

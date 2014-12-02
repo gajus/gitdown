@@ -173,7 +173,8 @@ Parser = function Parser (gitdown) {
             context = {
                 markdown: state.markdown,
                 locator: Locator,
-                gitdown: gitdown
+                gitdown: gitdown,
+                parser: parser
             };
 
             promise = Promise.resolve(command.helper.compile(command.config, context));

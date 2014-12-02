@@ -1,7 +1,6 @@
 var helper = {},
     fs = require('fs'),
-    jsonfile = require('jsonfile'),
-    gitinfo = require(__dirname + '/gitinfo.js');
+    jsonfile = require('jsonfile');
 
 helper.compile = function (config, context) {
     var services = {};
@@ -43,11 +42,34 @@ helper.compile = function (config, context) {
     };
 
     /**
+     * @see https://github.com/gajus/gitdown/issues/10
+     */
+    services['david'] = function () {
+        var gitinfo = context.parser.helpers().gitinfo,
+            github = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context),
+            badge = '![Dependency Status](https://david-dm.org/' + github + '.svg?style=flat)';
+
+        return '[' + badge + '](https://david-dm.org/' + github + ')';
+    };
+
+    /**
+     * @see https://github.com/gajus/gitdown/issues/10
+     */
+    services['david-dev'] = function () {
+        var gitinfo = context.parser.helpers().gitinfo,
+            github = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context),
+            badge = '![Dependency Status](https://david-dm.org/' + github + '/dev-status.svg?style=flat)';
+
+        return '[' + badge + '](https://david-dm.org/' + github + '#info=devDependencies)';
+    };
+
+    /**
      *
      */
     services.travis = function () {
         var rep = {},
-            badge;
+            badge,
+            gitinfo = context.parser.helpers().gitinfo;
 
         rep.username = gitinfo.compile({name: 'username'}, context);
         rep.name = gitinfo.compile({name: 'name'}, context);

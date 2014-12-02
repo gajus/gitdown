@@ -1,6 +1,6 @@
 <!--
-This file has been generated using GitDown (https://github.com/gajus/gitdown).
-Direct edits to this will be be overwritten. Look for GitDown markup file under ./.gitdown/ path.
+This file has been generated using Gitdown (https://github.com/gajus/gitdown).
+Direct edits to this will be be overwritten. Look for Gitdown markup file under ./.gitdown/ path.
 -->
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
 [![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
@@ -447,6 +447,8 @@ Badges are generated using http://shields.io/.
 | `npm-version` | [NPM](https://www.npmjs.org/) package version. |
 | `bower-version` | [Bower](http://bower.io/) package version. |
 | `travis` | State of the [Travis](https://travis-ci.org/) build. |
+| `david` | [David](https://david-dm.org/) state of dependencies. |
+| `david-dev` | [David](https://david-dm.org/) state of dev dependencies. |
 
 What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/issues).
 
@@ -456,6 +458,7 @@ What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/
 ```json
 {"gitdown": "badge", "name": "npm"}
 {"gitdown": "badge", "name": "travis"}
+{"gitdown": "badge", "name": "david"}
 ```
 <!-- gitdown: on -->
 
@@ -464,6 +467,7 @@ Generates:
 ```markdown
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
 [![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
+[![Dependency Status](https://david-dm.org/gajus/gitdown.svg?style=flat)](https://david-dm.org/gajus/gitdown)
 ```
 
 <h4 id="features-generate-badges-json-configuration">JSON Configuration</h4>
@@ -493,7 +497,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1416672781
+1417550392
 2014
 ```
 
