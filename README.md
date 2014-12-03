@@ -5,6 +5,7 @@ Direct edits to this will be be overwritten. Look for Gitdown markup file under 
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
 [![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
 [![Dependency Status](https://david-dm.org/gajus/gitdown.svg?style=flat)](https://david-dm.org/gajus/gitdown)
+[![Stories in Ready](https://badge.waffle.io/gajus/gitdown.svg?label=ready&title=Ready)](https://waffle.io/gajus/gitdown)
 
 Gitdown is a markdown preprocessor for GitHub. Gitdown streamlines common tasks associated with maintaining a documentation page for a GitHub repository.
 
@@ -461,7 +462,6 @@ What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/
 {"gitdown": "badge", "name": "npm"}
 {"gitdown": "badge", "name": "travis"}
 {"gitdown": "badge", "name": "david"}
-{"gitdown": "badge", "name": "waffle"}
 ```
 <!-- gitdown: on -->
 
@@ -471,7 +471,6 @@ Generates:
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
 [![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
 [![Dependency Status](https://david-dm.org/gajus/gitdown.svg?style=flat)](https://david-dm.org/gajus/gitdown)
-[![Stories in Ready](https://badge.waffle.io/gajus/gitdown.svg?label=ready&title=Ready)](https://waffle.io/gajus/gitdown)
 ```
 
 <h4 id="features-generate-badges-json-configuration">JSON Configuration</h4>
@@ -501,7 +500,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1417550761
+1417612294
 2014
 ```
 

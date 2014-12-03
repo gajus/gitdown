@@ -19,6 +19,7 @@ Badges are generated using http://shields.io/.
 | `travis` | State of the [Travis](https://travis-ci.org/) build. |
 | `david` | [David](https://david-dm.org/) state of the dependencies. |
 | `david-dev` | [David](https://david-dm.org/) state of the development dependencies. |
+| `waffle` | Issues ready on [Waffle](https://waffle.io/) board. |
 
 What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/issues).
 
