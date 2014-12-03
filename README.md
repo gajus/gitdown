@@ -450,6 +450,7 @@ Badges are generated using http://shields.io/.
 | `travis` | State of the [Travis](https://travis-ci.org/) build. |
 | `david` | [David](https://david-dm.org/) state of the dependencies. |
 | `david-dev` | [David](https://david-dm.org/) state of the development dependencies. |
+| `waffle` | Issues ready on [Waffle](https://waffle.io/) board. |
 
 What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/issues).
 
@@ -460,6 +461,7 @@ What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/
 {"gitdown": "badge", "name": "npm"}
 {"gitdown": "badge", "name": "travis"}
 {"gitdown": "badge", "name": "david"}
+{"gitdown": "badge", "name": "waffle"}
 ```
 <!-- gitdown: on -->
 
@@ -469,6 +471,7 @@ Generates:
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
 [![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
 [![Dependency Status](https://david-dm.org/gajus/gitdown.svg?style=flat)](https://david-dm.org/gajus/gitdown)
+[![Stories in Ready](https://badge.waffle.io/gajus/gitdown.svg?label=ready&title=Ready)](https://waffle.io/gajus/gitdown)
 ```
 
 <h4 id="features-generate-badges-json-configuration">JSON Configuration</h4>
