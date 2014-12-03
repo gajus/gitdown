@@ -105,5 +105,14 @@ describe('Parser.helpers.badge', function () {
                 expect(badge).to.equal('[![Travis build status](http://img.shields.io/travis/a/b/c.svg?style=flat)](https://travis-ci.org/a/b)');
             });
         });
+        describe('waffle', function () {
+            it('returns markdown for the waffle badge', function () {
+                var badge;
+
+                badge = helper.compile({name: 'waffle'}, gitinfoContext);
+
+                expect(badge).to.equal('[![Stories in Ready](https://badge.waffle.io/a/b.svg?label=ready&title=Ready)](https://waffle.io/a/b)');
+            });
+        });
     });
 });

@@ -80,6 +80,22 @@ helper.compile = function (config, context) {
         return '[' + badge + '](https://travis-ci.org/' + rep.username + '/' + rep.name + ')';
     };
 
+    /**
+     *
+     */
+    services.waffle = function () {
+        var rep = {},
+            badge,
+            gitinfo = context.parser.helpers().gitinfo;
+
+        rep.username = gitinfo.compile({name: 'username'}, context);
+        rep.name = gitinfo.compile({name: 'name'}, context);
+
+        badge = '![Stories in Ready](https://badge.waffle.io/' + rep.username + '/' + rep.name + '.svg?label=ready&title=Ready)';
+
+        return '[' + badge + '](https://waffle.io/' + rep.username + '/' + rep.name + ')';
+    };
+
     if (!services[config.name]) {
         throw new Error('config.name "' + config.name + '" is unknown service.');
     }
