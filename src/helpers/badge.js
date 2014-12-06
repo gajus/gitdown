@@ -46,10 +46,10 @@ helper.compile = function (config, context) {
      */
     services['david'] = function () {
         var gitinfo = context.parser.helpers().gitinfo,
-            github = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context),
-            badge = '![Dependency Status](https://david-dm.org/' + github + '.svg?style=flat)';
+            repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context),
+            badge = '![Dependency Status](https://david-dm.org/' + repository + '.svg?style=flat)';
 
-        return '[' + badge + '](https://david-dm.org/' + github + ')';
+        return '[' + badge + '](https://david-dm.org/' + repository + ')';
     };
 
     /**
@@ -57,10 +57,10 @@ helper.compile = function (config, context) {
      */
     services['david-dev'] = function () {
         var gitinfo = context.parser.helpers().gitinfo,
-            github = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context),
-            badge = '![Dependency Status](https://david-dm.org/' + github + '/dev-status.svg?style=flat)';
+            repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context),
+            badge = '![Dependency Status](https://david-dm.org/' + repository + '/dev-status.svg?style=flat)';
 
-        return '[' + badge + '](https://david-dm.org/' + github + '#info=devDependencies)';
+        return '[' + badge + '](https://david-dm.org/' + repository + '#info=devDependencies)';
     };
 
     /**
@@ -68,43 +68,52 @@ helper.compile = function (config, context) {
      */
     services['gitter'] = function () {
         var gitinfo = context.parser.helpers().gitinfo,
-            github = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context),
-            badge = '![Gitter chat](https://badges.gitter.im/' + github + '.png)';
+            repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context),
+            badge = '![Gitter chat](https://badges.gitter.im/' + repository + '.png)';
 
-        return '[' + badge + '](https://gitter.im/' + github + ')';
+        return '[' + badge + '](https://gitter.im/' + repository + ')';
     };
 
     /**
-     *
+     * @see https://github.com/gajus/gitdown/issues/13
+     */
+    services['coveralls'] = function () {
+        var gitinfo = context.parser.helpers().gitinfo,
+            repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context),
+            branch = gitinfo.compile({name: 'branch'}, context);
+            badge = '![Coverage Status](https://img.shields.io/coveralls/' + repository + '/' + branch + '.svg)';
+
+        return '[' + badge + '](https://coveralls.io/r/' + repository + '?branch=' + branch + ')';
+    };
+
+    /**
+     * @todo Link does not include travis branch.
      */
     services.travis = function () {
         var rep = {},
             badge,
-            gitinfo = context.parser.helpers().gitinfo;
+            gitinfo = context.parser.helpers().gitinfo,
+            repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
 
-        rep.username = gitinfo.compile({name: 'username'}, context);
-        rep.name = gitinfo.compile({name: 'name'}, context);
         rep.branch = gitinfo.compile({name: 'branch'}, context);
 
-        badge = '![Travis build status](http://img.shields.io/travis/' + rep.username + '/' + rep.name + '/' + rep.branch + '.svg?style=flat)';
+        badge = '![Travis build status](http://img.shields.io/travis/' + repository + '/' + rep.branch + '.svg?style=flat)';
 
-        return '[' + badge + '](https://travis-ci.org/' + rep.username + '/' + rep.name + ')';
+        return '[' + badge + '](https://travis-ci.org/' + repository + ')';
     };
 
     /**
      *
      */
     services.waffle = function () {
-        var rep = {},
-            badge,
-            gitinfo = context.parser.helpers().gitinfo;
+        var badge,
+            gitinfo = context.parser.helpers().gitinfo,
+            repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
 
-        rep.username = gitinfo.compile({name: 'username'}, context);
-        rep.name = gitinfo.compile({name: 'name'}, context);
 
-        badge = '![Stories in Ready](https://badge.waffle.io/' + rep.username + '/' + rep.name + '.svg?label=ready&title=Ready)';
+        badge = '![Stories in Ready](https://badge.waffle.io/' + repository + '.svg?label=ready&title=Ready)';
 
-        return '[' + badge + '](https://waffle.io/' + rep.username + '/' + rep.name + ')';
+        return '[' + badge + '](https://waffle.io/' + repository + ')';
     };
 
     if (!services[config.name]) {

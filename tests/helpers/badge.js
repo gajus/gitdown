@@ -78,6 +78,15 @@ describe('Parser.helpers.badge', function () {
                 expect(badge).to.equal('[![Bower version](http://img.shields.io/bower/v/gitdown.svg?style=flat)](http://bower.io/search/?q=gitdown)');
             });
         });
+        describe('coveralls', function () {
+            it('returns markdown for the coveralls badge', function () {
+                var badge;
+
+                badge = helper.compile({name: 'gitter'}, gitinfoContext);
+
+                expect(badge).to.equal('[![Gitter chat](https://badges.gitter.im/a/b.png)](https://gitter.im/a/b)');
+            });
+        });
         describe('gitter', function () {
             it('returns markdown for the gitter badge', function () {
                 var badge;
