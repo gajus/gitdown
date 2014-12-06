@@ -6,9 +6,9 @@ Direct edits to this will be be overwritten. Look for Gitdown markup file under 
 [![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
 [![Dependency Status](https://david-dm.org/gajus/gitdown.svg?style=flat)](https://david-dm.org/gajus/gitdown)
 
-Gitdown is a markdown preprocessor for GitHub. Gitdown streamlines common tasks associated with maintaining a documentation page for a GitHub repository.
+Gitdown adds [additional functionality](#features) (generating table of contents, including documents, using variables, etc.) to [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/).
 
-[Get Down On It](http://youtu.be/qchPLaiKocI?t=20s).
+[This document](https://raw.githubusercontent.com/gajus/gitdown/master/.gitdown/README.md) is generated using Gitdown.
 
 <h2 id="contents">Contents</h2>
 
@@ -499,7 +499,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1417612451
+1417855452
 2014
 ```
 

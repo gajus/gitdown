@@ -2,9 +2,9 @@
 {"gitdown": "badge", "name": "travis"}
 {"gitdown": "badge", "name": "david"}
 
-Gitdown is a markdown preprocessor for GitHub. Gitdown streamlines common tasks associated with maintaining a documentation page for a GitHub repository.
+Gitdown adds [additional functionality](#features) (generating table of contents, including documents, using variables, etc.) to [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/).
 
-[Get Down On It](http://youtu.be/qchPLaiKocI?t=20s).
+[This document](https://raw.githubusercontent.com/gajus/gitdown/master/.gitdown/README.md) is generated using Gitdown.
 
 ## Contents
 
