@@ -7,7 +7,7 @@ Gitdown adds [additional functionality](#features) (generating table of contents
 ## Cheat sheet
 
 <!-- gitdown: off -->
-```markdown
+```js
 // Generate table of contents
 {"gitdown": "contents"}
 

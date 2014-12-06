@@ -11,7 +11,7 @@ Gitdown adds [additional functionality](#features) (generating table of contents
 <h2 id="cheat-sheet">Cheat sheet</h2>
 
 <!-- gitdown: off -->
-```markdown
+```js
 // Generate table of contents
 {"gitdown": "contents"}
 
@@ -524,7 +524,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1417855721
+1417855746
 2014
 ```
 
