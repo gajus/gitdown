@@ -64,6 +64,17 @@ helper.compile = function (config, context) {
     };
 
     /**
+     * @see https://github.com/gajus/gitdown/issues/12
+     */
+    services['gitter'] = function () {
+        var gitinfo = context.parser.helpers().gitinfo,
+            github = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context),
+            badge = '![Gitter chat](https://badges.gitter.im/' + github + '.png)';
+
+        return '[' + badge + '](https://gitter.im/' + github + ')';
+    };
+
+    /**
      *
      */
     services.travis = function () {

@@ -482,6 +482,7 @@ Badges are generated using http://shields.io/.
 | `david` | [David](https://david-dm.org/) state of the dependencies. |
 | `david-dev` | [David](https://david-dm.org/) state of the development dependencies. |
 | `waffle` | Issues ready on [Waffle](https://waffle.io/) board. |
+| `gitter` | Join [Gitter](https://gitter.im/) chat. |
 
 What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/issues).
 
@@ -530,7 +531,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1417855868
+1417909395
 2014
 ```
 
