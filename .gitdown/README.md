@@ -4,7 +4,31 @@
 
 Gitdown adds [additional functionality](#features) (generating table of contents, including documents, using variables, etc.) to [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/).
 
-[This document](https://raw.githubusercontent.com/gajus/gitdown/master/.gitdown/README.md) is generated using Gitdown.
+## Cheat sheet
+
+<!-- gitdown: off -->
+```markdown
+// Generate table of contents
+{"gitdown": "contents"}
+
+// Use a custom defined variable
+{"gitdown": "variable", "name": "nameOfTheVariable"}
+
+// Include file
+{"gitdown": "include", "file": "LICENSE.md"}
+
+// Get file size
+{"gitdown": "filesize", "file": "src/gitdown.js"}
+{"gitdown": "filesize", "file": "src/gitdown.js", "gzip": true}
+
+// Generate badges
+{"gitdown": "badge", "name": "npm"}
+{"gitdown": "badge", "name": "travis"}
+
+// Print date
+{"gitdown": "date", "format": "YYYY"}
+```
+<!-- gitdown: on -->
 
 ## Contents
 
