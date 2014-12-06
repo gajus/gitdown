@@ -27,7 +27,7 @@ What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/
 
 <!-- gitdown: off -->
 ```json
-{"gitdown": "badge", "name": "npm"}
+{"gitdown": "badge", "name": "npm-version"}
 {"gitdown": "badge", "name": "travis"}
 {"gitdown": "badge", "name": "david"}
 ```

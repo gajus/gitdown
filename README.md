@@ -8,12 +8,14 @@ Direct edits to this will be be overwritten. Look for Gitdown markup file under 
 
 Gitdown adds [additional functionality](#features) (generating table of contents, including documents, using variables, etc.) to [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/).
 
-<h2 id="cheat-sheet">Cheat sheet</h2>
+<h2 id="cheat-sheet">Cheat Sheet</h2>
 
 <!-- gitdown: off -->
 ```js
 // Generate table of contents
 {"gitdown": "contents"}
+{"gitdown": "contents", "maxLevel": 4}
+{"gitdown": "contents", "rootId": "features"}
 
 // Use a custom defined variable
 {"gitdown": "variable", "name": "nameOfTheVariable"}
@@ -26,8 +28,12 @@ Gitdown adds [additional functionality](#features) (generating table of contents
 {"gitdown": "filesize", "file": "src/gitdown.js", "gzip": true}
 
 // Generate badges
-{"gitdown": "badge", "name": "npm"}
+{"gitdown": "badge", "name": "npm-version"}
+{"gitdown": "badge", "name": "bower-version"}
 {"gitdown": "badge", "name": "travis"}
+{"gitdown": "badge", "name": "david"}
+{"gitdown": "badge", "name": "david-dev"}
+{"gitdown": "badge", "name": "waffle"}
 
 // Print date
 {"gitdown": "date", "format": "YYYY"}
@@ -36,7 +42,7 @@ Gitdown adds [additional functionality](#features) (generating table of contents
 
 <h2 id="contents">Contents</h2>
 
-* [Cheat sheet](#cheat-sheet)
+* [Cheat Sheet](#cheat-sheet)
 * [Contents](#contents)
 * [Usage](#usage)
     * [Gulp](#usage-gulp)
@@ -483,7 +489,7 @@ What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/
 
 <!-- gitdown: off -->
 ```json
-{"gitdown": "badge", "name": "npm"}
+{"gitdown": "badge", "name": "npm-version"}
 {"gitdown": "badge", "name": "travis"}
 {"gitdown": "badge", "name": "david"}
 ```
@@ -524,7 +530,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1417855746
+1417855868
 2014
 ```
 
