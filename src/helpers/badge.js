@@ -116,6 +116,31 @@ helper.compile = function (config, context) {
         return '[' + badge + '](https://waffle.io/' + repository + ')';
     };
 
+    /**
+     * see https://github.com/gajus/gitdown/issues/16
+     */
+    services['codeclimate-gpa'] = function () {
+        var badge,
+            gitinfo = context.parser.helpers().gitinfo,
+            repository = 'github/' + gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
+
+
+        badge = '![Code Climate](https://codeclimate.com/' + repository + '/badges/gpa.svg)';
+
+        return '[' + badge + '](https://codeclimate.com/' + repository + ')';
+    };
+
+    services['codeclimate-coverage'] = function () {
+        var badge,
+            gitinfo = context.parser.helpers().gitinfo,
+            repository = 'github/' + gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
+
+
+        badge = '![Code Climate](https://codeclimate.com/' + repository + '/badges/coverage.svg)';
+
+        return '[' + badge + '](https://codeclimate.com/' + repository + ')';
+    };
+
     if (!services[config.name]) {
         throw new Error('config.name "' + config.name + '" is unknown service.');
     }

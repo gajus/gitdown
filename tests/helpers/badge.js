@@ -132,5 +132,22 @@ describe('Parser.helpers.badge', function () {
                 expect(badge).to.equal('[![Stories in Ready](https://badge.waffle.io/a/b.svg?label=ready&title=Ready)](https://waffle.io/a/b)');
             });
         });
+
+        describe('codeclimate', function () {
+            it('returns markdown for the codeclimate gpa badge', function () {
+                var badge;
+
+                badge = helper.compile({name: 'codeclimate-gpa'}, gitinfoContext);
+
+                expect(badge).to.equal('[![Code Climate](https://codeclimate.com/github/a/b/badges/gpa.svg)](https://codeclimate.com/github/a/b)');
+            });
+            it('returns markdown for the codeclimate coverage badge', function () {
+                var badge;
+
+                badge = helper.compile({name: 'codeclimate-coverage'}, gitinfoContext);
+
+                expect(badge).to.equal('[![Code Climate](https://codeclimate.com/github/a/b/badges/coverage.svg)](https://codeclimate.com/github/a/b)');
+            });
+        });
     });
 });
