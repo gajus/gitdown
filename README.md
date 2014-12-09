@@ -484,6 +484,8 @@ Badges are generated using http://shields.io/.
 | `waffle` | Issues ready on [Waffle](https://waffle.io/) board. |
 | `gitter` | Join [Gitter](https://gitter.im/) chat. |
 | `coveralls` | [Coveralls](https://coveralls.io/). |
+| `codeclimate-gpa` | [Code Climate](https://codeclimate.com/) GPA. |
+| `codeclimate-coverage` | [Code Climate](https://codeclimate.com/) test coverage. |
 
 What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/issues).
 
@@ -532,7 +534,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1417909707
+1418161875
 2014
 ```
 
