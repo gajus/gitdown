@@ -9,7 +9,7 @@
     "include",
     "variable"
   ],
-  "version": "1.2.4",
+  "version": "1.2.5",
   "main": "src/gitdown.js",
   "author": "Gajus Kuizinas <gk@anuary.com>",
   "repository": {
