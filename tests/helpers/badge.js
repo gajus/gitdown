@@ -1,5 +1,8 @@
+'use strict';
+
 var expect = require('chai').expect,
-    requireNew = require('require-new');
+    requireNew = require('require-new'),
+    Path = require('path');
 
 describe('Parser.helpers.badge', function () {
     var helper,
@@ -12,28 +15,28 @@ describe('Parser.helpers.badge', function () {
                     return {
                         gitinfo: {
                             compile: function (config) {
-                                if (config.name == 'username') {
+                                if (config.name === 'username') {
                                     return 'a';
-                                } else if (config.name == 'name') {
+                                } else if (config.name === 'name') {
                                     return 'b';
-                                } else if (config.name == 'branch') {
+                                } else if (config.name === 'branch') {
                                     return 'c';
                                 }
                             }
                         }
-                    }
+                    };
                 }
             }
         };
     });
     it('throws an error when config.name is not provided', function () {
         expect(function () {
-            helper.compile()
+            helper.compile();
         }).to.throw(Error, 'config.name must be provided.');
     });
     it('throws an error if unknown config.name is provided', function () {
         expect(function () {
-            helper.compile({name: 'foo'})
+            helper.compile({name: 'foo'});
         }).to.throw(Error, 'config.name "foo" is unknown service.');
     });
     describe('services', function () {
@@ -41,7 +44,13 @@ describe('Parser.helpers.badge', function () {
             it('throws an error if package.json is not found in the root of the repository', function () {
                 var context;
 
-                context = {locator: {repositoryPath: function () { return __dirname; }}};
+                context = {
+                    locator: {
+                        repositoryPath: function () {
+                            return __dirname;
+                        }
+                    }
+                };
 
                 expect(function () {
                     helper.compile({name: 'npm-version'}, context);
@@ -51,7 +60,14 @@ describe('Parser.helpers.badge', function () {
                 var context,
                     badge;
 
-                context = {locator: {repositoryPath: function () { return __dirname + '/../fixtures/badge'; }}};
+                context = {
+                    locator: {
+                        repositoryPath: function () {
+                            return Path.resolve(__dirname, './../fixtures/badge');
+                        }
+                    }
+                };
+
                 badge = helper.compile({name: 'npm-version'}, context);
 
                 expect(badge).to.equal('[![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)');
@@ -61,7 +77,13 @@ describe('Parser.helpers.badge', function () {
             it('throws an error if bower.json is not found in the root of the repository', function () {
                 var context;
 
-                context = {locator: {repositoryPath: function () { return __dirname; }}};
+                context = {
+                    locator: {
+                        repositoryPath: function () {
+                            return __dirname;
+                        }
+                    }
+                };
 
                 expect(function () {
                     helper.compile({name: 'bower-version'}, context);
@@ -71,7 +93,13 @@ describe('Parser.helpers.badge', function () {
                 var context,
                     badge;
 
-                context = {locator: {repositoryPath: function () { return __dirname + '/../fixtures/badge'; }}};
+                context = {
+                    locator: {
+                        repositoryPath: function () {
+                            return Path.resolve(__dirname, './../fixtures/badge');
+                        }
+                    }
+                };
 
                 badge = helper.compile({name: 'bower-version'}, context);
 

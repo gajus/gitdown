@@ -1,3 +1,5 @@
+'use strict';
+
 var helper = {},
     fs = require('fs'),
     jsonfile = require('jsonfile');
@@ -44,7 +46,7 @@ helper.compile = function (config, context) {
     /**
      * @see https://github.com/gajus/gitdown/issues/10
      */
-    services['david'] = function () {
+    services.david = function () {
         var gitinfo = context.parser.helpers().gitinfo,
             repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context),
             badge = '![Dependency Status](https://david-dm.org/' + repository + '.svg?style=flat)';
@@ -66,7 +68,7 @@ helper.compile = function (config, context) {
     /**
      * @see https://github.com/gajus/gitdown/issues/12
      */
-    services['gitter'] = function () {
+    services.gitter = function () {
         var gitinfo = context.parser.helpers().gitinfo,
             repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context),
             badge = '![Gitter chat](https://badges.gitter.im/' + repository + '.png)';
@@ -77,10 +79,10 @@ helper.compile = function (config, context) {
     /**
      * @see https://github.com/gajus/gitdown/issues/13
      */
-    services['coveralls'] = function () {
+    services.coveralls = function () {
         var gitinfo = context.parser.helpers().gitinfo,
             repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context),
-            branch = gitinfo.compile({name: 'branch'}, context);
+            branch = gitinfo.compile({name: 'branch'}, context),
             badge = '![Coverage Status](https://img.shields.io/coveralls/' + repository + '/' + branch + '.svg)';
 
         return '[' + badge + '](https://coveralls.io/r/' + repository + '?branch=' + branch + ')';

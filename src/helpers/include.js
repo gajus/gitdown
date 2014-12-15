@@ -1,3 +1,5 @@
+'use strict';
+
 var helper = {},
     fs = require('fs');
 

@@ -1,3 +1,5 @@
+'use strict';
+
 var helper = {},
     Promise = require('bluebird'),
     fs = require('fs'),
@@ -33,13 +35,25 @@ helper._file = function (file, gzip) {
 
         if (gzip) {
             fs.readFile(file, function (err, buf) {
+                if (err) {
+                    throw new Error(err);
+                }
+
                 zlib.gzip(buf, function (err, data) {
+                    if (err) {
+                        throw new Error(err);
+                    }
+
                     resolve(data.length);
                 });
             });
         } else {
             fs.stat(file, function (err, data) {
-                resolve(data['size']);
+                if (err) {
+                    throw new Error(err);
+                }
+
+                resolve(data.size);
             });
         }
     });
@@ -47,7 +61,7 @@ helper._file = function (file, gzip) {
 
 /**
  * Formats size in bytes to a human friendly format.
- * 
+ *
  * @param {Number} bytes
  * @param {String}
  */
@@ -57,4 +71,4 @@ helper._format = function (bytes) {
 
 helper.weight = 10;
 
-module.exports = helper
+module.exports = helper;

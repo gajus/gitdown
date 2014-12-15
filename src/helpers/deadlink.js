@@ -1,7 +1,8 @@
-var helper = {},
-    deadlink = require('deadlink');
+'use strict';
 
-helper.compile = function (config, context) {
+var helper = {};
+
+helper.compile = function () {
     throw new Error('This helper cannot be called from the context of the markdown document.');
 };
 

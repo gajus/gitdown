@@ -1,3 +1,5 @@
+'use strict';
+
 var Gitdown,
     Parser = require('./parser.js'),
     fs = require('fs'),
@@ -19,7 +21,7 @@ Gitdown = function Gitdown (input) {
 
     /**
      * Process template.
-     * 
+     *
      * @return {Promise}
      */
     gitdown.get = function () {
@@ -59,7 +61,7 @@ Gitdown = function Gitdown (input) {
      */
     gitdown.registerHelper = function (name, helper) {
         parser.registerHelper(name, helper);
-    }
+    };
 
     /**
      * Returns the first directory in the callstack that is not this directory.
@@ -75,8 +77,8 @@ Gitdown = function Gitdown (input) {
 
         while (i++ < stackTraceLength) {
             stackDirectory = path.dirname(stackTrace[i].getFileName());
-            
-            if (__dirname != stackDirectory) {
+
+            if (__dirname !== stackDirectory) {
                 return stackDirectory;
             }
         }
@@ -90,7 +92,7 @@ Gitdown = function Gitdown (input) {
     gitdown._resolveURLs = function (markdown) {
         var Deadlink = require('deadlink'),
             URLExtractor = require('url-extractor'),
-            gitinfo = require(__dirname + '/helpers/gitinfo.js'),
+            gitinfo = require('./helpers/gitinfo.js'),
             deadlink,
             repositoryURL,
             urls,
@@ -112,44 +114,32 @@ Gitdown = function Gitdown (input) {
             return url;
         });
 
-        return new Promise(function (resolve, reject) {
-            if (!urls.length || !gitdown.config.deadlink.findDeadURLs) {
-                return resolve();
-            }
+        if (!urls.length || !gitdown.config.deadlink.findDeadURLs) {
+            return Promise.resolve([]);
+        }
 
-            if (gitdown.config.deadlink.findDeadFragmentIdentifiers) {
-                promises = deadlink.resolve(urls);
-            } else {
-                promises = deadlink.resolveURLs(urls);
-            }
+        if (gitdown.config.deadlink.findDeadFragmentIdentifiers) {
+            promises = deadlink.resolve(urls);
+        } else {
+            promises = deadlink.resolveURLs(urls);
+        }
 
-            gitdown.logger.info('Resolving URLs', urls);
+        gitdown.logger.info('Resolving URLs', urls);
 
-            Promise.all(promises).then(function () {
-                promises.forEach(function (promise) {
-                    var Resolution = promise.value();
-
-                    if (Resolution.error) {
-                        if (Resolution.fragmentIdentifier) {
-                            // Ignore the error if resource resolution failed.
-                            if (!(Resolution.error instanceof Deadlink.URLResolution && !Resolution.error.error)) {
-                                gitdown.logger.warn('Unresolved fragment identifier:', Resolution.url);
-                            }
-                        } else {
-                            gitdown.logger.warn('Unresolved URL:', Resolution.url);
-                        }  
-                    } else {
-                        if (Resolution.fragmentIdentifier) {
-                            gitdown.logger.info('Resolved fragment identifier:', Resolution.url);
-                        } else {
-                            gitdown.logger.info('Resolved URL:', Resolution.url);
-                        }                        
-                    }
-                });
-
-                resolve();
+        return Promise
+            .all(promises)
+            .each(function (Resolution) {
+                if (Resolution.error && Resolution.fragmentIdentifier && !(Resolution.error instanceof Deadlink.URLResolution && !Resolution.error.error)) {
+                    // Ignore the fragment identifier error if resource resolution failed.
+                    gitdown.logger.warn('Unresolved fragment identifier:', Resolution.url);
+                } else if (Resolution.error && !Resolution.fragmentIdentifier) {
+                    gitdown.logger.warn('Unresolved URL:', Resolution.url);
+                } else if (Resolution.fragmentIdentifier) {
+                    gitdown.logger.info('Resolved fragment identifier:', Resolution.url);
+                } else if (!Resolution.fragmentIdentifier) {
+                    gitdown.logger.info('Resolved URL:', Resolution.url);
+                }
             });
-        });
     };
 
     (function () {
@@ -161,15 +151,15 @@ Gitdown = function Gitdown (input) {
                 return config;
             },
             set: function (_config) {
-                if (!_config.variable || typeof _config.variable.scope != 'object') {
+                if (!_config.variable || typeof _config.variable.scope !== 'object') {
                     throw new Error('config.variable.scope must be set and must be an object.');
                 }
 
-                if (!_config.deadlink || typeof _config.deadlink.findDeadURLs != 'boolean') {
+                if (!_config.deadlink || typeof _config.deadlink.findDeadURLs !== 'boolean') {
                     throw new Error('config.deadlink.findDeadURLs must be set and must be a boolean value');
                 }
 
-                if (!_config.deadlink || typeof _config.deadlink.findDeadFragmentIdentifiers != 'boolean') {
+                if (!_config.deadlink || typeof _config.deadlink.findDeadFragmentIdentifiers !== 'boolean') {
                     throw new Error('config.deadlink.findDeadFragmentIdentifiers must be set and must be a boolean value');
                 }
 
@@ -215,15 +205,15 @@ Gitdown = function Gitdown (input) {
             gitinfo: {
                 gitPath: gitdown._executionContext()
             }
-        }
+        };
 
         gitdown.logger = console;
-    } ());
+    }());
 };
 
 /**
  * Read input from a file.
- * 
+ *
  * @param {String} fileName
  * @return {Gitdown}
  */
@@ -245,13 +235,13 @@ Gitdown.notice = function () {
 /**
  * Iterates through each heading in the document (defined using markdown)
  * and prefixes heading ID using parent heading ID.
- * 
+ *
  * @param {String} markdown
  * @return {String} markdown
  */
 Gitdown._nestHeadingIds = function (markdown) {
     var MarkdownContents = require('markdown-contents'),
-        contents = require(__dirname + '/helpers/contents.js'),
+        contents = require('./helpers/contents.js'),
         articles = [],
         tree,
         codeblocks = [];
@@ -272,10 +262,10 @@ Gitdown._nestHeadingIds = function (markdown) {
             name: name
         });
 
-        return '<h' + level + ' id="⊂⊂⊂H:' + articles.length + '⊃⊃⊃">' + name + '</h' + level + '>'
+        return '<h' + level + ' id="⊂⊂⊂H:' + articles.length + '⊃⊃⊃">' + name + '</h' + level + '>';
     });
 
-    markdown = markdown.replace(/^⊂⊂⊂C:(\d+)⊃⊃⊃/mg, function (match) {
+    markdown = markdown.replace(/^⊂⊂⊂C:(\d+)⊃⊃⊃/mg, function () {
         return codeblocks.shift();
     });
 
@@ -289,8 +279,8 @@ Gitdown._nestHeadingIds = function (markdown) {
 };
 
 /**
- * 
- * 
+ *
+ *
  * @param {Array} tree
  * @param {Function} callback
  * @param {Number} index

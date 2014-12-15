@@ -1,3 +1,5 @@
+'use strict';
+
 var expect = require('chai').expect,
     requireNew = require('require-new');
 

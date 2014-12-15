@@ -21,9 +21,10 @@
     "test": "gulp test"
   },
   "devDependencies": {
-    "chai": "^1.9.2",
+    "chai": "^1.10.0",
     "chai-as-promised": "^4.1.1",
     "gulp": "^3.8.9",
+    "gulp-eslint": "^0.2.0",
     "gulp-jshint": "^1.8.6",
     "gulp-mocha": "^1.1.1",
     "jshint-stylish": "^1.0.0",

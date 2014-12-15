@@ -1,3 +1,5 @@
+'use strict';
+
 var helper = {},
     Gitinfo = require('gitinfo');
 
@@ -12,7 +14,7 @@ helper.compile = function (config, context) {
         throw new Error('config.name must be provided.');
     }
 
-    if (['username', 'name', 'url', 'branch'].indexOf(config.name) == -1) {
+    if (['username', 'name', 'url', 'branch'].indexOf(config.name) === -1) {
         throw new Error('Unexpected config.name value ("' + config.name + '").');
     }
 

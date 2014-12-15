@@ -1,3 +1,5 @@
+'use strict';
+
 var Gitdown = {};
 
 Gitdown = require('./gitdown.js');

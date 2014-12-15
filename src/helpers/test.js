@@ -1,6 +1,8 @@
+'use strict';
+
 var helper = {};
 
-helper.compile = function (markdown, context) {
+helper.compile = function () {
     return 'test';
 };
 

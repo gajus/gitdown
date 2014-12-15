@@ -1,3 +1,5 @@
+'use strict';
+
 var helper = {},
     moment = require('moment');
 

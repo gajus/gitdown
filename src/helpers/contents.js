@@ -1,3 +1,5 @@
+'use strict';
+
 var helper = {},
     MarkdownContents = require('markdown-contents');
 
@@ -35,7 +37,7 @@ helper._maxLevel = function (tree, maxLevel) {
         if (article.level > maxLevel) {
             delete tree[index];
         } else {
-            article.descendants = helper._maxLevel(article.descendants, maxLevel)
+            article.descendants = helper._maxLevel(article.descendants, maxLevel);
         }
     });
 
@@ -43,14 +45,14 @@ helper._maxLevel = function (tree, maxLevel) {
 };
 
 /**
- * 
+ *
  */
 helper._findRoot = function (tree, rootId, notFirst) {
     var found,
         i = tree.length;
 
     while (i--) {
-        if (tree[i].id == rootId) {
+        if (tree[i].id === rootId) {
             found = tree[i];
 
             break;
@@ -67,14 +69,14 @@ helper._findRoot = function (tree, rootId, notFirst) {
 };
 
 /**
- * 
+ *
  */
 helper._nestIds = function (tree, parentIds) {
     parentIds = parentIds || [];
 
     tree.forEach(function (article) {
         var ids = parentIds.concat([article.id]);
-        
+
         article.id = ids.join('-');
 
         helper._nestIds(article.descendants, ids);

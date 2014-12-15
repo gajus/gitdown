@@ -1,8 +1,11 @@
+'use strict';
+
 var expect = require('chai').expect,
     fs = require('fs'),
     requireNew = require('require-new'),
     nock = require('nock'),
-    sinon = require('sinon');
+    sinon = require('sinon'),
+    Path = require('path');
 
 describe('Gitdown', function () {
     var Gitdown;
@@ -11,10 +14,10 @@ describe('Gitdown', function () {
     });
     describe('.read()', function () {
         it('returns an instance of Gitdown', function () {
-            return expect(Gitdown.read(__dirname + '/fixtures/foo.txt')).to.instanceof(Gitdown);
+            return expect(Gitdown.read(Path.resolve(__dirname, './fixtures/foo.txt'))).to.instanceof(Gitdown);
         });
         it('calls Gitdown using the contents of the file', function () {
-            var gitdown = Gitdown.read(__dirname + '/fixtures/foo.txt');
+            var gitdown = Gitdown.read(Path.resolve(__dirname, './fixtures/foo.txt'));
 
             return gitdown
                 .get()
@@ -74,7 +77,7 @@ describe('gitdown', function () {
     });
     describe('.write()', function () {
         it('writes the output of .get() to a file', function () {
-            var fileName = __dirname + '/fixtures/write.txt',
+            var fileName = Path.resolve(__dirname, './fixtures/write.txt'),
                 randomString = Math.random() + '',
                 gitdown = Gitdown(randomString);
 
@@ -154,7 +157,7 @@ describe('gitdown', function () {
         beforeEach(function () {
             gitdown = Gitdown('http://foo.com/ http://foo.com/#ok http://bar.com/ http://bar.com/#not-ok');
             config = gitdown.config;
-            
+
             gitdown.logger = {
                 info: function () {},
                 warn: function () {}
@@ -166,9 +169,11 @@ describe('gitdown', function () {
             nocks.foo = nock('http://foo.com').get('/').reply(200, '<div id="ok"></div>', {'content-type': 'text/html'});
             nocks.bar = nock('http://bar.com').get('/').reply(404);
         });
+
         afterEach(function () {
             nock.cleanAll();
         });
+
         it('it does not resolve URLs when config.deadlink.findDeadURLs is false', function () {
             config.deadlink.findDeadURLs = false;
             config.deadlink.findDeadFragmentIdentifiers = false;
@@ -177,7 +182,7 @@ describe('gitdown', function () {
 
             return gitdown.get()
                 .then(function () {
-                    expect(nocks.foo.isDone()).to.be.false;
+                    expect(nocks.foo.isDone()).to.equal(false);
                 });
         });
         it('it does resolve URLs when config.deadlink.findDeadURLs is true', function () {
@@ -188,20 +193,24 @@ describe('gitdown', function () {
 
             return gitdown.get()
                 .then(function () {
-                    expect(nocks.foo.isDone()).to.be.true;
+                    expect(nocks.foo.isDone()).to.equal(true);
                 });
         });
         it('logs successful URL resolution using logger.info', function () {
             var spy = sinon.spy(logger, 'info');
 
+            console.log('spy.callCount', spy.callCount);
+
             config.deadlink.findDeadURLs = true;
-            config.deadlink.findDeadFragmentIdentifiers = true;
+            config.deadlink.findDeadFragmentIdentifiers = false;
 
             gitdown.config = config;
 
             return gitdown.get()
                 .then(function () {
-                    expect(spy.calledWith('Resolved URL:', 'http://foo.com/')).to.be.true;
+                    console.log('spy.callCount', spy.callCount);
+                    console.log('spy.getCall(0)', spy.getCall(0).args);
+                    expect(spy.calledWith('Resolved URL:', 'http://foo.com/')).to.equal(true);
                 });
         });
         it('logs successful URL and fragment identifier resolution using logger.info', function () {
@@ -214,7 +223,7 @@ describe('gitdown', function () {
 
             return gitdown.get()
                 .then(function () {
-                    expect(spy.calledWith('Resolved fragment identifier:', 'http://foo.com/#ok')).to.be.true;
+                    expect(spy.calledWith('Resolved fragment identifier:', 'http://foo.com/#ok')).to.equal(true);
                 });
         });
         it('logs unsuccessful URL resolution using logger.warn', function () {
@@ -227,7 +236,7 @@ describe('gitdown', function () {
 
             return gitdown.get()
                 .then(function () {
-                    expect(spy.calledWith('Unresolved URL:', 'http://bar.com/')).to.be.true;
+                    expect(spy.calledWith('Unresolved URL:', 'http://bar.com/')).to.equal(true);
                 });
         });
         it('logs unsuccessful fragment identifier resolution using logger.warn', function () {
@@ -240,7 +249,7 @@ describe('gitdown', function () {
 
             return gitdown.get()
                 .then(function () {
-                    expect(spy.calledWith('Unresolved fragment identifier:', 'http://bar.com/#not-ok')).to.be.true;
+                    expect(spy.calledWith('Unresolved fragment identifier:', 'http://bar.com/#not-ok')).to.equal(true);
                 });
         });
     });

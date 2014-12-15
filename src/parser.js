@@ -1,6 +1,9 @@
+'use strict';
+
 var Parser,
     Promise = require('bluebird'),
-    Locator = require('./locator.js');
+    Locator = require('./locator.js'),
+    Path = require('path');
 
 /**
  * Parser is responsible for matching all of the instances of the Gitdown JSON and invoking
@@ -28,13 +31,14 @@ Parser = function Parser (gitdown) {
     /**
      * Iterates markdown parsing and execution of the parsed commands until all of the
      * commands have been executed and the document does not no longer change after parsing it.
-     * 
+     *
      * @param {String} markdown
      * @param {Array} commands
      * @return {Promise} Promise is resolved with the state object.
      */
     parser.play = function (markdown, commands) {
-        var state;
+        var state,
+            act;
 
         commands = commands || [];
 
@@ -43,9 +47,7 @@ Parser = function Parser (gitdown) {
         act = parser.execute(state);
 
         return act.then(function (state) {
-            var notExecutedCommands;
-
-            notExecutedCommands = state.commands
+            state.commands
                 .filter(function (command) {
                     return !command.executed;
                 });
@@ -61,7 +63,7 @@ Parser = function Parser (gitdown) {
     /**
      * Parses the markdown for Gitdown JSON. Replaces the said JSON with placeholders for
      * the output of the command defined in the JSON.
-     * 
+     *
      * @see http://stackoverflow.com/questions/26910402/regex-to-match-json-in-a-document/26910403
      * @param {String} _markdown
      * @param {Array} commands
@@ -92,7 +94,7 @@ Parser = function Parser (gitdown) {
             } catch (e) {
                 throw new Error('Invalid Gitdown JSON ("' + match + '").');
             }
-            
+
             name = command.gitdown;
             config = command;
 
@@ -112,7 +114,7 @@ Parser = function Parser (gitdown) {
                 executed: false
             });
 
-            return '⊂⊂C:' + (bindingIndex) + '⊃⊃';
+            return '⊂⊂C:' + bindingIndex + '⊃⊃';
         });
 
         markdown = markdown.replace(/⊂⊂I:([0-9]+)⊃⊃/g, function (match, p1) {
@@ -130,7 +132,7 @@ Parser = function Parser (gitdown) {
     /**
      * Execute all of the commands sharing the lowest common weight against
      * the current state of the markdown document.
-     * 
+     *
      * @param {Object} state
      * @return {Promise} Promise resolves to a state after all of the commands have been resolved.
      */
@@ -162,7 +164,7 @@ Parser = function Parser (gitdown) {
         lowestWeightCommands = notExecutedCommands.filter(function (command) {
             var commandWeight = command.helper.weight;
 
-            return commandWeight == lowestWeight;
+            return commandWeight === lowestWeight;
         });
 
         // Execute each command and update markdown binding.
@@ -201,11 +203,10 @@ Parser = function Parser (gitdown) {
      * Load in-built helpers.
      */
     parser._loadHelpers = function () {
-        var glob = require('glob'),
-            path = require('path');
+        var glob = require('glob');
 
-        glob.sync(__dirname + '/helpers/*.js').forEach(function (helper) {
-            parser.registerHelper(path.basename(helper, '.js'), require(helper));
+        glob.sync(Path.resolve(__dirname, './helpers/*.js')).forEach(function (helper) {
+            parser.registerHelper(Path.basename(helper, '.js'), require(helper));
         });
     };
 

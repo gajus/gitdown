@@ -1,3 +1,5 @@
+'use strict';
+
 var expect = require('chai').expect,
     sinon = require('sinon'),
     requireNew = require('require-new');
@@ -54,8 +56,8 @@ describe('Gitdown.Parser', function () {
 
         return parser
             .play('{"gitdown": "test", "foo": "bar"}')
-            .then(function (state) {
-                expect(spy.calledWith({foo: "bar"})).to.true;
+            .then(function () {
+                expect(spy.calledWith({foo: 'bar'})).to.be.equal(true);
             });
     });
     it('throws an error if an unknown helper is invoked', function () {
@@ -70,7 +72,7 @@ describe('Gitdown.Parser', function () {
         return parser
             .play('{"gitdown": "include", "file": "./tests/fixtures/include_test_weight_10.txt"}')
             .then(function (state) {
-                expect(state.markdown).to.equal('test')
+                expect(state.markdown).to.equal('test');
             });
     });
 });
@@ -79,16 +81,15 @@ describe('Parser.helpers', function () {
     var glob = require('glob'),
         path = require('path');
 
-    glob.sync(__dirname + '/../src/helpers/*.js').forEach(function (helper) {
-        var name = path.basename(helper, '.js'),
-            helper = require(helper);
+    glob.sync('./../src/helpers/*.js').forEach(function (helperName) {
+        var helper = require(helperName);
 
-        describe(name, function () {
+        describe(path.basename(helperName, '.js'), function () {
             it('has compile method', function () {
-                expect(helper.compile).to.be.defined;
+                expect(helper).to.have.property('compile');
             });
             it('has weight property', function () {
-                expect(helper.weight).to.be.defined;
+                expect(helper).to.have.property('weight');
             });
         });
     });

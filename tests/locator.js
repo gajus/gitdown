@@ -1,6 +1,9 @@
+'use strict';
+
 var expect = require('chai').expect,
     fs = require('fs'),
-    requireNew = require('require-new');
+    requireNew = require('require-new'),
+    Path = require('path');
 
 describe('Locator', function () {
     var Locator;
@@ -9,7 +12,7 @@ describe('Locator', function () {
     });
     describe('.gitPath()', function () {
         it('returns absolute path to the .git/ directory', function () {
-            expect(Locator.gitPath()).to.equal(fs.realpathSync(__dirname + '/../.git'));
+            expect(Locator.gitPath()).to.equal(fs.realpathSync(Path.resolve(__dirname, './../.git')));
         });
     });
     describe('.repositoryPath()', function () {
