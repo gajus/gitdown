@@ -16,6 +16,13 @@ helper.compile = function (config, context) {
     /**
      *
      */
+    services.grunt = function() {
+        return '[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)';
+    };
+
+    /**
+     *
+     */
     services['npm-version'] = function () {
         var pkg = context.locator.repositoryPath() + '/package.json';
 

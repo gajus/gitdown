@@ -40,6 +40,24 @@ describe('Parser.helpers.badge', function () {
         }).to.throw(Error, 'config.name "foo" is unknown service.');
     });
     describe('services', function () {
+        describe('grunt', function() {
+            it('returns markdown for the NPM badge', function () {
+                var context,
+                    badge;
+
+                context = {
+                    locator: {
+                        repositoryPath: function () {
+                            return Path.resolve(__dirname, './../fixtures/badge');
+                        }
+                    }
+                };
+
+                badge = helper.compile({name: 'grunt'}, context);
+
+                expect(badge).to.equal('[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)');
+            });
+        });
         describe('npm-version', function () {
             it('throws an error if package.json is not found in the root of the repository', function () {
                 var context;
