@@ -46,7 +46,7 @@ describe('Parser.helpers.filesize', function () {
     });
     describe('._format(size)', function () {
         it('returns file size as a human readable string', function () {
-            expect(helper._format(1000)).to.equal('1.00 kB');
+            expect(helper._format(1024)).to.equal('1 kB');
         });
     });
 });

@@ -1,5 +1,7 @@
 'use strict';
 
+/* global Promise: true */
+
 var helper = {},
     Promise = require('bluebird'),
     fs = require('fs'),

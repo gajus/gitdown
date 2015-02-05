@@ -1,5 +1,7 @@
 'use strict';
 
+/* global Promise: true */
+
 var Parser,
     Promise = require('bluebird'),
     Locator = require('./locator.js'),

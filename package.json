@@ -23,25 +23,25 @@
   "devDependencies": {
     "chai": "^1.10.0",
     "chai-as-promised": "^4.1.1",
-    "gulp": "^3.8.9",
-    "gulp-eslint": "^0.2.0",
-    "gulp-jshint": "^1.8.6",
-    "gulp-mocha": "^1.1.1",
+    "gulp": "^3.8.10",
+    "gulp-eslint": "^0.2.2",
+    "gulp-jshint": "^1.9.2",
+    "gulp-mocha": "^2.0.0",
     "jshint-stylish": "^1.0.0",
-    "nock": "^0.50.0",
-    "require-new": "^1.0.1",
-    "sinon": "^1.11.1"
+    "nock": "^0.59.1",
+    "require-new": "^1.0.2",
+    "sinon": "^1.12.2"
   },
   "dependencies": {
-    "bluebird": "^2.3.11",
-    "deadlink": "^1.0.9",
-    "filesize": "^2.0.4",
+    "bluebird": "^2.9.6",
+    "deadlink": "^1.1.0",
+    "filesize": "^3.1.0",
     "gitinfo": "^1.1.2",
-    "glob": "^4.0.6",
+    "glob": "^4.3.5",
     "jsonfile": "^2.0.0",
-    "markdown-contents": "^1.0.1",
-    "moment": "^2.8.3",
-    "stack-trace": "0.0.9",
+    "markdown-contents": "^1.0.5",
+    "moment": "^2.9.0",
+    "stack-trace": "^0.0.9",
     "url-extractor": "^1.0.1"
   }
 }

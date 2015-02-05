@@ -1,5 +1,7 @@
 'use strict';
 
+/* global Promise: true */
+
 var Gitdown,
     Parser = require('./parser.js'),
     fs = require('fs'),
