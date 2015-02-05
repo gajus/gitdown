@@ -1,7 +1,3 @@
-<!--
-This file has been generated using Gitdown (https://github.com/gajus/gitdown).
-Direct edits to this will be be overwritten. Look for Gitdown markup file under ./.gitdown/ path.
--->
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
 [![Dependency Status](https://david-dm.org/gajus/gitdown.svg?style=flat)](https://david-dm.org/gajus/gitdown)
 
