@@ -1,11 +1,12 @@
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)
+[![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
 [![Dependency Status](https://david-dm.org/gajus/gitdown.svg?style=flat)](https://david-dm.org/gajus/gitdown)
 
-Gitdown adds [additional functionality](#features) (generating table of contents, including documents, using variables, etc.) to [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/). FOOBAR
+Gitdown adds [additional functionality](#features) (generating table of contents, including documents, using variables, etc.) to [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/).
 
 <h2 id="cheat-sheet">Cheat Sheet</h2>
 
-<!-- gitdown: off -->
+
 ```js
 // Generate table of contents
 {"gitdown": "contents"}
@@ -33,7 +34,7 @@ Gitdown adds [additional functionality](#features) (generating table of contents
 // Print date
 {"gitdown": "date", "format": "YYYY"}
 ```
-<!-- gitdown: on -->
+
 
 <h2 id="contents">Contents</h2>
 
@@ -141,11 +142,11 @@ The logger is used to inform about [Dead URLs and Fragment Identifiers](#find-de
 
 Gitdown extends markdown syntax using JSON:
 
-<!-- gitdown: off -->
+
 ```json
 {"gitdown": "helper name", "parameter name": "parameter value"}
 ```
-<!-- gitdown: on -->
+
 
 The JSON object must have a `gitdown` property that identifies the helper you intend to execute. The rest is a regular JSON string, where each property is a named configuration property of the helper that you are referring to.
 
@@ -157,9 +158,9 @@ Use HTML comment tags to ignore sections of the document:
 
 ```html
 Gitdown JSON will be interpolated.
-<!-- gitdown: off -->
+&lt;!-- gitdown: off --&gt;
 Gitdown JSON will not be interpolated.
-<!-- gitdown: on -->
+&lt;!-- gitdown: on --&gt;
 Gitdown JSON will be interpolated.
 ```
 
@@ -181,11 +182,11 @@ gitdown.registerHelper('my-helper-name', {
 });
 ```
 
-<!-- gitdown: off -->
+
 ```json
 {"gitdown": "my-helper-name", "foo": "bar"}
 ```
-<!-- gitdown: on -->
+
 
 Produces:
 
@@ -193,15 +194,16 @@ Produces:
 foo: bar
 ```
 
+
 <h2 id="features">Features</h2>
 
 <h3 id="features-generate-table-of-contents">Generate Table of Contents</h3>
 
-<!-- gitdown: off -->
+
 ```json
 {"gitdown": "contents"}
 ```
-<!-- gitdown: on -->
+
 
 Generates table of contents.
 
@@ -209,11 +211,11 @@ The table of contents is generated using [markdown-contents](https://github.com/
 
 <h4 id="features-generate-table-of-contents-example">Example</h4>
 
-<!-- gitdown: off -->
+
 ```json
 {"gitdown": "contents", "maxLevel": 4, "rootId": "features"}
 ```
-<!-- gitdown: on -->
+
 
 ```markdown
 * [Generate Table of Contents](#features-generate-table-of-contents)
@@ -313,16 +315,17 @@ Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the
 
 <!-- -->
 <!--| `deadlink.ignoreURLs` | URLs matching the regex will be ignored. | N/A |-->
+
 <h3 id="features-reference-an-anchor-in-the-repository">Reference an Anchor in the Repository</h3>
 
 > This feature is under development.
 > Please suggest ideas https://github.com/gajus/gitdown/issues
 
-<!-- gitdown: off -->
+
 ```json
 {"gitdown": "anchor"}
 ```
-<!-- gitdown: on -->
+
 
 Generates a Github URL to the line in the source code with the anchor documentation tag of the same name.
 
@@ -336,11 +339,11 @@ Place a documentation tag `@gitdownanchor <name>` anywhere in the code base, e.g
 
 Then reference the tag in the Gitdown document:
 
-<!-- gitdown: off -->
+
 ```
 Refer to [foo]({"gitdown": "anchor", "name": "my-anchor-name"}).
 ```
-<!-- gitdown: on -->
+
 
 The anchor name must match `/^[a-z]+[a-z0-9\-_:\.]*$/i`.
 
@@ -359,17 +362,17 @@ Gitdown will throw an error if the anchor is not found.
 | `anchor.exclude` | Array of paths to exclude. | `['./dist/*']` |
 <h3 id="features-variables">Variables</h3>
 
-<!-- gitdown: off -->
+
 ```json
 {"gitdown": "variable"}
 ```
-<!-- gitdown: on -->
+
 
 Prints the value of a property defined under a parser `variable.scope` configuration property. Throws an error if property is not set.
 
 <h4 id="features-variables-example">Example</h4>
 
-<!-- gitdown: off -->
+
 ```js
 var gitdown;
 
@@ -389,7 +392,7 @@ gitdown.config({
     }
 });
 ```
-<!-- gitdown: on -->
+
 
 <h4 id="features-variables-json-configuration">JSON Configuration</h4>
 
@@ -404,11 +407,11 @@ gitdown.config({
 | `variable.scope` | Variable scope object. | `{}` |
 <h3 id="features-include-file">Include File</h3>
 
-<!-- gitdown: off -->
+
 ```json
 {"gitdown": "include"}
 ```
-<!-- gitdown: on -->
+
 
 Includes the contents of the file to the document.
 
@@ -425,28 +428,28 @@ See source code of [.gitdown/README.md](https://github.com/gajus/gitdown/blob/ma
 | `file` | Path to the file. The path is relative to the root of the repository. | N/A |
 <h3 id="features-get-file-size">Get File Size</h3>
 
-<!-- gitdown: off -->
+
 ```json
 {"gitdown": "filesize"}
 ```
-<!-- gitdown: on -->
+
 
 Returns file size formatted in human friendly format.
 
 <h4 id="features-get-file-size-example">Example</h4>
 
-<!-- gitdown: off -->
+
 ```json
 {"gitdown": "filesize", "file": "src/gitdown.js"}
 {"gitdown": "filesize", "file": "src/gitdown.js", "gzip": true}
 ```
-<!-- gitdown: on -->
+
 
 Generates:
 
 ```markdown
-9.42 kB
-2.56 kB
+8.64 kB
+2.35 kB
 ```
 
 <h4 id="features-get-file-size-json-configuration">JSON Configuration</h4>
@@ -457,11 +460,11 @@ Generates:
 | `gzip` | A boolean value indicating whether to gzip the file first. | `false` |
 <h3 id="features-generate-badges">Generate Badges</h3>
 
-<!-- gitdown: off -->
+
 ```json
 {"gitdown": "badge"}
 ```
-<!-- gitdown: on -->
+
 
 Gitdown generates markdown for badges using the environment variables, e.g. if it is an NPM badge, Gitdown will lookup the package name from `package.json`.
 
@@ -486,13 +489,13 @@ What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/
 
 <h4 id="features-generate-badges-example">Example</h4>
 
-<!-- gitdown: off -->
+
 ```json
 {"gitdown": "badge", "name": "npm-version"}
 {"gitdown": "badge", "name": "travis"}
 {"gitdown": "badge", "name": "david"}
 ```
-<!-- gitdown: on -->
+
 
 Generates:
 
@@ -509,28 +512,28 @@ Generates:
 | `name` | Name of the service. | N/A |
 <h3 id="features-print-date">Print Date</h3>
 
-<!-- gitdown: off -->
+
 ```json
 {"gitdown": "date"}
 ```
-<!-- gitdown: on -->
+
 
 Prints a string formatted according to the given [moment format](http://momentjs.com/docs/#/displaying/format/) string using the current time.
 
 <h4 id="features-print-date-example">Example</h4>
 
-<!-- gitdown: off -->
+
 ```json
 {"gitdown": "date"}
 {"gitdown": "date", "format": "YYYY"}
 ```
-<!-- gitdown: on -->
+
 
 Generates:
 
 ```markdown
-1418161875
-2014
+1423181181
+2015
 ```
 
 <h4 id="features-print-date-json-configuration">JSON Configuration</h4>
@@ -540,24 +543,24 @@ Generates:
 | `format` | [Moment format](http://momentjs.com/docs/#/displaying/format/). | `X` (UNIX timestamp) |
 <h3 id="features-gitinfo">Gitinfo</h3>
 
-<!-- gitdown: off -->
+
 ```json
 {"gitdown": "gitinfo"}
 ```
-<!-- gitdown: on -->
+
 
 [Gitinfo](https://github.com/gajus/gitinfo) gets info about the local GitHub repository.
 
 <h4 id="features-gitinfo-example">Example</h4>
 
-<!-- gitdown: off -->
+
 ```json
 {"gitdown": "gitinfo", "name": "username"}
 {"gitdown": "gitinfo", "name": "name"}
 {"gitdown": "gitinfo", "name": "url"}
 {"gitdown": "gitinfo", "name": "branch"}
 ```
-<!-- gitdown: on -->
+
 
 ```
 gajus

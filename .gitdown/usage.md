@@ -96,9 +96,9 @@ Use HTML comment tags to ignore sections of the document:
 
 ```html
 Gitdown JSON will be interpolated.
-<!-- gitdown: off -->
+&lt;!-- gitdown: off --&gt;
 Gitdown JSON will not be interpolated.
-<!-- gitdown: on -->
+&lt;!-- gitdown: on --&gt;
 Gitdown JSON will be interpolated.
 ```
 

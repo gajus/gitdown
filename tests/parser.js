@@ -25,7 +25,6 @@ describe('Gitdown.Parser', function () {
             });
     });
     it('ignores content starting with a <!-- gitdown: off --> HTML comment tag', function () {
-        global.test = true;
         return parser
             .play('{"gitdown": "test"}<!-- gitdown: off -->{"gitdown": "test"}')
             .then(function (state) {

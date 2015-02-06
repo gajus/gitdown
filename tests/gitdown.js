@@ -22,7 +22,7 @@ describe('Gitdown', function () {
             return gitdown
                 .get()
                 .then(function (response) {
-                    expect(response).to.equal(Gitdown.notice() + 'bar');
+                    expect(response).to.equal('bar');
                 });
         });
     });
@@ -71,7 +71,14 @@ describe('gitdown', function () {
             return Gitdown('{"gitdown": "test"}')
                 .get()
                 .then(function (response) {
-                    expect(response).to.equal(Gitdown.notice() + 'test');
+                    expect(response).to.equal('test');
+                });
+        });
+        it('removes all gitdown specific HTML comments', function () {
+            return Gitdown('a<!-- gitdown: on -->b<!-- gitdown: off -->c')
+                .get()
+                .then(function (response) {
+                    expect(response).to.equal('abc');
                 });
         });
     });
@@ -84,7 +91,7 @@ describe('gitdown', function () {
             return gitdown
                 .write(fileName)
                 .then(function () {
-                    expect(fs.readFileSync(fileName, {encoding: 'utf8'})).to.equal(Gitdown.notice() + randomString);
+                    expect(fs.readFileSync(fileName, {encoding: 'utf8'})).to.equal(randomString);
                 });
         });
     });
@@ -111,7 +118,7 @@ describe('gitdown', function () {
             return gitdown
                 .get()
                 .then(function (markdown) {
-                    expect(markdown).to.equal(Gitdown.notice() + 'Test prop: foo');
+                    expect(markdown).to.equal('Test prop: foo');
                 });
         });
     });
