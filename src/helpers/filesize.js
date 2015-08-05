@@ -41,9 +41,9 @@ helper._file = function (file, gzip) {
                     throw new Error(err);
                 }
 
-                zlib.gzip(buf, function (err, data) {
-                    if (err) {
-                        throw new Error(err);
+                zlib.gzip(buf, function (zlibErr, data) {
+                    if (zlibErr) {
+                        throw new Error(zlibErr);
                     }
 
                     resolve(data.length);

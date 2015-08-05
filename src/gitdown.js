@@ -10,7 +10,7 @@ var Gitdown,
 /**
  * @param {String} input Gitdown flavored markdown.
  */
-Gitdown = function Gitdown (input) {
+Gitdown = function (input) {
     var gitdown,
         parser;
 

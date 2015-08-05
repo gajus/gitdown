@@ -19,7 +19,7 @@ var Parser,
  * @param {Gitdown} gitdown
  * @return {Parser}
  */
-Parser = function Parser (gitdown) {
+Parser = function (gitdown) {
     var parser,
         bindingIndex = 0,
         helpers = {};
@@ -48,16 +48,16 @@ Parser = function Parser (gitdown) {
 
         act = parser.execute(state);
 
-        return act.then(function (state) {
-            state.commands
+        return act.then(function (actState) {
+            actState.commands
                 .filter(function (command) {
                     return !command.executed;
                 });
 
-            if (state.done) {
-                return state;
+            if (actState.done) {
+                return actState;
             } else {
-                return parser.play(state.markdown, state.commands);
+                return parser.play(actState.markdown, actState.commands);
             }
         });
     };
