@@ -65,14 +65,14 @@ describe('Parser.helpers.contents', function () {
 
             expect(contents).to.equal('* [a](#a)\n    * [b](#a-b)\n* [c](#c)\n    * [b](#c-b)\n');
         });
-        /*describe('when unique ID pool is exhausted', function () {
+        /* describe('when unique ID pool is exhausted', function () {
             it('generates unique IDs using parent IDs plus an incremental ID', function () {
                 var contents;
                 context.markdown = '\n# a\n## b\n## b';
                 contents = helper.compile({}, context);
                 expect(contents).to.equal('* [a](#a)\n    * [b](#a-b)\n    * [b](#a-b-1)\n');
             });
-        });*/
+        }); */
     });
     describe('._maxLevel()', function () {
         it('removes nodes with level equal to maxLevel', function () {
