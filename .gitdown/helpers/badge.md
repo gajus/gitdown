@@ -24,6 +24,7 @@ Badges are generated using http://shields.io/.
 | `coveralls` | [Coveralls](https://coveralls.io/). |
 | `codeclimate-gpa` | [Code Climate](https://codeclimate.com/) GPA. |
 | `codeclimate-coverage` | [Code Climate](https://codeclimate.com/) test coverage. |
+| `grunt` | Built with [Grunt](http://gruntjs.com). |
 
 What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/issues).
 
