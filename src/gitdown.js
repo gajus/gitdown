@@ -95,13 +95,21 @@ Gitdown.read = function (input) {
      * @param {String} markdown
      */
     gitdown._resolveURLs = function (markdown) {
-        var Deadlink = require('deadlink'),
-            URLExtractor = require('url-extractor'),
-            gitinfo = require('./helpers/gitinfo.js'),
+        var Deadlink,
+            URLExtractor,
+            gitinfo,
             deadlink,
             repositoryURL,
             urls,
             promises;
+
+        console.log('markdown', markdown);
+
+        Deadlink = require('deadlink');
+        URLExtractor = require('url-extractor');
+        gitinfo = require('./helpers/gitinfo.js');
+
+        console.log('Deadlink', Deadlink, 'URLExtractor', URLExtractor, 'gitinfo', gitinfo);
 
         repositoryURL = gitinfo.compile({name: 'url'}, {gitdown: gitdown}) + '/tree/' + gitinfo.compile({name: 'branch'}, {gitdown: gitdown});
 
