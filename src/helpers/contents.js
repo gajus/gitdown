@@ -10,7 +10,7 @@ helper.compile = function (config, context) {
     config = config || {};
     config.maxLevel = config.maxLevel || 3;
 
-    if (context.gitdown.config.headingNesting.enabled) {
+    if (context.gitdown.getConfig().headingNesting.enabled) {
         tree = MarkdownContents(context.markdown).tree();
         tree = helper._nestIds(tree);
     } else {

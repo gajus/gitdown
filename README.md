@@ -40,9 +40,10 @@ Gitdown adds [additional functionality](#features) (generating table of contents
 
 * [Cheat Sheet](#cheat-sheet)
 * [Contents](#contents)
-* [Usage](#usage)
-    * [Gulp](#usage-gulp)
-    * [Logging](#usage-logging)
+* [Command Line Usage](#command-line-usage)
+* [API Usage](#api-usage)
+    * [Gulp](#api-usage-gulp)
+    * [Logging](#api-usage-logging)
 * [Syntax](#syntax)
     * [Ignoring Sections of the Document](#syntax-ignoring-sections-of-the-document)
     * [Register a Custom Helper](#syntax-register-a-custom-helper)
@@ -59,7 +60,14 @@ Gitdown adds [additional functionality](#features) (generating table of contents
     * [Gitinfo](#features-gitinfo)
 
 
-<h2 id="usage">Usage</h2>
+<h2 id="command-line-usage">Command Line Usage</h2>
+
+```sh
+npm install gitdown -g
+gitdown ./.README/README.md --output-file ./README.md
+```
+
+<h2 id="api-usage">API Usage</h2>
 
 Gitdown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
 
@@ -90,7 +98,7 @@ gitdown.setConfig({
 gitdown.writeFile('README.md');
 ```
 
-<h3 id="usage-gulp">Gulp</h3>
+<h3 id="api-usage-gulp">Gulp</h3>
 
 Gitdown `writeFile` method returns a promise, that will make Gulp wait until the task is completed. No third-party plugins needed.
 
@@ -109,7 +117,7 @@ gulp.task('watch', function () {
 });
 ```
 
-<h3 id="usage-logging">Logging</h3>
+<h3 id="api-usage-logging">Logging</h3>
 
 Gitdown is using `console` object to log messages. You can set your own logger:
 
@@ -518,7 +526,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1442941696
+1442942137
 2015
 ```
 

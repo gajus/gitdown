@@ -6,7 +6,7 @@ var helper = {};
  *
  */
 helper.compile = function (config, context) {
-    var scope = context.gitdown.config.variable.scope,
+    var scope = context.gitdown.getConfig().variable.scope,
         value;
 
     config = config || {};

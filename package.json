@@ -12,6 +12,7 @@
   ],
   "version": "1.3.3",
   "main": "./src/index.js",
+  "bin": "./src/bin/index.js",
   "author": {
     "name": "Gajus Kuizinas",
     "email": "gk@anuary.com",
@@ -44,9 +45,14 @@
     "gitinfo": "^1.1.2",
     "glob": "^5.0.14",
     "jsonfile": "^2.2.2",
+    "lodash": "^3.10.1",
     "markdown-contents": "^1.0.7",
     "moment": "^2.10.6",
     "stack-trace": "^0.0.9",
-    "url-extractor": "^1.0.1"
+    "url-extractor": "^1.0.1",
+    "yargs": "^3.25.0"
+  },
+  "engines": {
+    "node": ">=4"
   }
 }

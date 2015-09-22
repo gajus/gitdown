@@ -2,23 +2,25 @@
 
 /* global Promise: true */
 
-var Gitdown,
+var Gitdown = {},
     Parser = require('./parser.js'),
     fs = require('fs'),
-    Promise = require('bluebird');
+    Promise = require('bluebird'),
+    _ = require('lodash');
 
 /**
  * @param {String} input Gitdown flavored markdown.
  */
-Gitdown = function (input) {
+Gitdown.read = function (input) {
     var gitdown,
-        parser;
+        parser,
+        instanceLogger,
+        instanceConfig;
 
-    if (!(this instanceof Gitdown)) {
-        return new Gitdown(input);
-    }
+    gitdown = {};
 
-    gitdown = this;
+    instanceConfig = {};
+
     parser = Parser(gitdown);
 
     /**
@@ -32,7 +34,7 @@ Gitdown = function (input) {
             .then(function (state) {
                 var markdown = state.markdown;
 
-                if (gitdown.config.headingNesting.enabled) {
+                if (gitdown.getConfig().headingNesting.enabled) {
                     markdown = Gitdown._nestHeadingIds(markdown);
                 }
 
@@ -50,7 +52,7 @@ Gitdown = function (input) {
      * @param {String} fileName
      * @return {Promise}
      */
-    gitdown.write = function (fileName) {
+    gitdown.writeFile = function (fileName) {
         return gitdown
             .get()
             .then(function (outputString) {
@@ -117,101 +119,117 @@ Gitdown = function (input) {
             return url;
         });
 
-        if (!urls.length || !gitdown.config.deadlink.findDeadURLs) {
+        if (!urls.length || !gitdown.getConfig().deadlink.findDeadURLs) {
             return Promise.resolve([]);
         }
 
-        if (gitdown.config.deadlink.findDeadFragmentIdentifiers) {
+        if (gitdown.getConfig().deadlink.findDeadFragmentIdentifiers) {
             promises = deadlink.resolve(urls);
         } else {
             promises = deadlink.resolveURLs(urls);
         }
 
-        gitdown.logger.info('Resolving URLs', urls);
+        gitdown.getLogger().info('Resolving URLs', urls);
 
         return Promise
             .all(promises)
             .each(function (Resolution) {
                 if (Resolution.error && Resolution.fragmentIdentifier && !(Resolution.error instanceof Deadlink.URLResolution && !Resolution.error.error)) {
                     // Ignore the fragment identifier error if resource resolution failed.
-                    gitdown.logger.warn('Unresolved fragment identifier:', Resolution.url);
+                    gitdown.getLogger().warn('Unresolved fragment identifier:', Resolution.url);
                 } else if (Resolution.error && !Resolution.fragmentIdentifier) {
-                    gitdown.logger.warn('Unresolved URL:', Resolution.url);
+                    gitdown.getLogger().warn('Unresolved URL:', Resolution.url);
                 } else if (Resolution.fragmentIdentifier) {
-                    gitdown.logger.info('Resolved fragment identifier:', Resolution.url);
+                    gitdown.getLogger().info('Resolved fragment identifier:', Resolution.url);
                 } else if (!Resolution.fragmentIdentifier) {
-                    gitdown.logger.info('Resolved URL:', Resolution.url);
+                    gitdown.getLogger().info('Resolved URL:', Resolution.url);
                 }
             });
     };
 
-    (function () {
-        var config,
-            logger;
+    /**
+     * @param {Object} config
+     * @returns {undefined}
+     */
+    gitdown.setLogger = function (logger) {
+        if (!logger.info) {
+            throw new Error('Logger must implement logger.info function.');
+        }
 
-        Object.defineProperty(gitdown, 'config', {
-            get: function () {
-                return config;
-            },
-            set: function (_config) {
-                if (!_config.variable || typeof _config.variable.scope !== 'object') {
-                    throw new Error('config.variable.scope must be set and must be an object.');
-                }
+        if (!logger.warn) {
+            throw new Error('Logger must implement logger.warn function.');
+        }
 
-                if (!_config.deadlink || typeof _config.deadlink.findDeadURLs !== 'boolean') {
-                    throw new Error('config.deadlink.findDeadURLs must be set and must be a boolean value');
-                }
-
-                if (!_config.deadlink || typeof _config.deadlink.findDeadFragmentIdentifiers !== 'boolean') {
-                    throw new Error('config.deadlink.findDeadFragmentIdentifiers must be set and must be a boolean value');
-                }
-
-                if (!_config.gitinfo || !fs.realpathSync(_config.gitinfo.gitPath)) {
-                    throw new Error('config.gitinfo.gitPath must be set and must resolve an existing file path.');
-                }
-
-                config = _config;
-            }
-        });
-
-        Object.defineProperty(gitdown, 'logger', {
-            get: function () {
-                return logger;
-            },
-            set: function (_logger) {
-                if (!_logger.info) {
-                    throw new Error('Logger must implement logger.info method.');
-                }
-
-                if (!_logger.warn) {
-                    throw new Error('Logger must implement logger.warn method.');
-                }
-
-                logger = {
-                    info: _logger.info,
-                    warn: _logger.warn
-                };
-            }
-        });
-
-        gitdown.config = {
-            headingNesting: {
-                enabled: true
-            },
-            variable: {
-                scope: {}
-            },
-            deadlink: {
-                findDeadURLs: false,
-                findDeadFragmentIdentifiers: false
-            },
-            gitinfo: {
-                gitPath: gitdown._executionContext()
-            }
+        instanceLogger = {
+            info: logger.info,
+            warn: logger.warn
         };
+    };
 
-        gitdown.logger = console;
-    }());
+    /**
+     * @returns {Object}
+     */
+    gitdown.getLogger = function () {
+        return instanceLogger;
+    };
+
+    /**
+     * @typedef {Object} config
+     * @property {}
+     */
+
+    /**
+     * @param {Object} config
+     * @returns {undefined}
+     */
+    gitdown.setConfig = function (config) {
+        if (!_.isPlainObject(config)) {
+            throw new Error('config must be a plain object.');
+        }
+
+        if (config.variable && typeof config.variable.scope !== 'object') {
+            throw new Error('config.variable.scope must be set and must be an object.');
+        }
+
+        if (config.deadlink && typeof config.deadlink.findDeadURLs !== 'boolean') {
+            throw new Error('config.deadlink.findDeadURLs must be set and must be a boolean value');
+        }
+
+        if (config.deadlink && typeof config.deadlink.findDeadFragmentIdentifiers !== 'boolean') {
+            throw new Error('config.deadlink.findDeadFragmentIdentifiers must be set and must be a boolean value');
+        }
+
+        if (config.gitinfo && !fs.realpathSync(config.gitinfo.gitPath)) {
+            throw new Error('config.gitinfo.gitPath must be set and must resolve an existing file path.');
+        }
+
+        instanceConfig = _.defaultsDeep(config, instanceConfig);
+    };
+
+    /**
+     * @returns {Object}
+     */
+    gitdown.getConfig = function () {
+        return instanceConfig;
+    };
+
+    gitdown.setConfig({
+        headingNesting: {
+            enabled: true
+        },
+        variable: {
+            scope: {}
+        },
+        deadlink: {
+            findDeadURLs: false,
+            findDeadFragmentIdentifiers: false
+        },
+        gitinfo: {
+            gitPath: gitdown._executionContext()
+        }
+    });
+
+    return gitdown;
 };
 
 /**
@@ -220,12 +238,12 @@ Gitdown = function (input) {
  * @param {String} fileName
  * @return {Gitdown}
  */
-Gitdown.read = function (fileName) {
+Gitdown.readFile = function (fileName) {
     var input = fs.readFileSync(fileName, {
         encoding: 'utf8'
     });
 
-    return Gitdown(input);
+    return Gitdown.read(input);
 };
 
 /**

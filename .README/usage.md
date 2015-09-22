@@ -1,4 +1,11 @@
-## Usage
+## Command Line Usage
+
+```sh
+npm install gitdown -g
+gitdown ./.README/README.md --output-file ./README.md
+```
+
+## API Usage
 
 Gitdown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
 

@@ -22,14 +22,14 @@ gulp.task('test', ['lint'], function () {
 gulp.task('gitdown', function () {
     var gitdown;
 
-    gitdown = Gitdown.read('./README/README.md');
+    gitdown = Gitdown.readFile('./.README/README.md');
 
-    return gitdown.write('./README.md');
+    return gitdown.writeFile('./README.md');
 });
 
 gulp.task('watch', function () {
     gulp.watch(['./src/**/*', './tests/**/*'], ['default']);
-    gulp.watch(['./.gitdown/**/*'], ['gitdown']);
+    gulp.watch(['./.README/**/*'], ['gitdown']);
 });
 
 gulp.task('default', ['test']);
