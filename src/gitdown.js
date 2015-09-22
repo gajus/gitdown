@@ -103,13 +103,9 @@ Gitdown.read = function (input) {
             urls,
             promises;
 
-        console.log('markdown', markdown);
-
         Deadlink = require('deadlink');
         URLExtractor = require('url-extractor');
         gitinfo = require('./helpers/gitinfo.js');
-
-        console.log('Deadlink', Deadlink, 'URLExtractor', URLExtractor, 'gitinfo', gitinfo);
 
         repositoryURL = gitinfo.compile({name: 'url'}, {gitdown: gitdown}) + '/tree/' + gitinfo.compile({name: 'branch'}, {gitdown: gitdown});
 
