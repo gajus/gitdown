@@ -26,12 +26,12 @@ gitdown.setConfig({
 
 // Output the markdown file.
 // All of the file system operations are relative to the root of the repository.
-gitdown.write('README.md');
+gitdown.writeFile('README.md');
 ```
 
 ### Gulp
 
-Gitdown `write` method returns a promise, that will make Gulp wait until the task is completed. No third-party plugins needed.
+Gitdown `writeFile` method returns a promise, that will make Gulp wait until the task is completed. No third-party plugins needed.
 
 ```js
 var gulp = require('gulp'),
@@ -40,7 +40,7 @@ var gulp = require('gulp'),
 gulp.task('gitdown', function () {
     return Gitdown
         .readFile('./.README/README.md')
-        .write('README.md');
+        .writeFile('README.md');
 });
 
 gulp.task('watch', function () {

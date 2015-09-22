@@ -87,12 +87,12 @@ gitdown.setConfig({
 
 // Output the markdown file.
 // All of the file system operations are relative to the root of the repository.
-gitdown.write('README.md');
+gitdown.writeFile('README.md');
 ```
 
 <h3 id="usage-gulp">Gulp</h3>
 
-Gitdown `write` method returns a promise, that will make Gulp wait until the task is completed. No third-party plugins needed.
+Gitdown `writeFile` method returns a promise, that will make Gulp wait until the task is completed. No third-party plugins needed.
 
 ```js
 var gulp = require('gulp'),
@@ -101,7 +101,7 @@ var gulp = require('gulp'),
 gulp.task('gitdown', function () {
     return Gitdown
         .readFile('./.README/README.md')
-        .write('README.md');
+        .writeFile('README.md');
 });
 
 gulp.task('watch', function () {
@@ -518,7 +518,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1442940186
+1442941696
 2015
 ```
 

@@ -79,14 +79,14 @@ describe('Gitdown.read()', function () {
                 });
         });
     });
-    describe('.write()', function () {
+    describe('.writeFile()', function () {
         it('writes the output of .get() to a file', function () {
             var fileName = Path.resolve(__dirname, './fixtures/write.txt'),
                 randomString = Math.random() + '',
                 gitdown = Gitdown.read(randomString);
 
             return gitdown
-                .write(fileName)
+                .writeFile(fileName)
                 .then(function () {
                     expect(fs.readFileSync(fileName, {encoding: 'utf8'})).to.equal(randomString);
                 });
