@@ -40,17 +40,17 @@ Gitdown adds [additional functionality](#features) (generating table of contents
 
 {"gitdown": "contents", "maxDepth": 2}
 
-{"gitdown": "include", "file": ".gitdown/usage.md"}
+{"gitdown": "include", "file": "./README/usage.md"}
 
 ## Features
 
-{"gitdown": "include", "file": ".gitdown/helpers/contents.md"}
-{"gitdown": "include", "file": ".gitdown/helpers/heading-nesting.md"}
-{"gitdown": "include", "file": ".gitdown/helpers/deadlink.md"}
-{"gitdown": "include", "file": ".gitdown/helpers/anchor.md"}
-{"gitdown": "include", "file": ".gitdown/helpers/variable.md"}
-{"gitdown": "include", "file": ".gitdown/helpers/include.md"}
-{"gitdown": "include", "file": ".gitdown/helpers/filesize.md"}
-{"gitdown": "include", "file": ".gitdown/helpers/badge.md"}
-{"gitdown": "include", "file": ".gitdown/helpers/date.md"}
-{"gitdown": "include", "file": ".gitdown/helpers/gitinfo.md"}
+{"gitdown": "include", "file": "./README/helpers/contents.md"}
+{"gitdown": "include", "file": "./README/helpers/heading-nesting.md"}
+{"gitdown": "include", "file": "./README/helpers/deadlink.md"}
+{"gitdown": "include", "file": "./README/helpers/anchor.md"}
+{"gitdown": "include", "file": "./README/helpers/variable.md"}
+{"gitdown": "include", "file": "./README/helpers/include.md"}
+{"gitdown": "include", "file": "./README/helpers/filesize.md"}
+{"gitdown": "include", "file": "./README/helpers/badge.md"}
+{"gitdown": "include", "file": "./README/helpers/date.md"}
+{"gitdown": "include", "file": "./README/helpers/gitinfo.md"}

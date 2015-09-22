@@ -9,7 +9,7 @@ describe('Gitdown.Parser', function () {
         parser,
         spy;
     beforeEach(function () {
-        Parser = requireNew('../src/main.js').Parser;
+        Parser = requireNew('./../src/main.js').Parser;
         parser = Parser();
     });
     afterEach(function () {

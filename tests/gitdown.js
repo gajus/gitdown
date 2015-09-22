@@ -10,7 +10,7 @@ var expect = require('chai').expect,
 describe('Gitdown', function () {
     var Gitdown;
     beforeEach(function () {
-        Gitdown = requireNew('../src/gitdown.js');
+        Gitdown = requireNew('../src/gitdown');
     });
     describe('.read()', function () {
         it('returns an instance of Gitdown', function () {
@@ -64,7 +64,7 @@ describe('Gitdown', function () {
 describe('gitdown', function () {
     var Gitdown;
     beforeEach(function () {
-        Gitdown = requireNew('../src/gitdown.js');
+        Gitdown = requireNew('../src/gitdown');
     });
     describe('.get()', function () {
         it('is using Parser to produce the response', function () {
