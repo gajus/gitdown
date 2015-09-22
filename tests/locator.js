@@ -8,7 +8,7 @@ var expect = require('chai').expect,
 describe('Locator', function () {
     var Locator;
     beforeEach(function () {
-        Locator = requireNew('../src/locator.js');
+        Locator = requireNew('../src/locator');
     });
     describe('.gitPath()', function () {
         it('returns absolute path to the .git/ directory', function () {

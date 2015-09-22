@@ -10,10 +10,12 @@ describe('Parser.helpers.gitinfo', function () {
         helper = requireNew('../../src/helpers/gitinfo.js');
         context = {
             gitdown: {
-                config: {
-                    gitinfo: {
-                        gitPath: __dirname
-                    }
+                getConfig: function () {
+                    return {
+                        gitinfo: {
+                            gitPath: __dirname
+                        }
+                    };
                 }
             }
         };

@@ -10,10 +10,14 @@ describe('Parser.helpers.variable', function () {
         helper = requireNew('../../src/helpers/variable.js');
         context = {
             gitdown: {
-                config: {
-                    variable: {
-                        scope: {}
-                    }
+                getConfig: function () {
+                    return {
+                        variable: {
+                            scope: {
+
+                            }
+                        }
+                    };
                 }
             }
         };
@@ -29,10 +33,20 @@ describe('Parser.helpers.variable', function () {
         }).to.throw(Error, 'config.name "a.b.c" does not resolve to a defined value.');
     });
     it('returns the resolved value', function () {
-        context.gitdown.config.variable.scope = {
-            a: {
-                b: {
-                    c: 'd'
+        context = {
+            gitdown: {
+                getConfig: function () {
+                    return {
+                        variable: {
+                            scope: {
+                                a: {
+                                    b: {
+                                        c: 'd'
+                                    }
+                                }
+                            }
+                        }
+                    };
                 }
             }
         };

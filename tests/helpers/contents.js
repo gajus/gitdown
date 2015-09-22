@@ -11,7 +11,18 @@ describe('Parser.helpers.contents', function () {
     describe('when heading nesting is disabled', function () {
         var context;
         beforeEach(function () {
-            context = {markdown: '', gitdown: {config: {headingNesting: {enabled: false}}}};
+            context = {
+                markdown: '',
+                gitdown: {
+                    getConfig: function () {
+                        return {
+                            headingNesting: {
+                                enabled: false
+                            }
+                        };
+                    }
+                }
+            };
         });
 
         it('generates table of contents for a markdown document', function () {
@@ -48,10 +59,12 @@ describe('Parser.helpers.contents', function () {
             context = {
                 markdown: '',
                 gitdown: {
-                    config: {
-                        headingNesting: {
-                            enabled: true
-                        }
+                    getConfig: function () {
+                        return {
+                            headingNesting: {
+                                enabled: true
+                            }
+                        };
                     }
                 }
             };
