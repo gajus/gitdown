@@ -17,11 +17,11 @@ Gitdown adds [additional functionality](#features) (generating table of contents
 {"gitdown": "variable", "name": "nameOfTheVariable"}
 
 // Include file
-{"gitdown": "include", "file": "LICENSE.md"}
+{"gitdown": "include", "file": "./LICENSE.md"}
 
 // Get file size
-{"gitdown": "filesize", "file": "src/gitdown.js"}
-{"gitdown": "filesize", "file": "src/gitdown.js", "gzip": true}
+{"gitdown": "filesize", "file": "./src/gitdown.js"}
+{"gitdown": "filesize", "file": "./src/gitdown.js", "gzip": true}
 
 // Generate badges
 {"gitdown": "badge", "name": "npm-version"}
@@ -42,7 +42,6 @@ Gitdown adds [additional functionality](#features) (generating table of contents
 * [Contents](#contents)
 * [Usage](#usage)
     * [Gulp](#usage-gulp)
-    * [Parser Configuration](#usage-parser-configuration)
     * [Logging](#usage-logging)
 * [Syntax](#syntax)
     * [Ignoring Sections of the Document](#syntax-ignoring-sections-of-the-document)
@@ -66,16 +65,25 @@ Gitdown is designed to be run using either of the build systems, such as [Gulp](
 
 ```js
 var Gitdown = require('gitdown'),
-    gitdown,
-    config = {};
+    gitdown;
 
 // Read the markdown file written using the Gitdown extended markdown.
 // File name is not important.
-// Having all of the Gitdown markdown files under .gitdown/ path is the recommended convention.
-gitdown = Gitdown.read('.gitdown/README.md');
+// Having all of the Gitdown markdown files under ./.README/ path is the recommended convention.
+gitdown = Gitdown.readFile('./.README/README.md');
 
 // If you have the subject in a string, call the constructor itself:
-// gitdown = Gitdown('literal string');
+// gitdown = Gitdown.read('literal string');
+
+// Get config.
+gitdown.getConfig()
+
+// Set config.
+gitdown.setConfig({
+    gitinfo: {
+        gitPath: __dirname
+    }
+})
 
 // Output the markdown file.
 // All of the file system operations are relative to the root of the repository.
@@ -92,37 +100,13 @@ var gulp = require('gulp'),
 
 gulp.task('gitdown', function () {
     return Gitdown
-        .read('.gitdown/README.md')
+        .readFile('./.README/README.md')
         .write('README.md');
 });
 
 gulp.task('watch', function () {
-    gulp.watch(['./.gitdown/*'], ['gitdown']);
+    gulp.watch(['./.README/*'], ['gitdown']);
 });
-```
-
-<h3 id="usage-parser-configuration">Parser Configuration</h3>
-
-Parser configuration is an [access descriptor property](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) `gitdown.config`.
-
-```js
-var config;
-
-// Get parser configuration.
-config = gitdown.config;
-
-// Modify configuration.
-config.gitinfo.gitPath = __dirname;
-
-// Set parser configuration.
-gitdown.config = config;
-```
-
-Modifying property of a resolved configuration object will bypass the configuration object validation:
-
-```js
-// Do not do this.
-gitdown.config.gitinfo.gitPath = __dirname;
 ```
 
 <h3 id="usage-logging">Logging</h3>
@@ -130,10 +114,10 @@ gitdown.config.gitinfo.gitPath = __dirname;
 Gitdown is using `console` object to log messages. You can set your own logger:
 
 ```js
-gitdown.logger = {
+gitdown.setLogger({
     info: function () {},
     warn: function () {}
-};
+});
 ```
 
 The logger is used to inform about [Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers).
@@ -381,7 +365,7 @@ gitdown = Gitdown(
     '{"gitdown": "variable", "name": "name.last"}'
 );
 
-gitdown.config({
+gitdown.setConfig({
     variable: {
         scope: {
             name: {
@@ -405,6 +389,7 @@ gitdown.config({
 | Name | Description | Default |
 | --- | --- | --- |
 | `variable.scope` | Variable scope object. | `{}` |
+
 <h3 id="features-include-file">Include File</h3>
 
 
@@ -419,13 +404,14 @@ The included file can have Gitdown JSON hooks.
 
 <h4 id="features-include-file-example">Example</h4>
 
-See source code of [.gitdown/README.md](https://github.com/gajus/gitdown/blob/master/.gitdown/README.md).
+See source code of [./.README/README.md](https://github.com/gajus/gitdown/blob/master/.README/README.md).
 
 <h4 id="features-include-file-json-configuration">JSON Configuration</h4>
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `file` | Path to the file. The path is relative to the root of the repository. | N/A |
+
 <h3 id="features-get-file-size">Get File Size</h3>
 
 
@@ -448,8 +434,8 @@ Returns file size formatted in human friendly format.
 Generates:
 
 ```markdown
-8.63 kB
-2.35 kB
+8.7 kB
+2.38 kB
 ```
 
 <h4 id="features-get-file-size-json-configuration">JSON Configuration</h4>
@@ -532,7 +518,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1442930389
+1442940186
 2015
 ```
 
