@@ -8,7 +8,9 @@ helper.compile = function (config, context) {
         gitinfo;
 
     parserConfig = context.gitdown.getConfig().gitinfo;
-    gitinfo = Gitinfo({gitPath: parserConfig.gitPath});
+    gitinfo = Gitinfo({
+        gitPath: parserConfig.gitPath
+    });
 
     if (!config.name) {
         throw new Error('config.name must be provided.');

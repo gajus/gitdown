@@ -5,7 +5,7 @@ var expect = require('chai').expect,
     requireNew = require('require-new'),
     nock = require('nock'),
     sinon = require('sinon'),
-    Path = require('path');
+    path = require('path');
 
 describe('Gitdown', function () {
     var Gitdown;
@@ -14,7 +14,13 @@ describe('Gitdown', function () {
     });
     describe('.readFile()', function () {
         it('calls Gitdown.read() using the contents of the file', function () {
-            var gitdown = Gitdown.readFile(Path.resolve(__dirname, './fixtures/foo.txt'));
+            var gitdown = Gitdown.readFile(path.resolve(__dirname, './fixtures/foo.txt'));
+
+            gitdown.setConfig({
+                gitinfo: {
+                    gitPath: path.resolve(__dirname, './dummy_git/')
+                }
+            });
 
             return gitdown
                 .get()
@@ -65,14 +71,34 @@ describe('Gitdown.read()', function () {
     });
     describe('.get()', function () {
         it('is using Parser to produce the response', function () {
-            return Gitdown.read('{"gitdown": "test"}')
+            var gitdown;
+
+            gitdown = Gitdown.read('{"gitdown": "test"}');
+
+            gitdown.setConfig({
+                gitinfo: {
+                    gitPath: path.resolve(__dirname, './dummy_git/')
+                }
+            });
+
+            return gitdown
                 .get()
                 .then(function (response) {
                     expect(response).to.equal('test');
                 });
         });
         it('removes all gitdown specific HTML comments', function () {
-            return Gitdown.read('a<!-- gitdown: on -->b<!-- gitdown: off -->c')
+            var gitdown;
+
+            gitdown = Gitdown.read('a<!-- gitdown: on -->b<!-- gitdown: off -->c');
+
+            gitdown.setConfig({
+                gitinfo: {
+                    gitPath: path.resolve(__dirname, './dummy_git/')
+                }
+            });
+
+            return gitdown
                 .get()
                 .then(function (response) {
                     expect(response).to.equal('abc');
@@ -81,9 +107,15 @@ describe('Gitdown.read()', function () {
     });
     describe('.writeFile()', function () {
         it('writes the output of .get() to a file', function () {
-            var fileName = Path.resolve(__dirname, './fixtures/write.txt'),
+            var fileName = path.resolve(__dirname, './fixtures/write.txt'),
                 randomString = Math.random() + '',
                 gitdown = Gitdown.read(randomString);
+
+            gitdown.setConfig({
+                gitinfo: {
+                    gitPath: path.resolve(__dirname, './dummy_git/')
+                }
+            });
 
             return gitdown
                 .writeFile(fileName)
@@ -107,6 +139,11 @@ describe('Gitdown.read()', function () {
         });
         it('registers a new helper', function () {
             var gitdown = Gitdown.read('{"gitdown": "new-helper", "testProp": "foo"}');
+            gitdown.setConfig({
+                gitinfo: {
+                    gitPath: path.resolve(__dirname, './dummy_git/')
+                }
+            });
             gitdown.registerHelper('new-helper', {
                 compile: function (config) {
                     return 'Test prop: ' + config.testProp;
@@ -159,6 +196,12 @@ describe('Gitdown.read()', function () {
 
         beforeEach(function () {
             gitdown = Gitdown.read('http://foo.com/ http://foo.com/#ok http://bar.com/ http://bar.com/#not-ok');
+
+            gitdown.setConfig({
+                gitinfo: {
+                    gitPath: path.resolve(__dirname, './dummy_git/')
+                }
+            });
 
             logger = {
                 info: function () {},

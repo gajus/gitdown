@@ -3,7 +3,7 @@
 var expect = require('chai').expect,
     requireNew = require('require-new');
 
-describe('Parser.helpers.gitinfo', function () {
+xdescribe('Parser.helpers.gitinfo', function () {
     var helper,
         context;
     beforeEach(function () {
