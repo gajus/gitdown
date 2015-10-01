@@ -24,8 +24,6 @@ helper.compile = function (config, context) {
         throw new Error('config.file must be provided.');
     }
 
-    console.log('context', context);
-
     config.file = path.resolve(context.gitdown.getConfig().baseDirectory, config.file);
 
     if (!fs.existsSync(config.file)) {
