@@ -15,7 +15,7 @@ describe('Parser.helpers.include', function () {
     });
     it('is rejected with an error when file is not found', function () {
         expect(function () {
-            helper.compile({file: './does-not-exist'});
+            helper.compile({file: __dirname + '/does-not-exist'});
         }).to.throw(Error, 'Input file does not exist.');
     });
 });
