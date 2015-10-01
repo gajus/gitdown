@@ -45,7 +45,7 @@
     "glob": "^5.0.15",
     "jsonfile": "^2.2.2",
     "lodash": "^3.10.1",
-    "markdown-contents": "^1.0.7",
+    "markdown-contents": "^1.0.8",
     "marked": "^0.3.5",
     "moment": "^2.10.6",
     "stack-trace": "^0.0.9",
