@@ -45,7 +45,7 @@ argv = yargs
     .check(function (argv, options) {
         var fs,
             path,
-            inFile,
+            inputFile,
             outputFile,
             outputFileExtension,
             outputFileExists;
@@ -61,9 +61,9 @@ argv = yargs
             throw new Error('Output file path must be a relative path. It must start with "./", e.g. "./README".');
         }
 
-        inFile = path.resolve(process.cwd(), argv._[0]);
+        inputFile = path.resolve(process.cwd(), argv._[0]);
 
-        if (!fileExists(inFile)) {
+        if (!fileExists(inputFile)) {
             throw new Error('Input file does not exist.');
         }
 
@@ -71,7 +71,7 @@ argv = yargs
         outputFileExtension = path.extname(outputFile).toLowerCase();
         outputFileExists = path.resolve(process.cwd(), outputFile);
 
-        if (outputFileExists && outputFileExists === inFile) {
+        if (outputFileExists && outputFileExists === inputFile) {
             throw new Error('Output file cannot overwrite the input file.');
         }
 
