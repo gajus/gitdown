@@ -5,6 +5,7 @@
 var Gitdown = {},
     Parser = require('./parser.js'),
     fs = require('fs'),
+    path = require('path'),
     Promise = require('bluebird'),
     _ = require('lodash');
 
@@ -218,6 +219,7 @@ Gitdown.read = function (input) {
     };
 
     gitdown.setConfig({
+        baseDirectory: process.cwd(),
         headingNesting: {
             enabled: true
         },
@@ -243,11 +245,22 @@ Gitdown.read = function (input) {
  * @return {Gitdown}
  */
 Gitdown.readFile = function (fileName) {
-    var input = fs.readFileSync(fileName, {
+    var gitdown,
+        input;
+
+    fileName = path.resolve(__dirname, fileName);
+
+    input = fs.readFileSync(fileName, {
         encoding: 'utf8'
     });
 
-    return Gitdown.read(input);
+    gitdown = Gitdown.read(input);
+
+    gitdown.setConfig({
+        baseDirectory: path.dirname(fileName)
+    });
+
+    return gitdown;
 };
 
 /**
