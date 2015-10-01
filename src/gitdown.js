@@ -7,7 +7,8 @@ var Gitdown = {},
     fs = require('fs'),
     path = require('path'),
     Promise = require('bluebird'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    marked = require('marked');
 
 /**
  * @param {String} input Gitdown flavored markdown.
@@ -289,9 +290,18 @@ Gitdown._nestHeadingIds = function (markdown) {
 
         articles.push({
             level: level,
-            id: name.toLowerCase().replace(/[^\w]+/g, '-'),
+            // `foo bar`
+            // -foo-bar-
+            // foo-bar
+            id: _.trim(name.toLowerCase().replace(/[^\w]+/g, '-'), '-'),
             name: name
         });
+
+        // `test`
+        name = _.trim(marked(name));
+        // <p><code>test</code></p>
+        name = name.slice(3, -4);
+        // <code>test</code>
 
         return '<h' + level + ' id="⊂⊂⊂H:' + articles.length + '⊃⊃⊃">' + name + '</h' + level + '>';
     });

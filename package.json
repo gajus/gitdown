@@ -46,6 +46,7 @@
     "jsonfile": "^2.2.2",
     "lodash": "^3.10.1",
     "markdown-contents": "^1.0.7",
+    "marked": "^0.3.5",
     "moment": "^2.10.6",
     "stack-trace": "^0.0.9",
     "url-extractor": "^1.0.1",
