@@ -249,7 +249,9 @@ Gitdown.readFile = function (fileName) {
     var gitdown,
         input;
 
-    fileName = path.resolve(__dirname, fileName);
+    if (!path.isAbsolute(fileName)) {
+        throw new Error('fileName must be an absolute path.');
+    }
 
     input = fs.readFileSync(fileName, {
         encoding: 'utf8'
