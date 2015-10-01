@@ -14,8 +14,20 @@ describe('Parser.helpers.include', function () {
         }).to.throw(Error, 'config.file must be provided.');
     });
     it('is rejected with an error when file is not found', function () {
+        var context;
+
+        context = {
+            gitdown: {
+                getConfig: function () {
+                    return {
+                        baseDirectory: __dirname
+                    };
+                }
+            }
+        };
+
         expect(function () {
-            helper.compile({file: __dirname + '/does-not-exist'});
+            helper.compile({file: __dirname + '/does-not-exist'}, context);
         }).to.throw(Error, 'Input file does not exist.');
     });
 });

@@ -66,10 +66,18 @@ describe('Gitdown.Parser', function () {
         }).to.throw(Error, 'Unknown helper "does-not-exist".');
     });
     it('descends to the helper with the lowest weight after each iteration', function () {
+        parser = Parser({
+            getConfig: function () {
+                return {
+                    baseDirectory: __dirname
+                };
+            }
+        });
+
         // Helper "include" is weight 20
         // Helper "test" is weight 10
         return parser
-            .play('{"gitdown": "include", "file": "./tests/fixtures/include_test_weight_10.txt"}')
+            .play('{"gitdown": "include", "file": "./fixtures/include_test_weight_10.txt"}')
             .then(function (state) {
                 expect(state.markdown).to.equal('test');
             });

@@ -1,17 +1,32 @@
 'use strict';
 
-var helper = {},
-    fs = require('fs');
+var helper,
+    fs,
+    path;
+
+helper = {};
+fs = require('fs');
+path = require('path');
 
 /**
- *
+ * @typedef config
+ * @property {String} file Path to a file.
  */
-helper.compile = function (config) {
+
+/**
+ * @param {config} config
+ * @param {Object} context
+ */
+helper.compile = function (config, context) {
     config = config || {};
 
     if (!config.file) {
         throw new Error('config.file must be provided.');
     }
+
+    console.log('context', context);
+
+    config.file = path.resolve(context.gitdown.getConfig().baseDirectory, config.file);
 
     if (!fs.existsSync(config.file)) {
         throw new Error('Input file does not exist.');
