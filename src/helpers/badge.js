@@ -95,7 +95,7 @@ helper.compile = function (config, context) {
         var gitinfo = context.parser.helpers().gitinfo,
             repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context),
             branch = gitinfo.compile({name: 'branch'}, context),
-            badge = '![Circle CI](https://img.shields.io/circleci/' + repository + '/' + branch + '.svg)';
+            badge = '![Circle CI](https://img.shields.io/circleci/project/' + repository + '/circleci/' + branch + '.svg)';
 
         return '[' + badge + '](https://circleci.com/gh/' + repository + '?branch=' + branch + ')';
     };
