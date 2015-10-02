@@ -246,7 +246,8 @@ Gitdown.read = function (input) {
  * @return {Gitdown}
  */
 Gitdown.readFile = function (fileName) {
-    var gitdown,
+    var directoryName,
+        gitdown,
         input;
 
     if (!path.isAbsolute(fileName)) {
@@ -259,8 +260,13 @@ Gitdown.readFile = function (fileName) {
 
     gitdown = Gitdown.read(input);
 
+    directoryName = path.dirname(fileName);
+
     gitdown.setConfig({
-        baseDirectory: path.dirname(fileName)
+        baseDirectory: directoryName,
+        gitinfo: {
+            gitPath: directoryName
+        }
     });
 
     return gitdown;
