@@ -87,6 +87,18 @@ helper.compile = function (config, context) {
 
         return '[' + badge + '](https://coveralls.io/r/' + repository + '?branch=' + branch + ')';
     };
+    
+    /**
+     * @see https://github.com/gajus/gitdown/issues/33
+     */
+    services.circleci = function () {
+        var gitinfo = context.parser.helpers().gitinfo,
+            repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context),
+            branch = gitinfo.compile({name: 'branch'}, context),
+            badge = '![Circle CI](https://img.shields.io/circleci/' + repository + '/' + branch + '.svg)';
+
+        return '[' + badge + '](https://circleci.com/gh/' + repository + '?branch=' + branch + ')';
+    };
 
     /**
      * @todo Link does not include travis branch.
