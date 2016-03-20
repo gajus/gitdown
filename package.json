@@ -10,7 +10,7 @@
     "variable",
     "transclusion"
   ],
-  "version": "2.4.0",
+  "version": "2.4.1",
   "main": "./src/index.js",
   "bin": "./src/bin/index.js",
   "author": {
@@ -24,12 +24,12 @@
   },
   "license": "BSD-3-Clause",
   "scripts": {
-     "lint": "pragmatist lint",
-     "test": "pragmatist --type-assertions test",
-     "build": "pragmatist --es5 build",
-     "watch-lint": "pragmatist watch-lint",
-     "watch-test": "pragmatist --type-assertions watch-test",
-     "watch-build": "pragmatist --es5 watch-build"
+    "lint": "pragmatist lint",
+    "test": "pragmatist --type-assertions test",
+    "build": "pragmatist --es5 build",
+    "watch-lint": "pragmatist watch-lint",
+    "watch-test": "pragmatist --type-assertions watch-test",
+    "watch-build": "pragmatist --es5 watch-build"
   },
   "devDependencies": {
     "chai": "^3.5.0",
