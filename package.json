@@ -11,8 +11,8 @@
     "transclusion"
   ],
   "version": "2.4.1",
-  "main": "./src/index.js",
-  "bin": "./src/bin/index.js",
+  "main": "./dist/index.js",
+  "bin": "./dist/bin/index.js",
   "author": {
     "name": "Gajus Kuizinas",
     "email": "gajus@gajus.com",
