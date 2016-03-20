@@ -24,16 +24,18 @@
   },
   "license": "BSD-3-Clause",
   "scripts": {
-    "test": "gulp test"
+     "lint": "pragmatist lint",
+     "test": "pragmatist --type-assertions test",
+     "build": "pragmatist --es5 build",
+     "watch-lint": "pragmatist watch-lint",
+     "watch-test": "pragmatist --type-assertions watch-test",
+     "watch-build": "pragmatist --es5 watch-build"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
-    "gulp": "^3.9.1",
-    "gulp-eslint": "^2.0.0",
-    "gulp-jshint": "^2.0.0",
-    "gulp-mocha": "^2.2.0",
     "nock": "^7.4.0",
+    "pragmatist": "^3.0.21",
     "require-new": "^1.1.0",
     "sinon": "^2.0.0-pre"
   },
