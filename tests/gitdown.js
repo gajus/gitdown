@@ -1,20 +1,22 @@
-'use strict';
+/* eslint-disable import/no-commonjs, max-nested-callbacks */
 
-var expect = require('chai').expect,
-    fs = require('fs'),
-    requireNew = require('require-new'),
-    nock = require('nock'),
-    sinon = require('sinon'),
-    path = require('path');
+const _ = require('lodash');
+const expect = require('chai').expect;
+const fs = require('fs');
+const requireNew = require('require-new');
+const nock = require('nock');
+const sinon = require('sinon');
+const path = require('path');
 
-describe('Gitdown', function () {
-    var Gitdown;
-    beforeEach(function () {
+describe('Gitdown', () => {
+    let Gitdown;
+
+    beforeEach(() => {
         Gitdown = requireNew('../src/');
     });
-    describe('.readFile()', function () {
-        it('calls Gitdown.read() using the contents of the file', function () {
-            var gitdown = Gitdown.readFile(path.resolve(__dirname, './fixtures/foo.txt'));
+    describe('.readFile()', () => {
+        it('calls Gitdown.read() using the contents of the file', () => {
+            const gitdown = Gitdown.readFile(path.resolve(__dirname, './fixtures/foo.txt'));
 
             gitdown.setConfig({
                 gitinfo: {
@@ -24,56 +26,66 @@ describe('Gitdown', function () {
 
             return gitdown
                 .get()
-                .then(function (response) {
+                .then((response) => {
                     expect(response).to.equal('bar');
                 });
         });
     });
-    describe('._nestHeadingIds()', function () {
-        it('replaces heading markup with HTML', function () {
-            expect(Gitdown._nestHeadingIds('# Foo\n# Bar')).to.equal('<h1 id="foo">Foo</h1>\n<h1 id="bar">Bar</h1>');
+    describe('.nestHeadingIds()', () => {
+        it('replaces heading markup with HTML', () => {
+            expect(Gitdown.nestHeadingIds('# Foo\n# Bar')).to.equal('<h1 id="foo">Foo</h1>\n<h1 id="bar">Bar</h1>');
         });
-        it('nests heading ids', function () {
-            expect(Gitdown._nestHeadingIds('# Foo\n## Bar')).to.equal('<h1 id="foo">Foo</h1>\n<h2 id="foo-bar">Bar</h2>');
+        it('nests heading ids', () => {
+            expect(Gitdown.nestHeadingIds('# Foo\n## Bar')).to.equal('<h1 id="foo">Foo</h1>\n<h2 id="foo-bar">Bar</h2>');
         });
     });
-    describe('._nestHeadingIds.iterateTree()', function () {
-        it('iterates through each leaf of tree', function () {
-            var tree,
-                result = [];
+    describe('.nestHeadingIds.iterateTree()', () => {
+        it('iterates through each leaf of tree', () => {
+            const result = [];
 
-            tree = [
+            const tree = [
                 {
-                    id: 'a',
                     descendants: [
-                        {id: 'b', descendants: []},
-                        {id: 'c', descendants: []}
-                    ]
+                        {
+                            descendants: [],
+                            id: 'b'
+                        },
+                        {
+                            descendants: [],
+                            id: 'c'
+                        }
+                    ],
+                    id: 'a'
                 },
                 {
-                    id: 'd', descendants: []
+                    descendants: [],
+                    id: 'd'
                 }
             ];
 
-            Gitdown._nestHeadingIds.iterateTree(tree, function (index, leaf) {
+            Gitdown.nestHeadingIds.iterateTree(tree, (index, leaf) => {
                 result.push(index + '-' + leaf.id);
             });
 
-            expect(result).to.deep.equal(['1-a', '2-b', '3-c', '4-d']);
+            expect(result).to.deep.equal([
+                '1-a',
+                '2-b',
+                '3-c',
+                '4-d'
+            ]);
         });
     });
 });
 
-describe('Gitdown.read()', function () {
-    var Gitdown;
-    beforeEach(function () {
+describe('Gitdown.read()', () => {
+    let Gitdown;
+
+    beforeEach(() => {
         Gitdown = requireNew('../src/');
     });
-    describe('.get()', function () {
-        it('is using Parser to produce the response', function () {
-            var gitdown;
-
-            gitdown = Gitdown.read('{"gitdown": "test"}');
+    describe('.get()', () => {
+        it('is using Parser to produce the response', () => {
+            const gitdown = Gitdown.read('{"gitdown": "test"}');
 
             gitdown.setConfig({
                 gitinfo: {
@@ -83,14 +95,12 @@ describe('Gitdown.read()', function () {
 
             return gitdown
                 .get()
-                .then(function (response) {
+                .then((response) => {
                     expect(response).to.equal('test');
                 });
         });
-        it('removes all gitdown specific HTML comments', function () {
-            var gitdown;
-
-            gitdown = Gitdown.read('a<!-- gitdown: on -->b<!-- gitdown: off -->c');
+        it('removes all gitdown specific HTML comments', () => {
+            const gitdown = Gitdown.read('a<!-- gitdown: on -->b<!-- gitdown: off -->c');
 
             gitdown.setConfig({
                 gitinfo: {
@@ -100,16 +110,16 @@ describe('Gitdown.read()', function () {
 
             return gitdown
                 .get()
-                .then(function (response) {
+                .then((response) => {
                     expect(response).to.equal('abc');
                 });
         });
     });
-    describe('.writeFile()', function () {
-        it('writes the output of .get() to a file', function () {
-            var fileName = path.resolve(__dirname, './fixtures/write.txt'),
-                randomString = Math.random() + '',
-                gitdown = Gitdown.read(randomString);
+    describe('.writeFile()', () => {
+        it('writes the output of .get() to a file', () => {
+            const fileName = path.resolve(__dirname, './fixtures/write.txt');
+            const randomString = String(Math.random());
+            const gitdown = Gitdown.read(randomString);
 
             gitdown.setConfig({
                 gitinfo: {
@@ -119,82 +129,87 @@ describe('Gitdown.read()', function () {
 
             return gitdown
                 .writeFile(fileName)
-                .then(function () {
+                .then(() => {
                     expect(fs.readFileSync(fileName, {encoding: 'utf8'})).to.equal(randomString);
                 });
         });
     });
-    describe('.registerHelper()', function () {
-        it('throws an error if registering a helper using name of an existing helper', function () {
-            var gitdown = Gitdown.read('');
-            expect(function () {
+    describe('.registerHelper()', () => {
+        it('throws an error if registering a helper using name of an existing helper', () => {
+            const gitdown = Gitdown.read('');
+
+            expect(() => {
                 gitdown.registerHelper('test');
             }).to.throw(Error, 'There is already a helper with a name "test".');
         });
-        it('throws an error if registering a helper object without compile property', function () {
-            var gitdown = Gitdown.read('');
-            expect(function () {
+        it('throws an error if registering a helper object without compile property', () => {
+            const gitdown = Gitdown.read('');
+
+            expect(() => {
                 gitdown.registerHelper('new-helper');
             }).to.throw(Error, 'Helper object must defined "compile" property.');
         });
-        it('registers a new helper', function () {
-            var gitdown = Gitdown.read('{"gitdown": "new-helper", "testProp": "foo"}');
+        it('registers a new helper', () => {
+            const gitdown = Gitdown.read('{"gitdown": "new-helper", "testProp": "foo"}');
+
             gitdown.setConfig({
                 gitinfo: {
                     gitPath: path.resolve(__dirname, './dummy_git/')
                 }
             });
             gitdown.registerHelper('new-helper', {
-                compile: function (config) {
+                compile (config) {
                     return 'Test prop: ' + config.testProp;
                 }
             });
+
             return gitdown
                 .get()
-                .then(function (markdown) {
+                .then((markdown) => {
                     expect(markdown).to.equal('Test prop: foo');
                 });
         });
     });
-    describe('.setConfig()', function () {
-        /* var defaultConfiguration;
-        beforeEach(function () {
+    xdescribe('.setConfig()', () => {
+        let defaultConfiguration;
+
+        beforeEach(() => {
             defaultConfiguration = {
+                deadlink: {
+                    findDeadFragmentIdentifiers: false,
+                    findDeadURLs: false
+                },
+                gitinfo: {
+                    gitPath: __dirname
+                },
                 headingNesting: {
                     enabled: true
                 },
                 variable: {
                     scope: {}
-                },
-                deadlink: {
-                    findDeadURLs: false,
-                    findDeadFragmentIdentifiers: false
-                },
-                gitinfo: {
-                    gitPath: __dirname
                 }
             };
         });
-        it('returns the current configuration', function () {
-            var gitdown = Gitdown.read(''),
-                config = gitdown.config;
+        it('returns the current configuration', () => {
+            const gitdown = Gitdown.read('');
+            const config = gitdown.config;
 
             expect(config).to.deep.equal(defaultConfiguration);
         });
-        it('sets a configuration', function () {
-            var gitdown = Gitdown.read('');
+        it('sets a configuration', () => {
+            const gitdown = Gitdown.read('');
 
             gitdown.config = defaultConfiguration;
 
             expect(defaultConfiguration).to.equal(gitdown.config);
-        }); */
+        });
     });
-    describe('._resolveURLs()', function () {
-        var gitdown,
+    describe('.resolveURLs()', () => {
+        let gitdown,
             logger,
             nocks;
 
-        beforeEach(function () {
+        beforeEach(() => {
             gitdown = Gitdown.read('http://foo.com/ http://foo.com/#ok http://bar.com/ http://bar.com/#not-ok');
 
             gitdown.setConfig({
@@ -204,8 +219,8 @@ describe('Gitdown.read()', function () {
             });
 
             logger = {
-                info: function () {},
-                warn: function () {}
+                info () {},
+                warn () {}
             };
 
             gitdown.setLogger(logger);
@@ -217,98 +232,104 @@ describe('Gitdown.read()', function () {
             nocks.bar = nock('http://bar.com').get('/').reply(404);
         });
 
-        afterEach(function () {
+        afterEach(() => {
             nock.cleanAll();
         });
 
-        it('it does not resolve URLs when config.deadlink.findDeadURLs is false', function () {
+        it('it does not resolve URLs when config.deadlink.findDeadURLs is false', () => {
             gitdown.setConfig({
                 deadlink: {
-                    findDeadURLs: false,
-                    findDeadFragmentIdentifiers: false
+                    findDeadFragmentIdentifiers: false,
+                    findDeadURLs: false
                 }
             });
 
-            return gitdown.get()
-                .then(function () {
+            return gitdown
+                .get()
+                .then(() => {
                     expect(nocks.foo.isDone()).to.equal(false);
                 });
         });
-        it('it does resolve URLs when config.deadlink.findDeadURLs is true', function () {
+        it('it does resolve URLs when config.deadlink.findDeadURLs is true', () => {
             gitdown.setConfig({
                 deadlink: {
-                    findDeadURLs: true,
-                    findDeadFragmentIdentifiers: false
+                    findDeadFragmentIdentifiers: false,
+                    findDeadURLs: true
                 }
             });
 
-            return gitdown.get()
-                .then(function () {
+            return gitdown
+                .get()
+                .then(() => {
                     expect(nocks.foo.isDone()).to.equal(true);
                 });
         });
-        it('logs successful URL resolution using logger.info', function () {
-            var spy = sinon.spy(logger, 'info');
+        it('logs successful URL resolution using logger.info', () => {
+            const spy = sinon.spy(logger, 'info');
 
             // console.log('spy.callCount', spy.callCount);
 
             gitdown.setConfig({
                 deadlink: {
-                    findDeadURLs: true,
-                    findDeadFragmentIdentifiers: false
+                    findDeadFragmentIdentifiers: false,
+                    findDeadURLs: true
                 }
             });
 
-            return gitdown.get()
-                .then(function () {
+            return gitdown
+                .get()
+                .then(() => {
                     // console.log('spy.callCount', spy.callCount);
                     // console.log('spy.getCall(0)', spy.getCall(0).args);
 
                     expect(spy.calledWith('Resolved URL:', 'http://foo.com/')).to.equal(true);
                 });
         });
-        it('logs successful URL and fragment identifier resolution using logger.info', function () {
-            var spy = sinon.spy(logger, 'info');
+        it('logs successful URL and fragment identifier resolution using logger.info', () => {
+            const spy = sinon.spy(logger, 'info');
 
             gitdown.setConfig({
                 deadlink: {
-                    findDeadURLs: true,
-                    findDeadFragmentIdentifiers: true
+                    findDeadFragmentIdentifiers: true,
+                    findDeadURLs: true
                 }
             });
 
-            return gitdown.get()
-                .then(function () {
+            return gitdown
+                .get()
+                .then(() => {
                     expect(spy.calledWith('Resolved fragment identifier:', 'http://foo.com/#ok')).to.equal(true);
                 });
         });
-        it('logs unsuccessful URL resolution using logger.warn', function () {
-            var spy = sinon.spy(logger, 'warn');
+        it('logs unsuccessful URL resolution using logger.warn', () => {
+            const spy = sinon.spy(logger, 'warn');
 
             gitdown.setConfig({
                 deadlink: {
-                    findDeadURLs: true,
-                    findDeadFragmentIdentifiers: true
+                    findDeadFragmentIdentifiers: true,
+                    findDeadURLs: true
                 }
             });
 
-            return gitdown.get()
-                .then(function () {
+            return gitdown
+                .get()
+                .then(() => {
                     expect(spy.calledWith('Unresolved URL:', 'http://bar.com/')).to.equal(true);
                 });
         });
-        it('logs unsuccessful fragment identifier resolution using logger.warn', function () {
-            var spy = sinon.spy(logger, 'warn');
+        it('logs unsuccessful fragment identifier resolution using logger.warn', () => {
+            const spy = sinon.spy(logger, 'warn');
 
             gitdown.setConfig({
                 deadlink: {
-                    findDeadURLs: true,
-                    findDeadFragmentIdentifiers: true
+                    findDeadFragmentIdentifiers: true,
+                    findDeadURLs: true
                 }
             });
 
-            return gitdown.get()
-                .then(function () {
+            return gitdown
+                .get()
+                .then(() => {
                     expect(spy.calledWith('Unresolved fragment identifier:', 'http://bar.com/#not-ok')).to.equal(true);
                 });
         });

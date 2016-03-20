@@ -1,48 +1,51 @@
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-/* global Promise: true */
-
-var Gitdown = {},
-    Parser = require('./parser.js'),
-    fs = require('fs'),
-    path = require('path'),
-    Promise = require('bluebird'),
-    _ = require('lodash'),
-    marked = require('marked');
+const Gitdown = {};
+const Parser = require('./parser.js');
+const fs = require('fs');
+const path = require('path');
+const Promise = require('bluebird');
+const _ = require('lodash');
+const marked = require('marked');
+const Deadlink = require('deadlink');
+const URLExtractor = require('url-extractor');
+const gitinfo = require('./helpers/gitinfo.js');
+const MarkdownContents = require('markdown-contents');
+const contents = require('./helpers/contents.js');
+const StackTrace = require('stack-trace');
 
 /**
- * @param {String} input Gitdown flavored markdown.
+ * @param {string} input Gitdown flavored markdown.
  */
-Gitdown.read = function (input) {
-    var gitdown,
-        parser,
-        instanceLogger,
-        instanceConfig;
-
-    gitdown = {};
+Gitdown.read = (input) => {
+    let instanceConfig,
+        instanceLogger;
 
     instanceConfig = {};
 
-    parser = Parser(gitdown);
+    const gitdown = {};
+    const parser = Parser(gitdown);
 
     /**
      * Process template.
      *
-     * @return {Promise}
+     * @returns {Promise}
      */
-    gitdown.get = function () {
+    gitdown.get = () => {
         return parser
             .play(input)
-            .then(function (state) {
-                var markdown = state.markdown;
+            .then((state) => {
+                let markdown;
+
+                markdown = state.markdown;
 
                 if (gitdown.getConfig().headingNesting.enabled) {
-                    markdown = Gitdown._nestHeadingIds(markdown);
+                    markdown = Gitdown.nestHeadingIds(markdown);
                 }
 
                 return gitdown
-                    ._resolveURLs(markdown)
-                    .then(function () {
+                    .resolveURLs(markdown)
+                    .then(() => {
                         return markdown.replace(/<!--\sgitdown:\s(:?off|on)\s-->/g, '');
                     });
             });
@@ -51,39 +54,41 @@ Gitdown.read = function (input) {
     /**
      * Write processed template to a file.
      *
-     * @param {String} fileName
-     * @return {Promise}
+     * @param {string} fileName
+     * @returns {Promise}
      */
-    gitdown.writeFile = function (fileName) {
+    gitdown.writeFile = (fileName) => {
         return gitdown
             .get()
-            .then(function (outputString) {
+            .then((outputString) => {
                 return fs.writeFileSync(fileName, outputString);
             });
     };
 
     /**
-     * @param {String} name
+     * @param {string} name
      * @param {Object} helper
      */
-    gitdown.registerHelper = function (name, helper) {
+    gitdown.registerHelper = (name, helper) => {
         parser.registerHelper(name, helper);
     };
 
     /**
      * Returns the first directory in the callstack that is not this directory.
      *
-     * @return {String} Path to the directory where Gitdown was invoked.
+     * @private
+     * @returns {string} Path to the directory where Gitdown was invoked.
      */
-    gitdown._executionContext = function () {
-        var stackTrace = require('stack-trace').get(),
-            path = require('path'),
-            stackTraceLength = stackTrace.length,
-            stackDirectory,
-            i = 0;
+    gitdown.executionContext = () => {
+        let index;
 
-        while (i++ < stackTraceLength) {
-            stackDirectory = path.dirname(stackTrace[i].getFileName());
+        const stackTrace = StackTrace.get();
+        const stackTraceLength = stackTrace.length;
+
+        index = 0;
+
+        while (index++ < stackTraceLength) {
+            const stackDirectory = path.dirname(stackTrace[index].getFileName());
 
             if (__dirname !== stackDirectory) {
                 return stackDirectory;
@@ -94,35 +99,31 @@ Gitdown.read = function (input) {
     };
 
     /**
-     * @param {String} markdown
+     * @private
+     * @param {string} markdown
      */
-    gitdown._resolveURLs = function (markdown) {
-        var Deadlink,
-            URLExtractor,
-            gitinfo,
-            deadlink,
-            repositoryURL,
-            urls,
-            promises;
+    gitdown.resolveURLs = (markdown) => {
+        let promises,
+            urls;
 
-        Deadlink = require('deadlink');
-        URLExtractor = require('url-extractor');
-        gitinfo = require('./helpers/gitinfo.js');
+        const repositoryURL = gitinfo.compile({name: 'url'}, {gitdown}) + '/tree/' + gitinfo.compile({name: 'branch'}, {gitdown});
+        const deadlink = Deadlink();
 
-        repositoryURL = gitinfo.compile({name: 'url'}, {gitdown: gitdown}) + '/tree/' + gitinfo.compile({name: 'branch'}, {gitdown: gitdown});
-
-        deadlink = Deadlink();
         urls = URLExtractor.extract(markdown, URLExtractor.SOURCE_TYPE_MARKDOWN);
 
-        urls = urls.map(function (url) {
+        urls = urls.map((url) => {
+            let resolvedUrl;
+
             // @todo What if it isn't /README.md?
             // @todo Test.
-            if (url.indexOf('#') === 0) {
+            if (_.startsWith(url, '#')) {
                 // Github is using JavaScript to resolve anchor tags under #uses-content- ID.
-                url = repositoryURL + '#user-content-' + url.substr(1);
+                resolvedUrl = repositoryURL + '#user-content-' + url.substr(1);
+            } else {
+                resolvedUrl = url;
             }
 
-            return url;
+            return resolvedUrl;
         });
 
         if (!urls.length || !gitdown.getConfig().deadlink.findDeadURLs) {
@@ -139,7 +140,7 @@ Gitdown.read = function (input) {
 
         return Promise
             .all(promises)
-            .each(function (Resolution) {
+            .each((Resolution) => {
                 if (Resolution.error && Resolution.fragmentIdentifier && !(Resolution.error instanceof Deadlink.URLResolution && !Resolution.error.error)) {
                     // Ignore the fragment identifier error if resource resolution failed.
                     gitdown.getLogger().warn('Unresolved fragment identifier:', Resolution.url);
@@ -154,10 +155,9 @@ Gitdown.read = function (input) {
     };
 
     /**
-     * @param {Object} config
-     * @returns {undefined}
+     * @param {Object} logger
      */
-    gitdown.setLogger = function (logger) {
+    gitdown.setLogger = (logger) => {
         if (!logger.info) {
             throw new Error('Logger must implement logger.info function.');
         }
@@ -175,7 +175,7 @@ Gitdown.read = function (input) {
     /**
      * @returns {Object}
      */
-    gitdown.getLogger = function () {
+    gitdown.getLogger = () => {
         return instanceLogger;
     };
 
@@ -188,20 +188,20 @@ Gitdown.read = function (input) {
      * @param {Object} config
      * @returns {undefined}
      */
-    gitdown.setConfig = function (config) {
+    gitdown.setConfig = (config) => {
         if (!_.isPlainObject(config)) {
             throw new Error('config must be a plain object.');
         }
 
-        if (config.variable && typeof config.variable.scope !== 'object') {
+        if (config.variable && !_.isObject(config.variable.scope)) {
             throw new Error('config.variable.scope must be set and must be an object.');
         }
 
-        if (config.deadlink && typeof config.deadlink.findDeadURLs !== 'boolean') {
+        if (config.deadlink && !_.isBoolean(config.deadlink.findDeadURLs)) {
             throw new Error('config.deadlink.findDeadURLs must be set and must be a boolean value');
         }
 
-        if (config.deadlink && typeof config.deadlink.findDeadFragmentIdentifiers !== 'boolean') {
+        if (config.deadlink && !_.isBoolean(config.deadlink.findDeadFragmentIdentifiers)) {
             throw new Error('config.deadlink.findDeadFragmentIdentifiers must be set and must be a boolean value');
         }
 
@@ -215,25 +215,26 @@ Gitdown.read = function (input) {
     /**
      * @returns {Object}
      */
-    gitdown.getConfig = function () {
+    gitdown.getConfig = () => {
         return instanceConfig;
     };
 
     gitdown.setConfig({
         baseDirectory: process.cwd(),
+        deadlink: {
+            findDeadFragmentIdentifiers: false,
+            findDeadURLs: false
+        },
+        gitinfo: {
+            gitPath: gitdown.executionContext()
+        },
         headingNesting: {
             enabled: true
         },
         variable: {
             scope: {}
-        },
-        deadlink: {
-            findDeadURLs: false,
-            findDeadFragmentIdentifiers: false
-        },
-        gitinfo: {
-            gitPath: gitdown._executionContext()
         }
+
     });
 
     return gitdown;
@@ -242,25 +243,21 @@ Gitdown.read = function (input) {
 /**
  * Read input from a file.
  *
- * @param {String} fileName
- * @return {Gitdown}
+ * @param {string} fileName
+ * @returns {Gitdown}
  */
-Gitdown.readFile = function (fileName) {
-    var directoryName,
-        gitdown,
-        input;
-
+Gitdown.readFile = (fileName) => {
     if (!path.isAbsolute(fileName)) {
         throw new Error('fileName must be an absolute path.');
     }
 
-    input = fs.readFileSync(fileName, {
+    const input = fs.readFileSync(fileName, {
         encoding: 'utf8'
     });
 
-    gitdown = Gitdown.read(input);
+    const gitdown = Gitdown.read(input);
 
-    directoryName = path.dirname(fileName);
+    const directoryName = path.dirname(fileName);
 
     gitdown.setConfig({
         baseDirectory: directoryName,
@@ -276,76 +273,82 @@ Gitdown.readFile = function (fileName) {
  * Iterates through each heading in the document (defined using markdown)
  * and prefixes heading ID using parent heading ID.
  *
- * @param {String} markdown
- * @return {String} markdown
+ * @private
+ * @param {string} inputMarkdown
+ * @returns {string}
  */
-Gitdown._nestHeadingIds = function (markdown) {
-    var MarkdownContents = require('markdown-contents'),
-        contents = require('./helpers/contents.js'),
-        articles = [],
-        tree,
-        codeblocks = [];
+Gitdown.nestHeadingIds = (inputMarkdown) => {
+    let outputMarkdown;
 
-    markdown = markdown.replace(/^```[\s\S]*?\n```/mg, function (match) {
+    const articles = [];
+    const codeblocks = [];
+
+    outputMarkdown = inputMarkdown;
+
+    outputMarkdown = outputMarkdown.replace(/^```[\s\S]*?\n```/mg, (match) => {
         codeblocks.push(match);
 
         return '⊂⊂⊂C:' + codeblocks.length + '⊃⊃⊃';
     });
 
-    markdown = markdown.replace(/^(#+)(.*$)/mg, function (match, level, name) {
-        level = level.length;
-        name = name.trim();
+    outputMarkdown = outputMarkdown.replace(/^(#+)(.*$)/mg, (match, level, name) => {
+        let normalizedName;
+
+        const normalizedLevel = level.length;
+
+        normalizedName = name.trim();
 
         articles.push({
-            level: level,
+            level: normalizedLevel,
             // `foo bar`
             // -foo-bar-
             // foo-bar
-            id: _.trim(name.toLowerCase().replace(/[^\w]+/g, '-'), '-'),
-            name: name
+            id: _.trim(normalizedName.toLowerCase().replace(/[^\w]+/g, '-'), '-'),
+            name: normalizedName
         });
 
         // `test`
-        name = _.trim(marked(name));
+        normalizedName = _.trim(marked(normalizedName));
         // <p><code>test</code></p>
-        name = name.slice(3, -4);
+        normalizedName = normalizedName.slice(3, -4);
         // <code>test</code>
 
-        return '<h' + level + ' id="⊂⊂⊂H:' + articles.length + '⊃⊃⊃">' + name + '</h' + level + '>';
+        return '<h' + normalizedLevel + ' id="⊂⊂⊂H:' + articles.length + '⊃⊃⊃">' + normalizedName + '</h' + normalizedLevel + '>';
     });
 
-    markdown = markdown.replace(/^⊂⊂⊂C:(\d+)⊃⊃⊃/mg, function () {
+    outputMarkdown = outputMarkdown.replace(/^⊂⊂⊂C:(\d+)⊃⊃⊃/mg, () => {
         return codeblocks.shift();
     });
 
-    tree = contents._nestIds(MarkdownContents.tree(articles));
+    const tree = contents.nestIds(MarkdownContents.tree(articles));
 
-    Gitdown._nestHeadingIds.iterateTree(tree, function (index, article) {
-        markdown = markdown.replace('⊂⊂⊂H:' + index + '⊃⊃⊃', article.id);
+    Gitdown.nestHeadingIds.iterateTree(tree, (index, article) => {
+        outputMarkdown = outputMarkdown.replace('⊂⊂⊂H:' + index + '⊃⊃⊃', article.id);
     });
 
-    return markdown;
+    return outputMarkdown;
 };
 
 /**
- *
- *
+ * @private
  * @param {Array} tree
  * @param {Function} callback
- * @param {Number} index
+ * @param {number} index
  */
-Gitdown._nestHeadingIds.iterateTree = function (tree, callback, index) {
-    index = index || 1;
+Gitdown.nestHeadingIds.iterateTree = (tree, callback, index = 1) => {
+    let nextIndex;
 
-    tree.forEach(function (article) {
-        callback(index++, article);
+    nextIndex = index;
+
+    tree.forEach((article) => {
+        callback(nextIndex++, article);
 
         if (article.descendants) {
-            index = Gitdown._nestHeadingIds.iterateTree(article.descendants, callback, index);
+            nextIndex = Gitdown.nestHeadingIds.iterateTree(article.descendants, callback, nextIndex);
         }
     });
 
-    return index;
+    return nextIndex;
 };
 
 module.exports = Gitdown;

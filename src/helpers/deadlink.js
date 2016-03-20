@@ -1,8 +1,8 @@
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-var helper = {};
+const helper = {};
 
-helper.compile = function () {
+helper.compile = () => {
     throw new Error('This helper cannot be called from the context of the markdown document.');
 };
 

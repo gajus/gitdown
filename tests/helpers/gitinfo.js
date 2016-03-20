@@ -1,16 +1,17 @@
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-var expect = require('chai').expect,
-    requireNew = require('require-new');
+const expect = require('chai').expect;
+const requireNew = require('require-new');
 
-xdescribe('Parser.helpers.gitinfo', function () {
-    var helper,
-        context;
-    beforeEach(function () {
+xdescribe('Parser.helpers.gitinfo', () => {
+    let context,
+        helper;
+
+    beforeEach(() => {
         helper = requireNew('../../src/helpers/gitinfo.js');
         context = {
             gitdown: {
-                getConfig: function () {
+                getConfig: () => {
                     return {
                         gitinfo: {
                             gitPath: __dirname
@@ -20,17 +21,17 @@ xdescribe('Parser.helpers.gitinfo', function () {
             }
         };
     });
-    it('throws an error if config.name is not provided', function () {
-        expect(function () {
+    it('throws an error if config.name is not provided', () => {
+        expect(() => {
             helper.compile({}, context);
         }).to.throw(Error, 'config.name must be provided.');
     });
-    it('throws an error if unsupported config.name property is provided', function () {
-        expect(function () {
+    it('throws an error if unsupported config.name property is provided', () => {
+        expect(() => {
             helper.compile({name: 'foo'}, context);
         }).to.throw(Error, 'Unexpected config.name value ("foo").');
     });
-    it('calls gitinfo method of the same name', function () {
+    it('calls gitinfo method of the same name', () => {
         expect(helper.compile({name: 'name'}, context)).to.equal('gitdown');
     });
 });

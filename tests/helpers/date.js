@@ -1,17 +1,18 @@
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-var expect = require('chai').expect,
-    requireNew = require('require-new');
+const expect = require('chai').expect;
+const requireNew = require('require-new');
 
-describe('Parser.helpers.date', function () {
-    var helper;
-    beforeEach(function () {
+describe('Parser.helpers.date', () => {
+    let helper;
+
+    beforeEach(() => {
         helper = requireNew('../../src/helpers/date.js');
     });
-    it('returns current UNIX timestamp', function () {
-        expect(helper.compile()).to.equal(Math.floor(new Date().getTime() / 1000) + '');
+    it('returns current UNIX timestamp', () => {
+        expect(helper.compile()).to.equal(String(Math.floor(new Date().getTime() / 1000)));
     });
-    it('uses format parameter to adjust the format', function () {
-        expect(helper.compile({format: 'YYYY'})).to.equal(new Date().getUTCFullYear() + '');
+    it('uses format parameter to adjust the format', () => {
+        expect(helper.compile({format: 'YYYY'})).to.equal(String(new Date().getUTCFullYear()));
     });
 });

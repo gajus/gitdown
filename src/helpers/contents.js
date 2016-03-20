@@ -1,43 +1,42 @@
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-var helper = {},
-    MarkdownContents = require('markdown-contents');
+const helper = {};
+const MarkdownContents = require('markdown-contents');
 
-helper.compile = function (config, context) {
-    var articles,
-        tree;
+helper.compile = (config = {}, context) => {
+    let tree;
 
-    config = config || {};
     config.maxLevel = config.maxLevel || 3;
 
     if (context.gitdown.getConfig().headingNesting.enabled) {
         tree = MarkdownContents(context.markdown).tree();
-        tree = helper._nestIds(tree);
+        tree = helper.nestIds(tree);
     } else {
-        articles = MarkdownContents(context.markdown).articles();
+        const articles = MarkdownContents(context.markdown).articles();
+
         tree = MarkdownContents.tree(articles, true, []);
     }
 
     if (config.rootId) {
-        tree = helper._findRoot(tree, config.rootId).descendants;
+        tree = helper.findRoot(tree, config.rootId).descendants;
     }
 
-    tree = helper._maxLevel(tree, config.maxLevel);
+    tree = helper.maxLevel(tree, config.maxLevel);
 
     return MarkdownContents.treeToMarkdown(tree);
 };
 
 /**
- * Removes tree descendants with level greater than maxLevel
+ * Removes tree descendants with level greater than maxLevel.
+ *
+ * @private
  */
-helper._maxLevel = function (tree, maxLevel) {
-    maxLevel = maxLevel || 1;
-
-    tree.forEach(function (article, index) {
+helper.maxLevel = (tree, maxLevel = 1) => {
+    tree.forEach((article, index) => {
         if (article.level > maxLevel) {
             delete tree[index];
         } else {
-            article.descendants = helper._maxLevel(article.descendants, maxLevel);
+            article.descendants = helper.maxLevel(article.descendants, maxLevel);
         }
     });
 
@@ -45,19 +44,21 @@ helper._maxLevel = function (tree, maxLevel) {
 };
 
 /**
- *
+ * @private
  */
-helper._findRoot = function (tree, rootId, notFirst) {
-    var found,
-        i = tree.length;
+helper.findRoot = (tree, rootId, notFirst) => {
+    let found,
+        index;
 
-    while (i--) {
-        if (tree[i].id === rootId) {
-            found = tree[i];
+    index = tree.length;
+
+    while (index--) {
+        if (tree[index].id === rootId) {
+            found = tree[index];
 
             break;
         } else {
-            found = helper._findRoot(tree[i].descendants, rootId, true);
+            found = helper.findRoot(tree[index].descendants, rootId, true);
         }
     }
 
@@ -69,17 +70,15 @@ helper._findRoot = function (tree, rootId, notFirst) {
 };
 
 /**
- *
+ * @private
  */
-helper._nestIds = function (tree, parentIds) {
-    parentIds = parentIds || [];
-
-    tree.forEach(function (article) {
-        var ids = parentIds.concat([article.id]);
+helper.nestIds = (tree, parentIds = []) => {
+    tree.forEach((article) => {
+        const ids = parentIds.concat([article.id]);
 
         article.id = ids.join('-');
 
-        helper._nestIds(article.descendants, ids);
+        helper.nestIds(article.descendants, ids);
     });
 
     return tree;

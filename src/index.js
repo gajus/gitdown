@@ -1,8 +1,7 @@
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-var Gitdown = {};
+const Gitdown = require('./gitdown.js');
 
-Gitdown = require('./gitdown.js');
 Gitdown.Parser = require('./parser.js');
 
 module.exports = Gitdown;

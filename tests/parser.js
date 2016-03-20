@@ -1,73 +1,74 @@
-'use strict';
+/* eslint-disable import/no-commonjs, max-nested-callbacks */
 
-var expect = require('chai').expect,
-    sinon = require('sinon'),
-    requireNew = require('require-new');
+const expect = require('chai').expect;
+const sinon = require('sinon');
+const requireNew = require('require-new');
 
-describe('Gitdown.Parser', function () {
-    var Parser,
+describe('Gitdown.Parser', () => {
+    let Parser,
         parser,
         spy;
-    beforeEach(function () {
+
+    beforeEach(() => {
         Parser = requireNew('./../src/').Parser;
         parser = Parser();
     });
-    afterEach(function () {
+    afterEach(() => {
         if (spy) {
             spy.restore();
         }
     });
-    it('returns the input content', function () {
+    it('returns the input content', () => {
         return parser
             .play('foo')
-            .then(function (state) {
+            .then((state) => {
                 expect(state.markdown).to.equal('foo');
             });
     });
-    it('ignores content starting with a <!-- gitdown: off --> HTML comment tag', function () {
+    it('ignores content starting with a <!-- gitdown: off --> HTML comment tag', () => {
         return parser
             .play('{"gitdown": "test"}<!-- gitdown: off -->{"gitdown": "test"}')
-            .then(function (state) {
+            .then((state) => {
                 expect(state.markdown).to.equal('test<!-- gitdown: off -->{"gitdown": "test"}');
             });
     });
-    it('ignores content between <!-- gitdown: off --> and <!-- gitdown: on --> HTML comment tags', function () {
+    it('ignores content between <!-- gitdown: off --> and <!-- gitdown: on --> HTML comment tags', () => {
         return parser
             .play('<!-- gitdown: off -->{"gitdown": "test"}<!-- gitdown: on --><!-- gitdown: off -->{"gitdown": "test"}<!-- gitdown: on -->')
-            .then(function (state) {
+            .then((state) => {
                 expect(state.markdown).to.equal('<!-- gitdown: off -->{"gitdown": "test"}<!-- gitdown: on --><!-- gitdown: off -->{"gitdown": "test"}<!-- gitdown: on -->');
             });
     });
-    it('interprets JSON starting with \'{"gitdown"\' and ending with \'}\'', function () {
+    it('interprets JSON starting with \'{"gitdown"\' and ending with \'}\'', () => {
         return parser
             .play('{"gitdown": "test"}{"gitdown": "test"}')
-            .then(function (state) {
+            .then((state) => {
                 expect(state.markdown).to.equal('testtest');
             });
     });
-    it('throws an error if invalid Gitdown JSON hook is encountered', function () {
-        return expect(function () {
+    it('throws an error if invalid Gitdown JSON hook is encountered', () => {
+        return expect(() => {
             parser.play('{"gitdown": invalid}');
         }).to.throw(Error, 'Invalid Gitdown JSON ("{"gitdown": invalid}").');
     });
-    it('invokes a helper function with the markdown', function () {
+    it('invokes a helper function with the markdown', () => {
         spy = sinon.spy(parser.helpers().test, 'compile');
 
         return parser
             .play('{"gitdown": "test", "foo": "bar"}')
-            .then(function () {
+            .then(() => {
                 expect(spy.calledWith({foo: 'bar'})).to.be.equal(true);
             });
     });
-    it('throws an error if an unknown helper is invoked', function () {
-        return expect(function () {
+    it('throws an error if an unknown helper is invoked', () => {
+        return expect(() => {
             parser
                 .play('{"gitdown": "does-not-exist"}');
         }).to.throw(Error, 'Unknown helper "does-not-exist".');
     });
-    it('descends to the helper with the lowest weight after each iteration', function () {
+    it('descends to the helper with the lowest weight after each iteration', () => {
         parser = Parser({
-            getConfig: function () {
+            getConfig: () => {
                 return {
                     baseDirectory: __dirname
                 };
@@ -78,26 +79,28 @@ describe('Gitdown.Parser', function () {
         // Helper "test" is weight 10
         return parser
             .play('{"gitdown": "include", "file": "./fixtures/include_test_weight_10.txt"}')
-            .then(function (state) {
+            .then((state) => {
                 expect(state.markdown).to.equal('test');
             });
     });
 });
 
-describe('Parser.helpers', function () {
-    var glob = require('glob'),
-        path = require('path');
+/* eslint-disable global-require */
+describe('Parser.helpers', () => {
+    const glob = require('glob');
+    const path = require('path');
 
-    glob.sync('./../src/helpers/*.js').forEach(function (helperName) {
-        var helper = require(helperName);
+    glob.sync('./../src/helpers/*.js').forEach((helperName) => {
+        const helper = require(helperName);
 
-        describe(path.basename(helperName, '.js'), function () {
-            it('has compile method', function () {
+        describe(path.basename(helperName, '.js'), () => {
+            it('has compile method', () => {
                 expect(helper).to.have.property('compile');
             });
-            it('has weight property', function () {
+            it('has weight property', () => {
                 expect(helper).to.have.property('weight');
             });
         });
     });
 });
+/* eslint-enable global-require */

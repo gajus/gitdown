@@ -1,14 +1,12 @@
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-var helper = {},
-    Gitinfo = require('gitinfo');
+const helper = {};
+const _ = require('lodash');
+const Gitinfo = require('gitinfo');
 
-helper.compile = function (config, context) {
-    var parserConfig,
-        gitinfo;
-
-    parserConfig = context.gitdown.getConfig().gitinfo;
-    gitinfo = Gitinfo({
+helper.compile = (config, context) => {
+    const parserConfig = context.gitdown.getConfig().gitinfo;
+    const gitinfo = Gitinfo({
         gitPath: parserConfig.gitPath
     });
 
@@ -20,7 +18,7 @@ helper.compile = function (config, context) {
         throw new Error('Unexpected config.name value ("' + config.name + '").');
     }
 
-    if (typeof gitinfo[config.name] !== 'function') {
+    if (!_.isFunction(gitinfo[config.name])) {
         throw new Error('Gitinfo module does not provide function "' + config.name + '".');
     }
 

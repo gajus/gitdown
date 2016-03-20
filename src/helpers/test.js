@@ -1,10 +1,9 @@
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-var helper = {};
+const helper = {};
+const _ = require('lodash');
 
-helper.compile = function () {
-    return 'test';
-};
+helper.compile = _.constant('test');
 
 helper.weight = 10;
 

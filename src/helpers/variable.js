@@ -1,21 +1,16 @@
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-var helper = {};
+const helper = {};
+const _ = require('lodash');
 
-/**
- *
- */
-helper.compile = function (config, context) {
-    var scope = context.gitdown.getConfig().variable.scope,
-        value;
-
-    config = config || {};
+helper.compile = (config = {}, context) => {
+    const scope = context.gitdown.getConfig().variable.scope;
 
     if (!config.name) {
         throw new Error('config.name must be provided.');
     }
 
-    value = helper._resolve(scope, config.name);
+    const value = helper.resolve(scope, config.name);
 
     if (value === false) {
         throw new Error('config.name "' + config.name + '" does not resolve to a defined value.');
@@ -25,39 +20,36 @@ helper.compile = function (config, context) {
 };
 
 /**
- *
+ * @private
  */
-helper._resolve = function (obj, path) {
-    var stone;
-
-    path = path || '';
+helper.resolve = (obj, path = '') => {
+    let resolvedValue;
 
     if (path.indexOf('[') !== -1) {
         throw new Error('Unsupported object path notation.');
     }
 
-    path = path.split('.');
+    const stoneList = path.split('.');
+
+    resolvedValue = obj;
 
     do {
-        if (obj === undefined) {
+        if (_.isUndefined(resolvedValue)) {
             return false;
         }
 
-        stone = path.shift();
+        const stone = stoneList.shift();
 
-        if (!obj.hasOwnProperty(stone)) {
+        if (!resolvedValue.hasOwnProperty(stone)) {
             return false;
         }
 
-        obj = obj[stone];
-    } while (path.length);
+        resolvedValue = resolvedValue[stone];
+    } while (stoneList.length);
 
-    return obj;
+    return resolvedValue;
 };
 
-/**
- *
- */
 helper.weight = 10;
 
 module.exports = helper;

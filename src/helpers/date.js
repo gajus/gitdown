@@ -1,10 +1,9 @@
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-var helper = {},
-    moment = require('moment');
+const helper = {};
+const moment = require('moment');
 
-helper.compile = function (config) {
-    config = config || {};
+helper.compile = (config = {}) => {
     config.format = config.format || 'X';
 
     return moment().format(config.format);

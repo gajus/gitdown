@@ -1,24 +1,22 @@
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-/* global Promise: true */
+const helper = {};
+const Promise = require('bluebird');
+const fs = require('fs');
+const zlib = require('zlib');
+const formatFileSize = require('filesize');
 
-var helper = {},
-    Promise = require('bluebird'),
-    fs = require('fs'),
-    zlib = require('zlib'),
-    formatFileSize = require('filesize');
-
-helper.compile = function (config) {
-    config = config || {};
+helper.compile = (config = {}) => {
     config.gzip = config.gzip || false;
 
     if (!config.file) {
         return Promise.reject(new Error('config.file must be provided.'));
     }
 
-    return helper._file(config.file, config.gzip)
-        .then(function (fileSize) {
-            return helper._format(fileSize);
+    return helper
+        .file(config.file, config.gzip)
+        .then((fileSize) => {
+            return helper.format(fileSize);
         });
 };
 
@@ -26,22 +24,23 @@ helper.compile = function (config) {
  * Calculates size of a file. If gzip parameter is true,
  * calculates the gzipped size of a file.
  *
- * @param {String} file
- * @param {Boolean} gzip
+ * @private
+ * @param {string} file
+ * @param {boolean} gzip
  */
-helper._file = function (file, gzip) {
-    return new Promise(function (resolve, reject) {
+helper.file = (file, gzip) => {
+    return new Promise((resolve, reject) => {
         if (!fs.existsSync(file)) {
             return reject(new Error('Input file does not exist.'));
         }
 
         if (gzip) {
-            fs.readFile(file, function (err, buf) {
+            fs.readFile(file, (err, buf) => {
                 if (err) {
                     throw new Error(err);
                 }
 
-                zlib.gzip(buf, function (zlibErr, data) {
+                zlib.gzip(buf, (zlibErr, data) => {
                     if (zlibErr) {
                         throw new Error(zlibErr);
                     }
@@ -50,7 +49,7 @@ helper._file = function (file, gzip) {
                 });
             });
         } else {
-            fs.stat(file, function (err, data) {
+            fs.stat(file, (err, data) => {
                 if (err) {
                     throw new Error(err);
                 }
@@ -64,10 +63,10 @@ helper._file = function (file, gzip) {
 /**
  * Formats size in bytes to a human friendly format.
  *
- * @param {Number} bytes
- * @param {String}
+ * @private
+ * @param {number} bytes
  */
-helper._format = function (bytes) {
+helper.format = (bytes) => {
     return formatFileSize(bytes);
 };
 

@@ -1,22 +1,23 @@
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-var expect = require('chai').expect,
-    fs = require('fs'),
-    requireNew = require('require-new'),
-    Path = require('path');
+const expect = require('chai').expect;
+const fs = require('fs');
+const requireNew = require('require-new');
+const Path = require('path');
 
-xdescribe('Locator', function () {
-    var Locator;
-    beforeEach(function () {
+xdescribe('Locator', () => {
+    let Locator;
+
+    beforeEach(() => {
         Locator = requireNew('../src/locator');
     });
-    describe('.gitPath()', function () {
-        it('returns absolute path to the .git/ directory', function () {
+    describe('.gitPath()', () => {
+        it('returns absolute path to the .git/ directory', () => {
             expect(Locator.gitPath()).to.equal(fs.realpathSync(Path.resolve(__dirname, './../.git')));
         });
     });
-    describe('.repositoryPath()', function () {
-        it('returns absolute path to the parent of the _getGitPath() directory', function () {
+    describe('.repositoryPath()', () => {
+        it('returns absolute path to the parent of the _getGitPath() directory', () => {
             expect(Locator.repositoryPath()).to.equal(fs.realpathSync(Locator.gitPath() + '/..'));
         });
     });

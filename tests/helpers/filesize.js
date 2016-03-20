@@ -1,52 +1,72 @@
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-var chai = require('chai'),
-    expect = chai.expect,
-    chaiAsPromised = require('chai-as-promised'),
-    requireNew = require('require-new'),
-    Path = require('path');
+const chai = require('chai');
+const expect = chai.expect;
+const chaiAsPromised = require('chai-as-promised');
+const requireNew = require('require-new');
+const Path = require('path');
 
 chai.use(chaiAsPromised);
 
-describe('Parser.helpers.filesize', function () {
-    var helper;
-    beforeEach(function () {
+describe('Parser.helpers.filesize', () => {
+    let helper;
+
+    beforeEach(() => {
         helper = requireNew('./../../src/helpers/filesize.js');
     });
-    it('is rejected with an error when config.file is not provided', function () {
-        return expect(helper.compile())
-            .to.rejectedWith(Error, 'config.file must be provided.');
+    it('is rejected with an error when config.file is not provided', () => {
+        const result = helper.compile();
+
+        return expect(result).to.rejectedWith(Error, 'config.file must be provided.');
     });
-    it('is rejected with an error when file is not found', function () {
-        return expect(helper.compile({file: '/does-not-exist'}))
-            .to.rejectedWith(Error, 'Input file does not exist.');
+    it('is rejected with an error when file is not found', () => {
+        const result = helper.compile({
+            file: '/does-not-exist'
+        });
+
+        return expect(result).to.rejectedWith(Error, 'Input file does not exist.');
     });
 
-    it('returns formatted file size', function () {
-        return expect(helper.compile({file: Path.resolve(__dirname, './../fixtures/filesize.txt')}))
-            .to.eventually.equal('191 B');
+    it('returns formatted file size', () => {
+        const result = helper.compile({
+            file: Path.resolve(__dirname, './../fixtures/filesize.txt')
+        });
+
+        return expect(result).to.eventually.equal('191 B');
     });
-    it('returns gziped formatted file size', function () {
-        return expect(helper.compile({file: Path.resolve(__dirname, './../fixtures/filesize.txt'), gzip: true}))
-            .to.eventually.equal('148 B');
+    it('returns gziped formatted file size', () => {
+        const result = helper.compile({
+            file: Path.resolve(__dirname, './../fixtures/filesize.txt'),
+            gzip: true
+        });
+
+        return expect(result).to.eventually.equal('148 B');
     });
 
-    describe('._file(filename)', function () {
-        it('throws an error if file is not found', function () {
-            return expect(helper._file(Path.resolve(__dirname, './does-not-exist'))).rejectedWith(Error, 'Input file does not exist.');
+    describe('.file(filename)', () => {
+        it('throws an error if file is not found', () => {
+            const result = helper.file(Path.resolve(__dirname, './does-not-exist'));
+
+            return expect(result).rejectedWith(Error, 'Input file does not exist.');
         });
-        it('returns the file size in bytes', function () {
-            return expect(helper._file(Path.resolve(__dirname, './../fixtures/filesize.txt'))).eventually.equal(191);
+        it('returns the file size in bytes', () => {
+            const result = helper.file(Path.resolve(__dirname, './../fixtures/filesize.txt'));
+
+            return expect(result).eventually.equal(191);
         });
     });
-    describe('._file(filename, true)', function () {
-        it('returns gziped file size in bytes', function () {
-            return expect(helper._file(Path.resolve(__dirname, './../fixtures/filesize.txt'), true)).eventually.equal(148);
+    describe('.file(filename, true)', () => {
+        it('returns gziped file size in bytes', () => {
+            const result = helper.file(Path.resolve(__dirname, './../fixtures/filesize.txt'), true);
+
+            return expect(result).eventually.equal(148);
         });
     });
-    describe('._format(size)', function () {
-        it('returns file size as a human readable string', function () {
-            expect(helper._format(1024)).to.equal('1 KB');
+    describe('.format(size)', () => {
+        it('returns file size as a human readable string', () => {
+            const result = helper.format(1024);
+
+            expect(result).to.equal('1 KB');
         });
     });
 });

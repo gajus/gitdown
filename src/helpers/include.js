@@ -1,12 +1,8 @@
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-var helper,
-    fs,
-    path;
-
-helper = {};
-fs = require('fs');
-path = require('path');
+const helper = {};
+const fs = require('fs');
+const path = require('path');
 
 /**
  * @typedef config
@@ -17,9 +13,7 @@ path = require('path');
  * @param {config} config
  * @param {Object} context
  */
-helper.compile = function (config, context) {
-    config = config || {};
-
+helper.compile = (config = {}, context) => {
     if (!config.file) {
         throw new Error('config.file must be provided.');
     }

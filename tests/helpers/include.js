@@ -1,24 +1,24 @@
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-var expect = require('chai').expect,
-    requireNew = require('require-new');
+const expect = require('chai').expect;
+const requireNew = require('require-new');
+const path = require('path');
 
-describe('Parser.helpers.include', function () {
-    var helper;
-    beforeEach(function () {
+describe('Parser.helpers.include', () => {
+    let helper;
+
+    beforeEach(() => {
         helper = requireNew('./../../src/helpers/include.js');
     });
-    it('is rejected with an error when config.file is not provided', function () {
-        expect(function () {
+    it('is rejected with an error when config.file is not provided', () => {
+        expect(() => {
             helper.compile();
         }).to.throw(Error, 'config.file must be provided.');
     });
-    it('is rejected with an error when file is not found', function () {
-        var context;
-
-        context = {
+    it('is rejected with an error when file is not found', () => {
+        const context = {
             gitdown: {
-                getConfig: function () {
+                getConfig: () => {
                     return {
                         baseDirectory: __dirname
                     };
@@ -26,8 +26,10 @@ describe('Parser.helpers.include', function () {
             }
         };
 
-        expect(function () {
-            helper.compile({file: __dirname + '/does-not-exist'}, context);
+        expect(() => {
+            helper.compile({
+                file: path.join(__dirname, './does-not-exist')
+            }, context);
         }).to.throw(Error, 'Input file does not exist.');
     });
 });

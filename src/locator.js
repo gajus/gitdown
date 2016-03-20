@@ -1,17 +1,17 @@
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-var Locator = {},
-    fs = require('fs'),
-    Path = require('path');
+const Locator = {};
+const fs = require('fs');
+const Path = require('path');
 
 /**
  * Returns path to the .git directory.
  *
- * @return {String}
+ * @returns {string}
  */
-Locator.gitPath = function () {
-    var gitpath,
-        dirname;
+Locator.gitPath = () => {
+    let dirname,
+        gitpath;
 
     dirname = __dirname;
 
@@ -35,9 +35,9 @@ Locator.gitPath = function () {
 /**
  * Returns the parent path of the .git path.
  *
- * @return {String} Path to the repository.
+ * @returns {string} Path to the repository.
  */
-Locator.repositoryPath = function () {
+Locator.repositoryPath = () => {
     return fs.realpathSync(Path.resolve(Locator.gitPath(), '..'));
 };
 
