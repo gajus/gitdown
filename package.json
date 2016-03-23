@@ -29,7 +29,8 @@
     "build": "pragmatist --es5 build",
     "watch-lint": "pragmatist watch-lint",
     "watch-test": "pragmatist --type-assertions watch-test",
-    "watch-build": "pragmatist --es5 watch-build"
+    "watch-build": "pragmatist --es5 watch-build",
+    "readme": "node ./dist/bin/index.js ./.README/README.md --output-file ./README.md"
   },
   "devDependencies": {
     "chai": "^3.5.0",
