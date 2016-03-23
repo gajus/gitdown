@@ -442,8 +442,8 @@ Returns file size formatted in human friendly format.
 Generates:
 
 ```markdown
-8.7 kB
-2.38 kB
+9.56 KB
+2.62 KB
 ```
 
 <h4 id="features-get-file-size-json-configuration">JSON Configuration</h4>
@@ -478,6 +478,7 @@ Badges are generated using http://shields.io/.
 | `coveralls` | [Coveralls](https://coveralls.io/). |
 | `codeclimate-gpa` | [Code Climate](https://codeclimate.com/) GPA. |
 | `codeclimate-coverage` | [Code Climate](https://codeclimate.com/) test coverage. |
+| `appveyor` | [AppVeyor](http://www.appveyor.com/) status. |
 
 What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/issues).
 
@@ -504,6 +505,7 @@ Generates:
 | Name | Description | Default |
 | --- | --- | --- |
 | `name` | Name of the service. | N/A |
+
 <h3 id="features-print-date">Print Date</h3>
 
 
@@ -526,8 +528,8 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1442942137
-2015
+1458737572
+2016
 ```
 
 <h4 id="features-print-date-json-configuration">JSON Configuration</h4>
