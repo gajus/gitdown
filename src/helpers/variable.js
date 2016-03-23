@@ -10,44 +10,14 @@ helper.compile = (config = {}, context) => {
         throw new Error('config.name must be provided.');
     }
 
-    const value = helper.resolve(scope, config.name);
+    const magicUndefined = 'undefined-' + Math.random();
+    const value = _.get(scope, config.name, magicUndefined);
 
-    if (value === false) {
+    if (value === magicUndefined) {
         throw new Error('config.name "' + config.name + '" does not resolve to a defined value.');
     }
 
     return value;
-};
-
-/**
- * @private
- */
-helper.resolve = (obj, path = '') => {
-    let resolvedValue;
-
-    if (path.indexOf('[') !== -1) {
-        throw new Error('Unsupported object path notation.');
-    }
-
-    const stoneList = path.split('.');
-
-    resolvedValue = obj;
-
-    do {
-        if (_.isUndefined(resolvedValue)) {
-            return false;
-        }
-
-        const stone = stoneList.shift();
-
-        if (!resolvedValue.hasOwnProperty(stone)) {
-            return false;
-        }
-
-        resolvedValue = resolvedValue[stone];
-    } while (stoneList.length);
-
-    return resolvedValue;
 };
 
 helper.weight = 10;
