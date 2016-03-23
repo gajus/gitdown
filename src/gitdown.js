@@ -299,11 +299,11 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
         normalizedName = name.trim();
 
         articles.push({
-            level: normalizedLevel,
             // `foo bar`
             // -foo-bar-
             // foo-bar
             id: _.trim(normalizedName.toLowerCase().replace(/[^\w]+/g, '-'), '-'),
+            level: normalizedLevel,
             name: normalizedName
         });
 

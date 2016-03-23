@@ -103,10 +103,10 @@ const Parser = (gitdown) => {
 
             commands.push({
                 bindingIndex,
-                name,
                 config,
+                executed: false,
                 helper: helpers[name],
-                executed: false
+                name
             });
 
             return '⊂⊂C:' + bindingIndex + '⊃⊃';
@@ -117,8 +117,8 @@ const Parser = (gitdown) => {
         });
 
         return {
-            markdown: outputMarkdown,
-            commands
+            commands,
+            markdown: outputMarkdown
         };
     };
 
