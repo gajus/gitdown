@@ -154,5 +154,13 @@ describe('Parser.helpers.badge', () => {
                 expect(badge).to.equal('[![Code Climate](https://codeclimate.com/github/a/b/badges/coverage.svg)](https://codeclimate.com/github/a/b)');
             });
         });
+
+        describe('appveyor', () => {
+            it('returns markdown for the AppVeyor badge', () => {
+                const badge = helper.compile({name: 'appveyor'}, gitinfoContext);
+
+                expect(badge).to.equal('[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/a/b?svg=true&branch=c)](https://ci.appveyor.com/project/a/b/branch/c)');
+            });
+        });
     });
 });

@@ -141,6 +141,20 @@ helper.compile = (config = {}, context) => {
         return '[' + badge + '](https://codeclimate.com/' + repository + ')';
     };
 
+    /**
+     * @see https://github.com/gajus/gitdown/issues/35
+     */
+    services['appveyor'] = () => {
+        const gitinfo = context.parser.helpers().gitinfo;
+        const username = gitinfo.compile({name: 'username'}, context);
+        const name = gitinfo.compile({name: 'name'}, context);
+        const branch = gitinfo.compile({name: 'branch'}, context);
+        const repository = `${username}/${name}`;
+        const badge = `![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/${repository}?svg=true&branch=${branch})`;
+
+        return `[${badge}](https://ci.appveyor.com/project/${repository}/branch/${branch})`;
+    };
+
     if (!services[config.name]) {
         throw new Error('config.name "' + config.name + '" is unknown service.');
     }
