@@ -111,9 +111,6 @@ helper.compile = (config = {}, context) => {
         return '[' + badge + '](https://travis-ci.org/' + repository + ')';
     };
 
-    /**
-     *
-     */
     services.waffle = () => {
         const gitinfo = context.parser.helpers().gitinfo;
         const repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
@@ -144,15 +141,15 @@ helper.compile = (config = {}, context) => {
     /**
      * @see https://github.com/gajus/gitdown/issues/35
      */
-    services['appveyor'] = () => {
+    services.appveyor = () => {
         const gitinfo = context.parser.helpers().gitinfo;
         const username = gitinfo.compile({name: 'username'}, context);
         const name = gitinfo.compile({name: 'name'}, context);
         const branch = gitinfo.compile({name: 'branch'}, context);
-        const repository = `${username}/${name}`;
-        const badge = `![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/${repository}?svg=true&branch=${branch})`;
+        const repository = username + '/' + name;
+        const badge = '![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/' + repository + '?svg=true&branch=' + branch + ')';
 
-        return `[${badge}](https://ci.appveyor.com/project/${repository}/branch/${branch})`;
+        return '[' + badge + '](https://ci.appveyor.com/project/' + repository + '/branch/' + branch + ')';
     };
 
     if (!services[config.name]) {
