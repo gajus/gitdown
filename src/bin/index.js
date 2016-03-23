@@ -13,7 +13,7 @@ const fileExists = (filePath) => {
     try {
         stat = fs.statSync(filePath);
     } catch (error) {
-
+        // Continue regardless of error.
     }
 
     return stat && stat.isFile();
