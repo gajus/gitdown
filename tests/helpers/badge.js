@@ -159,7 +159,7 @@ describe('Parser.helpers.badge', () => {
             it('returns markdown for the AppVeyor badge', () => {
                 const badge = helper.compile({name: 'appveyor'}, gitinfoContext);
 
-                expect(badge).to.equal('[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github1/a/b?svg=true&branch=c)](https://ci.appveyor.com/project/a/b/branch/c)');
+                expect(badge).to.equal('[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/a/b?svg=true&branch=c)](https://ci.appveyor.com/project/a/b/branch/c)');
             });
         });
     });
