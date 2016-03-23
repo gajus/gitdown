@@ -50,6 +50,10 @@ const argv = yargs
         const inputFile = path.resolve(process.cwd(), sargv._[0]);
 
         if (!fileExists(inputFile)) {
+            /* eslint-disable no-console */
+            console.log('inputFile', inputFile);
+            /* eslint-enable */
+
             throw new Error('Input file does not exist.');
         }
 

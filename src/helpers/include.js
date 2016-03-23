@@ -21,6 +21,10 @@ helper.compile = (config = {}, context) => {
     config.file = path.resolve(context.gitdown.getConfig().baseDirectory, config.file);
 
     if (!fs.existsSync(config.file)) {
+        /* eslint-disable no-console */
+        console.log('config.file', config.file);
+        /* eslint-enable */
+
         throw new Error('Input file does not exist.');
     }
 
