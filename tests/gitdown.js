@@ -1,6 +1,5 @@
 /* eslint-disable import/no-commonjs, max-nested-callbacks */
 
-const _ = require('lodash');
 const expect = require('chai').expect;
 const fs = require('fs');
 const requireNew = require('require-new');
