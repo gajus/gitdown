@@ -10,13 +10,12 @@ gitdown ./.README/README.md --output-file ./README.md
 Gitdown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
 
 ```js
-var Gitdown = require('gitdown'),
-    gitdown;
+const Gitdown = require('gitdown');
 
 // Read the markdown file written using the Gitdown extended markdown.
 // File name is not important.
 // Having all of the Gitdown markdown files under ./.README/ path is the recommended convention.
-gitdown = Gitdown.readFile('./.README/README.md');
+const gitdown = Gitdown.readFile('./.README/README.md');
 
 // If you have the subject in a string, call the constructor itself:
 // gitdown = Gitdown.read('literal string');
@@ -41,16 +40,16 @@ gitdown.writeFile('README.md');
 Gitdown `writeFile` method returns a promise, that will make Gulp wait until the task is completed. No third-party plugins needed.
 
 ```js
-var gulp = require('gulp'),
-    Gitdown = require('gitdown');
+const gulp = require('gulp');
+const Gitdown = require('gitdown');
 
-gulp.task('gitdown', function () {
+gulp.task('gitdown', () => {
     return Gitdown
         .readFile('./.README/README.md')
         .writeFile('README.md');
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', () => {
     gulp.watch(['./.README/*'], ['gitdown']);
 });
 ```
@@ -61,8 +60,8 @@ Gitdown is using `console` object to log messages. You can set your own logger:
 
 ```js
 gitdown.setLogger({
-    info: function () {},
-    warn: function () {}
+    info: () => {},
+    warn: () => {}
 });
 ```
 
@@ -106,7 +105,7 @@ gitdown.registerHelper('my-helper-name', {
      * @param {Object} config JSON configuration.
      * @return {mixed|Promise}
      */
-    compile: function (config) {
+    compile: (config) => {
         return 'foo: ' + config.foo;
     }
 });
