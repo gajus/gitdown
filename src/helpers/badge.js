@@ -11,6 +11,8 @@ helper.compile = (config = {}, context) => {
         throw new Error('config.name must be provided.');
     }
 
+    const badgeStyle = 'style=flat-square';
+
     services['npm-version'] = () => {
         let pkg;
 
@@ -22,7 +24,7 @@ helper.compile = (config = {}, context) => {
 
         pkg = jsonfile.readFileSync(pkg);
 
-        const badge = '![NPM version](http://img.shields.io/npm/v/' + pkg.name + '.svg?style=flat-square)';
+        const badge = '![NPM version](http://img.shields.io/npm/v/' + pkg.name + '.svg?' + badgeStyle + ')';
 
         return '[' + badge + '](https://www.npmjs.org/package/' + pkg.name + ')';
     };
@@ -38,7 +40,7 @@ helper.compile = (config = {}, context) => {
 
         bower = jsonfile.readFileSync(bower);
 
-        const badge = '![Bower version](http://img.shields.io/bower/v/' + bower.name + '.svg?style=flat-square)';
+        const badge = '![Bower version](http://img.shields.io/bower/v/' + bower.name + '.svg?' + badgeStyle + ')';
 
         return '[' + badge + '](http://bower.io/search/?q=' + bower.name + ')';
     };
@@ -49,7 +51,7 @@ helper.compile = (config = {}, context) => {
     services.david = () => {
         const gitinfo = context.parser.helpers().gitinfo;
         const repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
-        const badge = '![Dependency Status](https://img.shields.io/david/' + repository + '.svg?style=flat-square)';
+        const badge = '![Dependency Status](https://img.shields.io/david/' + repository + '.svg?' + badgeStyle + ')';
 
         return '[' + badge + '](https://david-dm.org/' + repository + ')';
     };
@@ -60,7 +62,7 @@ helper.compile = (config = {}, context) => {
     services['david-dev'] = () => {
         const gitinfo = context.parser.helpers().gitinfo;
         const repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
-        const badge = '![Development Dependency Status](https://img.shields.io/david/dev/' + repository + '.svg?style=flat-square)';
+        const badge = '![Development Dependency Status](https://img.shields.io/david/dev/' + repository + '.svg?' + badgeStyle + ')';
 
         return '[' + badge + '](https://david-dm.org/' + repository + '#info=devDependencies)';
     };
@@ -71,7 +73,7 @@ helper.compile = (config = {}, context) => {
     services.gitter = () => {
         const gitinfo = context.parser.helpers().gitinfo;
         const repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
-        const badge = '![Gitter chat](https://img.shields.io/gitter/room/' + repository + '.svg?style=flat-square)';
+        const badge = '![Gitter chat](https://img.shields.io/gitter/room/' + repository + '.svg?' + badgeStyle + ')';
 
         return '[' + badge + '](https://gitter.im/' + repository + ')';
     };
@@ -83,7 +85,7 @@ helper.compile = (config = {}, context) => {
         const gitinfo = context.parser.helpers().gitinfo;
         const repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
         const branch = gitinfo.compile({name: 'branch'}, context);
-        const badge = '![Coverage Status](https://img.shields.io/coveralls/' + repository + '/' + branch + '.svg?style=flat-square)';
+        const badge = '![Coverage Status](https://img.shields.io/coveralls/' + repository + '/' + branch + '.svg?' + badgeStyle + ')';
 
         return '[' + badge + '](https://coveralls.io/r/' + repository + '?branch=' + branch + ')';
     };
@@ -95,7 +97,7 @@ helper.compile = (config = {}, context) => {
         const gitinfo = context.parser.helpers().gitinfo;
         const repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
         const branch = gitinfo.compile({name: 'branch'}, context);
-        const badge = '![Circle CI](https://img.shields.io/circleci/project/' + repository + '/circleci/' + branch + '.svg)';
+        const badge = '![Circle CI](https://img.shields.io/circleci/project/' + repository + '/circleci/' + branch + '.svg?' + badgeStyle + ')';
 
         return '[' + badge + '](https://circleci.com/gh/' + repository + '?branch=' + branch + ')';
     };
@@ -110,7 +112,7 @@ helper.compile = (config = {}, context) => {
 
         rep.branch = gitinfo.compile({name: 'branch'}, context);
 
-        const badge = '![Travis build status](http://img.shields.io/travis/' + repository + '/' + rep.branch + '.svg?style=flat)';
+        const badge = '![Travis build status](http://img.shields.io/travis/' + repository + '/' + rep.branch + '.svg?' + badgeStyle + ')';
 
         return '[' + badge + '](https://travis-ci.org/' + repository + ')';
     };
@@ -129,7 +131,9 @@ helper.compile = (config = {}, context) => {
     services['codeclimate-gpa'] = () => {
         const gitinfo = context.parser.helpers().gitinfo;
         const repository = 'github/' + gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
-        const badge = '![Code Climate](https://codeclimate.com/' + repository + '/badges/gpa.svg)';
+        const badge = '![Code Climate GPA](https://img.shields.io/codeclimate/github/' + repository + '.svg?' + badgeStyle + ')';
+
+
 
         return '[' + badge + '](https://codeclimate.com/' + repository + ')';
     };
@@ -137,7 +141,7 @@ helper.compile = (config = {}, context) => {
     services['codeclimate-coverage'] = () => {
         const gitinfo = context.parser.helpers().gitinfo;
         const repository = 'github/' + gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
-        const badge = '![Code Climate](https://codeclimate.com/' + repository + '/badges/coverage.svg)';
+        const badge = '![Code Climate Coverage](https://img.shields.io/codeclimate/coverage/github/' + repository + '.svg?' + badgeStyle + ')';
 
         return '[' + badge + '](https://codeclimate.com/' + repository + ')';
     };
@@ -151,7 +155,7 @@ helper.compile = (config = {}, context) => {
         const name = gitinfo.compile({name: 'name'}, context);
         const branch = gitinfo.compile({name: 'branch'}, context);
         const repository = username + '/' + name;
-        const badge = '![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/' + repository + '?svg=true&branch=' + branch + ')';
+        const badge = '![AppVeyor build status](https://img.shields.io/appveyor/ci/' + repository + '/' + branch + '.svg?' + badgeStyle + ')';
 
         return '[' + badge + '](https://ci.appveyor.com/project/' + repository + '/branch/' + branch + ')';
     };

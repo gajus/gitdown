@@ -131,7 +131,7 @@ describe('Parser.helpers.badge', () => {
             it('returns markdown for the travis badge', () => {
                 const badge = helper.compile({name: 'travis'}, gitinfoContext);
 
-                expect(badge).to.equal('[![Travis build status](http://img.shields.io/travis/a/b/c.svg?style=flat)](https://travis-ci.org/a/b)');
+                expect(badge).to.equal('[![Travis build status](http://img.shields.io/travis/a/b/c.svg?style=flat-square)](https://travis-ci.org/a/b)');
             });
         });
         describe('waffle', () => {
@@ -146,12 +146,12 @@ describe('Parser.helpers.badge', () => {
             it('returns markdown for the codeclimate gpa badge', () => {
                 const badge = helper.compile({name: 'codeclimate-gpa'}, gitinfoContext);
 
-                expect(badge).to.equal('[![Code Climate](https://codeclimate.com/github/a/b/badges/gpa.svg)](https://codeclimate.com/github/a/b)');
+                expect(badge).to.equal('[![Code Climate GPA](https://img.shields.io/codeclimate/github/github/a/b.svg?style=flat-square)](https://codeclimate.com/github/a/b)');
             });
             it('returns markdown for the codeclimate coverage badge', () => {
                 const badge = helper.compile({name: 'codeclimate-coverage'}, gitinfoContext);
 
-                expect(badge).to.equal('[![Code Climate](https://codeclimate.com/github/a/b/badges/coverage.svg)](https://codeclimate.com/github/a/b)');
+                expect(badge).to.equal('[![Code Climate Coverage](https://img.shields.io/codeclimate/coverage/github/github/a/b.svg?style=flat-square)](https://codeclimate.com/github/a/b)');
             });
         });
 
@@ -159,7 +159,7 @@ describe('Parser.helpers.badge', () => {
             it('returns markdown for the AppVeyor badge', () => {
                 const badge = helper.compile({name: 'appveyor'}, gitinfoContext);
 
-                expect(badge).to.equal('[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/a/b?svg=true&branch=c)](https://ci.appveyor.com/project/a/b/branch/c)');
+                expect(badge).to.equal('[![AppVeyor build status](https://img.shields.io/appveyor/ci/a/b/c.svg?style=flat-square)](https://ci.appveyor.com/project/a/b/branch/c)');
             });
         });
     });
