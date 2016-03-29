@@ -10,7 +10,7 @@
     "variable",
     "transclusion"
   ],
-  "version": "2.4.5",
+  "version": "2.4.6",
   "main": "./dist/index.js",
   "bin": "./dist/bin/index.js",
   "author": {
