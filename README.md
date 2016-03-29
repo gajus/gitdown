@@ -1,5 +1,5 @@
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat-square)](https://www.npmjs.org/package/gitdown)
-[![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
+[![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat-square)](https://travis-ci.org/gajus/gitdown)
 [![Dependency Status](https://img.shields.io/david/gajus/gitdown.svg?style=flat-square)](https://david-dm.org/gajus/gitdown)
 
 Gitdown adds [additional functionality](#features) (generating table of contents, including documents, using variables, etc.) to [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/).
@@ -496,7 +496,7 @@ Generates:
 
 ```markdown
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat-square)](https://www.npmjs.org/package/gitdown)
-[![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat)](https://travis-ci.org/gajus/gitdown)
+[![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat-square)](https://travis-ci.org/gajus/gitdown)
 [![Dependency Status](https://img.shields.io/david/gajus/gitdown.svg?style=flat-square)](https://david-dm.org/gajus/gitdown)
 ```
 
@@ -528,7 +528,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1459240436
+1459240809
 2016
 ```
 
