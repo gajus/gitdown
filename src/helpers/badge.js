@@ -22,7 +22,9 @@ helper.compile = (config = {}, context) => {
 
         pkg = jsonfile.readFileSync(pkg);
 
-        return '[![NPM version](http://img.shields.io/npm/v/' + pkg.name + '.svg?style=flat)](https://www.npmjs.org/package/' + pkg.name + ')';
+        const badge = '![NPM version](http://img.shields.io/npm/v/' + pkg.name + '.svg?style=flat-square)';
+
+        return '[' + badge + '](https://www.npmjs.org/package/' + pkg.name + ')';
     };
 
     services['bower-version'] = () => {
@@ -36,7 +38,9 @@ helper.compile = (config = {}, context) => {
 
         bower = jsonfile.readFileSync(bower);
 
-        return '[![Bower version](http://img.shields.io/bower/v/' + bower.name + '.svg?style=flat)](http://bower.io/search/?q=' + bower.name + ')';
+        const badge = '![Bower version](http://img.shields.io/bower/v/' + bower.name + '.svg?style=flat-square)';
+
+        return '[' + badge + '](http://bower.io/search/?q=' + bower.name + ')';
     };
 
     /**
@@ -45,7 +49,7 @@ helper.compile = (config = {}, context) => {
     services.david = () => {
         const gitinfo = context.parser.helpers().gitinfo;
         const repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
-        const badge = '![Dependency Status](https://david-dm.org/' + repository + '.svg?style=flat)';
+        const badge = '![Dependency Status](https://img.shields.io/david/' + repository + '.svg?style=flat-square)';
 
         return '[' + badge + '](https://david-dm.org/' + repository + ')';
     };
@@ -56,7 +60,7 @@ helper.compile = (config = {}, context) => {
     services['david-dev'] = () => {
         const gitinfo = context.parser.helpers().gitinfo;
         const repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
-        const badge = '![Dependency Status](https://david-dm.org/' + repository + '/dev-status.svg?style=flat)';
+        const badge = '![Development Dependency Status](https://img.shields.io/david/dev/' + repository + '.svg?style=flat-square)';
 
         return '[' + badge + '](https://david-dm.org/' + repository + '#info=devDependencies)';
     };
@@ -67,7 +71,7 @@ helper.compile = (config = {}, context) => {
     services.gitter = () => {
         const gitinfo = context.parser.helpers().gitinfo;
         const repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
-        const badge = '![Gitter chat](https://badges.gitter.im/' + repository + '.png)';
+        const badge = '![Gitter chat](https://img.shields.io/gitter/room/' + repository + '.svg?style=flat-square)';
 
         return '[' + badge + '](https://gitter.im/' + repository + ')';
     };
@@ -79,7 +83,7 @@ helper.compile = (config = {}, context) => {
         const gitinfo = context.parser.helpers().gitinfo;
         const repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
         const branch = gitinfo.compile({name: 'branch'}, context);
-        const badge = '![Coverage Status](https://img.shields.io/coveralls/' + repository + '/' + branch + '.svg)';
+        const badge = '![Coverage Status](https://img.shields.io/coveralls/' + repository + '/' + branch + '.svg?style=flat-square)';
 
         return '[' + badge + '](https://coveralls.io/r/' + repository + '?branch=' + branch + ')';
     };

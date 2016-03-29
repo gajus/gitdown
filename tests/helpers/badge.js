@@ -68,7 +68,7 @@ describe('Parser.helpers.badge', () => {
 
                 const badge = helper.compile({name: 'npm-version'}, context);
 
-                expect(badge).to.equal('[![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat)](https://www.npmjs.org/package/gitdown)');
+                expect(badge).to.equal('[![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat-square)](https://www.npmjs.org/package/gitdown)');
             });
         });
         describe('bower-version', () => {
@@ -96,35 +96,35 @@ describe('Parser.helpers.badge', () => {
 
                 const badge = helper.compile({name: 'bower-version'}, context);
 
-                expect(badge).to.equal('[![Bower version](http://img.shields.io/bower/v/gitdown.svg?style=flat)](http://bower.io/search/?q=gitdown)');
+                expect(badge).to.equal('[![Bower version](http://img.shields.io/bower/v/gitdown.svg?style=flat-square)](http://bower.io/search/?q=gitdown)');
             });
         });
         describe('coveralls', () => {
             it('returns markdown for the coveralls badge', () => {
-                const badge = helper.compile({name: 'gitter'}, gitinfoContext);
+                const badge = helper.compile({name: 'coveralls'}, gitinfoContext);
 
-                expect(badge).to.equal('[![Gitter chat](https://badges.gitter.im/a/b.png)](https://gitter.im/a/b)');
+                expect(badge).to.equal('[![Coverage Status](https://img.shields.io/coveralls/a/b/c.svg?style=flat-square)](https://coveralls.io/r/a/b?branch=c)');
             });
         });
         describe('gitter', () => {
             it('returns markdown for the gitter badge', () => {
                 const badge = helper.compile({name: 'gitter'}, gitinfoContext);
 
-                expect(badge).to.equal('[![Gitter chat](https://badges.gitter.im/a/b.png)](https://gitter.im/a/b)');
+                expect(badge).to.equal('[![Gitter chat](https://img.shields.io/gitter/room/a/b.svg?style=flat-square)](https://gitter.im/a/b)');
             });
         });
         describe('david', () => {
             it('returns markdown for the david badge', () => {
                 const badge = helper.compile({name: 'david'}, gitinfoContext);
 
-                expect(badge).to.equal('[![Dependency Status](https://david-dm.org/a/b.svg?style=flat)](https://david-dm.org/a/b)');
+                expect(badge).to.equal('[![Dependency Status](https://img.shields.io/david/a/b.svg?style=flat-square)](https://david-dm.org/a/b)');
             });
         });
         describe('david-dev', () => {
             it('returns markdown for the david badge', () => {
                 const badge = helper.compile({name: 'david-dev'}, gitinfoContext);
 
-                expect(badge).to.equal('[![Dependency Status](https://david-dm.org/a/b/dev-status.svg?style=flat)](https://david-dm.org/a/b#info=devDependencies)');
+                expect(badge).to.equal('[![Development Dependency Status](https://img.shields.io/david/dev/a/b.svg?style=flat-square)](https://david-dm.org/a/b#info=devDependencies)');
             });
         });
         describe('travis', () => {
