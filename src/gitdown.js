@@ -109,7 +109,7 @@ Gitdown.read = (input) => {
         const repositoryURL = gitinfo.compile({name: 'url'}, {gitdown}) + '/tree/' + gitinfo.compile({name: 'branch'}, {gitdown});
         const deadlink = Deadlink();
 
-        urls = URLExtractor.extract(markdown, URLExtractor.SOURCE_TYPE_MARKDOWN);
+        urls = URLExtractor.extractUrls(markdown, URLExtractor.SOURCE_TYPE_MARKDOWN);
 
         urls = urls.map((url) => {
             let resolvedUrl;
