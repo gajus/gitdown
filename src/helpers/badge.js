@@ -131,7 +131,7 @@ helper.compile = (config = {}, context) => {
     services['codeclimate-gpa'] = () => {
         const gitinfo = context.parser.helpers().gitinfo;
         const repository = 'github/' + gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
-        const badge = '![Code Climate GPA](https://img.shields.io/codeclimate/github/' + repository + '.svg?' + badgeStyle + ')';
+        const badge = '![Code Climate GPA](https://img.shields.io/codeclimate/' + repository + '.svg?' + badgeStyle + ')';
 
 
 
@@ -141,7 +141,7 @@ helper.compile = (config = {}, context) => {
     services['codeclimate-coverage'] = () => {
         const gitinfo = context.parser.helpers().gitinfo;
         const repository = 'github/' + gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
-        const badge = '![Code Climate Coverage](https://img.shields.io/codeclimate/coverage/github/' + repository + '.svg?' + badgeStyle + ')';
+        const badge = '![Code Climate Coverage](https://img.shields.io/codeclimate/coverage/' + repository + '.svg?' + badgeStyle + ')';
 
         return '[' + badge + '](https://codeclimate.com/' + repository + ')';
     };

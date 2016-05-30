@@ -146,12 +146,12 @@ describe('Parser.helpers.badge', () => {
             it('returns markdown for the codeclimate gpa badge', () => {
                 const badge = helper.compile({name: 'codeclimate-gpa'}, gitinfoContext);
 
-                expect(badge).to.equal('[![Code Climate GPA](https://img.shields.io/codeclimate/github/github/a/b.svg?style=flat-square)](https://codeclimate.com/github/a/b)');
+                expect(badge).to.equal('[![Code Climate GPA](https://img.shields.io/codeclimate/github/a/b.svg?style=flat-square)](https://codeclimate.com/github/a/b)');
             });
             it('returns markdown for the codeclimate coverage badge', () => {
                 const badge = helper.compile({name: 'codeclimate-coverage'}, gitinfoContext);
 
-                expect(badge).to.equal('[![Code Climate Coverage](https://img.shields.io/codeclimate/coverage/github/github/a/b.svg?style=flat-square)](https://codeclimate.com/github/a/b)');
+                expect(badge).to.equal('[![Code Climate Coverage](https://img.shields.io/codeclimate/coverage/github/a/b.svg?style=flat-square)](https://codeclimate.com/github/a/b)');
             });
         });
 
