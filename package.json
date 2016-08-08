@@ -27,9 +27,6 @@
     "lint": "eslint ./src ./tests",
     "test": "mocha ./tests/**/*.js --compilers js:babel-register",
     "build": "babel ./src --out-dir ./dist --copy-files",
-    "watch-lint": "pragmatist watch-lint",
-    "watch-test": "pragmatist --type-assertions watch-test",
-    "watch-build": "pragmatist --es5 watch-build",
     "readme": "node ./dist/bin/index.js ./.README/README.md --output-file ./README.md"
   },
   "devDependencies": {
@@ -42,7 +39,6 @@
     "eslint-config-canonical": "^1.7.12",
     "mocha": "^3.0.2",
     "nock": "^7.4.0",
-    "pragmatist": "^3.0.21",
     "require-new": "^1.1.0",
     "sinon": "^2.0.0-pre"
   },
