@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const requireNew = require('require-new');
 
-xdescribe('Parser.helpers.gitinfo', () => {
+describe('Parser.helpers.gitinfo', () => {
     let context,
         helper;
 
