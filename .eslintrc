@@ -1,0 +1,6 @@
+{
+    "extends": "canonical",
+    "rules": {
+        "import/no-commonjs": 0
+    }
+}

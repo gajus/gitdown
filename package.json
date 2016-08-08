@@ -24,7 +24,7 @@
   },
   "license": "BSD-3-Clause",
   "scripts": {
-    "lint": "pragmatist lint",
+    "lint": "eslint ./src ./tests",
     "test": "pragmatist --type-assertions test",
     "build": "pragmatist --es5 build",
     "watch-lint": "pragmatist watch-lint",
@@ -35,6 +35,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
+    "eslint-config-canonical": "^1.7.12",
     "nock": "^7.4.0",
     "pragmatist": "^3.0.21",
     "require-new": "^1.1.0",
@@ -43,6 +44,7 @@
   "dependencies": {
     "bluebird": "^3.3.4",
     "deadlink": "^1.1.3",
+    "eslint": "^3.2.2",
     "filesize": "^3.2.1",
     "gitinfo": "^1.2.2",
     "glob": "^7.0.3",
