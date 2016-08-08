@@ -26,13 +26,16 @@
   "scripts": {
     "lint": "eslint ./src ./tests",
     "test": "pragmatist --type-assertions test",
-    "build": "pragmatist --es5 build",
+    "build": "babel ./src --out-dir ./dist --copy-files",
     "watch-lint": "pragmatist watch-lint",
     "watch-test": "pragmatist --type-assertions watch-test",
     "watch-build": "pragmatist --es5 watch-build",
     "readme": "node ./dist/bin/index.js ./.README/README.md --output-file ./README.md"
   },
   "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-plugin-transform-async-to-generator": "^6.8.0",
+    "babel-preset-es2015-node4": "^2.1.0",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
     "eslint-config-canonical": "^1.7.12",
