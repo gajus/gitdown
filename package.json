@@ -25,8 +25,8 @@
   "license": "BSD-3-Clause",
   "scripts": {
     "lint": "eslint ./src ./tests",
-    "test": "mocha ./tests/**/*.js --compilers js:babel-register",
     "build": "babel ./src --out-dir ./dist --copy-files",
+    "test": "npm run lint && mocha ./tests/**/*.js --compilers js:babel-register",
     "readme": "node ./dist/bin/index.js ./.README/README.md --output-file ./README.md"
   },
   "devDependencies": {
