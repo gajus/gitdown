@@ -1,5 +1,3 @@
-/* eslint-disable import/no-commonjs */
-
 const helper = {};
 const fs = require('fs');
 const jsonfile = require('jsonfile');
@@ -132,8 +130,6 @@ helper.compile = (config = {}, context) => {
         const gitinfo = context.parser.helpers().gitinfo;
         const repository = 'github/' + gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
         const badge = '![Code Climate GPA](https://img.shields.io/codeclimate/' + repository + '.svg?' + badgeStyle + ')';
-
-
 
         return '[' + badge + '](https://codeclimate.com/' + repository + ')';
     };

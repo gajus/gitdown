@@ -1,7 +1,4 @@
-/* eslint-disable import/no-commonjs */
-
 const Gitdown = {};
-const Parser = require('./parser.js');
 const fs = require('fs');
 const path = require('path');
 const Promise = require('bluebird');
@@ -9,10 +6,11 @@ const _ = require('lodash');
 const marked = require('marked');
 const Deadlink = require('deadlink');
 const URLExtractor = require('url-extractor');
-const gitinfo = require('./helpers/gitinfo.js');
 const MarkdownContents = require('markdown-contents');
-const contents = require('./helpers/contents.js');
 const StackTrace = require('stack-trace');
+const gitinfo = require('./helpers/gitinfo.js');
+const contents = require('./helpers/contents.js');
+const Parser = require('./parser.js');
 
 /**
  * @param {string} input Gitdown flavored markdown.
@@ -341,6 +339,7 @@ Gitdown.nestHeadingIds.iterateTree = (tree, callback, index = 1) => {
     nextIndex = index;
 
     tree.forEach((article) => {
+        // eslint-disable-next-line callback-return
         callback(nextIndex++, article);
 
         if (article.descendants) {

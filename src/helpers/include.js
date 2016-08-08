@@ -1,5 +1,3 @@
-/* eslint-disable import/no-commonjs */
-
 const helper = {};
 const fs = require('fs');
 const path = require('path');
@@ -21,9 +19,8 @@ helper.compile = (config = {}, context) => {
     config.file = path.resolve(context.gitdown.getConfig().baseDirectory, config.file);
 
     if (!fs.existsSync(config.file)) {
-        /* eslint-disable no-console */
+        // eslint-disable-next-line no-console
         console.log('config.file', config.file);
-        /* eslint-enable */
 
         throw new Error('Input file does not exist.');
     }

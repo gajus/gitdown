@@ -1,10 +1,9 @@
-/* eslint-disable import/no-commonjs */
-
+const Path = require('path');
 const chai = require('chai');
-const expect = chai.expect;
 const chaiAsPromised = require('chai-as-promised');
 const requireNew = require('require-new');
-const Path = require('path');
+
+const expect = chai.expect;
 
 chai.use(chaiAsPromised);
 

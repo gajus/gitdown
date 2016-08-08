@@ -1,5 +1,3 @@
-/* eslint-disable import/no-commonjs */
-
 const Locator = {};
 const fs = require('fs');
 const Path = require('path');

@@ -1,11 +1,9 @@
 #!/usr/bin/env node
 
-/* eslint-disable import/no-commonjs */
-
-const _ = require('lodash');
-const yargs = require('yargs');
 const path = require('path');
 const fs = require('fs');
+const _ = require('lodash');
+const yargs = require('yargs');
 
 const fileExists = (filePath) => {
     let stat;
@@ -50,9 +48,8 @@ const argv = yargs
         const inputFile = path.resolve(process.cwd(), sargv._[0]);
 
         if (!fileExists(inputFile)) {
-            /* eslint-disable no-console */
+            // eslint-disable-next-line no-console
             console.log('inputFile', inputFile);
-            /* eslint-enable */
 
             throw new Error('Input file does not exist.');
         }
@@ -78,9 +75,9 @@ const argv = yargs
     const resolvedInputFile = path.resolve(process.cwd(), inputFile);
     const resolvedOutputFile = path.resolve(process.cwd(), outputFile);
 
-    /* eslint-disable global-require */
+    // eslint-disable-next-line global-require
     const Gitdown = require('./../');
-    /* eslint-enable */
+
     const gitdown = Gitdown.readFile(resolvedInputFile);
 
     gitdown.writeFile(resolvedOutputFile);

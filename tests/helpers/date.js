@@ -1,5 +1,3 @@
-/* eslint-disable import/no-commonjs */
-
 const expect = require('chai').expect;
 const requireNew = require('require-new');
 

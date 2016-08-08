@@ -1,8 +1,6 @@
-/* eslint-disable import/no-commonjs */
-
+const path = require('path');
 const expect = require('chai').expect;
 const requireNew = require('require-new');
-const path = require('path');
 
 describe('Parser.helpers.include', () => {
     let helper;

@@ -1,10 +1,8 @@
-/* eslint-disable import/no-commonjs */
-
+const Path = require('path');
 const _ = require('lodash');
 const Promise = require('bluebird');
-const Locator = require('./locator.js');
-const Path = require('path');
 const glob = require('glob');
+const Locator = require('./locator.js');
 
 /**
  * Parser is responsible for matching all of the instances of the Gitdown JSON and invoking
@@ -35,21 +33,22 @@ const Parser = (gitdown) => {
      * @returns {Promise} Promise is resolved with the state object.
      */
     parser.play = (markdown, commands = []) => {
-        const state = parser.parse(markdown, commands);
-        const act = parser.execute(state);
+        return Promise
+            .try(async () => {
+                const state = parser.parse(markdown, commands);
+                const actState = await parser.execute(state);
 
-        return act.then((actState) => {
-            actState.commands
-                .filter((command) => {
-                    return !command.executed;
-                });
+                actState.commands
+                    .filter((command) => {
+                        return !command.executed;
+                    });
 
-            if (actState.done) {
-                return actState;
-            } else {
-                return parser.play(actState.markdown, actState.commands);
-            }
-        });
+                if (actState.done) {
+                    return actState;
+                } else {
+                    return parser.play(actState.markdown, actState.commands);
+                }
+            });
     };
 
     /**
@@ -129,9 +128,7 @@ const Parser = (gitdown) => {
      * @param {Object} state
      * @returns {Promise} Promise resolves to a state after all of the commands have been resolved.
      */
-    parser.execute = (state) => {
-        const act = [];
-
+    parser.execute = async (state) => {
         const notExecutedCommands = state.commands.filter((command) => {
             return !command.executed;
         });
@@ -143,47 +140,32 @@ const Parser = (gitdown) => {
         }
 
         // Find the lowest weight among all of the not executed commands.
-
-        const lowestWeight = Math.min.apply(null, notExecutedCommands.map((command) => {
-            return command.helper.weight;
-        }));
-
-        // console.log('lowestWeight', lowestWeight);
+        const lowestWeight = _.minBy(notExecutedCommands, 'helper.weight').helper.weight;
 
         // Find all commands with the lowest weight.
-        const lowestWeightCommands = notExecutedCommands.filter((command) => {
-            const commandWeight = command.helper.weight;
-
-            return commandWeight === lowestWeight;
+        const lowestWeightCommands = _.filter(notExecutedCommands, (command) => {
+            return command.helper.weight === lowestWeight;
         });
 
         // Execute each command and update markdown binding.
-        lowestWeightCommands.forEach((command) => {
-            const context = {
-                gitdown,
-                locator: Locator,
-                markdown: state.markdown,
-                parser
-            };
+        await Promise
+            .resolve(lowestWeightCommands)
+            .each(async (command) => {
+                const context = {
+                    gitdown,
+                    locator: Locator,
+                    markdown: state.markdown,
+                    parser
+                };
 
-            const promise = Promise.resolve(command.helper.compile(command.config, context));
+                const value = await Promise.resolve(command.helper.compile(command.config, context));
 
-            promise.then((value) => {
                 state.markdown = state.markdown.replace('⊂⊂C:' + command.bindingIndex + '⊃⊃', value);
 
                 command.executed = true;
             });
 
-            act.push(promise);
-        });
-
-        // console.log('lowestWeightCommands', lowestWeightCommands, '\n\n\n\n');
-
-        return Promise
-            .all(act)
-            .then(() => {
-                return state;
-            });
+        return state;
     };
 
     /**
@@ -193,9 +175,8 @@ const Parser = (gitdown) => {
      */
     parser.loadHelpers = () => {
         glob.sync(Path.resolve(__dirname, './helpers/*.js')).forEach((helper) => {
-            /* eslint-disable global-require */
+            // eslint-disable-next-line global-require
             parser.registerHelper(Path.basename(helper, '.js'), require(helper));
-            /* eslint-enable */
         });
     };
 

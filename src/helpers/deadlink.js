@@ -1,5 +1,3 @@
-/* eslint-disable import/no-commonjs */
-
 const helper = {};
 
 helper.compile = () => {

@@ -1,5 +1,3 @@
-/* eslint-disable import/no-commonjs */
-
 const helper = {};
 const _ = require('lodash');
 const Gitinfo = require('gitinfo');

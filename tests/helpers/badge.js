@@ -1,8 +1,6 @@
-/* eslint-disable import/no-commonjs */
-
+const Path = require('path');
 const expect = require('chai').expect;
 const requireNew = require('require-new');
-const Path = require('path');
 
 describe('Parser.helpers.badge', () => {
     let gitinfoContext,

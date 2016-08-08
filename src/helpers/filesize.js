@@ -1,10 +1,9 @@
-/* eslint-disable import/no-commonjs */
-
-const helper = {};
-const Promise = require('bluebird');
 const fs = require('fs');
 const zlib = require('zlib');
+const Promise = require('bluebird');
 const formatFileSize = require('filesize');
+
+const helper = {};
 
 helper.compile = (config = {}) => {
     config.gzip = config.gzip || false;
@@ -31,11 +30,12 @@ helper.compile = (config = {}) => {
 helper.file = (file, gzip) => {
     return new Promise((resolve, reject) => {
         if (!fs.existsSync(file)) {
-            /* eslint-disable no-console */
+            // eslint-disable-next-line no-console
             console.log('file', file);
-            /* eslint-enable */
 
-            return reject(new Error('Input file does not exist.'));
+            reject(new Error('Input file does not exist.'));
+
+            return;
         }
 
         if (gzip) {
