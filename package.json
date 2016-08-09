@@ -47,7 +47,7 @@
     "deadlink": "^1.1.3",
     "eslint": "^3.2.2",
     "filesize": "^3.3.0",
-    "gitinfo": "^1.2.2",
+    "gitinfo": "^2.0.1",
     "glob": "^7.0.5",
     "jsonfile": "^2.3.1",
     "lodash": "^4.14.2",
