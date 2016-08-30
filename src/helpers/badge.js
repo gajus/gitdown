@@ -43,9 +43,9 @@ helper.compile = (config = {}, context) => {
     return '[' + badge + '](http://bower.io/search/?q=' + bower.name + ')';
   };
 
-    /**
-     * @see https://github.com/gajus/gitdown/issues/10
-     */
+  /**
+   * @see https://github.com/gajus/gitdown/issues/10
+   */
   services.david = () => {
     const gitinfo = context.parser.helpers().gitinfo;
     const repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
@@ -54,9 +54,9 @@ helper.compile = (config = {}, context) => {
     return '[' + badge + '](https://david-dm.org/' + repository + ')';
   };
 
-    /**
-     * @see https://github.com/gajus/gitdown/issues/10
-     */
+  /**
+   * @see https://github.com/gajus/gitdown/issues/10
+   */
   services['david-dev'] = () => {
     const gitinfo = context.parser.helpers().gitinfo;
     const repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
@@ -65,9 +65,9 @@ helper.compile = (config = {}, context) => {
     return '[' + badge + '](https://david-dm.org/' + repository + '#info=devDependencies)';
   };
 
-    /**
-     * @see https://github.com/gajus/gitdown/issues/12
-     */
+  /**
+   * @see https://github.com/gajus/gitdown/issues/12
+   */
   services.gitter = () => {
     const gitinfo = context.parser.helpers().gitinfo;
     const repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
@@ -76,9 +76,9 @@ helper.compile = (config = {}, context) => {
     return '[' + badge + '](https://gitter.im/' + repository + ')';
   };
 
-    /**
-     * @see https://github.com/gajus/gitdown/issues/13
-     */
+  /**
+   * @see https://github.com/gajus/gitdown/issues/13
+   */
   services.coveralls = () => {
     const gitinfo = context.parser.helpers().gitinfo;
     const repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
@@ -88,9 +88,9 @@ helper.compile = (config = {}, context) => {
     return '[' + badge + '](https://coveralls.io/r/' + repository + '?branch=' + branch + ')';
   };
 
-    /**
-     * @see https://github.com/gajus/gitdown/issues/33
-     */
+  /**
+   * @see https://github.com/gajus/gitdown/issues/33
+   */
   services.circleci = () => {
     const gitinfo = context.parser.helpers().gitinfo;
     const repository = gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
@@ -100,9 +100,9 @@ helper.compile = (config = {}, context) => {
     return '[' + badge + '](https://circleci.com/gh/' + repository + '?branch=' + branch + ')';
   };
 
-    /**
-     * @todo Link does not include travis branch.
-     */
+  /**
+   * @todo Link does not include travis branch.
+   */
   services.travis = () => {
     const rep = {};
     const gitinfo = context.parser.helpers().gitinfo;
@@ -123,9 +123,9 @@ helper.compile = (config = {}, context) => {
     return '[' + badge + '](https://waffle.io/' + repository + ')';
   };
 
-    /**
-     * @see https://github.com/gajus/gitdown/issues/16
-     */
+  /**
+   * @see https://github.com/gajus/gitdown/issues/16
+   */
   services['codeclimate-gpa'] = () => {
     const gitinfo = context.parser.helpers().gitinfo;
     const repository = 'github/' + gitinfo.compile({name: 'username'}, context) + '/' + gitinfo.compile({name: 'name'}, context);
@@ -142,9 +142,9 @@ helper.compile = (config = {}, context) => {
     return '[' + badge + '](https://codeclimate.com/' + repository + ')';
   };
 
-    /**
-     * @see https://github.com/gajus/gitdown/issues/35
-     */
+  /**
+   * @see https://github.com/gajus/gitdown/issues/35
+   */
   services.appveyor = () => {
     const gitinfo = context.parser.helpers().gitinfo;
     const username = gitinfo.compile({name: 'username'}, context);
