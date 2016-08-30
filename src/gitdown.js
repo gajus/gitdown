@@ -31,22 +31,22 @@ Gitdown.read = (input) => {
    */
   gitdown.get = () => {
     return parser
-            .play(input)
-            .then((state) => {
-              let markdown;
+      .play(input)
+      .then((state) => {
+        let markdown;
 
-              markdown = state.markdown;
+        markdown = state.markdown;
 
-              if (gitdown.getConfig().headingNesting.enabled) {
-                markdown = Gitdown.nestHeadingIds(markdown);
-              }
+        if (gitdown.getConfig().headingNesting.enabled) {
+          markdown = Gitdown.nestHeadingIds(markdown);
+        }
 
-              return gitdown
-                    .resolveURLs(markdown)
-                    .then(() => {
-                      return markdown.replace(/<!--\sgitdown:\s(:?off|on)\s-->/g, '');
-                    });
-            });
+        return gitdown
+              .resolveURLs(markdown)
+              .then(() => {
+                return markdown.replace(/<!--\sgitdown:\s(:?off|on)\s-->/g, '');
+              });
+      });
   };
 
   /**
@@ -57,10 +57,10 @@ Gitdown.read = (input) => {
    */
   gitdown.writeFile = (fileName) => {
     return gitdown
-            .get()
-            .then((outputString) => {
-              return fs.writeFileSync(fileName, outputString);
-            });
+      .get()
+      .then((outputString) => {
+        return fs.writeFileSync(fileName, outputString);
+      });
   };
 
   /**
@@ -137,19 +137,19 @@ Gitdown.read = (input) => {
     gitdown.getLogger().info('Resolving URLs', urls);
 
     return Promise
-            .all(promises)
-            .each((Resolution) => {
-              if (Resolution.error && Resolution.fragmentIdentifier && !(Resolution.error instanceof Deadlink.URLResolution && !Resolution.error.error)) {
-                // Ignore the fragment identifier error if resource resolution failed.
-                gitdown.getLogger().warn('Unresolved fragment identifier:', Resolution.url);
-              } else if (Resolution.error && !Resolution.fragmentIdentifier) {
-                gitdown.getLogger().warn('Unresolved URL:', Resolution.url);
-              } else if (Resolution.fragmentIdentifier) {
-                gitdown.getLogger().info('Resolved fragment identifier:', Resolution.url);
-              } else if (!Resolution.fragmentIdentifier) {
-                gitdown.getLogger().info('Resolved URL:', Resolution.url);
-              }
-            });
+      .all(promises)
+      .each((Resolution) => {
+        if (Resolution.error && Resolution.fragmentIdentifier && !(Resolution.error instanceof Deadlink.URLResolution && !Resolution.error.error)) {
+          // Ignore the fragment identifier error if resource resolution failed.
+          gitdown.getLogger().warn('Unresolved fragment identifier:', Resolution.url);
+        } else if (Resolution.error && !Resolution.fragmentIdentifier) {
+          gitdown.getLogger().warn('Unresolved URL:', Resolution.url);
+        } else if (Resolution.fragmentIdentifier) {
+          gitdown.getLogger().info('Resolved fragment identifier:', Resolution.url);
+        } else if (!Resolution.fragmentIdentifier) {
+          gitdown.getLogger().info('Resolved URL:', Resolution.url);
+        }
+      });
   };
 
   /**

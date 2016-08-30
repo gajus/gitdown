@@ -34,21 +34,21 @@ const Parser = (gitdown) => {
    */
   parser.play = (markdown, commands = []) => {
     return Promise
-            .try(async () => {
-              const state = parser.parse(markdown, commands);
-              const actState = await parser.execute(state);
+      .try(async () => {
+        const state = parser.parse(markdown, commands);
+        const actState = await parser.execute(state);
 
-              actState.commands
-                    .filter((command) => {
-                      return !command.executed;
-                    });
+        actState.commands
+              .filter((command) => {
+                return !command.executed;
+              });
 
-              if (actState.done) {
-                return actState;
-              } else {
-                return parser.play(actState.markdown, actState.commands);
-              }
-            });
+        if (actState.done) {
+          return actState;
+        } else {
+          return parser.play(actState.markdown, actState.commands);
+        }
+      });
   };
 
   /**
@@ -147,21 +147,21 @@ const Parser = (gitdown) => {
 
     // Execute each command and update markdown binding.
     await Promise
-            .resolve(lowestWeightCommands)
-            .each(async (command) => {
-              const context = {
-                gitdown,
-                locator: Locator,
-                markdown: state.markdown,
-                parser
-              };
+      .resolve(lowestWeightCommands)
+      .each(async (command) => {
+        const context = {
+          gitdown,
+          locator: Locator,
+          markdown: state.markdown,
+          parser
+        };
 
-              const value = await Promise.resolve(command.helper.compile(command.config, context));
+        const value = await Promise.resolve(command.helper.compile(command.config, context));
 
-              state.markdown = state.markdown.replace('⊂⊂C:' + command.bindingIndex + '⊃⊃', value);
+        state.markdown = state.markdown.replace('⊂⊂C:' + command.bindingIndex + '⊃⊃', value);
 
-              command.executed = true;
-            });
+        command.executed = true;
+      });
 
     return state;
   };
