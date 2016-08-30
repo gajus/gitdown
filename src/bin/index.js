@@ -5,17 +5,9 @@ const fs = require('fs');
 const _ = require('lodash');
 const yargs = require('yargs');
 
-const fileExists = (filePath) => {
-  let stat;
 
-  try {
-    stat = fs.statSync(filePath);
-  } catch (error) {
-        // Continue regardless of error.
-  }
 
-  return stat && stat.isFile();
-};
+
 
 const argv = yargs
     .usage('Usage: $0 <README.md> [options]')
@@ -47,11 +39,13 @@ const argv = yargs
 
       const inputFile = path.resolve(process.cwd(), sargv._[0]);
 
-      if (!fileExists(inputFile)) {
+      try {
+        fs.accessSync(inputFile, fs.constants.W_OK);
+      } catch (error) {
         // eslint-disable-next-line no-console
         console.log('inputFile', inputFile);
 
-        throw new Error('Input file does not exist.');
+        throw new Error('Input file does not exist or cannot be written by the calling process.');
       }
 
       const outputFile = sargv.outputFile;
