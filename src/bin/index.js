@@ -5,10 +5,6 @@ const fs = require('fs');
 const _ = require('lodash');
 const yargs = require('yargs');
 
-
-
-
-
 const argv = yargs
     .usage('Usage: $0 <README.md> [options]')
     .demand(1, 1, 'Gitdown program must be executed with exactly one non-option argument.')
