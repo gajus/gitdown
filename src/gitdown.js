@@ -311,7 +311,7 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
     normalizedName = normalizedName.slice(3, -4);
     // <code>test</code>
 
-    return '<h' + normalizedLevel + ' id="⊂⊂⊂H:' + articles.length + '⊃⊃⊃">' + normalizedName + '</h' + normalizedLevel + '>';
+    return '<a name="⊂⊂⊂H:' + articles.length + '⊃⊃⊃"></a>\n' + _.repeat('#', normalizedLevel) + ' ' + normalizedName;
   });
 
   outputMarkdown = outputMarkdown.replace(/^⊂⊂⊂C:(\d+)⊃⊃⊃/mg, () => {
