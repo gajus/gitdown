@@ -29,7 +29,7 @@ describe('Parser.helpers.gitinfo', () => {
       helper.compile({name: 'foo'}, context);
     }).to.throw(Error, 'Unexpected config.name value ("foo").');
   });
-  it('calls gitinfo method of the same name', () => {
+  it.skip('calls gitinfo method of the same name', () => {
     expect(helper.compile({name: 'name'}, context)).to.equal('gitdown');
   });
 });
