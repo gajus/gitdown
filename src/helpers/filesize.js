@@ -30,7 +30,7 @@ helper.compile = (config = {}) => {
 helper.file = (file, gzip) => {
   return new Promise((resolve, reject) => {
     if (!fs.existsSync(file)) {
-            // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console
       console.log('file', file);
 
       reject(new Error('Input file does not exist.'));

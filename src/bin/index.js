@@ -48,7 +48,7 @@ const argv = yargs
       const inputFile = path.resolve(process.cwd(), sargv._[0]);
 
       if (!fileExists(inputFile)) {
-            // eslint-disable-next-line no-console
+        // eslint-disable-next-line no-console
         console.log('inputFile', inputFile);
 
         throw new Error('Input file does not exist.');
@@ -75,7 +75,7 @@ const argv = yargs
   const resolvedInputFile = path.resolve(process.cwd(), inputFile);
   const resolvedOutputFile = path.resolve(process.cwd(), outputFile);
 
-    // eslint-disable-next-line global-require
+  // eslint-disable-next-line global-require
   const Gitdown = require('./../');
 
   const gitdown = Gitdown.readFile(resolvedInputFile);

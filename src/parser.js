@@ -24,14 +24,14 @@ const Parser = (gitdown) => {
   const helpers = {};
   const parser = {};
 
-    /**
-     * Iterates markdown parsing and execution of the parsed commands until all of the
-     * commands have been executed and the document does not no longer change after parsing it.
-     *
-     * @param {string} markdown
-     * @param {Array} commands
-     * @returns {Promise} Promise is resolved with the state object.
-     */
+  /**
+   * Iterates markdown parsing and execution of the parsed commands until all of the
+   * commands have been executed and the document does not no longer change after parsing it.
+   *
+   * @param {string} markdown
+   * @param {Array} commands
+   * @returns {Promise} Promise is resolved with the state object.
+   */
   parser.play = (markdown, commands = []) => {
     return Promise
             .try(async () => {
@@ -51,14 +51,14 @@ const Parser = (gitdown) => {
             });
   };
 
-    /**
-     * Parses the markdown for Gitdown JSON. Replaces the said JSON with placeholders for
-     * the output of the command defined in the JSON.
-     *
-     * @see http://stackoverflow.com/questions/26910402/regex-to-match-json-in-a-document/26910403
-     * @param {string} inputMarkdown
-     * @param {Array} commands
-     */
+  /**
+   * Parses the markdown for Gitdown JSON. Replaces the said JSON with placeholders for
+   * the output of the command defined in the JSON.
+   *
+   * @see http://stackoverflow.com/questions/26910402/regex-to-match-json-in-a-document/26910403
+   * @param {string} inputMarkdown
+   * @param {Array} commands
+   */
   parser.parse = (inputMarkdown, commands) => {
     let outputMarkdown;
 
@@ -66,19 +66,17 @@ const Parser = (gitdown) => {
 
     outputMarkdown = inputMarkdown;
 
-        // console.log('\n\n\n\ninput markdown:\n\n', markdown);
+    // console.log('\n\n\n\ninput markdown:\n\n', markdown);
 
-        // @see http://regex101.com/r/zO0eV6/2
-        // console.log('markdown (before)', markdown);
+    // @see http://regex101.com/r/zO0eV6/2
+    // console.log('markdown (before)', markdown);
 
-        // /[\s\S]/ is an equivalent of /./m
+    // /[\s\S]/ is an equivalent of /./m
     outputMarkdown = outputMarkdown.replace(/<!--\sgitdown:\soff\s-->[\s\S]*?(?:$|<!--\sgitdown:\son\s-->)/g, (match) => {
       ignoreSection.push(match);
 
       return '⊂⊂I:' + ignoreSection.length + '⊃⊃';
     });
-
-        // console.log('markdown (after)', markdown);
 
     outputMarkdown = outputMarkdown.replace(/({"gitdown"(?:[^}]+}))/g, (match) => {
       let command;
@@ -121,13 +119,13 @@ const Parser = (gitdown) => {
     };
   };
 
-    /**
-     * Execute all of the commands sharing the lowest common weight against
-     * the current state of the markdown document.
-     *
-     * @param {Object} state
-     * @returns {Promise} Promise resolves to a state after all of the commands have been resolved.
-     */
+  /**
+   * Execute all of the commands sharing the lowest common weight against
+   * the current state of the markdown document.
+   *
+   * @param {Object} state
+   * @returns {Promise} Promise resolves to a state after all of the commands have been resolved.
+   */
   parser.execute = async (state) => {
     const notExecutedCommands = state.commands.filter((command) => {
       return !command.executed;
@@ -139,15 +137,15 @@ const Parser = (gitdown) => {
       return Promise.resolve(state);
     }
 
-        // Find the lowest weight among all of the not executed commands.
+    // Find the lowest weight among all of the not executed commands.
     const lowestWeight = _.minBy(notExecutedCommands, 'helper.weight').helper.weight;
 
-        // Find all commands with the lowest weight.
+    // Find all commands with the lowest weight.
     const lowestWeightCommands = _.filter(notExecutedCommands, (command) => {
       return command.helper.weight === lowestWeight;
     });
 
-        // Execute each command and update markdown binding.
+    // Execute each command and update markdown binding.
     await Promise
             .resolve(lowestWeightCommands)
             .each(async (command) => {
@@ -168,11 +166,11 @@ const Parser = (gitdown) => {
     return state;
   };
 
-    /**
-     * Load in-built helpers.
-     *
-     * @private
-     */
+  /**
+   * Load in-built helpers.
+   *
+   * @private
+   */
   parser.loadHelpers = () => {
     glob.sync(Path.resolve(__dirname, './helpers/*.js')).forEach((helper) => {
             // eslint-disable-next-line global-require
@@ -180,10 +178,10 @@ const Parser = (gitdown) => {
     });
   };
 
-    /**
-     * @param {string} name
-     * @param {Object} helper
-     */
+  /**
+   * @param {string} name
+   * @param {Object} helper
+   */
   parser.registerHelper = (name, helper = {}) => {
     if (helpers[name]) {
       throw new Error('There is already a helper with a name "' + name + '".');
@@ -200,9 +198,9 @@ const Parser = (gitdown) => {
     helpers[name] = helper;
   };
 
-    /**
-     * @returns {Object}
-     */
+  /**
+   * @returns {Object}
+   */
   parser.helpers = () => {
     return helpers;
   };

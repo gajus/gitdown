@@ -69,8 +69,8 @@ describe('Gitdown.Parser', () => {
       }
     });
 
-        // Helper "include" is weight 20
-        // Helper "test" is weight 10
+    // Helper "include" is weight 20
+    // Helper "test" is weight 10
     const state = await parser.play('{"gitdown": "include", "file": "./fixtures/include_test_weight_10.txt"}');
 
     expect(state.markdown).to.equal('test');
@@ -78,13 +78,13 @@ describe('Gitdown.Parser', () => {
 });
 
 describe('Parser.helpers', () => {
-    // eslint-disable-next-line global-require
+  // eslint-disable-next-line global-require
   const glob = require('glob');
-    // eslint-disable-next-line global-require
+  // eslint-disable-next-line global-require
   const path = require('path');
 
   glob.sync('./../src/helpers/*.js').forEach((helperName) => {
-        // eslint-disable-next-line global-require
+    // eslint-disable-next-line global-require
     const helper = require(helperName);
 
     describe(path.basename(helperName, '.js'), () => {

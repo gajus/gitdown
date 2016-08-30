@@ -24,11 +24,11 @@ Gitdown.read = (input) => {
   const gitdown = {};
   const parser = Parser(gitdown);
 
-    /**
-     * Process template.
-     *
-     * @returns {Promise}
-     */
+  /**
+   * Process template.
+   *
+   * @returns {Promise}
+   */
   gitdown.get = () => {
     return parser
             .play(input)
@@ -49,12 +49,12 @@ Gitdown.read = (input) => {
             });
   };
 
-    /**
-     * Write processed template to a file.
-     *
-     * @param {string} fileName
-     * @returns {Promise}
-     */
+  /**
+   * Write processed template to a file.
+   *
+   * @param {string} fileName
+   * @returns {Promise}
+   */
   gitdown.writeFile = (fileName) => {
     return gitdown
             .get()
@@ -63,20 +63,20 @@ Gitdown.read = (input) => {
             });
   };
 
-    /**
-     * @param {string} name
-     * @param {Object} helper
-     */
+  /**
+   * @param {string} name
+   * @param {Object} helper
+   */
   gitdown.registerHelper = (name, helper) => {
     parser.registerHelper(name, helper);
   };
 
-    /**
-     * Returns the first directory in the callstack that is not this directory.
-     *
-     * @private
-     * @returns {string} Path to the directory where Gitdown was invoked.
-     */
+  /**
+   * Returns the first directory in the callstack that is not this directory.
+   *
+   * @private
+   * @returns {string} Path to the directory where Gitdown was invoked.
+   */
   gitdown.executionContext = () => {
     let index;
 
@@ -96,10 +96,10 @@ Gitdown.read = (input) => {
     throw new Error('Execution context cannot be determined.');
   };
 
-    /**
-     * @private
-     * @param {string} markdown
-     */
+  /**
+   * @private
+   * @param {string} markdown
+   */
   gitdown.resolveURLs = (markdown) => {
     let promises,
       urls;
@@ -112,10 +112,10 @@ Gitdown.read = (input) => {
     urls = urls.map((url) => {
       let resolvedUrl;
 
-            // @todo What if it isn't /README.md?
-            // @todo Test.
+      // @todo What if it isn't /README.md?
+      // @todo Test.
       if (_.startsWith(url, '#')) {
-                // Github is using JavaScript to resolve anchor tags under #uses-content- ID.
+        // Github is using JavaScript to resolve anchor tags under #uses-content- ID.
         resolvedUrl = repositoryURL + '#user-content-' + url.substr(1);
       } else {
         resolvedUrl = url;
@@ -140,7 +140,7 @@ Gitdown.read = (input) => {
             .all(promises)
             .each((Resolution) => {
               if (Resolution.error && Resolution.fragmentIdentifier && !(Resolution.error instanceof Deadlink.URLResolution && !Resolution.error.error)) {
-                    // Ignore the fragment identifier error if resource resolution failed.
+                // Ignore the fragment identifier error if resource resolution failed.
                 gitdown.getLogger().warn('Unresolved fragment identifier:', Resolution.url);
               } else if (Resolution.error && !Resolution.fragmentIdentifier) {
                 gitdown.getLogger().warn('Unresolved URL:', Resolution.url);
@@ -152,9 +152,9 @@ Gitdown.read = (input) => {
             });
   };
 
-    /**
-     * @param {Object} logger
-     */
+  /**
+   * @param {Object} logger
+   */
   gitdown.setLogger = (logger) => {
     if (!logger.info) {
       throw new Error('Logger must implement logger.info function.');
@@ -170,22 +170,22 @@ Gitdown.read = (input) => {
     };
   };
 
-    /**
-     * @returns {Object}
-     */
+  /**
+   * @returns {Object}
+   */
   gitdown.getLogger = () => {
     return instanceLogger;
   };
 
-    /**
-     * @typedef {Object} config
-     * @property {}
-     */
+  /**
+   * @typedef {Object} config
+   * @property {}
+   */
 
-    /**
-     * @param {Object} config
-     * @returns {undefined}
-     */
+  /**
+   * @param {Object} config
+   * @returns {undefined}
+   */
   gitdown.setConfig = (config) => {
     if (!_.isPlainObject(config)) {
       throw new Error('config must be a plain object.');
@@ -210,9 +210,9 @@ Gitdown.read = (input) => {
     instanceConfig = _.defaultsDeep(config, instanceConfig);
   };
 
-    /**
-     * @returns {Object}
-     */
+  /**
+   * @returns {Object}
+   */
   gitdown.getConfig = () => {
     return instanceConfig;
   };
@@ -297,19 +297,19 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
     normalizedName = name.trim();
 
     articles.push({
-            // `foo bar`
-            // -foo-bar-
-            // foo-bar
+      // `foo bar`
+      // -foo-bar-
+      // foo-bar
       id: _.trim(normalizedName.toLowerCase().replace(/[^\w]+/g, '-'), '-'),
       level: normalizedLevel,
       name: normalizedName
     });
 
-        // `test`
+    // `test`
     normalizedName = _.trim(marked(normalizedName));
-        // <p><code>test</code></p>
+    // <p><code>test</code></p>
     normalizedName = normalizedName.slice(3, -4);
-        // <code>test</code>
+    // <code>test</code>
 
     return '<h' + normalizedLevel + ' id="⊂⊂⊂H:' + articles.length + '⊃⊃⊃">' + normalizedName + '</h' + normalizedLevel + '>';
   });
@@ -339,7 +339,7 @@ Gitdown.nestHeadingIds.iterateTree = (tree, callback, index = 1) => {
   nextIndex = index;
 
   tree.forEach((article) => {
-        // eslint-disable-next-line callback-return
+    // eslint-disable-next-line callback-return
     callback(nextIndex++, article);
 
     if (article.descendants) {
