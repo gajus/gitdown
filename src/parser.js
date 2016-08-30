@@ -17,12 +17,12 @@ const Locator = require('./locator.js');
  * @returns {Parser}
  */
 const Parser = (gitdown) => {
-    let bindingIndex;
+  let bindingIndex;
 
-    bindingIndex = 0;
+  bindingIndex = 0;
 
-    const helpers = {};
-    const parser = {};
+  const helpers = {};
+  const parser = {};
 
     /**
      * Iterates markdown parsing and execution of the parsed commands until all of the
@@ -32,24 +32,24 @@ const Parser = (gitdown) => {
      * @param {Array} commands
      * @returns {Promise} Promise is resolved with the state object.
      */
-    parser.play = (markdown, commands = []) => {
-        return Promise
+  parser.play = (markdown, commands = []) => {
+    return Promise
             .try(async () => {
-                const state = parser.parse(markdown, commands);
-                const actState = await parser.execute(state);
+              const state = parser.parse(markdown, commands);
+              const actState = await parser.execute(state);
 
-                actState.commands
+              actState.commands
                     .filter((command) => {
-                        return !command.executed;
+                      return !command.executed;
                     });
 
-                if (actState.done) {
-                    return actState;
-                } else {
-                    return parser.play(actState.markdown, actState.commands);
-                }
+              if (actState.done) {
+                return actState;
+              } else {
+                return parser.play(actState.markdown, actState.commands);
+              }
             });
-    };
+  };
 
     /**
      * Parses the markdown for Gitdown JSON. Replaces the said JSON with placeholders for
@@ -59,12 +59,12 @@ const Parser = (gitdown) => {
      * @param {string} inputMarkdown
      * @param {Array} commands
      */
-    parser.parse = (inputMarkdown, commands) => {
-        let outputMarkdown;
+  parser.parse = (inputMarkdown, commands) => {
+    let outputMarkdown;
 
-        const ignoreSection = [];
+    const ignoreSection = [];
 
-        outputMarkdown = inputMarkdown;
+    outputMarkdown = inputMarkdown;
 
         // console.log('\n\n\n\ninput markdown:\n\n', markdown);
 
@@ -72,54 +72,54 @@ const Parser = (gitdown) => {
         // console.log('markdown (before)', markdown);
 
         // /[\s\S]/ is an equivalent of /./m
-        outputMarkdown = outputMarkdown.replace(/<!--\sgitdown:\soff\s-->[\s\S]*?(?:$|<!--\sgitdown:\son\s-->)/g, (match) => {
-            ignoreSection.push(match);
+    outputMarkdown = outputMarkdown.replace(/<!--\sgitdown:\soff\s-->[\s\S]*?(?:$|<!--\sgitdown:\son\s-->)/g, (match) => {
+      ignoreSection.push(match);
 
-            return '⊂⊂I:' + ignoreSection.length + '⊃⊃';
-        });
+      return '⊂⊂I:' + ignoreSection.length + '⊃⊃';
+    });
 
         // console.log('markdown (after)', markdown);
 
-        outputMarkdown = outputMarkdown.replace(/({"gitdown"(?:[^}]+}))/g, (match) => {
-            let command;
+    outputMarkdown = outputMarkdown.replace(/({"gitdown"(?:[^}]+}))/g, (match) => {
+      let command;
 
-            try {
-                command = JSON.parse(match);
-            } catch (error) {
-                throw new Error('Invalid Gitdown JSON ("' + match + '").');
-            }
+      try {
+        command = JSON.parse(match);
+      } catch (error) {
+        throw new Error('Invalid Gitdown JSON ("' + match + '").');
+      }
 
-            const name = command.gitdown;
-            const config = command;
+      const name = command.gitdown;
+      const config = command;
 
-            delete config.gitdown;
+      delete config.gitdown;
 
-            bindingIndex++;
+      bindingIndex++;
 
-            if (!helpers[name]) {
-                throw new Error('Unknown helper "' + name + '".');
-            }
+      if (!helpers[name]) {
+        throw new Error('Unknown helper "' + name + '".');
+      }
 
-            commands.push({
-                bindingIndex,
-                config,
-                executed: false,
-                helper: helpers[name],
-                name
-            });
+      commands.push({
+        bindingIndex,
+        config,
+        executed: false,
+        helper: helpers[name],
+        name
+      });
 
-            return '⊂⊂C:' + bindingIndex + '⊃⊃';
-        });
+      return '⊂⊂C:' + bindingIndex + '⊃⊃';
+    });
 
-        outputMarkdown = outputMarkdown.replace(/⊂⊂I:([0-9]+)⊃⊃/g, (match, p1) => {
-            return ignoreSection[parseInt(p1, 10) - 1];
-        });
+    outputMarkdown = outputMarkdown.replace(/⊂⊂I:([0-9]+)⊃⊃/g, (match, p1) => {
+      return ignoreSection[parseInt(p1, 10) - 1];
+    });
 
-        return {
-            commands,
-            markdown: outputMarkdown
-        };
+    return {
+      commands,
+      markdown: outputMarkdown
     };
+  };
 
     /**
      * Execute all of the commands sharing the lowest common weight against
@@ -128,88 +128,88 @@ const Parser = (gitdown) => {
      * @param {Object} state
      * @returns {Promise} Promise resolves to a state after all of the commands have been resolved.
      */
-    parser.execute = async (state) => {
-        const notExecutedCommands = state.commands.filter((command) => {
-            return !command.executed;
-        });
+  parser.execute = async (state) => {
+    const notExecutedCommands = state.commands.filter((command) => {
+      return !command.executed;
+    });
 
-        if (!notExecutedCommands.length) {
-            state.done = true;
+    if (!notExecutedCommands.length) {
+      state.done = true;
 
-            return Promise.resolve(state);
-        }
+      return Promise.resolve(state);
+    }
 
         // Find the lowest weight among all of the not executed commands.
-        const lowestWeight = _.minBy(notExecutedCommands, 'helper.weight').helper.weight;
+    const lowestWeight = _.minBy(notExecutedCommands, 'helper.weight').helper.weight;
 
         // Find all commands with the lowest weight.
-        const lowestWeightCommands = _.filter(notExecutedCommands, (command) => {
-            return command.helper.weight === lowestWeight;
-        });
+    const lowestWeightCommands = _.filter(notExecutedCommands, (command) => {
+      return command.helper.weight === lowestWeight;
+    });
 
         // Execute each command and update markdown binding.
-        await Promise
+    await Promise
             .resolve(lowestWeightCommands)
             .each(async (command) => {
-                const context = {
-                    gitdown,
-                    locator: Locator,
-                    markdown: state.markdown,
-                    parser
-                };
+              const context = {
+                gitdown,
+                locator: Locator,
+                markdown: state.markdown,
+                parser
+              };
 
-                const value = await Promise.resolve(command.helper.compile(command.config, context));
+              const value = await Promise.resolve(command.helper.compile(command.config, context));
 
-                state.markdown = state.markdown.replace('⊂⊂C:' + command.bindingIndex + '⊃⊃', value);
+              state.markdown = state.markdown.replace('⊂⊂C:' + command.bindingIndex + '⊃⊃', value);
 
-                command.executed = true;
+              command.executed = true;
             });
 
-        return state;
-    };
+    return state;
+  };
 
     /**
      * Load in-built helpers.
      *
      * @private
      */
-    parser.loadHelpers = () => {
-        glob.sync(Path.resolve(__dirname, './helpers/*.js')).forEach((helper) => {
+  parser.loadHelpers = () => {
+    glob.sync(Path.resolve(__dirname, './helpers/*.js')).forEach((helper) => {
             // eslint-disable-next-line global-require
-            parser.registerHelper(Path.basename(helper, '.js'), require(helper));
-        });
-    };
+      parser.registerHelper(Path.basename(helper, '.js'), require(helper));
+    });
+  };
 
     /**
      * @param {string} name
      * @param {Object} helper
      */
-    parser.registerHelper = (name, helper = {}) => {
-        if (helpers[name]) {
-            throw new Error('There is already a helper with a name "' + name + '".');
-        }
+  parser.registerHelper = (name, helper = {}) => {
+    if (helpers[name]) {
+      throw new Error('There is already a helper with a name "' + name + '".');
+    }
 
-        if (_.isUndefined(helper.weight)) {
-            helper.weight = 10;
-        }
+    if (_.isUndefined(helper.weight)) {
+      helper.weight = 10;
+    }
 
-        if (_.isUndefined(helper.compile)) {
-            throw new Error('Helper object must defined "compile" property.');
-        }
+    if (_.isUndefined(helper.compile)) {
+      throw new Error('Helper object must defined "compile" property.');
+    }
 
-        helpers[name] = helper;
-    };
+    helpers[name] = helper;
+  };
 
     /**
      * @returns {Object}
      */
-    parser.helpers = () => {
-        return helpers;
-    };
+  parser.helpers = () => {
+    return helpers;
+  };
 
-    parser.loadHelpers();
+  parser.loadHelpers();
 
-    return parser;
+  return parser;
 };
 
 module.exports = Parser;

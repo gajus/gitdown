@@ -4,19 +4,19 @@ const expect = require('chai').expect;
 const requireNew = require('require-new');
 
 xdescribe('Locator', () => {
-    let Locator;
+  let Locator;
 
-    beforeEach(() => {
-        Locator = requireNew('../src/locator');
+  beforeEach(() => {
+    Locator = requireNew('../src/locator');
+  });
+  describe('.gitPath()', () => {
+    it('returns absolute path to the .git/ directory', () => {
+      expect(Locator.gitPath()).to.equal(fs.realpathSync(Path.resolve(__dirname, './../.git')));
     });
-    describe('.gitPath()', () => {
-        it('returns absolute path to the .git/ directory', () => {
-            expect(Locator.gitPath()).to.equal(fs.realpathSync(Path.resolve(__dirname, './../.git')));
-        });
+  });
+  describe('.repositoryPath()', () => {
+    it('returns absolute path to the parent of the _getGitPath() directory', () => {
+      expect(Locator.repositoryPath()).to.equal(fs.realpathSync(Locator.gitPath() + '/..'));
     });
-    describe('.repositoryPath()', () => {
-        it('returns absolute path to the parent of the _getGitPath() directory', () => {
-            expect(Locator.repositoryPath()).to.equal(fs.realpathSync(Locator.gitPath() + '/..'));
-        });
-    });
+  });
 });

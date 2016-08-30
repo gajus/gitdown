@@ -6,16 +6,16 @@ const formatFileSize = require('filesize');
 const helper = {};
 
 helper.compile = (config = {}) => {
-    config.gzip = config.gzip || false;
+  config.gzip = config.gzip || false;
 
-    if (!config.file) {
-        return Promise.reject(new Error('config.file must be provided.'));
-    }
+  if (!config.file) {
+    return Promise.reject(new Error('config.file must be provided.'));
+  }
 
-    return helper
+  return helper
         .file(config.file, config.gzip)
         .then((fileSize) => {
-            return helper.format(fileSize);
+          return helper.format(fileSize);
         });
 };
 
@@ -28,40 +28,40 @@ helper.compile = (config = {}) => {
  * @param {boolean} gzip
  */
 helper.file = (file, gzip) => {
-    return new Promise((resolve, reject) => {
-        if (!fs.existsSync(file)) {
+  return new Promise((resolve, reject) => {
+    if (!fs.existsSync(file)) {
             // eslint-disable-next-line no-console
-            console.log('file', file);
+      console.log('file', file);
 
-            reject(new Error('Input file does not exist.'));
+      reject(new Error('Input file does not exist.'));
 
-            return;
+      return;
+    }
+
+    if (gzip) {
+      fs.readFile(file, (err, buf) => {
+        if (err) {
+          throw new Error(err);
         }
 
-        if (gzip) {
-            fs.readFile(file, (err, buf) => {
-                if (err) {
-                    throw new Error(err);
-                }
+        zlib.gzip(buf, (zlibErr, data) => {
+          if (zlibErr) {
+            throw new Error(zlibErr);
+          }
 
-                zlib.gzip(buf, (zlibErr, data) => {
-                    if (zlibErr) {
-                        throw new Error(zlibErr);
-                    }
-
-                    resolve(data.length);
-                });
-            });
-        } else {
-            fs.stat(file, (err, data) => {
-                if (err) {
-                    throw new Error(err);
-                }
-
-                resolve(data.size);
-            });
+          resolve(data.length);
+        });
+      });
+    } else {
+      fs.stat(file, (err, data) => {
+        if (err) {
+          throw new Error(err);
         }
-    });
+
+        resolve(data.size);
+      });
+    }
+  });
 };
 
 /**
@@ -71,7 +71,7 @@ helper.file = (file, gzip) => {
  * @param {number} bytes
  */
 helper.format = (bytes) => {
-    return formatFileSize(bytes);
+  return formatFileSize(bytes);
 };
 
 helper.weight = 10;
