@@ -71,14 +71,6 @@ describe('Parser.helpers.contents', () => {
 
       expect(contents).to.equal('* [a](#a)\n    * [b](#a-b)\n* [c](#c)\n    * [b](#c-b)\n');
     });
-        /* describe('when unique ID pool is exhausted', () => {
-            it('generates unique IDs using parent IDs plus an incremental ID', () => {
-                let contents;
-                context.markdown = '\n# a\n## b\n## b';
-                contents = helper.compile({}, context);
-                expect(contents).to.equal('* [a](#a)\n    * [b](#a-b)\n    * [b](#a-b-1)\n');
-            });
-        }); */
   });
   describe('.maxLevel()', () => {
     it('removes nodes with level equal to maxLevel', () => {

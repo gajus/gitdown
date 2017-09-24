@@ -194,9 +194,9 @@ describe('Gitdown.read()', () => {
     });
   });
   describe('.resolveURLs()', () => {
-    let gitdown,
-      logger,
-      nocks;
+    let gitdown;
+    let logger;
+    let nocks;
 
     beforeEach(() => {
       gitdown = Gitdown.read('http://foo.com/ http://foo.com/#ok http://bar.com/ http://bar.com/#not-ok');

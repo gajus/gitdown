@@ -16,8 +16,8 @@ const Parser = require('./parser.js');
  * @param {string} input Gitdown flavored markdown.
  */
 Gitdown.read = (input) => {
-  let instanceConfig,
-    instanceLogger;
+  let instanceConfig;
+  let instanceLogger;
 
   instanceConfig = {};
 
@@ -42,10 +42,10 @@ Gitdown.read = (input) => {
         }
 
         return gitdown
-              .resolveURLs(markdown)
-              .then(() => {
-                return markdown.replace(/<!--\sgitdown:\s(:?off|on)\s-->/g, '');
-              });
+          .resolveURLs(markdown)
+          .then(() => {
+            return markdown.replace(/<!--\sgitdown:\s(:?off|on)\s-->/g, '');
+          });
       });
   };
 
@@ -101,8 +101,8 @@ Gitdown.read = (input) => {
    * @param {string} markdown
    */
   gitdown.resolveURLs = (markdown) => {
-    let promises,
-      urls;
+    let promises;
+    let urls;
 
     const repositoryURL = gitinfo.compile({name: 'url'}, {gitdown}) + '/tree/' + gitinfo.compile({name: 'branch'}, {gitdown});
     const deadlink = Deadlink();
@@ -188,7 +188,7 @@ Gitdown.read = (input) => {
    */
   gitdown.setConfig = (config) => {
     if (!_.isPlainObject(config)) {
-      throw new Error('config must be a plain object.');
+      throw new TypeError('config must be a plain object.');
     }
 
     if (config.variable && !_.isObject(config.variable.scope)) {
@@ -307,8 +307,10 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
 
     // `test`
     normalizedName = _.trim(marked(normalizedName));
+
     // <p><code>test</code></p>
     normalizedName = normalizedName.slice(3, -4);
+
     // <code>test</code>
 
     return '<a name="⊂⊂⊂H:' + articles.length + '⊃⊃⊃"></a>\n' + _.repeat('#', normalizedLevel) + ' ' + normalizedName;

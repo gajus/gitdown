@@ -8,8 +8,8 @@ const Path = require('path');
  * @returns {string}
  */
 Locator.gitPath = () => {
-  let dirname,
-    gitpath;
+  let dirname;
+  let gitpath;
 
   dirname = __dirname;
 

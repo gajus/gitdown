@@ -24,7 +24,7 @@ helper.compile = (config, context) => {
   }
 
   if (!_.isFunction(gitinfo[methodMap[config.name]])) {
-    throw new Error('Gitinfo module does not provide function "' + config.name + '".');
+    throw new TypeError('Gitinfo module does not provide function "' + config.name + '".');
   }
 
   return gitinfo[methodMap[config.name]]();

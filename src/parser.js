@@ -39,9 +39,9 @@ const Parser = (gitdown) => {
         const actState = await parser.execute(state);
 
         actState.commands
-              .filter((command) => {
-                return !command.executed;
-              });
+          .filter((command) => {
+            return !command.executed;
+          });
 
         if (actState.done) {
           return actState;
@@ -173,7 +173,7 @@ const Parser = (gitdown) => {
    */
   parser.loadHelpers = () => {
     glob.sync(Path.resolve(__dirname, './helpers/*.js')).forEach((helper) => {
-            // eslint-disable-next-line global-require
+      // eslint-disable-next-line global-require
       parser.registerHelper(Path.basename(helper, '.js'), require(helper));
     });
   };
@@ -192,7 +192,7 @@ const Parser = (gitdown) => {
     }
 
     if (_.isUndefined(helper.compile)) {
-      throw new Error('Helper object must defined "compile" property.');
+      throw new TypeError('Helper object must defined "compile" property.');
     }
 
     helpers[name] = helper;

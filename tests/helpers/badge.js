@@ -3,8 +3,8 @@ const expect = require('chai').expect;
 const requireNew = require('require-new');
 
 describe('Parser.helpers.badge', () => {
-  let gitinfoContext,
-    helper;
+  let gitinfoContext;
+  let helper;
 
   beforeEach(() => {
     helper = requireNew('../../src/helpers/badge.js');

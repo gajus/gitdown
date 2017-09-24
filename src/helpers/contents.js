@@ -30,23 +30,23 @@ helper.compile = (config = {}, context) => {
  * @private
  */
 helper.maxLevel = (tree, maxLevel = 1) => {
-  tree.forEach((article, index) => {
+  return tree.filter((article) => {
     if (article.level > maxLevel) {
-      delete tree[index];
+      return false;
     } else {
       article.descendants = helper.maxLevel(article.descendants, maxLevel);
+
+      return true;
     }
   });
-
-  return tree;
 };
 
 /**
  * @private
  */
 helper.findRoot = (tree, rootId, notFirst) => {
-  let found,
-    index;
+  let found;
+  let index;
 
   index = tree.length;
 

@@ -10,9 +10,9 @@ chai.use(chaiAsPromised);
 const expect = chai.expect;
 
 describe('Gitdown.Parser', () => {
-  let Parser,
-    parser,
-    spy;
+  let Parser;
+  let parser;
+  let spy;
 
   beforeEach(() => {
     Parser = requireNew('./../src/').Parser;

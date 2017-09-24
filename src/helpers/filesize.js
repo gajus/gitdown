@@ -13,10 +13,10 @@ helper.compile = (config = {}) => {
   }
 
   return helper
-        .file(config.file, config.gzip)
-        .then((fileSize) => {
-          return helper.format(fileSize);
-        });
+    .file(config.file, config.gzip)
+    .then((fileSize) => {
+      return helper.format(fileSize);
+    });
 };
 
 /**
