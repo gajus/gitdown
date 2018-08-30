@@ -1,7 +1,7 @@
 const fs = require('fs');
 const Path = require('path');
 const expect = require('chai').expect;
-const requireNew = require('require-new');
+const requireNew = require('require-uncached');
 
 xdescribe('Locator', () => {
   let Locator;

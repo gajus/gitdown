@@ -109,7 +109,7 @@ const Parser = (gitdown) => {
       return '⊂⊂C:' + bindingIndex + '⊃⊃';
     });
 
-    outputMarkdown = outputMarkdown.replace(/⊂⊂I:([0-9]+)⊃⊃/g, (match, p1) => {
+    outputMarkdown = outputMarkdown.replace(/⊂⊂I:(\d+)⊃⊃/g, (match, p1) => {
       return ignoreSection[parseInt(p1, 10) - 1];
     });
 

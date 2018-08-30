@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const requireNew = require('require-new');
+const requireNew = require('require-uncached');
 
 describe('Parser.helpers.contents', () => {
   let helper;
@@ -65,11 +65,11 @@ describe('Parser.helpers.contents', () => {
       };
     });
     it('generates unique IDs using parent IDs', () => {
-      context.markdown = '\n# a\n## b\n# c\n## b';
+      context.markdown = '\n# a\n## b\n# c\n## d';
 
       const contents = helper.compile({}, context);
 
-      expect(contents).to.equal('* [a](#a)\n    * [b](#a-b)\n* [c](#c)\n    * [b](#c-b)\n');
+      expect(contents).to.equal('* [a](#a)\n    * [b](#a-b)\n* [c](#c)\n    * [d](#c-d)\n');
     });
   });
   describe('.maxLevel()', () => {

@@ -1,6 +1,49 @@
 {
-  "name": "gitdown",
+  "author": {
+    "email": "gajus@gajus.com",
+    "name": "Gajus Kuizinas",
+    "url": "http://gajus.com"
+  },
+  "bin": "./dist/bin/index.js",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "deadlink": "^1.1.3",
+    "eslint": "^5.4.0",
+    "filesize": "^3.6.1",
+    "gitinfo": "^2.2.0",
+    "glob": "^7.1.3",
+    "jsonfile": "^4.0.0",
+    "lodash": "^4.17.10",
+    "markdown-contents": "^1.0.11",
+    "marked": "^0.5.0",
+    "moment": "^2.22.2",
+    "stack-trace": "^0.0.10",
+    "url-extractor": "^2.0.2",
+    "yargs": "^12.0.1"
+  },
   "description": "Github markdown preprocessor.",
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-transform-flow-strip-types": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "ava": "^1.0.0-beta.8",
+    "babel-plugin-istanbul": "^5.0.1",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "coveralls": "^3.0.2",
+    "eslint": "^5.4.0",
+    "eslint-config-canonical": "^12.0.0",
+    "husky": "^1.0.0-rc.13",
+    "mocha": "^5.2.0",
+    "nock": "^9.6.1",
+    "nyc": "^13.0.1",
+    "require-uncached": "^1",
+    "semantic-release": "^15.9.12",
+    "sinon": "^6.1.5"
+  },
   "keywords": [
     "github",
     "markdown",
@@ -10,52 +53,18 @@
     "variable",
     "transclusion"
   ],
-  "version": "2.5.2",
+  "license": "BSD-3-Clause",
   "main": "./dist/index.js",
-  "bin": "./dist/bin/index.js",
-  "author": {
-    "name": "Gajus Kuizinas",
-    "email": "gajus@gajus.com",
-    "url": "http://gajus.com"
-  },
+  "name": "gitdown",
   "repository": {
     "type": "git",
     "url": "https://github.com/gajus/gitdown"
   },
-  "license": "BSD-3-Clause",
   "scripts": {
-    "lint": "eslint ./src ./tests",
     "build": "babel ./src --out-dir ./dist --copy-files",
-    "test": "npm run lint && mocha ./tests/**/*.js --compilers js:babel-register",
-    "readme": "node ./dist/bin/index.js ./.README/README.md --output-file ./README.md"
+    "lint": "eslint ./src ./tests",
+    "readme": "node ./dist/bin/index.js ./.README/README.md --output-file ./README.md",
+    "test": "mocha ./tests/**/*.js --compilers js:@babel/register"
   },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-preset-es2015-node4": "^2.1.1",
-    "babel-register": "^6.26.0",
-    "chai": "^4.1.2",
-    "chai-as-promised": "^7.1.1",
-    "eslint-config-canonical": "^9.3.2",
-    "mocha": "^5.1.1",
-    "nock": "^9.2.6",
-    "require-new": "^1.1.1",
-    "sinon": "^5.0.7"
-  },
-  "dependencies": {
-    "bluebird": "^3.5.1",
-    "deadlink": "^1.1.3",
-    "eslint": "^4.19.1",
-    "filesize": "^3.6.1",
-    "gitinfo": "^2.2.0",
-    "glob": "^7.1.2",
-    "jsonfile": "^4.0.0",
-    "lodash": "^4.17.10",
-    "markdown-contents": "^1.0.10",
-    "marked": "^0.3.19",
-    "moment": "^2.22.1",
-    "stack-trace": "^0.0.10",
-    "url-extractor": "^2.0.2",
-    "yargs": "^11.0.0"
-  }
+  "version": "2.5.2"
 }

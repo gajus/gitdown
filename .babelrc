@@ -1,8 +1,22 @@
 {
-    "presets": [
-        "es2015-node4"
-    ],
-    "plugins": [
-        "transform-async-to-generator"
+  "env": {
+    "test": {
+      "plugins": [
+        "istanbul"
+      ]
+    }
+  },
+  "plugins": [
+    "@babel/transform-flow-strip-types"
+  ],
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "node": "8"
+        }
+      }
     ]
+  ]
 }

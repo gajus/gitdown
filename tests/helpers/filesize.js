@@ -1,7 +1,7 @@
 const Path = require('path');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
-const requireNew = require('require-new');
+const requireNew = require('require-uncached');
 
 const expect = chai.expect;
 

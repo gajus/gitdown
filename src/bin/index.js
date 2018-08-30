@@ -66,7 +66,7 @@ const argv = yargs
   const resolvedOutputFile = path.resolve(process.cwd(), outputFile);
 
   // eslint-disable-next-line global-require
-  const Gitdown = require('./../');
+  const Gitdown = require('./..');
 
   const gitdown = Gitdown.readFile(resolvedInputFile);
 

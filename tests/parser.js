@@ -2,7 +2,7 @@
 
 const chai = require('chai');
 const sinon = require('sinon');
-const requireNew = require('require-new');
+const requireNew = require('require-uncached');
 const chaiAsPromised = require('chai-as-promised');
 
 chai.use(chaiAsPromised);

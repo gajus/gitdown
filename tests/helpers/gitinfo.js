@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const requireNew = require('require-new');
+const requireNew = require('require-uncached');
 
 describe('Parser.helpers.gitinfo', () => {
   let context;

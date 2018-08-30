@@ -1,13 +1,16 @@
 language: node_js
-before_install:
-    - npm config set depth 0
-    - npm install --global npm@3
 node_js:
-    - 6
-    - 5
-    - 4
-install:
-    - npm install
+  - node
+  - 8
+script:
+  - npm run lint
+  - npm run test
+  - nyc --silent npm run test
+  - nyc report --reporter=text-lcov | coveralls
+  - nyc check-coverage --lines 60
+after_success:
+  - NODE_ENV=production npm run build
+  - semantic-release
 notifications:
-    email: false
+  email: false
 sudo: false

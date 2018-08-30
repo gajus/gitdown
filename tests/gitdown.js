@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const expect = require('chai').expect;
-const requireNew = require('require-new');
+const requireNew = require('require-uncached');
 const nock = require('nock');
 const sinon = require('sinon');
 
@@ -28,12 +28,13 @@ describe('Gitdown', () => {
       expect(response).to.equal('bar');
     });
   });
+
   describe('.nestHeadingIds()', () => {
     it('replaces heading markup with HTML', () => {
-      expect(Gitdown.nestHeadingIds('# Foo\n# Bar')).to.equal('<h1 id="foo">Foo</h1>\n<h1 id="bar">Bar</h1>');
+      expect(Gitdown.nestHeadingIds('# Foo\n# Bar')).to.equal('<a name="foo"></a>\n# Foo\n<a name="bar"></a>\n# Bar');
     });
     it('nests heading ids', () => {
-      expect(Gitdown.nestHeadingIds('# Foo\n## Bar')).to.equal('<h1 id="foo">Foo</h1>\n<h2 id="foo-bar">Bar</h2>');
+      expect(Gitdown.nestHeadingIds('# Foo\n## Bar')).to.equal('<a name="foo"></a>\n# Foo\n<a name="foo-bar"></a>\n## Bar');
     });
   });
   describe('.nestHeadingIds.iterateTree()', () => {
