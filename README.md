@@ -1,10 +1,6 @@
-# Gitdown
-
-[![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat-square)](https://travis-ci.org/gajus/gitdown)
-[![Coveralls](https://img.shields.io/coveralls/gajus/gitdown.svg?style=flat-square)](https://coveralls.io/github/gajus/gitdown)
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat-square)](https://www.npmjs.org/package/gitdown)
-[![Canonical Code Style](https://img.shields.io/badge/code%20style-canonical-blue.svg?style=flat-square)](https://github.com/gajus/canonical)
-[![Twitter Follow](https://img.shields.io/twitter/follow/kuizinas.svg?style=social&label=Follow)](https://twitter.com/kuizinas)
+[![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat-square)](https://travis-ci.org/gajus/gitdown)
+[![Dependency Status](https://img.shields.io/david/gajus/gitdown.svg?style=flat-square)](https://david-dm.org/gajus/gitdown)
 
 Gitdown adds [additional functionality](#features) (generating table of contents, including documents, using variables, etc.) to [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/).
 
@@ -64,6 +60,8 @@ Gitdown adds [additional functionality](#features) (generating table of contents
     * [Generate Badges](#features-generate-badges)
     * [Print Date](#features-print-date)
     * [Gitinfo](#features-gitinfo)
+* [Recipes](#recipes)
+    * [Automating Gitdown](#recipes-automating-gitdown)
 
 
 <a name="command-line-usage"></a>
@@ -231,32 +229,32 @@ The table of contents is generated using [markdown-contents](https://github.com/
 * [Heading Nesting](#features-heading-nesting)
     * [Parser Configuration](#features-heading-nesting-parser-configuration)
 * [Find Dead URLs and Fragment Identifiers](#features-find-dead-urls-and-fragment-identifiers)
-    * [Parser Configuration](#features-find-dead-urls-and-fragment-identifiers-parser-configuration)
+    * [Parser Configuration](#features-find-dead-urls-and-fragment-identifiers-parser-configuration-1)
 * [Reference an Anchor in the Repository](#features-reference-an-anchor-in-the-repository)
-    * [JSON Configuration](#features-reference-an-anchor-in-the-repository-json-configuration)
-    * [Parser Configuration](#features-reference-an-anchor-in-the-repository-parser-configuration)
+    * [JSON Configuration](#features-reference-an-anchor-in-the-repository-json-configuration-1)
+    * [Parser Configuration](#features-reference-an-anchor-in-the-repository-parser-configuration-2)
 * [Variables](#features-variables)
-    * [Example](#features-variables-example)
-    * [JSON Configuration](#features-variables-json-configuration)
-    * [Parser Configuration](#features-variables-parser-configuration)
+    * [Example](#features-variables-example-1)
+    * [JSON Configuration](#features-variables-json-configuration-2)
+    * [Parser Configuration](#features-variables-parser-configuration-3)
 * [Include File](#features-include-file)
-    * [Example](#features-include-file-example)
-    * [JSON Configuration](#features-include-file-json-configuration)
+    * [Example](#features-include-file-example-2)
+    * [JSON Configuration](#features-include-file-json-configuration-3)
 * [Get File Size](#features-get-file-size)
-    * [Example](#features-get-file-size-example)
-    * [JSON Configuration](#features-get-file-size-json-configuration)
+    * [Example](#features-get-file-size-example-3)
+    * [JSON Configuration](#features-get-file-size-json-configuration-4)
 * [Generate Badges](#features-generate-badges)
     * [Supported Services](#features-generate-badges-supported-services)
-    * [Example](#features-generate-badges-example)
-    * [JSON Configuration](#features-generate-badges-json-configuration)
+    * [Example](#features-generate-badges-example-4)
+    * [JSON Configuration](#features-generate-badges-json-configuration-5)
 * [Print Date](#features-print-date)
-    * [Example](#features-print-date-example)
-    * [JSON Configuration](#features-print-date-json-configuration)
+    * [Example](#features-print-date-example-5)
+    * [JSON Configuration](#features-print-date-json-configuration-6)
 * [Gitinfo](#features-gitinfo)
-    * [Example](#features-gitinfo-example)
+    * [Example](#features-gitinfo-example-6)
     * [Supported Properties](#features-gitinfo-supported-properties)
-    * [JSON Configuration](#features-gitinfo-json-configuration)
-    * [Parser Configuration](#features-gitinfo-parser-configuration)
+    * [JSON Configuration](#features-gitinfo-json-configuration-7)
+    * [Parser Configuration](#features-gitinfo-parser-configuration-4)
 
 ```
 
@@ -317,7 +315,7 @@ Gitdown will nest the headings using parent heading names to ensure uniqueness, 
 
 Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the URLs in the resulting document. Throws an error if either of the URLs is resolved with an HTTP status other than 200 or fragment identifier (anchor) is not found.
 
-<a name="features-find-dead-urls-and-fragment-identifiers-parser-configuration"></a>
+<a name="features-find-dead-urls-and-fragment-identifiers-parser-configuration-1"></a>
 #### Parser Configuration
 
 | Name | Description | Default |
@@ -362,14 +360,14 @@ The anchor name must match `/^[a-z]+[a-z0-9\-_:\.]*$/i`.
 
 Gitdown will throw an error if the anchor is not found.
 
-<a name="features-reference-an-anchor-in-the-repository-json-configuration"></a>
+<a name="features-reference-an-anchor-in-the-repository-json-configuration-1"></a>
 #### JSON Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `name` | Anchor name. | N/A |
 
-<a name="features-reference-an-anchor-in-the-repository-parser-configuration"></a>
+<a name="features-reference-an-anchor-in-the-repository-parser-configuration-2"></a>
 #### Parser Configuration
 
 | Name | Description | Default |
@@ -386,7 +384,7 @@ Gitdown will throw an error if the anchor is not found.
 
 Prints the value of a property defined under a parser `variable.scope` configuration property. Throws an error if property is not set.
 
-<a name="features-variables-example"></a>
+<a name="features-variables-example-1"></a>
 #### Example
 
 
@@ -409,14 +407,14 @@ gitdown.setConfig({
 ```
 
 
-<a name="features-variables-json-configuration"></a>
+<a name="features-variables-json-configuration-2"></a>
 #### JSON Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `name` | Name of the property defined under a parser `variable.scope` configuration property. | N/A |
 
-<a name="features-variables-parser-configuration"></a>
+<a name="features-variables-parser-configuration-3"></a>
 #### Parser Configuration
 
 | Name | Description | Default |
@@ -436,12 +434,12 @@ Includes the contents of the file to the document.
 
 The included file can have Gitdown JSON hooks.
 
-<a name="features-include-file-example"></a>
+<a name="features-include-file-example-2"></a>
 #### Example
 
 See source code of [./.README/README.md](https://github.com/gajus/gitdown/blob/master/.README/README.md).
 
-<a name="features-include-file-json-configuration"></a>
+<a name="features-include-file-json-configuration-3"></a>
 #### JSON Configuration
 
 | Name | Description | Default |
@@ -459,7 +457,7 @@ See source code of [./.README/README.md](https://github.com/gajus/gitdown/blob/m
 
 Returns file size formatted in human friendly format.
 
-<a name="features-get-file-size-example"></a>
+<a name="features-get-file-size-example-3"></a>
 #### Example
 
 
@@ -476,7 +474,7 @@ Generates:
 2.58 KB
 ```
 
-<a name="features-get-file-size-json-configuration"></a>
+<a name="features-get-file-size-json-configuration-4"></a>
 #### JSON Configuration
 
 | Name | Description | Default |
@@ -515,7 +513,7 @@ Badges are generated using http://shields.io/.
 
 What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/issues).
 
-<a name="features-generate-badges-example"></a>
+<a name="features-generate-badges-example-4"></a>
 #### Example
 
 
@@ -534,7 +532,7 @@ Generates:
 [![Dependency Status](https://img.shields.io/david/gajus/gitdown.svg?style=flat-square)](https://david-dm.org/gajus/gitdown)
 ```
 
-<a name="features-generate-badges-json-configuration"></a>
+<a name="features-generate-badges-json-configuration-5"></a>
 #### JSON Configuration
 
 | Name | Description | Default |
@@ -552,7 +550,7 @@ Generates:
 
 Prints a string formatted according to the given [moment format](http://momentjs.com/docs/#/displaying/format/) string using the current time.
 
-<a name="features-print-date-example"></a>
+<a name="features-print-date-example-5"></a>
 #### Example
 
 
@@ -565,11 +563,11 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1472595995
-2016
+1538310703
+2018
 ```
 
-<a name="features-print-date-json-configuration"></a>
+<a name="features-print-date-json-configuration-6"></a>
 #### JSON Configuration
 
 | Name | Description | Default |
@@ -586,7 +584,7 @@ Generates:
 
 [Gitinfo](https://github.com/gajus/gitinfo) gets info about the local GitHub repository.
 
-<a name="features-gitinfo-example"></a>
+<a name="features-gitinfo-example-6"></a>
 #### Example
 
 
@@ -615,16 +613,43 @@ master
 |`url`|Repository URL.|
 |`branch`|Current branch name.|
 
-<a name="features-gitinfo-json-configuration"></a>
+<a name="features-gitinfo-json-configuration-7"></a>
 #### JSON Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `name` | Name of the property. | N/A |
 
-<a name="features-gitinfo-parser-configuration"></a>
+<a name="features-gitinfo-parser-configuration-4"></a>
 #### Parser Configuration
 
 | Name | Description | Default |
 | --- | --- | --- |
 | `gitinfo.gitPath` | Path to the `.git/` directory or a descendant. | `__dirname` of the script constructing an instance of `Gitdown`. |
+
+<a name="recipes"></a>
+## Recipes
+
+<a name="recipes-automating-gitdown"></a>
+### Automating Gitdown
+
+Use [Husky](https://www.npmjs.com/package/husky) to automate generation of README.md and committing it to the version control.
+
+```json
+"husky": {
+  "hooks": {
+    "post-commit": "npm run create-readme && git add README.md && git commit -m 'docs: generate docs' --no-verify",
+    "pre-commit": "npm run lint && npm run test && npm run build"
+  }
+}
+
+```
+
+Where `create-readme` is your script to generate `README.md`, e.g.
+
+```json
+"scripts": {
+  "create-readme": "gitdown ./.README/README.md --output-file ./README.md",
+}
+
+```
