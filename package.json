@@ -44,6 +44,12 @@
     "semantic-release": "^15.9.16",
     "sinon": "^6.3.4"
   },
+  "husky": {
+    "hooks": {
+      "post-commit": "npm run create-readme && git add README.md && git commit -m 'docs: generate docs' --no-verify",
+      "pre-commit": "npm run lint && npm run test && npm run build"
+    }
+  },
   "keywords": [
     "github",
     "markdown",
@@ -62,8 +68,8 @@
   },
   "scripts": {
     "build": "babel ./src --out-dir ./dist --copy-files",
+    "create-readme": "node ./dist/bin/index.js ./.README/README.md --output-file ./README.md",
     "lint": "eslint ./src ./tests",
-    "readme": "node ./dist/bin/index.js ./.README/README.md --output-file ./README.md",
     "test": "mocha ./tests/**/*.js --compilers js:@babel/register"
   },
   "version": "2.5.2"

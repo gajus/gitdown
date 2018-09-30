@@ -54,3 +54,28 @@ Gitdown adds [additional functionality](#features) (generating table of contents
 {"gitdown": "include", "file": "./helpers/badge.md"}
 {"gitdown": "include", "file": "./helpers/date.md"}
 {"gitdown": "include", "file": "./helpers/gitinfo.md"}
+
+## Recipes
+
+### Automating Gitdown
+
+Use [Husky](https://www.npmjs.com/package/husky) to automate generation of README.md and committing it to the version control.
+
+```json
+"husky": {
+  "hooks": {
+    "post-commit": "npm run create-readme && git add README.md && git commit -m 'docs: generate docs' --no-verify",
+    "pre-commit": "npm run lint && npm run test && npm run build"
+  }
+}
+
+```
+
+Where `create-readme` is your script to generate `README.md`, e.g.
+
+```json
+"scripts": {
+  "create-readme": "gitdown ./.README/README.md --output-file ./README.md",
+}
+
+```
