@@ -68,7 +68,7 @@
   },
   "scripts": {
     "build": "babel ./src --out-dir ./dist --copy-files",
-    "create-readme": "node ./dist/bin/index.js ./.README/README.md --output-file ./README.md",
+    "create-readme": "babel-node ./src/bin/index.js ./.README/README.md --output-file ./README.md",
     "lint": "eslint ./src ./tests",
     "test": "mocha ./tests/**/*.js --compilers js:@babel/register"
   },
