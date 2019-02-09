@@ -4,6 +4,7 @@
     "filenames/match-exported": 0,
     "import/no-commonjs": 0,
     "import/no-dynamic-require": 0,
+    "import/unambiguous": 0,
     "no-use-extend-native/no-use-extend-native": 0
   }
 }
