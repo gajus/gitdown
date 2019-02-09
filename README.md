@@ -563,8 +563,8 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1540308896
-2018
+1549734439
+2019
 ```
 
 <a name="features-print-date-json-configuration-6"></a>
