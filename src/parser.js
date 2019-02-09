@@ -88,8 +88,11 @@ const Parser = (gitdown) => {
       }
 
       const name = command.gitdown;
-      const config = command;
+      const config = {
+        ...command
+      };
 
+      // eslint-disable-next-line fp/no-delete
       delete config.gitdown;
 
       bindingIndex++;
