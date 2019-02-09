@@ -563,7 +563,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1549736163
+1549736216
 2019
 ```
 
