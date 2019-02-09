@@ -471,7 +471,7 @@ Generates:
 
 ```markdown
 8.62 KB
-2.58 KB
+2.59 KB
 ```
 
 <a name="features-get-file-size-json-configuration-4"></a>
@@ -563,7 +563,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1549734602
+1549736010
 2019
 ```
 
