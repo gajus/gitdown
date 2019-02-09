@@ -4,7 +4,7 @@ const path = require('path');
 
 /**
  * @typedef config
- * @property {String} file Path to a file.
+ * @property {string} file Path to a file.
  */
 
 /**
