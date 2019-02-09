@@ -29,7 +29,7 @@ Gitdown.read = (input) => {
    *
    * @returns {Promise}
    */
-  gitdown.get = () => {
+  gitdown.get = () => {    
     return parser
       .play(input)
       .then((state) => {

@@ -161,7 +161,9 @@ const Parser = (gitdown) => {
 
         const value = await Promise.resolve(command.helper.compile(command.config, context));
 
-        state.markdown = state.markdown.replace('⊂⊂C:' + command.bindingIndex + '⊃⊃', value);
+        state.markdown = state.markdown.replace('⊂⊂C:' + command.bindingIndex + '⊃⊃', () => {
+          return value;
+        });
 
         command.executed = true;
       });
