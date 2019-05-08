@@ -5,7 +5,7 @@ const Promise = require('bluebird');
 const _ = require('lodash');
 const marked = require('marked');
 const Deadlink = require('deadlink');
-const URLExtractor = require('url-extractor');
+const getUrls = require('get-urls');
 const MarkdownContents = require('markdown-contents');
 const StackTrace = require('stack-trace');
 const gitinfo = require('./helpers/gitinfo.js');
@@ -107,7 +107,7 @@ Gitdown.read = (input) => {
     const repositoryURL = gitinfo.compile({name: 'url'}, {gitdown}) + '/tree/' + gitinfo.compile({name: 'branch'}, {gitdown});
     const deadlink = Deadlink();
 
-    urls = URLExtractor.extractUrls(markdown, URLExtractor.SOURCE_TYPE_MARKDOWN);
+    urls = Array.from(getUrls(markdown));
 
     urls = urls.map((url) => {
       let resolvedUrl;
