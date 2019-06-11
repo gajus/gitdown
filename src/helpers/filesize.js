@@ -39,23 +39,23 @@ helper.file = (file, gzip) => {
     }
 
     if (gzip) {
-      fs.readFile(file, (err, buf) => {
-        if (err) {
-          throw new Error(err);
+      fs.readFile(file, (readFileError, buf) => {
+        if (readFileError) {
+          throw new Error(readFileError);
         }
 
-        zlib.gzip(buf, (zlibErr, data) => {
-          if (zlibErr) {
-            throw new Error(zlibErr);
+        zlib.gzip(buf, (zlibError, data) => {
+          if (zlibError) {
+            throw new Error(zlibError);
           }
 
           resolve(data.length);
         });
       });
     } else {
-      fs.stat(file, (err, data) => {
-        if (err) {
-          throw new Error(err);
+      fs.stat(file, (statError, data) => {
+        if (statError) {
+          throw new Error(statError);
         }
 
         resolve(data.size);

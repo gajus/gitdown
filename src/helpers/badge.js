@@ -12,6 +12,7 @@ helper.compile = (config = {}, context) => {
   const badgeStyle = 'style=flat-square';
 
   services['npm-version'] = () => {
+    // eslint-disable-next-line unicorn/prevent-abbreviations
     let pkg;
 
     pkg = context.locator.repositoryPath() + '/package.json';

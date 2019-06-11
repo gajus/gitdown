@@ -6,7 +6,7 @@
   },
   "bin": "./dist/bin/index.js",
   "dependencies": {
-    "bluebird": "^3.5.4",
+    "bluebird": "^3.5.5",
     "deadlink": "^1.1.3",
     "eslint": "^5.16.0",
     "filesize": "^4.1.2",
@@ -19,29 +19,28 @@
     "marked": "^0.6.2",
     "moment": "^2.24.0",
     "stack-trace": "^0.0.10",
-    "yargs": "^13.2.2"
+    "yargs": "^13.2.4"
   },
   "description": "Github markdown preprocessor.",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.4",
-    "@babel/node": "^7.2.2",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
     "@babel/plugin-transform-flow-strip-types": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.4",
-    "ava": "^1.4.1",
     "babel-plugin-istanbul": "^5.1.4",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "coveralls": "^3.0.3",
+    "coveralls": "^3.0.4",
     "eslint": "^5.16.0",
-    "eslint-config-canonical": "^17.0.1",
-    "husky": "^2.2.0",
+    "eslint-config-canonical": "^17.1.0",
+    "husky": "^2.4.0",
     "mocha": "^6.1.4",
     "nock": "^10.0.6",
-    "nyc": "^14.1.0",
+    "nyc": "^14.1.1",
     "require-uncached": "^2",
-    "semantic-release": "^15.13.3",
+    "semantic-release": "^15.13.12",
     "sinon": "^7.3.2"
   },
   "husky": {
@@ -70,7 +69,7 @@
     "build": "babel ./src --out-dir ./dist --copy-files",
     "create-readme": "babel-node ./src/bin/index.js ./.README/README.md --output-file ./README.md",
     "lint": "eslint ./src ./tests",
-    "test": "mocha ./tests/**/*.js --compilers js:@babel/register"
+    "test": "mocha ./tests/**/*.js --require @babel/register"
   },
   "version": "2.5.2"
 }
