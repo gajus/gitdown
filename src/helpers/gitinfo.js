@@ -5,7 +5,8 @@ const createGitinfo = require('gitinfo');
 helper.compile = (config, context) => {
   const parserConfig = context.gitdown.getConfig().gitinfo;
   const gitinfo = createGitinfo({
-    gitPath: parserConfig.gitPath
+    gitPath: parserConfig.gitPath,
+    ...parserConfig.defaultBranchName && {defaultBranchName: parserConfig.defaultBranchName}
   });
 
   const methodMap = {
