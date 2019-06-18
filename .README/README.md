@@ -1,3 +1,4 @@
+[![GitSpo Mentions](https://gitspo.com/badges/mentions/gajus/gitdown?style=flat-square)](https://gitspo.com/mentions/gajus/gitdown)
 {"gitdown": "badge", "name": "npm-version"}
 {"gitdown": "badge", "name": "travis"}
 {"gitdown": "badge", "name": "david"}
