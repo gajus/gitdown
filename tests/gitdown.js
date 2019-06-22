@@ -108,6 +108,20 @@ describe('Gitdown.read()', () => {
 
       expect(response).to.equal('abc');
     });
+    it('does not fail when HEAD is untracked', async () => {
+      const gitdown = Gitdown.read('{"gitdown": "gitinfo", "name": "name"}');
+
+      gitdown.setConfig({
+        gitinfo: {
+          defaultBranchName: 'master',
+          gitPath: path.resolve(__dirname, './dummy_git_untracked_head/')
+        }
+      });
+
+      const response = await gitdown.get();
+
+      expect(response).to.equal('bar');
+    });
   });
   describe('.writeFile()', () => {
     it('writes the output of .get() to a file', async () => {
