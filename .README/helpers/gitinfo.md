@@ -40,12 +40,13 @@
 
 #### JSON Configuration
 
-| Name | Description | Default |
-| --- | --- | --- |
-| `name` | Name of the property. | N/A |
+|Name|Description|Default|
+|---|---|---|
+|`name`|Name of the property.|N/A|
 
 #### Parser Configuration
 
-| Name | Description | Default |
-| --- | --- | --- |
-| `gitinfo.gitPath` | Path to the `.git/` directory or a descendant. | `__dirname` of the script constructing an instance of `Gitdown`. |
+|Name|Description|Default|
+|---|---|---|
+|`gitinfo.defaultBranchName`|Default branch to use when the current branch name cannot be resolved.|N/A|
+|`gitinfo.gitPath`|Path to the `.git/` directory or a descendant. | `__dirname` of the script constructing an instance of `Gitdown`.|
