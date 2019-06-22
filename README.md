@@ -35,6 +35,7 @@ Gitdown adds [additional functionality](#features) (generating table of contents
 
 // Print date
 {"gitdown": "date", "format": "YYYY"}
+
 ```
 
 
@@ -71,6 +72,7 @@ Gitdown adds [additional functionality](#features) (generating table of contents
 ```sh
 npm install gitdown -g
 gitdown ./.README/README.md --output-file ./README.md
+
 ```
 
 <a name="api-usage"></a>
@@ -94,14 +96,15 @@ gitdown.getConfig()
 
 // Set config.
 gitdown.setConfig({
-    gitinfo: {
-        gitPath: __dirname
-    }
+  gitinfo: {
+    gitPath: __dirname
+  }
 })
 
 // Output the markdown file.
 // All of the file system operations are relative to the root of the repository.
 gitdown.writeFile('README.md');
+
 ```
 
 <a name="api-usage-gulp"></a>
@@ -114,14 +117,15 @@ const gulp = require('gulp');
 const Gitdown = require('gitdown');
 
 gulp.task('gitdown', () => {
-    return Gitdown
-        .readFile('./.README/README.md')
-        .writeFile('README.md');
+  return Gitdown
+    .readFile('./.README/README.md')
+    .writeFile('README.md');
 });
 
 gulp.task('watch', () => {
-    gulp.watch(['./.README/*'], ['gitdown']);
+  gulp.watch(['./.README/*'], ['gitdown']);
 });
+
 ```
 
 <a name="api-usage-logging"></a>
@@ -131,9 +135,10 @@ Gitdown is using `console` object to log messages. You can set your own logger:
 
 ```js
 gitdown.setLogger({
-    info: () => {},
-    warn: () => {}
+  info: () => {},
+  warn: () => {}
 });
+
 ```
 
 The logger is used to inform about [Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers).
@@ -146,6 +151,7 @@ Gitdown extends markdown syntax using JSON:
 
 ```json
 {"gitdown": "helper name", "parameter name": "parameter value"}
+
 ```
 
 
@@ -164,6 +170,7 @@ Gitdown JSON will be interpolated.
 Gitdown JSON will not be interpolated.
 &lt;!-- gitdown: on --&gt;
 Gitdown JSON will be interpolated.
+
 ```
 
 <a name="syntax-register-a-custom-helper"></a>
@@ -171,23 +178,24 @@ Gitdown JSON will be interpolated.
 
 ```js
 gitdown.registerHelper('my-helper-name', {
-    /**
-     * @var {Number} Weight determines the processing order of the helper function. Default: 10.
-     */
-    weight: 10,
-    /**
-     * @param {Object} config JSON configuration.
-     * @return {mixed|Promise}
-     */
-    compile: (config) => {
-        return 'foo: ' + config.foo;
-    }
+  /**
+    * @var {Number} Weight determines the processing order of the helper function. Default: 10.
+    */
+  weight: 10,
+  /**
+    * @param {Object} config JSON configuration.
+    * @return {mixed|Promise}
+    */
+  compile: (config) => {
+      return 'foo: ' + config.foo;
+  }
 });
 ```
 
 
 ```json
 {"gitdown": "my-helper-name", "foo": "bar"}
+
 ```
 
 
@@ -195,6 +203,7 @@ Produces:
 
 ```markdown
 foo: bar
+
 ```
 
 
@@ -207,6 +216,7 @@ foo: bar
 
 ```json
 {"gitdown": "contents"}
+
 ```
 
 
@@ -220,6 +230,7 @@ The table of contents is generated using [markdown-contents](https://github.com/
 
 ```json
 {"gitdown": "contents", "maxLevel": 4, "rootId": "features"}
+
 ```
 
 
@@ -257,6 +268,7 @@ The table of contents is generated using [markdown-contents](https://github.com/
     * [JSON Configuration](#features-gitinfo-json-configuration-7)
     * [Parser Configuration](#features-gitinfo-parser-configuration-4)
 
+
 ```
 
 <a name="features-generate-table-of-contents-json-configuration"></a>
@@ -266,6 +278,7 @@ The table of contents is generated using [markdown-contents](https://github.com/
 | --- | --- | --- |
 | `maxLevel` | The maximum heading level after which headings are excluded. | 3 |
 | `rootId` | ID of the root heading. Provide it when you need table of contents for a specific section of the document. Throws an error if element with the said ID does not exist in the document. | N/A |
+
 <a name="features-heading-nesting"></a>
 ### Heading Nesting
 
@@ -278,6 +291,7 @@ The conflicting IDs are solved with a numerical suffix, e.g.
 ## Something
 # Bar
 ## Something
+
 ```
 
 ```html
@@ -285,6 +299,7 @@ The conflicting IDs are solved with a numerical suffix, e.g.
 <h2 id="something">Something</h1>
 <h1 id="bar">Bar</h1>
 <h2 id="something-1">Something</h1>
+
 ```
 
 The problem with this approach is that it makes the order of the content important.
@@ -296,6 +311,7 @@ Gitdown will nest the headings using parent heading names to ensure uniqueness, 
 ## Something
 # Bar
 ## Something
+
 ```
 
 ```html
@@ -303,6 +319,7 @@ Gitdown will nest the headings using parent heading names to ensure uniqueness, 
 <h2 id="foo-something">Something</h1>
 <h1 id="bar">Bar</h1>
 <h2 id="bar-something">Something</h1>
+
 ```
 
 <a name="features-heading-nesting-parser-configuration"></a>
@@ -311,6 +328,7 @@ Gitdown will nest the headings using parent heading names to ensure uniqueness, 
 | Name | Description | Default |
 | --- | --- | --- |
 | `headingNesting.enabled` | Boolean flag indicating whether to nest headings. | `true` |
+
 <a name="features-find-dead-urls-and-fragment-identifiers"></a>
 ### Find Dead URLs and Fragment Identifiers
 
@@ -336,6 +354,7 @@ Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the
 
 ```json
 {"gitdown": "anchor"}
+
 ```
 
 
@@ -347,6 +366,7 @@ Place a documentation tag `@gitdownanchor <name>` anywhere in the code base, e.g
 /**
  * @gitdownanchor my-anchor-name
  */
+
 ```
 
 Then reference the tag in the Gitdown document:
@@ -354,6 +374,7 @@ Then reference the tag in the Gitdown document:
 
 ```
 Refer to [foo]({"gitdown": "anchor", "name": "my-anchor-name"}).
+
 ```
 
 
@@ -374,12 +395,14 @@ Gitdown will throw an error if the anchor is not found.
 | Name | Description | Default |
 | --- | --- | --- |
 | `anchor.exclude` | Array of paths to exclude. | `['./dist/*']` |
+
 <a name="features-variables"></a>
 ### Variables
 
 
 ```json
 {"gitdown": "variable"}
+
 ```
 
 
@@ -391,20 +414,21 @@ Prints the value of a property defined under a parser `variable.scope` configura
 
 ```js
 const gitdown = Gitdown(
-    '{"gitdown": "variable", "name": "name.first"}' +
-    '{"gitdown": "variable", "name": "name.last"}'
+  '{"gitdown": "variable", "name": "name.first"}' +
+  '{"gitdown": "variable", "name": "name.last"}'
 );
 
 gitdown.setConfig({
-    variable: {
-        scope: {
-            name: {
-                first: "Gajus",
-                last: "Kuizinas"
-            }
-        }
+  variable: {
+    scope: {
+      name: {
+        first: "Gajus",
+        last: "Kuizinas"
+      }
     }
+  }
 });
+
 ```
 
 
@@ -428,6 +452,7 @@ gitdown.setConfig({
 
 ```json
 {"gitdown": "include"}
+
 ```
 
 
@@ -453,6 +478,7 @@ See source code of [./.README/README.md](https://github.com/gajus/gitdown/blob/m
 
 ```json
 {"gitdown": "filesize"}
+
 ```
 
 
@@ -465,6 +491,7 @@ Returns file size formatted in human friendly format.
 ```json
 {"gitdown": "filesize", "file": "src/gitdown.js"}
 {"gitdown": "filesize", "file": "src/gitdown.js", "gzip": true}
+
 ```
 
 
@@ -473,6 +500,7 @@ Generates:
 ```markdown
 8.57 KB
 2.55 KB
+
 ```
 
 <a name="features-get-file-size-json-configuration-4"></a>
@@ -482,12 +510,14 @@ Generates:
 | --- | --- | --- |
 | `file` | Path to the file. The path is relative to the root of the repository. | N/A |
 | `gzip` | A boolean value indicating whether to gzip the file first. | `false` |
+
 <a name="features-generate-badges"></a>
 ### Generate Badges
 
 
 ```json
 {"gitdown": "badge"}
+
 ```
 
 
@@ -522,6 +552,7 @@ What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/
 {"gitdown": "badge", "name": "npm-version"}
 {"gitdown": "badge", "name": "travis"}
 {"gitdown": "badge", "name": "david"}
+
 ```
 
 
@@ -531,6 +562,7 @@ Generates:
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat-square)](https://www.npmjs.org/package/gitdown)
 [![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat-square)](https://travis-ci.org/gajus/gitdown)
 [![Dependency Status](https://img.shields.io/david/gajus/gitdown.svg?style=flat-square)](https://david-dm.org/gajus/gitdown)
+
 ```
 
 <a name="features-generate-badges-json-configuration-5"></a>
@@ -546,6 +578,7 @@ Generates:
 
 ```json
 {"gitdown": "date"}
+
 ```
 
 
@@ -558,14 +591,16 @@ Prints a string formatted according to the given [moment format](http://momentjs
 ```json
 {"gitdown": "date"}
 {"gitdown": "date", "format": "YYYY"}
+
 ```
 
 
 Generates:
 
 ```markdown
-1561166577
+1561181996
 2019
+
 ```
 
 <a name="features-print-date-json-configuration-6"></a>
@@ -574,12 +609,14 @@ Generates:
 | Name | Description | Default |
 | --- | --- | --- |
 | `format` | [Moment format](http://momentjs.com/docs/#/displaying/format/). | `X` (UNIX timestamp) |
+
 <a name="features-gitinfo"></a>
 ### Gitinfo
 
 
 ```json
 {"gitdown": "gitinfo"}
+
 ```
 
 
@@ -594,6 +631,7 @@ Generates:
 {"gitdown": "gitinfo", "name": "name"}
 {"gitdown": "gitinfo", "name": "url"}
 {"gitdown": "gitinfo", "name": "branch"}
+
 ```
 
 
@@ -602,6 +640,7 @@ gajus
 gitdown
 https://github.com/gajus/gitdown
 master
+
 ```
 
 <a name="features-gitinfo-supported-properties"></a>
@@ -627,6 +666,7 @@ master
 | Name | Description | Default |
 | --- | --- | --- |
 | `gitinfo.gitPath` | Path to the `.git/` directory or a descendant. | `__dirname` of the script constructing an instance of `Gitdown`. |
+
 
 <a name="recipes"></a>
 ## Recipes
