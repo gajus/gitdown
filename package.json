@@ -8,7 +8,7 @@
   "dependencies": {
     "bluebird": "^3.5.5",
     "deadlink": "^1.1.3",
-    "eslint": "^5.16.0",
+    "eslint": "^6.0.0",
     "filesize": "^4.1.2",
     "get-urls": "^9.1.0",
     "gitinfo": "^2.2.0",
@@ -33,14 +33,14 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "coveralls": "^3.0.4",
-    "eslint": "^5.16.0",
-    "eslint-config-canonical": "^17.1.0",
-    "husky": "^2.4.0",
+    "eslint": "^6.0.0",
+    "eslint-config-canonical": "^17.1.1",
+    "husky": "^2.4.1",
     "mocha": "^6.1.4",
     "nock": "^10.0.6",
     "nyc": "^14.1.1",
     "require-uncached": "^2",
-    "semantic-release": "^15.13.12",
+    "semantic-release": "^15.13.16",
     "sinon": "^7.3.2"
   },
   "husky": {
