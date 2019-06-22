@@ -3,6 +3,7 @@
 ```sh
 npm install gitdown -g
 gitdown ./.README/README.md --output-file ./README.md
+
 ```
 
 ## API Usage
@@ -25,14 +26,15 @@ gitdown.getConfig()
 
 // Set config.
 gitdown.setConfig({
-    gitinfo: {
-        gitPath: __dirname
-    }
+  gitinfo: {
+    gitPath: __dirname
+  }
 })
 
 // Output the markdown file.
 // All of the file system operations are relative to the root of the repository.
 gitdown.writeFile('README.md');
+
 ```
 
 ### Gulp
@@ -44,14 +46,15 @@ const gulp = require('gulp');
 const Gitdown = require('gitdown');
 
 gulp.task('gitdown', () => {
-    return Gitdown
-        .readFile('./.README/README.md')
-        .writeFile('README.md');
+  return Gitdown
+    .readFile('./.README/README.md')
+    .writeFile('README.md');
 });
 
 gulp.task('watch', () => {
-    gulp.watch(['./.README/*'], ['gitdown']);
+  gulp.watch(['./.README/*'], ['gitdown']);
 });
+
 ```
 
 ### Logging
@@ -60,9 +63,10 @@ Gitdown is using `console` object to log messages. You can set your own logger:
 
 ```js
 gitdown.setLogger({
-    info: () => {},
-    warn: () => {}
+  info: () => {},
+  warn: () => {}
 });
+
 ```
 
 The logger is used to inform about [Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers).
@@ -74,6 +78,7 @@ Gitdown extends markdown syntax using JSON:
 <!-- gitdown: off -->
 ```json
 {"gitdown": "helper name", "parameter name": "parameter value"}
+
 ```
 <!-- gitdown: on -->
 
@@ -91,29 +96,31 @@ Gitdown JSON will be interpolated.
 Gitdown JSON will not be interpolated.
 &lt;!-- gitdown: on --&gt;
 Gitdown JSON will be interpolated.
+
 ```
 
 ### Register a Custom Helper
 
 ```js
 gitdown.registerHelper('my-helper-name', {
-    /**
-     * @var {Number} Weight determines the processing order of the helper function. Default: 10.
-     */
-    weight: 10,
-    /**
-     * @param {Object} config JSON configuration.
-     * @return {mixed|Promise}
-     */
-    compile: (config) => {
-        return 'foo: ' + config.foo;
-    }
+  /**
+    * @var {Number} Weight determines the processing order of the helper function. Default: 10.
+    */
+  weight: 10,
+  /**
+    * @param {Object} config JSON configuration.
+    * @return {mixed|Promise}
+    */
+  compile: (config) => {
+      return 'foo: ' + config.foo;
+  }
 });
 ```
 
 <!-- gitdown: off -->
 ```json
 {"gitdown": "my-helper-name", "foo": "bar"}
+
 ```
 <!-- gitdown: on -->
 
@@ -121,4 +128,5 @@ Produces:
 
 ```markdown
 foo: bar
+
 ```

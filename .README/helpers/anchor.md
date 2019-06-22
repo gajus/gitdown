@@ -6,6 +6,7 @@
 <!-- gitdown: off -->
 ```json
 {"gitdown": "anchor"}
+
 ```
 <!-- gitdown: on -->
 
@@ -17,6 +18,7 @@ Place a documentation tag `@gitdownanchor <name>` anywhere in the code base, e.g
 /**
  * @gitdownanchor my-anchor-name
  */
+
 ```
 
 Then reference the tag in the Gitdown document:
@@ -24,6 +26,7 @@ Then reference the tag in the Gitdown document:
 <!-- gitdown: off -->
 ```
 Refer to [foo]({"gitdown": "anchor", "name": "my-anchor-name"}).
+
 ```
 <!-- gitdown: on -->
 

@@ -3,6 +3,7 @@
 <!-- gitdown: off -->
 ```json
 {"gitdown": "variable"}
+
 ```
 <!-- gitdown: on -->
 
@@ -13,20 +14,21 @@ Prints the value of a property defined under a parser `variable.scope` configura
 <!-- gitdown: off -->
 ```js
 const gitdown = Gitdown(
-    '{"gitdown": "variable", "name": "name.first"}' +
-    '{"gitdown": "variable", "name": "name.last"}'
+  '{"gitdown": "variable", "name": "name.first"}' +
+  '{"gitdown": "variable", "name": "name.last"}'
 );
 
 gitdown.setConfig({
-    variable: {
-        scope: {
-            name: {
-                first: "Gajus",
-                last: "Kuizinas"
-            }
-        }
+  variable: {
+    scope: {
+      name: {
+        first: "Gajus",
+        last: "Kuizinas"
+      }
     }
+  }
 });
+
 ```
 <!-- gitdown: on -->
 

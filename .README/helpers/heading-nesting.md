@@ -9,6 +9,7 @@ The conflicting IDs are solved with a numerical suffix, e.g.
 ## Something
 # Bar
 ## Something
+
 ```
 
 ```html
@@ -16,6 +17,7 @@ The conflicting IDs are solved with a numerical suffix, e.g.
 <h2 id="something">Something</h1>
 <h1 id="bar">Bar</h1>
 <h2 id="something-1">Something</h1>
+
 ```
 
 The problem with this approach is that it makes the order of the content important.
@@ -27,6 +29,7 @@ Gitdown will nest the headings using parent heading names to ensure uniqueness, 
 ## Something
 # Bar
 ## Something
+
 ```
 
 ```html
@@ -34,6 +37,7 @@ Gitdown will nest the headings using parent heading names to ensure uniqueness, 
 <h2 id="foo-something">Something</h1>
 <h1 id="bar">Bar</h1>
 <h2 id="bar-something">Something</h1>
+
 ```
 
 #### Parser Configuration

@@ -34,6 +34,7 @@ Gitdown adds [additional functionality](#features) (generating table of contents
 
 // Print date
 {"gitdown": "date", "format": "YYYY"}
+
 ```
 <!-- gitdown: on -->
 

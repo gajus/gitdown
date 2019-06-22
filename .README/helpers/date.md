@@ -3,6 +3,7 @@
 <!-- gitdown: off -->
 ```json
 {"gitdown": "date"}
+
 ```
 <!-- gitdown: on -->
 
@@ -14,6 +15,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 ```json
 {"gitdown": "date"}
 {"gitdown": "date", "format": "YYYY"}
+
 ```
 <!-- gitdown: on -->
 
@@ -22,6 +24,7 @@ Generates:
 ```markdown
 {"gitdown": "date"}
 {"gitdown": "date", "format": "YYYY"}
+
 ```
 
 #### JSON Configuration

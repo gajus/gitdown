@@ -3,6 +3,7 @@
 <!-- gitdown: off -->
 ```json
 {"gitdown": "badge"}
+
 ```
 <!-- gitdown: on -->
 
@@ -35,6 +36,7 @@ What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/
 {"gitdown": "badge", "name": "npm-version"}
 {"gitdown": "badge", "name": "travis"}
 {"gitdown": "badge", "name": "david"}
+
 ```
 <!-- gitdown: on -->
 
@@ -44,6 +46,7 @@ Generates:
 {"gitdown": "badge", "name": "npm-version"}
 {"gitdown": "badge", "name": "travis"}
 {"gitdown": "badge", "name": "david"}
+
 ```
 
 #### JSON Configuration

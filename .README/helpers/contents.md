@@ -3,6 +3,7 @@
 <!-- gitdown: off -->
 ```json
 {"gitdown": "contents"}
+
 ```
 <!-- gitdown: on -->
 
@@ -15,11 +16,13 @@ The table of contents is generated using [markdown-contents](https://github.com/
 <!-- gitdown: off -->
 ```json
 {"gitdown": "contents", "maxLevel": 4, "rootId": "features"}
+
 ```
 <!-- gitdown: on -->
 
 ```markdown
 {"gitdown": "contents", "maxLevel": 4, "rootId": "features"}
+
 ```
 
 #### JSON Configuration

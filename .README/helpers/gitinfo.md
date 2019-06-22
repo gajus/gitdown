@@ -3,6 +3,7 @@
 <!-- gitdown: off -->
 ```json
 {"gitdown": "gitinfo"}
+
 ```
 <!-- gitdown: on -->
 
@@ -16,6 +17,7 @@
 {"gitdown": "gitinfo", "name": "name"}
 {"gitdown": "gitinfo", "name": "url"}
 {"gitdown": "gitinfo", "name": "branch"}
+
 ```
 <!-- gitdown: on -->
 
@@ -24,6 +26,7 @@
 {"gitdown": "gitinfo", "name": "name"}
 {"gitdown": "gitinfo", "name": "url"}
 {"gitdown": "gitinfo", "name": "branch"}
+
 ```
 
 #### Supported Properties
