@@ -598,7 +598,7 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-1561182097
+1561182260
 2019
 
 ```
@@ -656,16 +656,17 @@ master
 <a name="features-gitinfo-json-configuration-7"></a>
 #### JSON Configuration
 
-| Name | Description | Default |
-| --- | --- | --- |
-| `name` | Name of the property. | N/A |
+|Name|Description|Default|
+|---|---|---|
+|`name`|Name of the property.|N/A|
 
 <a name="features-gitinfo-parser-configuration-4"></a>
 #### Parser Configuration
 
-| Name | Description | Default |
-| --- | --- | --- |
-| `gitinfo.gitPath` | Path to the `.git/` directory or a descendant. | `__dirname` of the script constructing an instance of `Gitdown`. |
+|Name|Description|Default|
+|---|---|---|
+|`gitinfo.defaultBranchName`|Default branch to use when the current branch name cannot be resolved.|N/A|
+|`gitinfo.gitPath`|Path to the `.git/` directory or a descendant. | `__dirname` of the script constructing an instance of `Gitdown`.|
 
 
 <a name="recipes"></a>
