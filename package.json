@@ -11,7 +11,7 @@
     "eslint": "^6.0.0",
     "filesize": "^4.1.2",
     "get-urls": "^9.1.0",
-    "gitinfo": "^2.2.0",
+    "gitinfo": "^2.3.0",
     "glob": "^7.1.4",
     "jsonfile": "^5.0.0",
     "lodash": "^4.17.11",
