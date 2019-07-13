@@ -9,9 +9,13 @@ const argv = yargs
   .usage('Usage: $0 <README.md> [options]')
   .demand(1, 1, 'Gitdown program must be executed with exactly one non-option argument.')
   .options({
+    check: {
+      default: false,
+      description: 'Checks if the destination file represents the current state of the template. Terminates program with exit status 1 if generating a new document would result in changes of the target document. Terminates program with exit status 0 otherwise (without writng to the destination).',
+      type: 'boolean'
+    },
     force: {
       default: false,
-      demand: false,
       describe: 'Write to file with different extension than ".md".',
       type: 'boolean'
     },
@@ -61,17 +65,35 @@ const argv = yargs
   .strict()
   .argv;
 
-((inputFile, outputFile) => {
+const main = async () => {
+  const inputFile = argv._[0];
+  const outputFile = argv.outputFile;
+
   const resolvedInputFile = path.resolve(process.cwd(), inputFile);
   const resolvedOutputFile = path.resolve(process.cwd(), outputFile);
 
   // eslint-disable-next-line global-require
-  const Gitdown = require('./..');
+  const Gitdown = require('..');
 
   const gitdown = Gitdown.readFile(resolvedInputFile);
 
+  if (argv.check) {
+    const generatedMarkdown = await gitdown.get();
+
+    if (fs.readFileSync(resolvedOutputFile, 'utf-8') === generatedMarkdown) {
+      return;
+    } else {
+      // eslint-disable-next-line no-console
+      console.error('Gitdown destination file does not represent the current state of the template.');
+
+      // eslint-disable-next-line no-process-exit
+      process.exit(1);
+    }
+
+    return;
+  }
+
   gitdown.writeFile(resolvedOutputFile);
-})(
-  argv._[0],
-  argv.outputFile
-);
+};
+
+main();

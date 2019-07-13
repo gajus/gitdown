@@ -45,8 +45,8 @@
   },
   "husky": {
     "hooks": {
-      "post-commit": "if [[ -z \"$SKIP_CREATE_README\" ]]; then export SKIP_CREATE_README=1 && npm run create-readme && git commit -m 'docs: generate docs' --no-verify -- README.md; else unset SKIP_CREATE_README; fi",
-      "pre-commit": "npm run lint && npm run test && npm run build"
+      "pre-commit": "npm run lint && npm run test && npm run build",
+      "pro-push": "babel-node ./src/bin/index.js ./.README/README.md --output-file ./README.md --check"
     }
   },
   "keywords": [

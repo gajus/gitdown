@@ -44,6 +44,8 @@ Gitdown adds [additional functionality](#features) (generating table of contents
 
 {"gitdown": "include", "file": "./usage.md"}
 
+a
+
 ## Features
 
 {"gitdown": "include", "file": "./helpers/contents.md"}
@@ -61,23 +63,20 @@ Gitdown adds [additional functionality](#features) (generating table of contents
 
 ### Automating Gitdown
 
-Use [Husky](https://www.npmjs.com/package/husky) to automate generation of README.md and committing it to the version control.
+Use [Husky](https://www.npmjs.com/package/husky) to check if user generated README.md before committing his changes.
 
 ```json
 "husky": {
   "hooks": {
-    "post-commit": "npm run create-readme && git add README.md && git commit -m 'docs: generate docs' --no-verify",
-    "pre-commit": "npm run lint && npm run test && npm run build"
+    "pre-commit": "npm run lint && npm run test && npm run build",
+    "pre-push": "gitdown ./.README/README.md --output-file ./README.md --check",
   }
 }
 
 ```
 
-Where `create-readme` is your script to generate `README.md`, e.g.
+`--check` attributes makes Gitdown check if the target file differes from the source template. If the file differs then the program exits with an error code and message:
 
-```json
-"scripts": {
-  "create-readme": "gitdown ./.README/README.md --output-file ./README.md",
-}
+> Gitdown destination file does not represent the current state of the template.
 
-```
+Do not automate generating and committing documentation: automating commits will result in a noisy commit log.

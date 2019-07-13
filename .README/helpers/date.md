@@ -22,8 +22,8 @@ Prints a string formatted according to the given [moment format](http://momentjs
 Generates:
 
 ```markdown
-{"gitdown": "date"}
-{"gitdown": "date", "format": "YYYY"}
+1563038327
+2019
 
 ```
 
