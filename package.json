@@ -46,7 +46,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint && npm run test && npm run build",
-      "pro-push": "babel-node ./src/bin/index.js ./.README/README.md --output-file ./README.md --check"
+      "pre-push": "babel-node ./src/bin/index.js ./.README/README.md --output-file ./README.md --check"
     }
   },
   "keywords": [
