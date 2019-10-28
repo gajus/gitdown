@@ -8,7 +8,6 @@
   "dependencies": {
     "bluebird": "^3.5.5",
     "deadlink": "^1.1.3",
-    "eslint": "^6.0.1",
     "filesize": "^4.1.2",
     "get-urls": "^9.1.0",
     "gitinfo": "^2.4.0",
@@ -33,8 +32,8 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "coveralls": "^3.0.5",
-    "eslint": "^6.0.1",
-    "eslint-config-canonical": "^17.1.4",
+    "eslint": "~6.0.1",
+    "eslint-config-canonical": "~17.1.4",
     "husky": "^3.0.0",
     "mocha": "^6.1.4",
     "nock": "^10.0.6",
