@@ -9,7 +9,7 @@ const path = require('path');
 
 /**
  * @param {config} config
- * @param {Object} context
+ * @param {object} context
  */
 helper.compile = (config = {}, context) => {
   if (!config.file) {
@@ -26,7 +26,7 @@ helper.compile = (config = {}, context) => {
   }
 
   return fs.readFileSync(config.file, {
-    encoding: 'utf8'
+    encoding: 'utf8',
   });
 };
 

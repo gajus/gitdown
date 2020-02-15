@@ -23,11 +23,11 @@ describe('Parser.helpers.badge', () => {
                 }
 
                 throw new Error('Invalid config.');
-              }
-            }
+              },
+            },
           };
-        }
-      }
+        },
+      },
     };
   });
   it('throws an error when config.name is not provided', () => {
@@ -47,8 +47,8 @@ describe('Parser.helpers.badge', () => {
           locator: {
             repositoryPath: () => {
               return __dirname;
-            }
-          }
+            },
+          },
         };
 
         expect(() => {
@@ -60,8 +60,8 @@ describe('Parser.helpers.badge', () => {
           locator: {
             repositoryPath: () => {
               return Path.resolve(__dirname, './../fixtures/badge');
-            }
-          }
+            },
+          },
         };
 
         const badge = helper.compile({name: 'npm-version'}, context);
@@ -75,8 +75,8 @@ describe('Parser.helpers.badge', () => {
           locator: {
             repositoryPath: () => {
               return __dirname;
-            }
-          }
+            },
+          },
         };
 
         expect(() => {
@@ -88,8 +88,8 @@ describe('Parser.helpers.badge', () => {
           locator: {
             repositoryPath: () => {
               return Path.resolve(__dirname, './../fixtures/badge');
-            }
-          }
+            },
+          },
         };
 
         const badge = helper.compile({name: 'bower-version'}, context);

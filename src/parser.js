@@ -72,13 +72,13 @@ const Parser = (gitdown) => {
     // console.log('markdown (before)', markdown);
 
     // /[\s\S]/ is an equivalent of /./m
-    outputMarkdown = outputMarkdown.replace(/<!--\sgitdown:\soff\s-->[\s\S]*?(?:$|<!--\sgitdown:\son\s-->)/g, (match) => {
+    outputMarkdown = outputMarkdown.replace(/<!--\sgitdown:\soff\s-->[\S\s]*?(?:$|<!--\sgitdown:\son\s-->)/g, (match) => {
       ignoreSection.push(match);
 
       return '⊂⊂I:' + ignoreSection.length + '⊃⊃';
     });
 
-    outputMarkdown = outputMarkdown.replace(/({"gitdown"(?:[^}]+}))/g, (match) => {
+    outputMarkdown = outputMarkdown.replace(/({"gitdown"[^}]+})/g, (match) => {
       let command;
 
       try {
@@ -89,7 +89,7 @@ const Parser = (gitdown) => {
 
       const name = command.gitdown;
       const config = {
-        ...command
+        ...command,
       };
 
       // eslint-disable-next-line fp/no-delete
@@ -106,7 +106,7 @@ const Parser = (gitdown) => {
         config,
         executed: false,
         helper: helpers[name],
-        name
+        name,
       });
 
       return '⊂⊂C:' + bindingIndex + '⊃⊃';
@@ -118,7 +118,7 @@ const Parser = (gitdown) => {
 
     return {
       commands,
-      markdown: outputMarkdown
+      markdown: outputMarkdown,
     };
   };
 
@@ -126,7 +126,7 @@ const Parser = (gitdown) => {
    * Execute all of the commands sharing the lowest common weight against
    * the current state of the markdown document.
    *
-   * @param {Object} state
+   * @param {object} state
    * @returns {Promise} Promise resolves to a state after all of the commands have been resolved.
    */
   parser.execute = async (state) => {
@@ -156,7 +156,7 @@ const Parser = (gitdown) => {
           gitdown,
           locator: Locator,
           markdown: state.markdown,
-          parser
+          parser,
         };
 
         const value = await Promise.resolve(command.helper.compile(command.config, context));
@@ -185,7 +185,7 @@ const Parser = (gitdown) => {
 
   /**
    * @param {string} name
-   * @param {Object} helper
+   * @param {object} helper
    */
   parser.registerHelper = (name, helper = {}) => {
     if (helpers[name]) {
@@ -204,7 +204,7 @@ const Parser = (gitdown) => {
   };
 
   /**
-   * @returns {Object}
+   * @returns {object}
    */
   parser.helpers = () => {
     return helpers;

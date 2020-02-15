@@ -64,9 +64,9 @@ describe('Gitdown.Parser', () => {
     parser = Parser({
       getConfig: () => {
         return {
-          baseDirectory: __dirname
+          baseDirectory: __dirname,
         };
-      }
+      },
     });
 
     // Helper "include" is weight 20

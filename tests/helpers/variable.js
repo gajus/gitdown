@@ -14,11 +14,11 @@ describe('Parser.helpers.variable', () => {
             variable: {
               scope: {
 
-              }
-            }
+              },
+            },
           };
-        }
-      }
+        },
+      },
     };
   });
   it('throws an error if variable name is not given', () => {
@@ -40,14 +40,14 @@ describe('Parser.helpers.variable', () => {
               scope: {
                 foo: {
                   bar: {
-                    baz: 'quux'
-                  }
-                }
-              }
-            }
+                    baz: 'quux',
+                  },
+                },
+              },
+            },
           };
-        }
-      }
+        },
+      },
     };
 
     expect(helper.compile({name: 'foo.bar.baz'}, context)).to.equal('quux');

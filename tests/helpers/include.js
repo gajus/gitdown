@@ -18,15 +18,15 @@ describe('Parser.helpers.include', () => {
       gitdown: {
         getConfig: () => {
           return {
-            baseDirectory: __dirname
+            baseDirectory: __dirname,
           };
-        }
-      }
+        },
+      },
     };
 
     expect(() => {
       helper.compile({
-        file: path.join(__dirname, './does-not-exist')
+        file: path.join(__dirname, './does-not-exist'),
       }, context);
     }).to.throw(Error, 'Input file does not exist.');
   });

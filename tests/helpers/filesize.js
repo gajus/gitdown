@@ -20,7 +20,7 @@ describe('Parser.helpers.filesize', () => {
   });
   it('is rejected with an error when file is not found', () => {
     const result = helper.compile({
-      file: '/does-not-exist'
+      file: '/does-not-exist',
     });
 
     return expect(result).to.rejectedWith(Error, 'Input file does not exist.');
@@ -28,7 +28,7 @@ describe('Parser.helpers.filesize', () => {
 
   it('returns formatted file size', () => {
     const result = helper.compile({
-      file: Path.resolve(__dirname, './../fixtures/filesize.txt')
+      file: Path.resolve(__dirname, './../fixtures/filesize.txt'),
     });
 
     return expect(result).to.eventually.equal('191 B');
@@ -36,7 +36,7 @@ describe('Parser.helpers.filesize', () => {
   it('returns gziped formatted file size', () => {
     const result = helper.compile({
       file: Path.resolve(__dirname, './../fixtures/filesize.txt'),
-      gzip: true
+      gzip: true,
     });
 
     return expect(result).to.eventually.equal('148 B');

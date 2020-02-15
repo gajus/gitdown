@@ -19,8 +19,8 @@ describe('Gitdown', () => {
 
       gitdown.setConfig({
         gitinfo: {
-          gitPath: path.resolve(__dirname, './dummy_git/')
-        }
+          gitPath: path.resolve(__dirname, './dummy_git/'),
+        },
       });
 
       const response = await gitdown.get();
@@ -46,19 +46,19 @@ describe('Gitdown', () => {
           descendants: [
             {
               descendants: [],
-              id: 'b'
+              id: 'b',
             },
             {
               descendants: [],
-              id: 'c'
-            }
+              id: 'c',
+            },
           ],
-          id: 'a'
+          id: 'a',
         },
         {
           descendants: [],
-          id: 'd'
-        }
+          id: 'd',
+        },
       ];
 
       Gitdown.nestHeadingIds.iterateTree(tree, (index, leaf) => {
@@ -69,7 +69,7 @@ describe('Gitdown', () => {
         '1-a',
         '2-b',
         '3-c',
-        '4-d'
+        '4-d',
       ]);
     });
   });
@@ -87,8 +87,8 @@ describe('Gitdown.read()', () => {
 
       gitdown.setConfig({
         gitinfo: {
-          gitPath: path.resolve(__dirname, './dummy_git/')
-        }
+          gitPath: path.resolve(__dirname, './dummy_git/'),
+        },
       });
 
       const response = await gitdown.get();
@@ -100,8 +100,8 @@ describe('Gitdown.read()', () => {
 
       gitdown.setConfig({
         gitinfo: {
-          gitPath: path.resolve(__dirname, './dummy_git/')
-        }
+          gitPath: path.resolve(__dirname, './dummy_git/'),
+        },
       });
 
       const response = await gitdown.get();
@@ -114,8 +114,8 @@ describe('Gitdown.read()', () => {
       gitdown.setConfig({
         gitinfo: {
           defaultBranchName: 'master',
-          gitPath: path.resolve(__dirname, './dummy_git_untracked_head/')
-        }
+          gitPath: path.resolve(__dirname, './dummy_git_untracked_head/'),
+        },
       });
 
       const response = await gitdown.get();
@@ -131,8 +131,8 @@ describe('Gitdown.read()', () => {
 
       gitdown.setConfig({
         gitinfo: {
-          gitPath: path.resolve(__dirname, './dummy_git/')
-        }
+          gitPath: path.resolve(__dirname, './dummy_git/'),
+        },
       });
 
       await gitdown.writeFile(fileName);
@@ -160,13 +160,13 @@ describe('Gitdown.read()', () => {
 
       gitdown.setConfig({
         gitinfo: {
-          gitPath: path.resolve(__dirname, './dummy_git/')
-        }
+          gitPath: path.resolve(__dirname, './dummy_git/'),
+        },
       });
       gitdown.registerHelper('new-helper', {
         compile (config) {
           return 'Test prop: ' + config.testProp;
-        }
+        },
       });
 
       const markdown = await gitdown.get();
@@ -181,17 +181,17 @@ describe('Gitdown.read()', () => {
       defaultConfiguration = {
         deadlink: {
           findDeadFragmentIdentifiers: false,
-          findDeadURLs: false
+          findDeadURLs: false,
         },
         gitinfo: {
-          gitPath: __dirname
+          gitPath: __dirname,
         },
         headingNesting: {
-          enabled: true
+          enabled: true,
         },
         variable: {
-          scope: {}
-        }
+          scope: {},
+        },
       };
     });
     it('returns the current configuration', () => {
@@ -218,13 +218,13 @@ describe('Gitdown.read()', () => {
 
       gitdown.setConfig({
         gitinfo: {
-          gitPath: path.resolve(__dirname, './dummy_git/')
-        }
+          gitPath: path.resolve(__dirname, './dummy_git/'),
+        },
       });
 
       logger = {
         info () {},
-        warn () {}
+        warn () {},
       };
 
       gitdown.setLogger(logger);
@@ -244,8 +244,8 @@ describe('Gitdown.read()', () => {
       gitdown.setConfig({
         deadlink: {
           findDeadFragmentIdentifiers: false,
-          findDeadURLs: false
-        }
+          findDeadURLs: false,
+        },
       });
 
       await gitdown.get();
@@ -256,8 +256,8 @@ describe('Gitdown.read()', () => {
       gitdown.setConfig({
         deadlink: {
           findDeadFragmentIdentifiers: false,
-          findDeadURLs: true
-        }
+          findDeadURLs: true,
+        },
       });
 
       await gitdown.get();
@@ -270,8 +270,8 @@ describe('Gitdown.read()', () => {
       gitdown.setConfig({
         deadlink: {
           findDeadFragmentIdentifiers: false,
-          findDeadURLs: true
-        }
+          findDeadURLs: true,
+        },
       });
 
       await gitdown.get();
@@ -284,8 +284,8 @@ describe('Gitdown.read()', () => {
       gitdown.setConfig({
         deadlink: {
           findDeadFragmentIdentifiers: true,
-          findDeadURLs: true
-        }
+          findDeadURLs: true,
+        },
       });
 
       await gitdown.get();
@@ -298,8 +298,8 @@ describe('Gitdown.read()', () => {
       gitdown.setConfig({
         deadlink: {
           findDeadFragmentIdentifiers: true,
-          findDeadURLs: true
-        }
+          findDeadURLs: true,
+        },
       });
 
       await gitdown.get();
@@ -312,8 +312,8 @@ describe('Gitdown.read()', () => {
       gitdown.setConfig({
         deadlink: {
           findDeadFragmentIdentifiers: true,
-          findDeadURLs: true
-        }
+          findDeadURLs: true,
+        },
       });
 
       await gitdown.get();

@@ -12,11 +12,11 @@ describe('Parser.helpers.gitinfo', () => {
         getConfig: () => {
           return {
             gitinfo: {
-              gitPath: __dirname
-            }
+              gitPath: __dirname,
+            },
           };
-        }
-      }
+        },
+      },
     };
   });
   it('throws an error if config.name is not provided', () => {

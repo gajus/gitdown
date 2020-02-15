@@ -65,7 +65,7 @@ Gitdown.read = (input) => {
 
   /**
    * @param {string} name
-   * @param {Object} helper
+   * @param {object} helper
    */
   gitdown.registerHelper = (name, helper) => {
     parser.registerHelper(name, helper);
@@ -116,7 +116,7 @@ Gitdown.read = (input) => {
       // @todo Test.
       if (_.startsWith(url, '#')) {
         // Github is using JavaScript to resolve anchor tags under #uses-content- ID.
-        resolvedUrl = repositoryURL + '#user-content-' + url.substr(1);
+        resolvedUrl = repositoryURL + '#user-content-' + url.slice(1);
       } else {
         resolvedUrl = url;
       }
@@ -153,7 +153,7 @@ Gitdown.read = (input) => {
   };
 
   /**
-   * @param {Object} logger
+   * @param {object} logger
    */
   gitdown.setLogger = (logger) => {
     if (!logger.info) {
@@ -166,24 +166,24 @@ Gitdown.read = (input) => {
 
     instanceLogger = {
       info: logger.info,
-      warn: logger.warn
+      warn: logger.warn,
     };
   };
 
   /**
-   * @returns {Object}
+   * @returns {object}
    */
   gitdown.getLogger = () => {
     return instanceLogger;
   };
 
   /**
-   * @typedef {Object} config
+   * @typedef {object} config
    * @property {}
    */
 
   /**
-   * @param {Object} config
+   * @param {object} config
    * @returns {undefined}
    */
   gitdown.setConfig = (config) => {
@@ -211,7 +211,7 @@ Gitdown.read = (input) => {
   };
 
   /**
-   * @returns {Object}
+   * @returns {object}
    */
   gitdown.getConfig = () => {
     return instanceConfig;
@@ -221,17 +221,17 @@ Gitdown.read = (input) => {
     baseDirectory: process.cwd(),
     deadlink: {
       findDeadFragmentIdentifiers: false,
-      findDeadURLs: false
+      findDeadURLs: false,
     },
     gitinfo: {
-      gitPath: gitdown.executionContext()
+      gitPath: gitdown.executionContext(),
     },
     headingNesting: {
-      enabled: true
+      enabled: true,
     },
     variable: {
-      scope: {}
-    }
+      scope: {},
+    },
 
   });
 
@@ -250,7 +250,7 @@ Gitdown.readFile = (fileName) => {
   }
 
   const input = fs.readFileSync(fileName, {
-    encoding: 'utf8'
+    encoding: 'utf8',
   });
 
   const gitdown = Gitdown.read(input);
@@ -260,8 +260,8 @@ Gitdown.readFile = (fileName) => {
   gitdown.setConfig({
     baseDirectory: directoryName,
     gitinfo: {
-      gitPath: directoryName
-    }
+      gitPath: directoryName,
+    },
   });
 
   return gitdown;
@@ -283,13 +283,13 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
 
   outputMarkdown = inputMarkdown;
 
-  outputMarkdown = outputMarkdown.replace(/^```[\s\S]*?\n```/mg, (match) => {
+  outputMarkdown = outputMarkdown.replace(/^```[\S\s]*?\n```/gm, (match) => {
     codeblocks.push(match);
 
     return '⊂⊂⊂C:' + codeblocks.length + '⊃⊃⊃';
   });
 
-  outputMarkdown = outputMarkdown.replace(/^(#+)(.*$)/mg, (match, level, name) => {
+  outputMarkdown = outputMarkdown.replace(/^(#+)(.*$)/gm, (match, level, name) => {
     let normalizedName;
 
     const normalizedLevel = level.length;
@@ -300,9 +300,9 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
       // `foo bar`
       // -foo-bar-
       // foo-bar
-      id: _.trim(normalizedName.toLowerCase().replace(/[^\w]+/g, '-'), '-'),
+      id: _.trim(normalizedName.toLowerCase().replace(/\W+/g, '-'), '-'),
       level: normalizedLevel,
-      name: normalizedName
+      name: normalizedName,
     });
 
     // `test`
@@ -316,7 +316,7 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
     return '<a name="⊂⊂⊂H:' + articles.length + '⊃⊃⊃"></a>\n' + _.repeat('#', normalizedLevel) + ' ' + normalizedName;
   });
 
-  outputMarkdown = outputMarkdown.replace(/^⊂⊂⊂C:(\d+)⊃⊃⊃/mg, () => {
+  outputMarkdown = outputMarkdown.replace(/^⊂⊂⊂C:(\d+)⊃⊃⊃/gm, () => {
     return codeblocks.shift();
   });
 

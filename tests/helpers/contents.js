@@ -16,12 +16,12 @@ describe('Parser.helpers.contents', () => {
           getConfig: () => {
             return {
               headingNesting: {
-                enabled: false
-              }
+                enabled: false,
+              },
             };
-          }
+          },
         },
-        markdown: ''
+        markdown: '',
       };
     });
 
@@ -56,12 +56,12 @@ describe('Parser.helpers.contents', () => {
           getConfig: () => {
             return {
               headingNesting: {
-                enabled: true
-              }
+                enabled: true,
+              },
             };
-          }
+          },
         },
-        markdown: ''
+        markdown: '',
       };
     });
     it('generates unique IDs using parent IDs', () => {
@@ -80,23 +80,23 @@ describe('Parser.helpers.contents', () => {
             descendants: [
               {
                 descendants: [],
-                level: 3
-              }
+                level: 3,
+              },
             ],
-            level: 2
-          }
+            level: 2,
+          },
         ],
-        level: 1
+        level: 1,
       }];
 
       const treeAfterMaxDepth = [{
         descendants: [
           {
             descendants: [],
-            level: 2
-          }
+            level: 2,
+          },
         ],
-        level: 1
+        level: 1,
       }];
 
       expect(helper.maxLevel(tree, 2)).to.deep.equal(treeAfterMaxDepth);
@@ -111,14 +111,14 @@ describe('Parser.helpers.contents', () => {
               descendants: [
                 {
                   descendants: [],
-                  id: 'baz'
-                }
+                  id: 'baz',
+                },
               ],
-              id: 'bar'
-            }
+              id: 'bar',
+            },
           ],
-          id: 'foo'
-        }
+          id: 'foo',
+        },
       ];
 
       expect(helper.findRoot(tree, 'bar')).to.equal(tree[0].descendants[0]);

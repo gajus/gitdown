@@ -12,18 +12,18 @@ const argv = yargs
     check: {
       default: false,
       description: 'Checks if the destination file represents the current state of the template. Terminates program with exit status 1 if generating a new document would result in changes of the target document. Terminates program with exit status 0 otherwise (without writng to the destination).',
-      type: 'boolean'
+      type: 'boolean',
     },
     force: {
       default: false,
       describe: 'Write to file with different extension than ".md".',
-      type: 'boolean'
+      type: 'boolean',
     },
     'output-file': {
       demand: true,
       describe: 'Path to the output file.',
-      type: 'string'
-    }
+      type: 'string',
+    },
   })
   .example('$0 ./.README/README.md --output-file ./README.md')
   .example('$0 ./.README/README.md --output-file ./README.txt --force')
