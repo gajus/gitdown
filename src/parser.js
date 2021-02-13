@@ -1,7 +1,7 @@
 const Path = require('path');
-const _ = require('lodash');
 const Promise = require('bluebird');
 const glob = require('glob');
+const _ = require('lodash');
 const Locator = require('./locator.js');
 
 /**
@@ -83,7 +83,7 @@ const Parser = (gitdown) => {
 
       try {
         command = JSON.parse(match);
-      } catch (error) {
+      } catch {
         throw new Error('Invalid Gitdown JSON ("' + match + '").');
       }
 
@@ -113,7 +113,7 @@ const Parser = (gitdown) => {
     });
 
     outputMarkdown = outputMarkdown.replace(/⊂⊂I:(\d+)⊃⊃/g, (match, p1) => {
-      return ignoreSection[parseInt(p1, 10) - 1];
+      return ignoreSection[Number.parseInt(p1, 10) - 1];
     });
 
     return {
@@ -178,7 +178,6 @@ const Parser = (gitdown) => {
    */
   parser.loadHelpers = () => {
     glob.sync(Path.resolve(__dirname, './helpers/*.js')).forEach((helper) => {
-      // eslint-disable-next-line global-require
       parser.registerHelper(Path.basename(helper, '.js'), require(helper));
     });
   };

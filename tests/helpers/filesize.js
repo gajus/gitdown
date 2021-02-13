@@ -63,7 +63,7 @@ describe('Parser.helpers.filesize', () => {
   });
   describe('.format(size)', () => {
     it('returns file size as a human readable string', () => {
-      const result = helper.format(1024);
+      const result = helper.format(1_024);
 
       expect(result).to.equal('1 KB');
     });

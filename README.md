@@ -500,7 +500,7 @@ Returns file size formatted in human friendly format.
 Generates:
 
 ```markdown
-8.57 KB
+8.47 KB
 2.54 KB
 
 ```
