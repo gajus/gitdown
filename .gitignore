@@ -13,3 +13,4 @@ package-lock.json
 !.npmignore
 !.travis.yml
 !.README
+!.ncurc.js
