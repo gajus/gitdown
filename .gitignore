@@ -1,12 +1,13 @@
 coverage
 dist
 node_modules
+package-lock.json
 *.log
 .*
-!.babelrc
+!.babelrc.json
 !.editorconfig
 !.eslintignore
-!.eslintrc
+!.eslintrc.json
 !.flowconfig
 !.gitignore
 !.npmignore
