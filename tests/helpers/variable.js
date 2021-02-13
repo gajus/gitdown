@@ -12,9 +12,7 @@ describe('Parser.helpers.variable', () => {
         getConfig: () => {
           return {
             variable: {
-              scope: {
-
-              },
+              scope: {},
             },
           };
         },

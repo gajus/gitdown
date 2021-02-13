@@ -32,8 +32,8 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "coveralls": "^3.0.9",
-    "eslint": "~6.8.0",
-    "eslint-config-canonical": "~19.0.1",
+    "eslint": "~7.20.0",
+    "eslint-config-canonical": "~25.8.17",
     "husky": "^4.2.3",
     "mocha": "^7.0.1",
     "nock": "^11.8.2",
@@ -68,7 +68,7 @@
     "build": "babel ./src --out-dir ./dist --copy-files",
     "create-readme": "babel-node ./src/bin/index.js ./.README/README.md --output-file ./README.md",
     "lint": "eslint --report-unused-disable-directives ./src ./tests",
-    "test": "nyc mocha \"./tests/**/*.js\" --require @babel/register"
+    "test": "nyc mocha \"./tests/**/*.js\" --require @babel/register --timeout 9000"
   },
   "version": "2.5.2"
 }

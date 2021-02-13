@@ -2,14 +2,14 @@ const Gitdown = {};
 const fs = require('fs');
 const path = require('path');
 const Promise = require('bluebird');
-const _ = require('lodash');
-const marked = require('marked');
 const Deadlink = require('deadlink');
 const getUrls = require('get-urls');
+const _ = require('lodash');
 const MarkdownContents = require('markdown-contents');
+const marked = require('marked');
 const StackTrace = require('stack-trace');
-const gitinfo = require('./helpers/gitinfo.js');
 const contents = require('./helpers/contents.js');
+const gitinfo = require('./helpers/gitinfo.js');
 const Parser = require('./parser.js');
 
 /**
@@ -29,24 +29,19 @@ Gitdown.read = (input) => {
    *
    * @returns {Promise}
    */
-  gitdown.get = () => {
-    return parser
-      .play(input)
-      .then((state) => {
-        let markdown;
+  gitdown.get = async () => {
+    const state = await parser.play(input);
 
-        markdown = state.markdown;
+    let markdown;
+    markdown = state.markdown;
 
-        if (gitdown.getConfig().headingNesting.enabled) {
-          markdown = Gitdown.nestHeadingIds(markdown);
-        }
+    if (gitdown.getConfig().headingNesting.enabled) {
+      markdown = Gitdown.nestHeadingIds(markdown);
+    }
 
-        return gitdown
-          .resolveURLs(markdown)
-          .then(() => {
-            return markdown.replace(/<!--\sgitdown:\s(:?off|on)\s-->/g, '');
-          });
-      });
+    await gitdown.resolveURLs(markdown);
+
+    return markdown.replace(/<!--\sgitdown:\s(:?off|on)\s-->/g, '');
   };
 
   /**
@@ -55,12 +50,10 @@ Gitdown.read = (input) => {
    * @param {string} fileName
    * @returns {Promise}
    */
-  gitdown.writeFile = (fileName) => {
-    return gitdown
-      .get()
-      .then((outputString) => {
-        return fs.writeFileSync(fileName, outputString);
-      });
+  gitdown.writeFile = async (fileName) => {
+    const outputString = await gitdown.get();
+
+    return fs.writeFileSync(fileName, outputString);
   };
 
   /**
@@ -341,7 +334,7 @@ Gitdown.nestHeadingIds.iterateTree = (tree, callback, index = 1) => {
   nextIndex = index;
 
   tree.forEach((article) => {
-    // eslint-disable-next-line callback-return
+    // eslint-disable-next-line promise/prefer-await-to-callbacks
     callback(nextIndex++, article);
 
     if (article.descendants) {

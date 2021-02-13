@@ -1,6 +1,6 @@
 const helper = {};
-const _ = require('lodash');
 const createGitinfo = require('gitinfo').default;
+const _ = require('lodash');
 
 helper.compile = (config, context) => {
   const parserConfig = context.gitdown.getConfig().gitinfo;

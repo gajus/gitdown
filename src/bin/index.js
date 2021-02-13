@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
 const _ = require('lodash');
 const yargs = require('yargs');
 
@@ -11,7 +11,11 @@ const argv = yargs
   .options({
     check: {
       default: false,
-      description: 'Checks if the destination file represents the current state of the template. Terminates program with exit status 1 if generating a new document would result in changes of the target document. Terminates program with exit status 0 otherwise (without writng to the destination).',
+      description: 'Checks if the destination file represents the current ' +
+        'state of the template. Terminates program with exit status 1 if ' +
+        'generating a new document would result in changes of the target ' +
+        'document. Terminates program with exit status 0 otherwise (without ' +
+        'writng to the destination).',
       type: 'boolean',
     },
     force: {
@@ -41,7 +45,7 @@ const argv = yargs
 
     try {
       fs.accessSync(inputFile, fs.constants.W_OK);
-    } catch (error) {
+    } catch {
       // eslint-disable-next-line no-console
       console.log('inputFile', inputFile);
 
@@ -72,7 +76,6 @@ const main = async () => {
   const resolvedInputFile = path.resolve(process.cwd(), inputFile);
   const resolvedOutputFile = path.resolve(process.cwd(), outputFile);
 
-  // eslint-disable-next-line global-require
   const Gitdown = require('..');
 
   const gitdown = Gitdown.readFile(resolvedInputFile);
@@ -86,7 +89,6 @@ const main = async () => {
       // eslint-disable-next-line no-console
       console.error('Gitdown destination file does not represent the current state of the template.');
 
-      // eslint-disable-next-line no-process-exit
       process.exit(1);
     }
 

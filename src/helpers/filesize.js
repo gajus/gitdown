@@ -5,18 +5,16 @@ const formatFileSize = require('filesize');
 
 const helper = {};
 
-helper.compile = (config = {}) => {
+helper.compile = async (config = {}) => {
   config.gzip = config.gzip || false;
 
   if (!config.file) {
     return Promise.reject(new Error('config.file must be provided.'));
   }
 
-  return helper
-    .file(config.file, config.gzip)
-    .then((fileSize) => {
-      return helper.format(fileSize);
-    });
+  const fileSize = await helper.file(config.file, config.gzip);
+
+  return helper.format(fileSize);
 };
 
 /**

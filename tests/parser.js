@@ -1,9 +1,9 @@
 /* eslint-disable max-nested-callbacks */
 
 const chai = require('chai');
-const sinon = require('sinon');
-const requireNew = require('require-uncached');
 const chaiAsPromised = require('chai-as-promised');
+const requireNew = require('require-uncached');
+const sinon = require('sinon');
 
 chai.use(chaiAsPromised);
 
@@ -78,13 +78,10 @@ describe('Gitdown.Parser', () => {
 });
 
 describe('Parser.helpers', () => {
-  // eslint-disable-next-line global-require
   const glob = require('glob');
-  // eslint-disable-next-line global-require
   const path = require('path');
 
   glob.sync('./../src/helpers/*.js').forEach((helperName) => {
-    // eslint-disable-next-line global-require
     const helper = require(helperName);
 
     describe(path.basename(helperName, '.js'), () => {

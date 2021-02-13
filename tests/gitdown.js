@@ -3,8 +3,8 @@
 const fs = require('fs');
 const path = require('path');
 const expect = require('chai').expect;
-const requireNew = require('require-uncached');
 const nock = require('nock');
+const requireNew = require('require-uncached');
 const sinon = require('sinon');
 
 describe('Gitdown', () => {
