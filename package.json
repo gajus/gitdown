@@ -64,6 +64,9 @@
     "type": "git",
     "url": "https://github.com/gajus/gitdown"
   },
+  "engines": {
+    "node": ">=10"
+  },
   "scripts": {
     "build": "babel ./src --out-dir ./dist --copy-files",
     "create-readme": "babel-node ./src/bin/index.js ./.README/README.md --output-file ./README.md",
