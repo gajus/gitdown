@@ -67,8 +67,8 @@
   "scripts": {
     "build": "babel ./src --out-dir ./dist --copy-files",
     "create-readme": "babel-node ./src/bin/index.js ./.README/README.md --output-file ./README.md",
-    "test": "mocha \"./tests/**/*.js\" --require @babel/register"
     "lint": "eslint --report-unused-disable-directives ./src ./tests",
+    "test": "nyc mocha \"./tests/**/*.js\" --require @babel/register"
   },
   "version": "2.5.2"
 }
