@@ -39,6 +39,8 @@ Gitdown.read = (input) => {
       markdown = Gitdown.nestHeadingIds(markdown);
     }
 
+    markdown = Gitdown.prefixRelativeUrls(markdown);
+
     await gitdown.resolveURLs(markdown);
 
     return markdown.replace(/<!--\sgitdown:\s(:?off|on)\s-->/g, '');
@@ -258,6 +260,19 @@ Gitdown.readFile = (fileName) => {
   });
 
   return gitdown;
+};
+
+/**
+ * Prefixes "user-content-" to each Markdown internal link.
+ *
+ * @private
+ * @param {string} inputMarkdown
+ * @returns {string}
+ */
+Gitdown.prefixRelativeUrls = (inputMarkdown) => {
+  return inputMarkdown.replace(/\[(.*?)]\(#(.*?)\)/gm, (match, text, anchor) => {
+    return `[${text}](#user-content-${anchor})`;
+  });
 };
 
 /**
