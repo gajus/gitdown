@@ -321,7 +321,9 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
 
     // <code>test</code>
 
-    return '<a name="⊂⊂⊂H:' + articles.length + '⊃⊃⊃"></a>\n' + _.repeat('#', normalizedLevel) + ' ' + normalizedName;
+    return `<a name="user-content-⊂⊂⊂H:${articles.length}⊃⊃⊃"></a>
+<a name="⊂⊂⊂H:${articles.length}⊃⊃⊃"></a>
+${_.repeat('#', normalizedLevel)} ${normalizedName}`;
   });
 
   outputMarkdown = outputMarkdown.replace(/^⊂⊂⊂C:(\d+)⊃⊃⊃/gm, () => {
@@ -331,7 +333,7 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
   const tree = contents.nestIds(MarkdownContents.tree(articles));
 
   Gitdown.nestHeadingIds.iterateTree(tree, (index, article) => {
-    outputMarkdown = outputMarkdown.replace('⊂⊂⊂H:' + index + '⊃⊃⊃', article.id);
+    outputMarkdown = outputMarkdown.replace(new RegExp('⊂⊂⊂H:' + index + '⊃⊃⊃', 'g'), article.id);
   });
 
   return outputMarkdown;
