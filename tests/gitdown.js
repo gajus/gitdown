@@ -29,6 +29,12 @@ describe('Gitdown', () => {
     });
   });
 
+  describe('prefixRelativeUrls', () => {
+    it('replaces relative links', () => {
+      expect(Gitdown.prefixRelativeUrls('A [relative](#link) test')).to.equal('A [relative](#user-content-link) test');
+    });
+  });
+
   describe('.nestHeadingIds()', () => {
     it('replaces heading markup with HTML', () => {
       expect(
