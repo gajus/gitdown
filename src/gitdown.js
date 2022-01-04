@@ -8,9 +8,9 @@ const _ = require('lodash');
 const MarkdownContents = require('markdown-contents');
 const marked = require('marked');
 const StackTrace = require('stack-trace');
-const contents = require('./helpers/contents.js');
-const gitinfo = require('./helpers/gitinfo.js');
-const Parser = require('./parser.js');
+const contents = require('./helpers/contents');
+const gitinfo = require('./helpers/gitinfo');
+const Parser = require('./parser');
 
 /**
  * @param {string} input Gitdown flavored markdown.
