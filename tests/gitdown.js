@@ -29,12 +29,26 @@ describe('Gitdown', () => {
     });
   });
 
+  describe('prefixRelativeUrls', () => {
+    it('replaces relative links', () => {
+      expect(Gitdown.prefixRelativeUrls('A [relative](#link) test')).to.equal('A [relative](#user-content-link) test');
+    });
+  });
+
   describe('.nestHeadingIds()', () => {
     it('replaces heading markup with HTML', () => {
-      expect(Gitdown.nestHeadingIds('# Foo\n# Bar')).to.equal('<a name="foo"></a>\n# Foo\n<a name="bar"></a>\n# Bar');
+      expect(
+        Gitdown.nestHeadingIds('# Foo\n# Bar'),
+      ).to.equal(
+        '<a name="user-content-foo"></a>\n<a name="foo"></a>\n# Foo\n<a name="user-content-bar"></a>\n<a name="bar"></a>\n# Bar',
+      );
     });
     it('nests heading ids', () => {
-      expect(Gitdown.nestHeadingIds('# Foo\n## Bar')).to.equal('<a name="foo"></a>\n# Foo\n<a name="foo-bar"></a>\n## Bar');
+      expect(
+        Gitdown.nestHeadingIds('# Foo\n## Bar'),
+      ).to.equal(
+        '<a name="user-content-foo"></a>\n<a name="foo"></a>\n# Foo\n<a name="user-content-foo-bar"></a>\n<a name="foo-bar"></a>\n## Bar',
+      );
     });
   });
   describe('.nestHeadingIds.iterateTree()', () => {

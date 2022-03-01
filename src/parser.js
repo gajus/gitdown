@@ -2,7 +2,7 @@ const Path = require('path');
 const Promise = require('bluebird');
 const glob = require('glob');
 const _ = require('lodash');
-const Locator = require('./locator.js');
+const Locator = require('./locator');
 
 /**
  * Parser is responsible for matching all of the instances of the Gitdown JSON and invoking

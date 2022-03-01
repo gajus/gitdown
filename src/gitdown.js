@@ -8,9 +8,9 @@ const _ = require('lodash');
 const MarkdownContents = require('markdown-contents');
 const marked = require('marked');
 const StackTrace = require('stack-trace');
-const contents = require('./helpers/contents.js');
-const gitinfo = require('./helpers/gitinfo.js');
-const Parser = require('./parser.js');
+const contents = require('./helpers/contents');
+const gitinfo = require('./helpers/gitinfo');
+const Parser = require('./parser');
 
 /**
  * @param {string} input Gitdown flavored markdown.
@@ -38,6 +38,8 @@ Gitdown.read = (input) => {
     if (gitdown.getConfig().headingNesting.enabled) {
       markdown = Gitdown.nestHeadingIds(markdown);
     }
+
+    markdown = Gitdown.prefixRelativeUrls(markdown);
 
     await gitdown.resolveURLs(markdown);
 
@@ -261,6 +263,19 @@ Gitdown.readFile = (fileName) => {
 };
 
 /**
+ * Prefixes "user-content-" to each Markdown internal link.
+ *
+ * @private
+ * @param {string} inputMarkdown
+ * @returns {string}
+ */
+Gitdown.prefixRelativeUrls = (inputMarkdown) => {
+  return inputMarkdown.replace(/\[(.*?)]\(#(.*?)\)/gm, (match, text, anchor) => {
+    return `[${text}](#user-content-${anchor})`;
+  });
+};
+
+/**
  * Iterates through each heading in the document (defined using markdown)
  * and prefixes heading ID using parent heading ID.
  *
@@ -306,7 +321,9 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
 
     // <code>test</code>
 
-    return '<a name="⊂⊂⊂H:' + articles.length + '⊃⊃⊃"></a>\n' + _.repeat('#', normalizedLevel) + ' ' + normalizedName;
+    return `<a name="user-content-⊂⊂⊂H:${articles.length}⊃⊃⊃"></a>
+<a name="⊂⊂⊂H:${articles.length}⊃⊃⊃"></a>
+${_.repeat('#', normalizedLevel)} ${normalizedName}`;
   });
 
   outputMarkdown = outputMarkdown.replace(/^⊂⊂⊂C:(\d+)⊃⊃⊃/gm, () => {
@@ -316,7 +333,7 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
   const tree = contents.nestIds(MarkdownContents.tree(articles));
 
   Gitdown.nestHeadingIds.iterateTree(tree, (index, article) => {
-    outputMarkdown = outputMarkdown.replace('⊂⊂⊂H:' + index + '⊃⊃⊃', article.id);
+    outputMarkdown = outputMarkdown.replace(new RegExp('⊂⊂⊂H:' + index + '⊃⊃⊃', 'g'), article.id);
   });
 
   return outputMarkdown;
