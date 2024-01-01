@@ -14,8 +14,9 @@ const Parser = require('./parser');
 
 /**
  * @param {string} input Gitdown flavored markdown.
+ * @param {object} [gitInfo]
  */
-Gitdown.read = (input) => {
+Gitdown.read = (input, gitInfo) => {
   let instanceConfig;
   let instanceLogger;
 
@@ -218,7 +219,7 @@ Gitdown.read = (input) => {
       findDeadFragmentIdentifiers: false,
       findDeadURLs: false,
     },
-    gitinfo: {
+    gitinfo: gitInfo || {
       gitPath: gitdown.executionContext(),
     },
     headingNesting: {
@@ -248,15 +249,12 @@ Gitdown.readFile = (fileName) => {
     encoding: 'utf8',
   });
 
-  const gitdown = Gitdown.read(input);
-
   const directoryName = path.dirname(fileName);
-
+  const gitdown = Gitdown.read(input, {
+    gitPath: directoryName
+  });
   gitdown.setConfig({
-    baseDirectory: directoryName,
-    gitinfo: {
-      gitPath: directoryName,
-    },
+    baseDirectory: directoryName
   });
 
   return gitdown;
