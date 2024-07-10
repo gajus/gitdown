@@ -1,20 +1,22 @@
+import Promise from 'bluebird';
+import {
+  filesize as filesizer,
+} from 'filesize';
 import fs from 'fs';
 import zlib from 'zlib';
-import Promise from 'bluebird';
-import formatFileSize from 'filesize';
 
-const helper = {};
+const filesize = {};
 
-helper.compile = async (config = {}) => {
+filesize.compile = async (config = {}) => {
   config.gzip = config.gzip || false;
 
   if (!config.file) {
     throw new Error('config.file must be provided.');
   }
 
-  const fileSize = await helper.file(config.file, config.gzip);
+  const fileSize = await filesize.file(config.file, config.gzip);
 
-  return helper.format(fileSize);
+  return filesize.format(fileSize);
 };
 
 /**
@@ -25,7 +27,7 @@ helper.compile = async (config = {}) => {
  * @param {string} file
  * @param {boolean} gzip
  */
-helper.file = (file, gzip) => {
+filesize.file = (file, gzip) => {
   return new Promise((resolve, reject) => {
     if (!fs.existsSync(file)) {
       // eslint-disable-next-line no-console
@@ -68,10 +70,10 @@ helper.file = (file, gzip) => {
  * @private
  * @param {number} bytes
  */
-helper.format = (bytes) => {
-  return formatFileSize(bytes);
+filesize.format = (bytes) => {
+  return filesizer(bytes);
 };
 
-helper.weight = 10;
+filesize.weight = 10;
 
-export default helper;
+export default filesize;

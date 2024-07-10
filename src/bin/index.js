@@ -4,7 +4,9 @@ import fs from 'fs';
 import _ from 'lodash';
 import path from 'path';
 import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
+import {
+  hideBin,
+} from 'yargs/helpers';
 
 const argv = yargs(hideBin(process.argv))
   .usage('Usage: $0 <README.md> [options]')
@@ -77,6 +79,7 @@ const main = async () => {
   const resolvedInputFile = path.resolve(process.cwd(), inputFile);
   const resolvedOutputFile = path.resolve(process.cwd(), outputFile);
 
+  // eslint-disable-next-line import/no-useless-path-segments
   const Gitdown = (await import('../index.js')).default;
 
   const gitdown = await Gitdown.readFile(resolvedInputFile);
@@ -99,4 +102,4 @@ const main = async () => {
   gitdown.writeFile(resolvedOutputFile);
 };
 
-main();
+await main();

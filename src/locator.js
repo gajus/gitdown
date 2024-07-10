@@ -1,8 +1,10 @@
 import fs from 'fs';
 import Path from 'path';
-import { fileURLToPath } from 'url';
+import {
+  fileURLToPath,
+} from 'url';
 
-const __dirname = Path.dirname(fileURLToPath(import.meta.url));
+const theDirname = Path.dirname(fileURLToPath(import.meta.url));
 
 const Locator = {};
 
@@ -15,7 +17,7 @@ Locator.gitPath = () => {
   let dirname;
   let gitpath;
 
-  dirname = __dirname;
+  dirname = theDirname;
 
   do {
     if (fs.existsSync(dirname + '/.git')) {

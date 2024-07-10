@@ -1,18 +1,22 @@
-import fs from 'fs';
-import path from 'path';
+import contents from './helpers/contents.js';
+import gitinfo from './helpers/gitinfo.js';
+import Parser from './Parser.js';
 import Promise from 'bluebird';
 import Deadlink from 'deadlink';
+import fs from 'fs';
 import getUrls from 'get-urls';
 import _ from 'lodash';
 import MarkdownContents from 'markdown-contents';
-import marked from 'marked';
+import {
+  marked,
+} from 'marked';
+import path from 'path';
 import StackTrace from 'stack-trace';
-import contents from './helpers/contents.js';
-import gitinfo from './helpers/gitinfo.js';
-import Parser from './parser.js';
-import { fileURLToPath } from 'url';
+import {
+  fileURLToPath,
+} from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const Gitdown = {};
 
@@ -48,7 +52,7 @@ Gitdown.read = async (input, gitInfo) => {
 
     await gitdown.resolveURLs(markdown);
 
-    return markdown.replaceAll(/<!--\sgitdown:\s(:?off|on)\s-->/g, '');
+    return markdown.replaceAll(/<!--\sgitdown:\s(:?off|on)\s-->/gu, '');
   };
 
   /**
@@ -88,7 +92,7 @@ Gitdown.read = async (input, gitInfo) => {
     while (index++ < stackTraceLength) {
       const stackDirectory = path.dirname(stackTrace[index].getFileName());
 
-      if (__dirname !== stackDirectory) {
+      if (dirname !== stackDirectory) {
         return stackDirectory;
       }
     }
@@ -263,10 +267,10 @@ Gitdown.readFile = async (fileName) => {
 
   const directoryName = path.dirname(fileName);
   const gitdown = await Gitdown.read(input, {
-    gitPath: directoryName
+    gitPath: directoryName,
   });
   gitdown.setConfig({
-    baseDirectory: directoryName
+    baseDirectory: directoryName,
   });
 
   return gitdown;
@@ -280,7 +284,7 @@ Gitdown.readFile = async (fileName) => {
  * @returns {string}
  */
 Gitdown.prefixRelativeUrls = (inputMarkdown) => {
-  return inputMarkdown.replaceAll(/\[(.*?)]\(#(.*?)\)/gm, (match, text, anchor) => {
+  return inputMarkdown.replaceAll(/\[(.*?)\]\(#(.*?)\)/gum, (match, text, anchor) => {
     return `[${text}](#user-content-${anchor})`;
   });
 };
@@ -301,13 +305,13 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
 
   outputMarkdown = inputMarkdown;
 
-  outputMarkdown = outputMarkdown.replaceAll(/^```[\S\s]*?\n```/gm, (match) => {
+  outputMarkdown = outputMarkdown.replaceAll(/^```[\S\s]*?\n```/gum, (match) => {
     codeblocks.push(match);
 
     return '⊂⊂⊂C:' + codeblocks.length + '⊃⊃⊃';
   });
 
-  outputMarkdown = outputMarkdown.replaceAll(/^(#+)(.*$)/gm, (match, level, name) => {
+  outputMarkdown = outputMarkdown.replaceAll(/^(#+)(.*$)/gum, (match, level, name) => {
     let normalizedName;
 
     const normalizedLevel = level.length;
@@ -318,7 +322,7 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
       // `foo bar`
       // -foo-bar-
       // foo-bar
-      id: _.trim(normalizedName.toLowerCase().replaceAll(/\W+/g, '-'), '-'),
+      id: _.trim(normalizedName.toLowerCase().replaceAll(/\W+/gu, '-'), '-'),
       level: normalizedLevel,
       name: normalizedName,
     });
@@ -336,14 +340,14 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
 ${_.repeat('#', normalizedLevel)} ${normalizedName}`;
   });
 
-  outputMarkdown = outputMarkdown.replaceAll(/^⊂⊂⊂C:(\d+)⊃⊃⊃/gm, () => {
+  outputMarkdown = outputMarkdown.replaceAll(/^⊂⊂⊂C:(\d+)⊃⊃⊃/gum, () => {
     return codeblocks.shift();
   });
 
   const tree = contents.nestIds(MarkdownContents.tree(articles));
 
   Gitdown.nestHeadingIds.iterateTree(tree, (index, article) => {
-    outputMarkdown = outputMarkdown.replaceAll(new RegExp('⊂⊂⊂H:' + index + '⊃⊃⊃', 'g'), article.id);
+    outputMarkdown = outputMarkdown.replaceAll(new RegExp('⊂⊂⊂H:' + index + '⊃⊃⊃', 'gu'), article.id);
   });
 
   return outputMarkdown;

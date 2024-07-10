@@ -1,5 +1,10 @@
-import {expect} from 'chai';
-const importFresh = (moduleName) => import(`${moduleName}?${Date.now()}`);
+import {
+  expect,
+} from 'chai';
+
+const importFresh = (moduleName) => {
+  return import(`${moduleName}?${Date.now()}`);
+};
 
 describe('Parser.helpers.contents', () => {
   let helper;

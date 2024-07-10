@@ -1,12 +1,20 @@
+import {
+  expect,
+} from 'chai';
 import fs from 'fs';
-import path from 'path';
-import {expect} from 'chai';
 import nock from 'nock';
-import sinon from 'sinon';
-import { fileURLToPath } from 'url';
+import path from 'path';
+import {
+  spy,
+} from 'sinon';
+import {
+  fileURLToPath,
+} from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const importFresh = (moduleName) => import(`${moduleName}?${Date.now()}`);
+const dirname = path.dirname(fileURLToPath(import.meta.url));
+const importFresh = (moduleName) => {
+  return import(`${moduleName}?${Date.now()}`);
+};
 
 describe('Gitdown', () => {
   let Gitdown;
@@ -16,11 +24,11 @@ describe('Gitdown', () => {
   });
   describe('.readFile()', () => {
     it('calls Gitdown.read() using the contents of the file', async () => {
-      const gitdown = await Gitdown.readFile(path.resolve(__dirname, './fixtures/foo.txt'));
+      const gitdown = await Gitdown.readFile(path.resolve(dirname, './fixtures/foo.txt'));
 
       gitdown.setConfig({
         gitinfo: {
-          gitPath: path.resolve(__dirname, './dummy_git/'),
+          gitPath: path.resolve(dirname, './dummy_git/'),
         },
       });
 
@@ -99,7 +107,7 @@ describe('Gitdown.read()', () => {
   describe('.get()', () => {
     it('is using Parser to produce the response', async () => {
       const gitdown = await Gitdown.read('{"gitdown": "test"}', {
-        gitPath: path.resolve(__dirname, './dummy_git/'),
+        gitPath: path.resolve(dirname, './dummy_git/'),
       });
 
       const response = await gitdown.get();
@@ -108,7 +116,7 @@ describe('Gitdown.read()', () => {
     });
     it('removes all gitdown specific HTML comments', async () => {
       const gitdown = await Gitdown.read('a<!-- gitdown: on -->b<!-- gitdown: off -->c', {
-        gitPath: path.resolve(__dirname, './dummy_git/'),
+        gitPath: path.resolve(dirname, './dummy_git/'),
       });
 
       const response = await gitdown.get();
@@ -117,8 +125,8 @@ describe('Gitdown.read()', () => {
     });
     it('does not fail when HEAD is untracked', async () => {
       const gitdown = await Gitdown.read('{"gitdown": "gitinfo", "name": "name"}', {
-        gitPath: path.resolve(__dirname, './dummy_git_untracked_head/'),
         defaultBranchName: 'master',
+        gitPath: path.resolve(dirname, './dummy_git_untracked_head/'),
       });
 
       const response = await gitdown.get();
@@ -128,10 +136,10 @@ describe('Gitdown.read()', () => {
   });
   describe('.writeFile()', () => {
     it('writes the output of .get() to a file', async () => {
-      const fileName = path.resolve(__dirname, './fixtures/write.txt');
+      const fileName = path.resolve(dirname, './fixtures/write.txt');
       const randomString = String(Math.random());
       const gitdown = await Gitdown.read(randomString, {
-        gitPath: path.resolve(__dirname, './dummy_git/'),
+        gitPath: path.resolve(dirname, './dummy_git/'),
       });
 
       await gitdown.writeFile(fileName);
@@ -144,7 +152,7 @@ describe('Gitdown.read()', () => {
   describe('.registerHelper()', () => {
     it('throws an error if registering a helper using name of an existing helper', async () => {
       const gitdown = await Gitdown.read('', {
-        gitPath: path.resolve(__dirname, './dummy_git/'),
+        gitPath: path.resolve(dirname, './dummy_git/'),
       });
 
       expect(() => {
@@ -153,7 +161,7 @@ describe('Gitdown.read()', () => {
     });
     it('throws an error if registering a helper object without compile property', async () => {
       const gitdown = await Gitdown.read('', {
-        gitPath: path.resolve(__dirname, './dummy_git/'),
+        gitPath: path.resolve(dirname, './dummy_git/'),
       });
 
       expect(() => {
@@ -162,7 +170,7 @@ describe('Gitdown.read()', () => {
     });
     it('registers a new helper', async () => {
       const gitdown = await Gitdown.read('{"gitdown": "new-helper", "testProp": "foo"}', {
-        gitPath: path.resolve(__dirname, './dummy_git/'),
+        gitPath: path.resolve(dirname, './dummy_git/'),
       });
 
       gitdown.registerHelper('new-helper', {
@@ -186,7 +194,7 @@ describe('Gitdown.read()', () => {
           findDeadURLs: false,
         },
         gitinfo: {
-          gitPath: __dirname,
+          gitPath: dirname,
         },
         headingNesting: {
           enabled: true,
@@ -217,7 +225,7 @@ describe('Gitdown.read()', () => {
 
     beforeEach(async () => {
       gitdown = await Gitdown.read('http://foo.com/ http://foo.com/#ok http://bar.com/ http://bar.com/#not-ok', {
-        gitPath: path.resolve(__dirname, './dummy_git/'),
+        gitPath: path.resolve(dirname, './dummy_git/'),
       });
 
       logger = {
@@ -265,7 +273,7 @@ describe('Gitdown.read()', () => {
       expect(nocks.foo.isDone()).to.equal(true);
     });
     it('logs successful URL resolution using logger.info', async () => {
-      const spy = sinon.spy(logger, 'info');
+      const spyValue = spy(logger, 'info');
 
       gitdown.setConfig({
         deadlink: {
@@ -276,10 +284,10 @@ describe('Gitdown.read()', () => {
 
       await gitdown.get();
 
-      expect(spy.calledWith('Resolved URL:', 'http://foo.com/')).to.equal(true);
+      expect(spyValue.calledWith('Resolved URL:', 'http://foo.com/')).to.equal(true);
     });
     it('logs successful URL and fragment identifier resolution using logger.info', async () => {
-      const spy = sinon.spy(logger, 'info');
+      const spyValue = spy(logger, 'info');
 
       gitdown.setConfig({
         deadlink: {
@@ -290,10 +298,10 @@ describe('Gitdown.read()', () => {
 
       await gitdown.get();
 
-      expect(spy.calledWith('Resolved fragment identifier:', 'http://foo.com/#ok')).to.equal(true);
+      expect(spyValue.calledWith('Resolved fragment identifier:', 'http://foo.com/#ok')).to.equal(true);
     });
     it('logs unsuccessful URL resolution using logger.warn', async () => {
-      const spy = sinon.spy(logger, 'warn');
+      const spyValue = spy(logger, 'warn');
 
       gitdown.setConfig({
         deadlink: {
@@ -304,10 +312,10 @@ describe('Gitdown.read()', () => {
 
       await gitdown.get();
 
-      expect(spy.calledWith('Unresolved URL:', 'http://bar.com/')).to.equal(true);
+      expect(spyValue.calledWith('Unresolved URL:', 'http://bar.com/')).to.equal(true);
     });
     it('logs unsuccessful fragment identifier resolution using logger.warn', async () => {
-      const spy = sinon.spy(logger, 'warn');
+      const spyValue = spy(logger, 'warn');
 
       gitdown.setConfig({
         deadlink: {
@@ -318,7 +326,7 @@ describe('Gitdown.read()', () => {
 
       await gitdown.get();
 
-      expect(spy.calledWith('Unresolved fragment identifier:', 'http://bar.com/#not-ok')).to.equal(true);
+      expect(spyValue.calledWith('Unresolved fragment identifier:', 'http://bar.com/#not-ok')).to.equal(true);
     });
   });
 });

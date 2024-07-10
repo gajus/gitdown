@@ -1,13 +1,18 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-
 import * as chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import sinon from 'sinon';
+import Path from 'path';
+import {
+  spy,
+} from 'sinon';
+import {
+  fileURLToPath,
+} from 'url';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const dirname = Path.dirname(fileURLToPath(import.meta.url));
 
-const importFresh = (moduleName) => import(`${moduleName}?${Date.now()}`);
+const importFresh = (moduleName) => {
+  return import(`${moduleName}?${Date.now()}`);
+};
 
 chai.use(chaiAsPromised);
 
@@ -16,15 +21,15 @@ const expect = chai.expect;
 describe('Gitdown.Parser', () => {
   let Parser;
   let parser;
-  let spy;
+  let spyValue;
 
   beforeEach(async () => {
     Parser = (await importFresh('./../src/index.js')).default.Parser;
     parser = await Parser();
   });
   afterEach(() => {
-    if (spy) {
-      spy.restore();
+    if (spyValue) {
+      spyValue.restore();
     }
   });
   it('returns the input content', async () => {
@@ -53,11 +58,11 @@ describe('Gitdown.Parser', () => {
     return expect(statePromise).to.be.rejectedWith(Error, 'Invalid Gitdown JSON ("{"gitdown": invalid}").');
   });
   it('invokes a helper function with the markdown', async () => {
-    spy = sinon.spy(parser.helpers().test, 'compile');
+    spyValue = spy(parser.helpers().test, 'compile');
 
     await parser.play('{"gitdown": "test", "foo": "bar"}');
 
-    expect(spy.calledWith({
+    expect(spyValue.calledWith({
       foo: 'bar',
     })).to.be.equal(true);
   });
@@ -70,7 +75,7 @@ describe('Gitdown.Parser', () => {
     parser = await Parser({
       getConfig: () => {
         return {
-          baseDirectory: __dirname,
+          baseDirectory: dirname,
         };
       },
     });

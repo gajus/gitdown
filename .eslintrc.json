@@ -4,11 +4,16 @@
     "sourceType": "module",
     "requireConfigFile": false
   },
+  "env": {
+    "node": true
+  },
   "rules": {
+    "default-param-last": 0,
     "filenames/match-exported": 0,
     "import/no-commonjs": 0,
     "import/no-dynamic-require": 0,
     "import/unambiguous": 0,
+    "import/extensions": 0,
     "no-use-extend-native/no-use-extend-native": 0
   }
 }

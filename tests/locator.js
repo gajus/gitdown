@@ -1,10 +1,16 @@
+import {
+  expect,
+} from 'chai';
 import fs from 'fs';
 import Path from 'path';
-import {expect} from 'chai';
-import { fileURLToPath } from 'url';
+import {
+  fileURLToPath,
+} from 'url';
 
-const __dirname = Path.dirname(fileURLToPath(import.meta.url));
-const importFresh = (moduleName) => import(`${moduleName}?${Date.now()}`);
+const dirname = Path.dirname(fileURLToPath(import.meta.url));
+const importFresh = (moduleName) => {
+  return import(`${moduleName}?${Date.now()}`);
+};
 
 xdescribe('Locator', () => {
   let Locator;
@@ -14,7 +20,7 @@ xdescribe('Locator', () => {
   });
   describe('.gitPath()', () => {
     it('returns absolute path to the .git/ directory', () => {
-      expect(Locator.gitPath()).to.equal(fs.realpathSync(Path.resolve(__dirname, './../.git')));
+      expect(Locator.gitPath()).to.equal(fs.realpathSync(Path.resolve(dirname, './../.git')));
     });
   });
   describe('.repositoryPath()', () => {

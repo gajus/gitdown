@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const helper = {};
+const include = {};
 
 /**
  * @typedef config
@@ -12,7 +12,7 @@ const helper = {};
  * @param {config} config
  * @param {object} context
  */
-helper.compile = (config = {}, context) => {
+include.compile = (config = {}, context) => {
   if (!config.file) {
     throw new Error('config.file must be provided.');
   }
@@ -31,6 +31,6 @@ helper.compile = (config = {}, context) => {
   });
 };
 
-helper.weight = 20;
+include.weight = 20;
 
-export default helper;
+export default include;

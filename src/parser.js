@@ -1,12 +1,16 @@
-import { fileURLToPath } from 'url';
-
-import Path from 'path';
+/* eslint-disable canonical/no-use-extend-native */
+import Locator from './Locator.js';
 import Promise from 'bluebird';
-import glob from 'glob';
+import {
+  glob,
+} from 'glob';
 import _ from 'lodash';
-import Locator from './locator.js';
+import Path from 'path';
+import {
+  fileURLToPath,
+} from 'url';
 
-const __dirname = Path.dirname(fileURLToPath(import.meta.url));
+const dirname = Path.dirname(fileURLToPath(import.meta.url));
 
 /**
  * Parser is responsible for matching all of the instances of the Gitdown JSON and invoking
@@ -76,13 +80,13 @@ const Parser = async (gitdown) => {
     // console.log('markdown (before)', markdown);
 
     // /[\s\S]/ is an equivalent of /./m
-    outputMarkdown = outputMarkdown.replaceAll(/<!--\sgitdown:\soff\s-->[\S\s]*?(?:$|<!--\sgitdown:\son\s-->)/g, (match) => {
+    outputMarkdown = outputMarkdown.replaceAll(/<!--\sgitdown:\soff\s-->[\S\s]*?(?:$|<!--\sgitdown:\son\s-->)/gu, (match) => {
       ignoreSection.push(match);
 
       return '⊂⊂I:' + ignoreSection.length + '⊃⊃';
     });
 
-    outputMarkdown = outputMarkdown.replaceAll(/({"gitdown"[^}]+})/g, (match) => {
+    outputMarkdown = outputMarkdown.replaceAll(/(\{"gitdown"[^}]+\})/gu, (match) => {
       let command;
 
       try {
@@ -96,7 +100,6 @@ const Parser = async (gitdown) => {
         ...command,
       };
 
-      // eslint-disable-next-line fp/no-delete
       delete config.gitdown;
 
       bindingIndex++;
@@ -116,7 +119,7 @@ const Parser = async (gitdown) => {
       return '⊂⊂C:' + bindingIndex + '⊃⊃';
     });
 
-    outputMarkdown = outputMarkdown.replaceAll(/⊂⊂I:(\d+)⊃⊃/g, (match, p1) => {
+    outputMarkdown = outputMarkdown.replaceAll(/⊂⊂I:(\d+)⊃⊃/gu, (match, p1) => {
       return ignoreSection[Number.parseInt(p1, 10) - 1];
     });
 
@@ -175,13 +178,15 @@ const Parser = async (gitdown) => {
     return state;
   };
 
+  /* eslint-disable require-atomic-updates -- Safe */
   /**
    * Load in-built helpers.
    *
    * @private
    */
   parser.loadHelpers = async () => {
-    for (const helper of glob.sync(Path.resolve(__dirname, './helpers/*.js'))) {
+    /* eslint-enable require-atomic-updates -- Safe */
+    for (const helper of glob.sync(Path.resolve(dirname, './helpers/*.js'))) {
       parser.registerHelper(Path.basename(helper, '.js'), (await import(helper)).default);
     }
   };

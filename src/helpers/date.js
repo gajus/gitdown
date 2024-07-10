@@ -1,12 +1,12 @@
 import moment from 'moment';
 
-const helper = {};
-helper.compile = (config = {}) => {
+const date = {};
+date.compile = (config = {}) => {
   config.format = config.format || 'X';
 
   return moment().format(config.format);
 };
 
-helper.weight = 10;
+date.weight = 10;
 
-export default helper;
+export default date;

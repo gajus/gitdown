@@ -529,8 +529,8 @@ Returns file size formatted in human friendly format.
 Generates:
 
 ```markdown
-9.01 KB
-2.7 KB
+9.24 kB
+2.76 kB
 
 ```
 

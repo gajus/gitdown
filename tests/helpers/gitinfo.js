@@ -1,10 +1,16 @@
-import {expect} from 'chai';
-import { fileURLToPath } from 'url';
+import {
+  expect,
+} from 'chai';
 import Path from 'path';
+import {
+  fileURLToPath,
+} from 'url';
 
-const __dirname = Path.dirname(fileURLToPath(import.meta.url));
+const dirname = Path.dirname(fileURLToPath(import.meta.url));
 
-const importFresh = (moduleName) => import(`${moduleName}?${Date.now()}`);
+const importFresh = (moduleName) => {
+  return import(`${moduleName}?${Date.now()}`);
+};
 
 describe('Parser.helpers.gitinfo', () => {
   let context;
@@ -17,7 +23,7 @@ describe('Parser.helpers.gitinfo', () => {
         getConfig: () => {
           return {
             gitinfo: {
-              gitPath: __dirname,
+              gitPath: dirname,
             },
           };
         },

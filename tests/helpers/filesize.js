@@ -1,12 +1,18 @@
-import Path from 'path';
 import * as chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import { fileURLToPath } from 'url';
+import Path from 'path';
+import {
+  fileURLToPath,
+} from 'url';
 
-const __dirname = Path.dirname(fileURLToPath(import.meta.url));
-const importFresh = (moduleName) => import(`${moduleName}?${Date.now()}`);
+const dirname = Path.dirname(fileURLToPath(import.meta.url));
+const importFresh = (moduleName) => {
+  return import(`${moduleName}?${Date.now()}`);
+};
 
-const {expect} = chai;
+const {
+  expect,
+} = chai;
 
 chai.use(chaiAsPromised);
 
@@ -31,44 +37,44 @@ describe('Parser.helpers.filesize', () => {
 
   it('returns formatted file size', () => {
     const result = helper.compile({
-      file: Path.resolve(__dirname, './../fixtures/filesize.txt'),
+      file: Path.resolve(dirname, './../fixtures/filesize.txt'),
     });
 
     return expect(result).to.eventually.equal('191 B');
   });
   it('returns gziped formatted file size', () => {
     const result = helper.compile({
-      file: Path.resolve(__dirname, './../fixtures/filesize.txt'),
+      file: Path.resolve(dirname, './../fixtures/filesize.txt'),
       gzip: true,
     });
 
-    return expect(result).to.eventually.equal('148 B');
+    return expect(result).to.eventually.equal('145 B');
   });
 
   describe('.file(filename)', () => {
     it('throws an error if file is not found', () => {
-      const result = helper.file(Path.resolve(__dirname, './does-not-exist'));
+      const result = helper.file(Path.resolve(dirname, './does-not-exist'));
 
       return expect(result).rejectedWith(Error, 'Input file does not exist.');
     });
     it('returns the file size in bytes', () => {
-      const result = helper.file(Path.resolve(__dirname, './../fixtures/filesize.txt'));
+      const result = helper.file(Path.resolve(dirname, './../fixtures/filesize.txt'));
 
       return expect(result).eventually.equal(191);
     });
   });
   describe('.file(filename, true)', () => {
     it('returns gziped file size in bytes', () => {
-      const result = helper.file(Path.resolve(__dirname, './../fixtures/filesize.txt'), true);
+      const result = helper.file(Path.resolve(dirname, './../fixtures/filesize.txt'), true);
 
-      return expect(result).eventually.equal(148);
+      return expect(result).eventually.equal(145);
     });
   });
   describe('.format(size)', () => {
     it('returns file size as a human readable string', () => {
       const result = helper.format(1_024);
 
-      expect(result).to.equal('1 KB');
+      expect(result).to.equal('1.02 kB');
     });
   });
 });

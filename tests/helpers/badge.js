@@ -1,9 +1,15 @@
+import {
+  expect,
+} from 'chai';
 import Path from 'path';
-import {expect} from 'chai';
-import { fileURLToPath } from 'url';
+import {
+  fileURLToPath,
+} from 'url';
 
-const __dirname = Path.dirname(fileURLToPath(import.meta.url));
-const importFresh = (moduleName) => import(`${moduleName}?${Date.now()}`);
+const dirname = Path.dirname(fileURLToPath(import.meta.url));
+const importFresh = (moduleName) => {
+  return import(`${moduleName}?${Date.now()}`);
+};
 
 describe('Parser.helpers.badge', () => {
   let gitinfoContext;
@@ -51,7 +57,7 @@ describe('Parser.helpers.badge', () => {
         const context = {
           locator: {
             repositoryPath: () => {
-              return __dirname;
+              return dirname;
             },
           },
         };
@@ -66,7 +72,7 @@ describe('Parser.helpers.badge', () => {
         const context = {
           locator: {
             repositoryPath: () => {
-              return Path.resolve(__dirname, './../fixtures/badge');
+              return Path.resolve(dirname, './../fixtures/badge');
             },
           },
         };
@@ -83,7 +89,7 @@ describe('Parser.helpers.badge', () => {
         const context = {
           locator: {
             repositoryPath: () => {
-              return __dirname;
+              return dirname;
             },
           },
         };
@@ -98,7 +104,7 @@ describe('Parser.helpers.badge', () => {
         const context = {
           locator: {
             repositoryPath: () => {
-              return Path.resolve(__dirname, './../fixtures/badge');
+              return Path.resolve(dirname, './../fixtures/badge');
             },
           },
         };

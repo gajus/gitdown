@@ -1,9 +1,15 @@
+import {
+  expect,
+} from 'chai';
 import path from 'path';
-import {expect} from 'chai';
-import { fileURLToPath } from 'url';
+import {
+  fileURLToPath,
+} from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const importFresh = (moduleName) => import(`${moduleName}?${Date.now()}`);
+const dirname = path.dirname(fileURLToPath(import.meta.url));
+const importFresh = (moduleName) => {
+  return import(`${moduleName}?${Date.now()}`);
+};
 
 describe('Parser.helpers.include', () => {
   let helper;
@@ -21,7 +27,7 @@ describe('Parser.helpers.include', () => {
       gitdown: {
         getConfig: () => {
           return {
-            baseDirectory: __dirname,
+            baseDirectory: dirname,
           };
         },
       },
@@ -29,7 +35,7 @@ describe('Parser.helpers.include', () => {
 
     expect(() => {
       helper.compile({
-        file: path.join(__dirname, './does-not-exist'),
+        file: path.join(dirname, './does-not-exist'),
       }, context);
     }).to.throw(Error, 'Input file does not exist.');
   });

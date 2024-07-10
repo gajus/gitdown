@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
-const helper = {};
-helper.compile = _.constant('test');
+const test = {};
+test.compile = _.constant('test');
 
-helper.weight = 10;
+test.weight = 10;
 
-export default helper;
+export default test;
