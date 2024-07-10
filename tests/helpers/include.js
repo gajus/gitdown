@@ -1,12 +1,15 @@
-const path = require('path');
-const expect = require('chai').expect;
-const requireNew = require('require-uncached');
+import path from 'path';
+import {expect} from 'chai';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const importFresh = (moduleName) => import(`${moduleName}?${Date.now()}`);
 
 describe('Parser.helpers.include', () => {
   let helper;
 
-  beforeEach(() => {
-    helper = requireNew('./../../src/helpers/include.js');
+  beforeEach(async () => {
+    helper = (await importFresh('./../../src/helpers/include.js')).default;
   });
   it('is rejected with an error when config.file is not provided', () => {
     expect(() => {

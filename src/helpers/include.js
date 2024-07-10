@@ -1,6 +1,7 @@
+import fs from 'fs';
+import path from 'path';
+
 const helper = {};
-const fs = require('fs');
-const path = require('path');
 
 /**
  * @typedef config
@@ -32,4 +33,4 @@ helper.compile = (config = {}, context) => {
 
 helper.weight = 20;
 
-module.exports = helper;
+export default helper;

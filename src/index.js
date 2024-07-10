@@ -1,5 +1,6 @@
-const Gitdown = require('./gitdown');
+import Gitdown from './gitdown.js';
+import Parser from './parser.js';
 
-Gitdown.Parser = require('./parser');
+Gitdown.Parser = Parser;
 
-module.exports = Gitdown;
+export default Gitdown;

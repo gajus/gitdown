@@ -1,8 +1,12 @@
-const Path = require('path');
-const Promise = require('bluebird');
-const glob = require('glob');
-const _ = require('lodash');
-const Locator = require('./locator');
+import { fileURLToPath } from 'url';
+
+import Path from 'path';
+import Promise from 'bluebird';
+import glob from 'glob';
+import _ from 'lodash';
+import Locator from './locator.js';
+
+const __dirname = Path.dirname(fileURLToPath(import.meta.url));
 
 /**
  * Parser is responsible for matching all of the instances of the Gitdown JSON and invoking
@@ -16,7 +20,7 @@ const Locator = require('./locator');
  * @param {Gitdown} gitdown
  * @returns {Parser}
  */
-const Parser = (gitdown) => {
+const Parser = async (gitdown) => {
   let bindingIndex;
 
   bindingIndex = 0;
@@ -72,13 +76,13 @@ const Parser = (gitdown) => {
     // console.log('markdown (before)', markdown);
 
     // /[\s\S]/ is an equivalent of /./m
-    outputMarkdown = outputMarkdown.replace(/<!--\sgitdown:\soff\s-->[\S\s]*?(?:$|<!--\sgitdown:\son\s-->)/g, (match) => {
+    outputMarkdown = outputMarkdown.replaceAll(/<!--\sgitdown:\soff\s-->[\S\s]*?(?:$|<!--\sgitdown:\son\s-->)/g, (match) => {
       ignoreSection.push(match);
 
       return '⊂⊂I:' + ignoreSection.length + '⊃⊃';
     });
 
-    outputMarkdown = outputMarkdown.replace(/({"gitdown"[^}]+})/g, (match) => {
+    outputMarkdown = outputMarkdown.replaceAll(/({"gitdown"[^}]+})/g, (match) => {
       let command;
 
       try {
@@ -112,7 +116,7 @@ const Parser = (gitdown) => {
       return '⊂⊂C:' + bindingIndex + '⊃⊃';
     });
 
-    outputMarkdown = outputMarkdown.replace(/⊂⊂I:(\d+)⊃⊃/g, (match, p1) => {
+    outputMarkdown = outputMarkdown.replaceAll(/⊂⊂I:(\d+)⊃⊃/g, (match, p1) => {
       return ignoreSection[Number.parseInt(p1, 10) - 1];
     });
 
@@ -137,7 +141,7 @@ const Parser = (gitdown) => {
     if (!notExecutedCommands.length) {
       state.done = true;
 
-      return Promise.resolve(state);
+      return state;
     }
 
     // Find the lowest weight among all of the not executed commands.
@@ -176,10 +180,10 @@ const Parser = (gitdown) => {
    *
    * @private
    */
-  parser.loadHelpers = () => {
-    glob.sync(Path.resolve(__dirname, './helpers/*.js')).forEach((helper) => {
-      parser.registerHelper(Path.basename(helper, '.js'), require(helper));
-    });
+  parser.loadHelpers = async () => {
+    for (const helper of glob.sync(Path.resolve(__dirname, './helpers/*.js'))) {
+      parser.registerHelper(Path.basename(helper, '.js'), (await import(helper)).default);
+    }
   };
 
   /**
@@ -209,9 +213,9 @@ const Parser = (gitdown) => {
     return helpers;
   };
 
-  parser.loadHelpers();
+  await parser.loadHelpers();
 
   return parser;
 };
 
-module.exports = Parser;
+export default Parser;

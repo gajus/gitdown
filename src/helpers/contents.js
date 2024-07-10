@@ -1,6 +1,6 @@
-const helper = {};
-const MarkdownContents = require('markdown-contents');
+import MarkdownContents from 'markdown-contents';
 
+const helper = {};
 helper.compile = (config = {}, context) => {
   let tree;
 
@@ -71,17 +71,19 @@ helper.findRoot = (tree, rootId, notFirst) => {
  * @private
  */
 helper.nestIds = (tree, parentIds = []) => {
-  tree.forEach((article) => {
-    const ids = parentIds.concat([article.id]);
+  for (const article of tree) {
+    const ids = parentIds.concat([
+      article.id,
+    ]);
 
     article.id = ids.join('-');
 
     helper.nestIds(article.descendants, ids);
-  });
+  }
 
   return tree;
 };
 
 helper.weight = 100;
 
-module.exports = helper;
+export default helper;

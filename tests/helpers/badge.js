@@ -1,13 +1,16 @@
-const Path = require('path');
-const expect = require('chai').expect;
-const requireNew = require('require-uncached');
+import Path from 'path';
+import {expect} from 'chai';
+import { fileURLToPath } from 'url';
+
+const __dirname = Path.dirname(fileURLToPath(import.meta.url));
+const importFresh = (moduleName) => import(`${moduleName}?${Date.now()}`);
 
 describe('Parser.helpers.badge', () => {
   let gitinfoContext;
   let helper;
 
-  beforeEach(() => {
-    helper = requireNew('../../src/helpers/badge.js');
+  beforeEach(async () => {
+    helper = (await importFresh('../../src/helpers/badge.js')).default;
     gitinfoContext = {
       parser: {
         helpers: () => {
@@ -37,7 +40,9 @@ describe('Parser.helpers.badge', () => {
   });
   it('throws an error if unknown config.name is provided', () => {
     expect(() => {
-      helper.compile({name: 'foo'});
+      helper.compile({
+        name: 'foo',
+      });
     }).to.throw(Error, 'config.name "foo" is unknown service.');
   });
   describe('services', () => {
@@ -52,7 +57,9 @@ describe('Parser.helpers.badge', () => {
         };
 
         expect(() => {
-          helper.compile({name: 'npm-version'}, context);
+          helper.compile({
+            name: 'npm-version',
+          }, context);
         }).to.throw(Error, './package.json is not found.');
       });
       it('returns markdown for the NPM badge', () => {
@@ -64,7 +71,9 @@ describe('Parser.helpers.badge', () => {
           },
         };
 
-        const badge = helper.compile({name: 'npm-version'}, context);
+        const badge = helper.compile({
+          name: 'npm-version',
+        }, context);
 
         expect(badge).to.equal('[![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat-square)](https://www.npmjs.org/package/gitdown)');
       });
@@ -80,7 +89,9 @@ describe('Parser.helpers.badge', () => {
         };
 
         expect(() => {
-          helper.compile({name: 'bower-version'}, context);
+          helper.compile({
+            name: 'bower-version',
+          }, context);
         }).to.throw(Error, './bower.json is not found.');
       });
       it('returns markdown for the Bower badge', () => {
@@ -92,35 +103,45 @@ describe('Parser.helpers.badge', () => {
           },
         };
 
-        const badge = helper.compile({name: 'bower-version'}, context);
+        const badge = helper.compile({
+          name: 'bower-version',
+        }, context);
 
         expect(badge).to.equal('[![Bower version](http://img.shields.io/bower/v/gitdown.svg?style=flat-square)](http://bower.io/search/?q=gitdown)');
       });
     });
     describe('coveralls', () => {
       it('returns markdown for the coveralls badge', () => {
-        const badge = helper.compile({name: 'coveralls'}, gitinfoContext);
+        const badge = helper.compile({
+          name: 'coveralls',
+        }, gitinfoContext);
 
         expect(badge).to.equal('[![Coverage Status](https://img.shields.io/coveralls/a/b/c.svg?style=flat-square)](https://coveralls.io/r/a/b?branch=c)');
       });
     });
     describe('gitter', () => {
       it('returns markdown for the gitter badge', () => {
-        const badge = helper.compile({name: 'gitter'}, gitinfoContext);
+        const badge = helper.compile({
+          name: 'gitter',
+        }, gitinfoContext);
 
         expect(badge).to.equal('[![Gitter chat](https://img.shields.io/gitter/room/a/b.svg?style=flat-square)](https://gitter.im/a/b)');
       });
     });
     describe('david', () => {
       it('returns markdown for the david badge', () => {
-        const badge = helper.compile({name: 'david'}, gitinfoContext);
+        const badge = helper.compile({
+          name: 'david',
+        }, gitinfoContext);
 
         expect(badge).to.equal('[![Dependency Status](https://img.shields.io/david/a/b.svg?style=flat-square)](https://david-dm.org/a/b)');
       });
     });
     describe('david-dev', () => {
       it('returns markdown for the david badge', () => {
-        const badge = helper.compile({name: 'david-dev'}, gitinfoContext);
+        const badge = helper.compile({
+          name: 'david-dev',
+        }, gitinfoContext);
 
         expect(badge).to.equal(
           '[![Development Dependency Status](' +
@@ -131,14 +152,18 @@ describe('Parser.helpers.badge', () => {
     });
     describe('travis', () => {
       it('returns markdown for the travis badge', () => {
-        const badge = helper.compile({name: 'travis'}, gitinfoContext);
+        const badge = helper.compile({
+          name: 'travis',
+        }, gitinfoContext);
 
         expect(badge).to.equal('[![Travis build status](http://img.shields.io/travis/a/b/c.svg?style=flat-square)](https://travis-ci.org/a/b)');
       });
     });
     describe('waffle', () => {
       it('returns markdown for the waffle badge', () => {
-        const badge = helper.compile({name: 'waffle'}, gitinfoContext);
+        const badge = helper.compile({
+          name: 'waffle',
+        }, gitinfoContext);
 
         expect(badge).to.equal('[![Stories in Ready](https://badge.waffle.io/a/b.svg?label=ready&title=Ready)](https://waffle.io/a/b)');
       });
@@ -146,7 +171,9 @@ describe('Parser.helpers.badge', () => {
 
     describe('codeclimate', () => {
       it('returns markdown for the codeclimate gpa badge', () => {
-        const badge = helper.compile({name: 'codeclimate-gpa'}, gitinfoContext);
+        const badge = helper.compile({
+          name: 'codeclimate-gpa',
+        }, gitinfoContext);
 
         expect(badge).to.equal(
           '[![Code Climate GPA]' +
@@ -155,7 +182,9 @@ describe('Parser.helpers.badge', () => {
         );
       });
       it('returns markdown for the codeclimate coverage badge', () => {
-        const badge = helper.compile({name: 'codeclimate-coverage'}, gitinfoContext);
+        const badge = helper.compile({
+          name: 'codeclimate-coverage',
+        }, gitinfoContext);
 
         expect(badge).to.equal(
           '[![Code Climate Coverage](' +
@@ -167,7 +196,9 @@ describe('Parser.helpers.badge', () => {
 
     describe('appveyor', () => {
       it('returns markdown for the AppVeyor badge', () => {
-        const badge = helper.compile({name: 'appveyor'}, gitinfoContext);
+        const badge = helper.compile({
+          name: 'appveyor',
+        }, gitinfoContext);
 
         expect(badge).to.equal(
           '[![AppVeyor build status](' +

@@ -1,21 +1,22 @@
-/* eslint-disable max-nested-callbacks */
+import fs from 'fs';
+import path from 'path';
+import {expect} from 'chai';
+import nock from 'nock';
+import sinon from 'sinon';
+import { fileURLToPath } from 'url';
 
-const fs = require('fs');
-const path = require('path');
-const expect = require('chai').expect;
-const nock = require('nock');
-const requireNew = require('require-uncached');
-const sinon = require('sinon');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const importFresh = (moduleName) => import(`${moduleName}?${Date.now()}`);
 
 describe('Gitdown', () => {
   let Gitdown;
 
-  beforeEach(() => {
-    Gitdown = requireNew('../src/');
+  beforeEach(async () => {
+    Gitdown = (await importFresh('../src/index.js')).default;
   });
   describe('.readFile()', () => {
     it('calls Gitdown.read() using the contents of the file', async () => {
-      const gitdown = Gitdown.readFile(path.resolve(__dirname, './fixtures/foo.txt'));
+      const gitdown = await Gitdown.readFile(path.resolve(__dirname, './fixtures/foo.txt'));
 
       gitdown.setConfig({
         gitinfo: {
@@ -92,17 +93,13 @@ describe('Gitdown', () => {
 describe('Gitdown.read()', () => {
   let Gitdown;
 
-  beforeEach(() => {
-    Gitdown = requireNew('../src/');
+  beforeEach(async () => {
+    Gitdown = (await importFresh('../src/index.js')).default;
   });
   describe('.get()', () => {
     it('is using Parser to produce the response', async () => {
-      const gitdown = Gitdown.read('{"gitdown": "test"}');
-
-      gitdown.setConfig({
-        gitinfo: {
-          gitPath: path.resolve(__dirname, './dummy_git/'),
-        },
+      const gitdown = await Gitdown.read('{"gitdown": "test"}', {
+        gitPath: path.resolve(__dirname, './dummy_git/'),
       });
 
       const response = await gitdown.get();
@@ -110,12 +107,8 @@ describe('Gitdown.read()', () => {
       expect(response).to.equal('test');
     });
     it('removes all gitdown specific HTML comments', async () => {
-      const gitdown = Gitdown.read('a<!-- gitdown: on -->b<!-- gitdown: off -->c');
-
-      gitdown.setConfig({
-        gitinfo: {
-          gitPath: path.resolve(__dirname, './dummy_git/'),
-        },
+      const gitdown = await Gitdown.read('a<!-- gitdown: on -->b<!-- gitdown: off -->c', {
+        gitPath: path.resolve(__dirname, './dummy_git/'),
       });
 
       const response = await gitdown.get();
@@ -123,13 +116,9 @@ describe('Gitdown.read()', () => {
       expect(response).to.equal('abc');
     });
     it('does not fail when HEAD is untracked', async () => {
-      const gitdown = Gitdown.read('{"gitdown": "gitinfo", "name": "name"}');
-
-      gitdown.setConfig({
-        gitinfo: {
-          defaultBranchName: 'master',
-          gitPath: path.resolve(__dirname, './dummy_git_untracked_head/'),
-        },
+      const gitdown = await Gitdown.read('{"gitdown": "gitinfo", "name": "name"}', {
+        gitPath: path.resolve(__dirname, './dummy_git_untracked_head/'),
+        defaultBranchName: 'master',
       });
 
       const response = await gitdown.get();
@@ -141,42 +130,41 @@ describe('Gitdown.read()', () => {
     it('writes the output of .get() to a file', async () => {
       const fileName = path.resolve(__dirname, './fixtures/write.txt');
       const randomString = String(Math.random());
-      const gitdown = Gitdown.read(randomString);
-
-      gitdown.setConfig({
-        gitinfo: {
-          gitPath: path.resolve(__dirname, './dummy_git/'),
-        },
+      const gitdown = await Gitdown.read(randomString, {
+        gitPath: path.resolve(__dirname, './dummy_git/'),
       });
 
       await gitdown.writeFile(fileName);
 
-      expect(fs.readFileSync(fileName, {encoding: 'utf8'})).to.equal(randomString);
+      expect(fs.readFileSync(fileName, {
+        encoding: 'utf8',
+      })).to.equal(randomString);
     });
   });
   describe('.registerHelper()', () => {
-    it('throws an error if registering a helper using name of an existing helper', () => {
-      const gitdown = Gitdown.read('');
+    it('throws an error if registering a helper using name of an existing helper', async () => {
+      const gitdown = await Gitdown.read('', {
+        gitPath: path.resolve(__dirname, './dummy_git/'),
+      });
 
       expect(() => {
         gitdown.registerHelper('test');
       }).to.throw(Error, 'There is already a helper with a name "test".');
     });
-    it('throws an error if registering a helper object without compile property', () => {
-      const gitdown = Gitdown.read('');
+    it('throws an error if registering a helper object without compile property', async () => {
+      const gitdown = await Gitdown.read('', {
+        gitPath: path.resolve(__dirname, './dummy_git/'),
+      });
 
       expect(() => {
         gitdown.registerHelper('new-helper');
       }).to.throw(Error, 'Helper object must defined "compile" property.');
     });
     it('registers a new helper', async () => {
-      const gitdown = Gitdown.read('{"gitdown": "new-helper", "testProp": "foo"}');
-
-      gitdown.setConfig({
-        gitinfo: {
-          gitPath: path.resolve(__dirname, './dummy_git/'),
-        },
+      const gitdown = await Gitdown.read('{"gitdown": "new-helper", "testProp": "foo"}', {
+        gitPath: path.resolve(__dirname, './dummy_git/'),
       });
+
       gitdown.registerHelper('new-helper', {
         compile (config) {
           return 'Test prop: ' + config.testProp;
@@ -208,14 +196,14 @@ describe('Gitdown.read()', () => {
         },
       };
     });
-    it('returns the current configuration', () => {
-      const gitdown = Gitdown.read('');
+    it('returns the current configuration', async () => {
+      const gitdown = await Gitdown.read('');
       const config = gitdown.config;
 
       expect(config).to.deep.equal(defaultConfiguration);
     });
-    it('sets a configuration', () => {
-      const gitdown = Gitdown.read('');
+    it('sets a configuration', async () => {
+      const gitdown = await Gitdown.read('');
 
       gitdown.config = defaultConfiguration;
 
@@ -227,13 +215,9 @@ describe('Gitdown.read()', () => {
     let logger;
     let nocks;
 
-    beforeEach(() => {
-      gitdown = Gitdown.read('http://foo.com/ http://foo.com/#ok http://bar.com/ http://bar.com/#not-ok');
-
-      gitdown.setConfig({
-        gitinfo: {
-          gitPath: path.resolve(__dirname, './dummy_git/'),
-        },
+    beforeEach(async () => {
+      gitdown = await Gitdown.read('http://foo.com/ http://foo.com/#ok http://bar.com/ http://bar.com/#not-ok', {
+        gitPath: path.resolve(__dirname, './dummy_git/'),
       });
 
       logger = {
@@ -246,7 +230,9 @@ describe('Gitdown.read()', () => {
       logger = gitdown.getLogger();
 
       nocks = {};
-      nocks.foo = nock('http://foo.com').get('/').reply(200, '<div id="ok"></div>', {'content-type': 'text/html'});
+      nocks.foo = nock('http://foo.com').get('/').reply(200, '<div id="ok"></div>', {
+        'content-type': 'text/html',
+      });
       nocks.bar = nock('http://bar.com').get('/').reply(404);
     });
 

@@ -1,7 +1,7 @@
-const fs = require('fs');
-const zlib = require('zlib');
-const Promise = require('bluebird');
-const formatFileSize = require('filesize');
+import fs from 'fs';
+import zlib from 'zlib';
+import Promise from 'bluebird';
+import formatFileSize from 'filesize';
 
 const helper = {};
 
@@ -9,7 +9,7 @@ helper.compile = async (config = {}) => {
   config.gzip = config.gzip || false;
 
   if (!config.file) {
-    return Promise.reject(new Error('config.file must be provided.'));
+    throw new Error('config.file must be provided.');
   }
 
   const fileSize = await helper.file(config.file, config.gzip);
@@ -74,4 +74,4 @@ helper.format = (bytes) => {
 
 helper.weight = 10;
 
-module.exports = helper;
+export default helper;

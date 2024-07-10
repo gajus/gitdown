@@ -1,12 +1,12 @@
-const expect = require('chai').expect;
-const requireNew = require('require-uncached');
+import {expect} from 'chai';
+const importFresh = (moduleName) => import(`${moduleName}?${Date.now()}`);
 
 describe('Parser.helpers.variable', () => {
   let context;
   let helper;
 
-  beforeEach(() => {
-    helper = requireNew('../../src/helpers/variable.js');
+  beforeEach(async () => {
+    helper = (await importFresh('../../src/helpers/variable.js')).default;
     context = {
       gitdown: {
         getConfig: () => {
@@ -26,7 +26,9 @@ describe('Parser.helpers.variable', () => {
   });
   it('throws an error if variable does not resolve to a defined value', () => {
     expect(() => {
-      helper.compile({name: 'a.b.c'}, context);
+      helper.compile({
+        name: 'a.b.c',
+      }, context);
     }).to.throw(Error, 'config.name "a.b.c" does not resolve to a defined value.');
   });
   it('returns the resolved value', () => {
@@ -48,6 +50,8 @@ describe('Parser.helpers.variable', () => {
       },
     };
 
-    expect(helper.compile({name: 'foo.bar.baz'}, context)).to.equal('quux');
+    expect(helper.compile({
+      name: 'foo.bar.baz',
+    }, context)).to.equal('quux');
   });
 });

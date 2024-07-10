@@ -1,9 +1,13 @@
-/* eslint-disable max-nested-callbacks */
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
-const requireNew = require('require-uncached');
-const sinon = require('sinon');
+import * as chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import sinon from 'sinon';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const importFresh = (moduleName) => import(`${moduleName}?${Date.now()}`);
 
 chai.use(chaiAsPromised);
 
@@ -14,9 +18,9 @@ describe('Gitdown.Parser', () => {
   let parser;
   let spy;
 
-  beforeEach(() => {
-    Parser = requireNew('./../src/').Parser;
-    parser = Parser();
+  beforeEach(async () => {
+    Parser = (await importFresh('./../src/index.js')).default.Parser;
+    parser = await Parser();
   });
   afterEach(() => {
     if (spy) {
@@ -53,7 +57,9 @@ describe('Gitdown.Parser', () => {
 
     await parser.play('{"gitdown": "test", "foo": "bar"}');
 
-    expect(spy.calledWith({foo: 'bar'})).to.be.equal(true);
+    expect(spy.calledWith({
+      foo: 'bar',
+    })).to.be.equal(true);
   });
   it('throws an error if an unknown helper is invoked', () => {
     const statePromise = parser.play('{"gitdown": "does-not-exist"}');
@@ -61,7 +67,7 @@ describe('Gitdown.Parser', () => {
     return expect(statePromise).to.be.rejectedWith(Error, 'Unknown helper "does-not-exist".');
   });
   it('descends to the helper with the lowest weight after each iteration', async () => {
-    parser = Parser({
+    parser = await Parser({
       getConfig: () => {
         return {
           baseDirectory: __dirname,
@@ -77,12 +83,12 @@ describe('Gitdown.Parser', () => {
   });
 });
 
-describe('Parser.helpers', () => {
-  const glob = require('glob');
-  const path = require('path');
+describe('Parser.helpers', async () => {
+  const glob = await import('glob');
+  const path = await import('path');
 
-  glob.sync('./../src/helpers/*.js').forEach((helperName) => {
-    const helper = require(helperName);
+  for (const helperName of glob.sync('./../src/helpers/*.js')) {
+    const helper = await import(helperName);
 
     describe(path.basename(helperName, '.js'), () => {
       it('has compile method', () => {
@@ -92,5 +98,5 @@ describe('Parser.helpers', () => {
         expect(helper).to.have.property('weight');
       });
     });
-  });
+  }
 });

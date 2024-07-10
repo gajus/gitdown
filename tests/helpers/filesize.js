@@ -1,17 +1,20 @@
-const Path = require('path');
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
-const requireNew = require('require-uncached');
+import Path from 'path';
+import * as chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import { fileURLToPath } from 'url';
 
-const expect = chai.expect;
+const __dirname = Path.dirname(fileURLToPath(import.meta.url));
+const importFresh = (moduleName) => import(`${moduleName}?${Date.now()}`);
+
+const {expect} = chai;
 
 chai.use(chaiAsPromised);
 
 describe('Parser.helpers.filesize', () => {
   let helper;
 
-  beforeEach(() => {
-    helper = requireNew('./../../src/helpers/filesize.js');
+  beforeEach(async () => {
+    helper = (await importFresh('./../../src/helpers/filesize.js')).default;
   });
   it('is rejected with an error when config.file is not provided', () => {
     const result = helper.compile();

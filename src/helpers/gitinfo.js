@@ -1,12 +1,14 @@
-const helper = {};
-const createGitinfo = require('gitinfo').default;
-const _ = require('lodash');
+import createGitinfo from 'gitinfo';
+import _ from 'lodash';
 
+const helper = {};
 helper.compile = (config, context) => {
   const parserConfig = context.gitdown.getConfig().gitinfo;
-  const gitinfo = createGitinfo({
+  const gitinfo = createGitinfo.default({
     gitPath: parserConfig.gitPath,
-    ...parserConfig.defaultBranchName && {defaultBranchName: parserConfig.defaultBranchName},
+    ...parserConfig.defaultBranchName && {
+      defaultBranchName: parserConfig.defaultBranchName,
+    },
   });
 
   const methodMap = {
@@ -33,4 +35,4 @@ helper.compile = (config, context) => {
 
 helper.weight = 10;
 
-module.exports = helper;
+export default helper;

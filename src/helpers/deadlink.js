@@ -6,4 +6,4 @@ helper.compile = () => {
 
 helper.weight = 100;
 
-module.exports = helper;
+export default helper;

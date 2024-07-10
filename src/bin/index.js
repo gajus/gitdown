@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const _ = require('lodash');
-const yargs = require('yargs');
+import fs from 'fs';
+import _ from 'lodash';
+import path from 'path';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
 
-const argv = yargs
+const argv = yargs(hideBin(process.argv))
   .usage('Usage: $0 <README.md> [options]')
   .demand(1, 1, 'Gitdown program must be executed with exactly one non-option argument.')
   .options({
@@ -76,14 +77,14 @@ const main = async () => {
   const resolvedInputFile = path.resolve(process.cwd(), inputFile);
   const resolvedOutputFile = path.resolve(process.cwd(), outputFile);
 
-  const Gitdown = require('..');
+  const Gitdown = (await import('../index.js')).default;
 
-  const gitdown = Gitdown.readFile(resolvedInputFile);
+  const gitdown = await Gitdown.readFile(resolvedInputFile);
 
   if (argv.check) {
     const generatedMarkdown = await gitdown.get();
 
-    if (fs.readFileSync(resolvedOutputFile, 'utf-8') === generatedMarkdown) {
+    if (fs.readFileSync(resolvedOutputFile, 'utf8') === generatedMarkdown) {
       return;
     } else {
       // eslint-disable-next-line no-console

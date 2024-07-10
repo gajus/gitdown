@@ -1,6 +1,7 @@
 {
   "extends": "canonical",
   "parserOptions": {
+    "sourceType": "module",
     "requireConfigFile": false
   },
   "rules": {

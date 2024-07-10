@@ -1,6 +1,6 @@
-const helper = {};
-const moment = require('moment');
+import moment from 'moment';
 
+const helper = {};
 helper.compile = (config = {}) => {
   config.format = config.format || 'X';
 
@@ -9,4 +9,4 @@ helper.compile = (config = {}) => {
 
 helper.weight = 10;
 
-module.exports = helper;
+export default helper;
