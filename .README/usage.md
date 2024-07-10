@@ -8,10 +8,8 @@ gitdown ./.README/README.md --output-file ./README.md
 
 ## API Usage
 
-Gitdown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
-
 ```js
-const Gitdown = require('gitdown');
+import Gitdown from 'gitdown';
 
 // Read the markdown file written using the Gitdown extended markdown.
 // File name is not important.
@@ -34,27 +32,6 @@ gitdown.setConfig({
 // Output the markdown file.
 // All of the file system operations are relative to the root of the repository.
 gitdown.writeFile('README.md');
-
-```
-
-### Gulp
-
-Gitdown `writeFile` method returns a promise, that will make Gulp wait until the task is completed. No third-party plugins needed.
-
-```js
-const gulp = require('gulp');
-const Gitdown = require('gitdown');
-
-gulp.task('gitdown', () => {
-  return Gitdown
-    .readFile('./.README/README.md')
-    .writeFile('README.md');
-});
-
-gulp.task('watch', () => {
-  gulp.watch(['./.README/*'], ['gitdown']);
-});
-
 ```
 
 ### Logging

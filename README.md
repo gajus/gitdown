@@ -1,6 +1,6 @@
 [![GitSpo Mentions](https://gitspo.com/badges/mentions/gajus/gitdown?style=flat-square)](https://gitspo.com/mentions/gajus/gitdown)
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat-square)](https://www.npmjs.org/package/gitdown)
-[![Travis build status](http://img.shields.io/travis/brettz9/gitdown/esm.svg?style=flat-square)](https://travis-ci.org/brettz9/gitdown)
+[![Travis build status](http://img.shields.io/travis/brettz9/gitdown/update-readme.svg?style=flat-square)](https://travis-ci.org/brettz9/gitdown)
 [![Dependency Status](https://img.shields.io/david/brettz9/gitdown.svg?style=flat-square)](https://david-dm.org/brettz9/gitdown)
 
 Gitdown adds [additional functionality](#user-content-features) (generating table of contents, including documents, using variables, etc.) to [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/).
@@ -48,7 +48,6 @@ Gitdown adds [additional functionality](#user-content-features) (generating tabl
 * [Contents](#user-content-contents)
 * [Command Line Usage](#user-content-command-line-usage)
 * [API Usage](#user-content-api-usage)
-    * [Gulp](#user-content-api-usage-gulp)
     * [Logging](#user-content-api-usage-logging)
 * [Syntax](#user-content-syntax)
     * [Ignoring Sections of the Document](#user-content-syntax-ignoring-sections-of-the-document)
@@ -82,10 +81,8 @@ gitdown ./.README/README.md --output-file ./README.md
 <a name="api-usage"></a>
 ## API Usage
 
-Gitdown is designed to be run using either of the build systems, such as [Gulp](http://gulpjs.com/) or [Grunt](http://gruntjs.com/).
-
 ```js
-const Gitdown = require('gitdown');
+import Gitdown from 'gitdown';
 
 // Read the markdown file written using the Gitdown extended markdown.
 // File name is not important.
@@ -108,29 +105,6 @@ gitdown.setConfig({
 // Output the markdown file.
 // All of the file system operations are relative to the root of the repository.
 gitdown.writeFile('README.md');
-
-```
-
-<a name="user-content-api-usage-gulp"></a>
-<a name="api-usage-gulp"></a>
-### Gulp
-
-Gitdown `writeFile` method returns a promise, that will make Gulp wait until the task is completed. No third-party plugins needed.
-
-```js
-const gulp = require('gulp');
-const Gitdown = require('gitdown');
-
-gulp.task('gitdown', () => {
-  return Gitdown
-    .readFile('./.README/README.md')
-    .writeFile('README.md');
-});
-
-gulp.task('watch', () => {
-  gulp.watch(['./.README/*'], ['gitdown']);
-});
-
 ```
 
 <a name="user-content-api-usage-logging"></a>
@@ -529,8 +503,8 @@ Returns file size formatted in human friendly format.
 Generates:
 
 ```markdown
-9.24 kB
-2.76 kB
+9.3 kB
+2.8 kB
 
 ```
 
@@ -595,7 +569,7 @@ Generates:
 
 ```markdown
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat-square)](https://www.npmjs.org/package/gitdown)
-[![Travis build status](http://img.shields.io/travis/brettz9/gitdown/esm.svg?style=flat-square)](https://travis-ci.org/brettz9/gitdown)
+[![Travis build status](http://img.shields.io/travis/brettz9/gitdown/update-readme.svg?style=flat-square)](https://travis-ci.org/brettz9/gitdown)
 [![Dependency Status](https://img.shields.io/david/brettz9/gitdown.svg?style=flat-square)](https://david-dm.org/brettz9/gitdown)
 
 ```
@@ -680,7 +654,7 @@ Generates:
 brettz9
 gitdown
 https://github.com/brettz9/gitdown
-esm
+update-readme
 
 ```
 
