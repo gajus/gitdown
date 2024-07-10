@@ -1,11 +1,16 @@
-const expect = require('chai').expect;
-const requireNew = require('require-uncached');
+import {
+  expect,
+} from 'chai';
+
+const importFresh = (moduleName) => {
+  return import(`${moduleName}?${Date.now()}`);
+};
 
 describe('Parser.helpers.contents', () => {
   let helper;
 
-  beforeEach(() => {
-    helper = requireNew('../../src/helpers/contents.js');
+  beforeEach(async () => {
+    helper = (await importFresh('../../src/helpers/contents.js')).default;
   });
   describe('when heading nesting is disabled', () => {
     let context;
@@ -35,7 +40,9 @@ describe('Parser.helpers.contents', () => {
     it('generates table of contents with a maxLevel', () => {
       context.markdown = '\n# a\n## b\n###c';
 
-      const contents = helper.compile({maxLevel: 2}, context);
+      const contents = helper.compile({
+        maxLevel: 2,
+      }, context);
 
       expect(contents).to.equal('* [a](#a)\n    * [b](#b)\n');
     });
@@ -74,30 +81,34 @@ describe('Parser.helpers.contents', () => {
   });
   describe('.maxLevel()', () => {
     it('removes nodes with level equal to maxLevel', () => {
-      const tree = [{
-        descendants: [
-          {
-            descendants: [
-              {
-                descendants: [],
-                level: 3,
-              },
-            ],
-            level: 2,
-          },
-        ],
-        level: 1,
-      }];
+      const tree = [
+        {
+          descendants: [
+            {
+              descendants: [
+                {
+                  descendants: [],
+                  level: 3,
+                },
+              ],
+              level: 2,
+            },
+          ],
+          level: 1,
+        },
+      ];
 
-      const treeAfterMaxDepth = [{
-        descendants: [
-          {
-            descendants: [],
-            level: 2,
-          },
-        ],
-        level: 1,
-      }];
+      const treeAfterMaxDepth = [
+        {
+          descendants: [
+            {
+              descendants: [],
+              level: 2,
+            },
+          ],
+          level: 1,
+        },
+      ];
 
       expect(helper.maxLevel(tree, 2)).to.deep.equal(treeAfterMaxDepth);
     });

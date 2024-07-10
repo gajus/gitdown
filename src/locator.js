@@ -1,6 +1,12 @@
+import fs from 'fs';
+import Path from 'path';
+import {
+  fileURLToPath,
+} from 'url';
+
+const theDirname = Path.dirname(fileURLToPath(import.meta.url));
+
 const Locator = {};
-const fs = require('fs');
-const Path = require('path');
 
 /**
  * Returns path to the .git directory.
@@ -11,7 +17,7 @@ Locator.gitPath = () => {
   let dirname;
   let gitpath;
 
-  dirname = __dirname;
+  dirname = theDirname;
 
   do {
     if (fs.existsSync(dirname + '/.git')) {
@@ -39,4 +45,4 @@ Locator.repositoryPath = () => {
   return fs.realpathSync(Path.resolve(Locator.gitPath(), '..'));
 };
 
-module.exports = Locator;
+export default Locator;

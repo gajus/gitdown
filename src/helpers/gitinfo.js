@@ -1,12 +1,14 @@
-const helper = {};
-const createGitinfo = require('gitinfo').default;
-const _ = require('lodash');
+import createGitinfo from 'gitinfo';
+import _ from 'lodash';
 
-helper.compile = (config, context) => {
+const gitinfo = {};
+gitinfo.compile = (config, context) => {
   const parserConfig = context.gitdown.getConfig().gitinfo;
-  const gitinfo = createGitinfo({
+  const gitInfo = createGitinfo.default({
     gitPath: parserConfig.gitPath,
-    ...parserConfig.defaultBranchName && {defaultBranchName: parserConfig.defaultBranchName},
+    ...parserConfig.defaultBranchName && {
+      defaultBranchName: parserConfig.defaultBranchName,
+    },
   });
 
   const methodMap = {
@@ -24,13 +26,13 @@ helper.compile = (config, context) => {
     throw new Error('Unexpected config.name value ("' + config.name + '").');
   }
 
-  if (!_.isFunction(gitinfo[methodMap[config.name]])) {
+  if (!_.isFunction(gitInfo[methodMap[config.name]])) {
     throw new TypeError('Gitinfo module does not provide function "' + config.name + '".');
   }
 
-  return gitinfo[methodMap[config.name]]();
+  return gitInfo[methodMap[config.name]]();
 };
 
-helper.weight = 10;
+gitinfo.weight = 10;
 
-module.exports = helper;
+export default gitinfo;

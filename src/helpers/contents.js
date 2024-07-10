@@ -1,14 +1,14 @@
-const helper = {};
-const MarkdownContents = require('markdown-contents');
+import MarkdownContents from 'markdown-contents';
 
-helper.compile = (config = {}, context) => {
+const contents = {};
+contents.compile = (config = {}, context) => {
   let tree;
 
   config.maxLevel = config.maxLevel || 3;
 
   if (context.gitdown.getConfig().headingNesting.enabled) {
     tree = MarkdownContents(context.markdown).tree();
-    tree = helper.nestIds(tree);
+    tree = contents.nestIds(tree);
   } else {
     const articles = MarkdownContents(context.markdown).articles();
 
@@ -16,10 +16,10 @@ helper.compile = (config = {}, context) => {
   }
 
   if (config.rootId) {
-    tree = helper.findRoot(tree, config.rootId).descendants;
+    tree = contents.findRoot(tree, config.rootId).descendants;
   }
 
-  tree = helper.maxLevel(tree, config.maxLevel);
+  tree = contents.maxLevel(tree, config.maxLevel);
 
   return MarkdownContents.treeToMarkdown(tree);
 };
@@ -29,12 +29,12 @@ helper.compile = (config = {}, context) => {
  *
  * @private
  */
-helper.maxLevel = (tree, maxLevel = 1) => {
+contents.maxLevel = (tree, maxLevel = 1) => {
   return tree.filter((article) => {
     if (article.level > maxLevel) {
       return false;
     } else {
-      article.descendants = helper.maxLevel(article.descendants, maxLevel);
+      article.descendants = contents.maxLevel(article.descendants, maxLevel);
 
       return true;
     }
@@ -44,7 +44,7 @@ helper.maxLevel = (tree, maxLevel = 1) => {
 /**
  * @private
  */
-helper.findRoot = (tree, rootId, notFirst) => {
+contents.findRoot = (tree, rootId, notFirst) => {
   let found;
   let index;
 
@@ -56,7 +56,7 @@ helper.findRoot = (tree, rootId, notFirst) => {
 
       break;
     } else {
-      found = helper.findRoot(tree[index].descendants, rootId, true);
+      found = contents.findRoot(tree[index].descendants, rootId, true);
     }
   }
 
@@ -70,18 +70,20 @@ helper.findRoot = (tree, rootId, notFirst) => {
 /**
  * @private
  */
-helper.nestIds = (tree, parentIds = []) => {
-  tree.forEach((article) => {
-    const ids = parentIds.concat([article.id]);
+contents.nestIds = (tree, parentIds = []) => {
+  for (const article of tree) {
+    const ids = parentIds.concat([
+      article.id,
+    ]);
 
     article.id = ids.join('-');
 
-    helper.nestIds(article.descendants, ids);
-  });
+    contents.nestIds(article.descendants, ids);
+  }
 
   return tree;
 };
 
-helper.weight = 100;
+contents.weight = 100;
 
-module.exports = helper;
+export default contents;

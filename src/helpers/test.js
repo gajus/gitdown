@@ -1,8 +1,8 @@
-const helper = {};
-const _ = require('lodash');
+import _ from 'lodash';
 
-helper.compile = _.constant('test');
+const test = {};
+test.compile = _.constant('test');
 
-helper.weight = 10;
+test.weight = 10;
 
-module.exports = helper;
+export default test;

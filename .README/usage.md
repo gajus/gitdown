@@ -16,10 +16,10 @@ const Gitdown = require('gitdown');
 // Read the markdown file written using the Gitdown extended markdown.
 // File name is not important.
 // Having all of the Gitdown markdown files under ./.README/ path is the recommended convention.
-const gitdown = Gitdown.readFile('./.README/README.md');
+const gitdown = await Gitdown.readFile('./.README/README.md');
 
 // If you have the subject in a string, call the constructor itself:
-// gitdown = Gitdown.read('literal string');
+// gitdown = await Gitdown.read('literal string');
 
 // Get config.
 gitdown.getConfig()

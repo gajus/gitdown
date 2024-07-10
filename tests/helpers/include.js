@@ -1,12 +1,21 @@
-const path = require('path');
-const expect = require('chai').expect;
-const requireNew = require('require-uncached');
+import {
+  expect,
+} from 'chai';
+import path from 'path';
+import {
+  fileURLToPath,
+} from 'url';
+
+const dirname = path.dirname(fileURLToPath(import.meta.url));
+const importFresh = (moduleName) => {
+  return import(`${moduleName}?${Date.now()}`);
+};
 
 describe('Parser.helpers.include', () => {
   let helper;
 
-  beforeEach(() => {
-    helper = requireNew('./../../src/helpers/include.js');
+  beforeEach(async () => {
+    helper = (await importFresh('./../../src/helpers/include.js')).default;
   });
   it('is rejected with an error when config.file is not provided', () => {
     expect(() => {
@@ -18,7 +27,7 @@ describe('Parser.helpers.include', () => {
       gitdown: {
         getConfig: () => {
           return {
-            baseDirectory: __dirname,
+            baseDirectory: dirname,
           };
         },
       },
@@ -26,7 +35,7 @@ describe('Parser.helpers.include', () => {
 
     expect(() => {
       helper.compile({
-        file: path.join(__dirname, './does-not-exist'),
+        file: path.join(dirname, './does-not-exist'),
       }, context);
     }).to.throw(Error, 'Input file does not exist.');
   });

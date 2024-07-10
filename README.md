@@ -1,10 +1,11 @@
 [![GitSpo Mentions](https://gitspo.com/badges/mentions/gajus/gitdown?style=flat-square)](https://gitspo.com/mentions/gajus/gitdown)
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat-square)](https://www.npmjs.org/package/gitdown)
-[![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat-square)](https://travis-ci.org/gajus/gitdown)
-[![Dependency Status](https://img.shields.io/david/gajus/gitdown.svg?style=flat-square)](https://david-dm.org/gajus/gitdown)
+[![Travis build status](http://img.shields.io/travis/brettz9/gitdown/esm.svg?style=flat-square)](https://travis-ci.org/brettz9/gitdown)
+[![Dependency Status](https://img.shields.io/david/brettz9/gitdown.svg?style=flat-square)](https://david-dm.org/brettz9/gitdown)
 
-Gitdown adds [additional functionality](#features) (generating table of contents, including documents, using variables, etc.) to [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/).
+Gitdown adds [additional functionality](#user-content-features) (generating table of contents, including documents, using variables, etc.) to [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/).
 
+<a name="user-content-cheat-sheet"></a>
 <a name="cheat-sheet"></a>
 ## Cheat Sheet
 
@@ -39,33 +40,35 @@ Gitdown adds [additional functionality](#features) (generating table of contents
 ```
 
 
+<a name="user-content-contents"></a>
 <a name="contents"></a>
 ## Contents
 
-* [Cheat Sheet](#cheat-sheet)
-* [Contents](#contents)
-* [Command Line Usage](#command-line-usage)
-* [API Usage](#api-usage)
-    * [Gulp](#api-usage-gulp)
-    * [Logging](#api-usage-logging)
-* [Syntax](#syntax)
-    * [Ignoring Sections of the Document](#syntax-ignoring-sections-of-the-document)
-    * [Register a Custom Helper](#syntax-register-a-custom-helper)
-* [Features](#features)
-    * [Generate Table of Contents](#features-generate-table-of-contents)
-    * [Heading Nesting](#features-heading-nesting)
-    * [Find Dead URLs and Fragment Identifiers](#features-find-dead-urls-and-fragment-identifiers)
-    * [Reference an Anchor in the Repository](#features-reference-an-anchor-in-the-repository)
-    * [Variables](#features-variables)
-    * [Include File](#features-include-file)
-    * [Get File Size](#features-get-file-size)
-    * [Generate Badges](#features-generate-badges)
-    * [Print Date](#features-print-date)
-    * [Gitinfo](#features-gitinfo)
-* [Recipes](#recipes)
-    * [Automating Gitdown](#recipes-automating-gitdown)
+* [Cheat Sheet](#user-content-cheat-sheet)
+* [Contents](#user-content-contents)
+* [Command Line Usage](#user-content-command-line-usage)
+* [API Usage](#user-content-api-usage)
+    * [Gulp](#user-content-api-usage-gulp)
+    * [Logging](#user-content-api-usage-logging)
+* [Syntax](#user-content-syntax)
+    * [Ignoring Sections of the Document](#user-content-syntax-ignoring-sections-of-the-document)
+    * [Register a Custom Helper](#user-content-syntax-register-a-custom-helper)
+* [Features](#user-content-features)
+    * [Generate Table of Contents](#user-content-features-generate-table-of-contents)
+    * [Heading Nesting](#user-content-features-heading-nesting)
+    * [Find Dead URLs and Fragment Identifiers](#user-content-features-find-dead-urls-and-fragment-identifiers)
+    * [Reference an Anchor in the Repository](#user-content-features-reference-an-anchor-in-the-repository)
+    * [Variables](#user-content-features-variables)
+    * [Include File](#user-content-features-include-file)
+    * [Get File Size](#user-content-features-get-file-size)
+    * [Generate Badges](#user-content-features-generate-badges)
+    * [Print Date](#user-content-features-print-date)
+    * [Gitinfo](#user-content-features-gitinfo)
+* [Recipes](#user-content-recipes)
+    * [Automating Gitdown](#user-content-recipes-automating-gitdown)
 
 
+<a name="user-content-command-line-usage"></a>
 <a name="command-line-usage"></a>
 ## Command Line Usage
 
@@ -75,6 +78,7 @@ gitdown ./.README/README.md --output-file ./README.md
 
 ```
 
+<a name="user-content-api-usage"></a>
 <a name="api-usage"></a>
 ## API Usage
 
@@ -86,10 +90,10 @@ const Gitdown = require('gitdown');
 // Read the markdown file written using the Gitdown extended markdown.
 // File name is not important.
 // Having all of the Gitdown markdown files under ./.README/ path is the recommended convention.
-const gitdown = Gitdown.readFile('./.README/README.md');
+const gitdown = await Gitdown.readFile('./.README/README.md');
 
 // If you have the subject in a string, call the constructor itself:
-// gitdown = Gitdown.read('literal string');
+// gitdown = await Gitdown.read('literal string');
 
 // Get config.
 gitdown.getConfig()
@@ -107,6 +111,7 @@ gitdown.writeFile('README.md');
 
 ```
 
+<a name="user-content-api-usage-gulp"></a>
 <a name="api-usage-gulp"></a>
 ### Gulp
 
@@ -128,6 +133,7 @@ gulp.task('watch', () => {
 
 ```
 
+<a name="user-content-api-usage-logging"></a>
 <a name="api-usage-logging"></a>
 ### Logging
 
@@ -141,8 +147,9 @@ gitdown.setLogger({
 
 ```
 
-The logger is used to inform about [Dead URLs and Fragment Identifiers](#find-dead-urls-and-fragment-identifiers).
+The logger is used to inform about [Dead URLs and Fragment Identifiers](#user-content-find-dead-urls-and-fragment-identifiers).
 
+<a name="user-content-syntax"></a>
 <a name="syntax"></a>
 ## Syntax
 
@@ -159,6 +166,7 @@ The JSON object must have a `gitdown` property that identifies the helper you in
 
 JSON that does not start with a "gitdown" property will remain untouched.
 
+<a name="user-content-syntax-ignoring-sections-of-the-document"></a>
 <a name="syntax-ignoring-sections-of-the-document"></a>
 ### Ignoring Sections of the Document
 
@@ -173,6 +181,7 @@ Gitdown JSON will be interpolated.
 
 ```
 
+<a name="user-content-syntax-register-a-custom-helper"></a>
 <a name="syntax-register-a-custom-helper"></a>
 ### Register a Custom Helper
 
@@ -209,9 +218,11 @@ foo: bar
 
 a
 
+<a name="user-content-features"></a>
 <a name="features"></a>
 ## Features
 
+<a name="user-content-features-generate-table-of-contents"></a>
 <a name="features-generate-table-of-contents"></a>
 ### Generate Table of Contents
 
@@ -226,6 +237,7 @@ Generates table of contents.
 
 The table of contents is generated using [markdown-contents](https://github.com/gajus/markdown-contents).
 
+<a name="user-content-features-generate-table-of-contents-example"></a>
 <a name="features-generate-table-of-contents-example"></a>
 #### Example
 
@@ -237,42 +249,43 @@ The table of contents is generated using [markdown-contents](https://github.com/
 
 
 ```markdown
-* [Generate Table of Contents](#features-generate-table-of-contents)
-    * [Example](#features-generate-table-of-contents-example)
-    * [JSON Configuration](#features-generate-table-of-contents-json-configuration)
-* [Heading Nesting](#features-heading-nesting)
-    * [Parser Configuration](#features-heading-nesting-parser-configuration)
-* [Find Dead URLs and Fragment Identifiers](#features-find-dead-urls-and-fragment-identifiers)
-    * [Parser Configuration](#features-find-dead-urls-and-fragment-identifiers-parser-configuration-1)
-* [Reference an Anchor in the Repository](#features-reference-an-anchor-in-the-repository)
-    * [JSON Configuration](#features-reference-an-anchor-in-the-repository-json-configuration-1)
-    * [Parser Configuration](#features-reference-an-anchor-in-the-repository-parser-configuration-2)
-* [Variables](#features-variables)
-    * [Example](#features-variables-example-1)
-    * [JSON Configuration](#features-variables-json-configuration-2)
-    * [Parser Configuration](#features-variables-parser-configuration-3)
-* [Include File](#features-include-file)
-    * [Example](#features-include-file-example-2)
-    * [JSON Configuration](#features-include-file-json-configuration-3)
-* [Get File Size](#features-get-file-size)
-    * [Example](#features-get-file-size-example-3)
-    * [JSON Configuration](#features-get-file-size-json-configuration-4)
-* [Generate Badges](#features-generate-badges)
-    * [Supported Services](#features-generate-badges-supported-services)
-    * [Example](#features-generate-badges-example-4)
-    * [JSON Configuration](#features-generate-badges-json-configuration-5)
-* [Print Date](#features-print-date)
-    * [Example](#features-print-date-example-5)
-    * [JSON Configuration](#features-print-date-json-configuration-6)
-* [Gitinfo](#features-gitinfo)
-    * [Example](#features-gitinfo-example-6)
-    * [Supported Properties](#features-gitinfo-supported-properties)
-    * [JSON Configuration](#features-gitinfo-json-configuration-7)
-    * [Parser Configuration](#features-gitinfo-parser-configuration-4)
+* [Generate Table of Contents](#user-content-features-generate-table-of-contents)
+    * [Example](#user-content-features-generate-table-of-contents-example)
+    * [JSON Configuration](#user-content-features-generate-table-of-contents-json-configuration)
+* [Heading Nesting](#user-content-features-heading-nesting)
+    * [Parser Configuration](#user-content-features-heading-nesting-parser-configuration)
+* [Find Dead URLs and Fragment Identifiers](#user-content-features-find-dead-urls-and-fragment-identifiers)
+    * [Parser Configuration](#user-content-features-find-dead-urls-and-fragment-identifiers-parser-configuration-1)
+* [Reference an Anchor in the Repository](#user-content-features-reference-an-anchor-in-the-repository)
+    * [JSON Configuration](#user-content-features-reference-an-anchor-in-the-repository-json-configuration-1)
+    * [Parser Configuration](#user-content-features-reference-an-anchor-in-the-repository-parser-configuration-2)
+* [Variables](#user-content-features-variables)
+    * [Example](#user-content-features-variables-example-1)
+    * [JSON Configuration](#user-content-features-variables-json-configuration-2)
+    * [Parser Configuration](#user-content-features-variables-parser-configuration-3)
+* [Include File](#user-content-features-include-file)
+    * [Example](#user-content-features-include-file-example-2)
+    * [JSON Configuration](#user-content-features-include-file-json-configuration-3)
+* [Get File Size](#user-content-features-get-file-size)
+    * [Example](#user-content-features-get-file-size-example-3)
+    * [JSON Configuration](#user-content-features-get-file-size-json-configuration-4)
+* [Generate Badges](#user-content-features-generate-badges)
+    * [Supported Services](#user-content-features-generate-badges-supported-services)
+    * [Example](#user-content-features-generate-badges-example-4)
+    * [JSON Configuration](#user-content-features-generate-badges-json-configuration-5)
+* [Print Date](#user-content-features-print-date)
+    * [Example](#user-content-features-print-date-example-5)
+    * [JSON Configuration](#user-content-features-print-date-json-configuration-6)
+* [Gitinfo](#user-content-features-gitinfo)
+    * [Example](#user-content-features-gitinfo-example-6)
+    * [Supported Properties](#user-content-features-gitinfo-supported-properties)
+    * [JSON Configuration](#user-content-features-gitinfo-json-configuration-7)
+    * [Parser Configuration](#user-content-features-gitinfo-parser-configuration-4)
 
 
 ```
 
+<a name="user-content-features-generate-table-of-contents-json-configuration"></a>
 <a name="features-generate-table-of-contents-json-configuration"></a>
 #### JSON Configuration
 
@@ -281,6 +294,7 @@ The table of contents is generated using [markdown-contents](https://github.com/
 | `maxLevel` | The maximum heading level after which headings are excluded. | 3 |
 | `rootId` | ID of the root heading. Provide it when you need table of contents for a specific section of the document. Throws an error if element with the said ID does not exist in the document. | N/A |
 
+<a name="user-content-features-heading-nesting"></a>
 <a name="features-heading-nesting"></a>
 ### Heading Nesting
 
@@ -324,6 +338,7 @@ Gitdown will nest the headings using parent heading names to ensure uniqueness, 
 
 ```
 
+<a name="user-content-features-heading-nesting-parser-configuration"></a>
 <a name="features-heading-nesting-parser-configuration"></a>
 #### Parser Configuration
 
@@ -331,11 +346,13 @@ Gitdown will nest the headings using parent heading names to ensure uniqueness, 
 | --- | --- | --- |
 | `headingNesting.enabled` | Boolean flag indicating whether to nest headings. | `true` |
 
+<a name="user-content-features-find-dead-urls-and-fragment-identifiers"></a>
 <a name="features-find-dead-urls-and-fragment-identifiers"></a>
 ### Find Dead URLs and Fragment Identifiers
 
 Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the URLs in the resulting document. Throws an error if either of the URLs is resolved with an HTTP status other than 200 or fragment identifier (anchor) is not found.
 
+<a name="user-content-features-find-dead-urls-and-fragment-identifiers-parser-configuration-1"></a>
 <a name="features-find-dead-urls-and-fragment-identifiers-parser-configuration-1"></a>
 #### Parser Configuration
 
@@ -347,6 +364,7 @@ Uses [Deadlink](https://github.com/gajus/deadlink) to iterate through all of the
 <!-- -->
 <!--| `deadlink.ignoreURLs` | URLs matching the regex will be ignored. | N/A |-->
 
+<a name="user-content-features-reference-an-anchor-in-the-repository"></a>
 <a name="features-reference-an-anchor-in-the-repository"></a>
 ### Reference an Anchor in the Repository
 
@@ -384,6 +402,7 @@ The anchor name must match `/^[a-z]+[a-z0-9\-_:\.]*$/i`.
 
 Gitdown will throw an error if the anchor is not found.
 
+<a name="user-content-features-reference-an-anchor-in-the-repository-json-configuration-1"></a>
 <a name="features-reference-an-anchor-in-the-repository-json-configuration-1"></a>
 #### JSON Configuration
 
@@ -391,6 +410,7 @@ Gitdown will throw an error if the anchor is not found.
 | --- | --- | --- |
 | `name` | Anchor name. | N/A |
 
+<a name="user-content-features-reference-an-anchor-in-the-repository-parser-configuration-2"></a>
 <a name="features-reference-an-anchor-in-the-repository-parser-configuration-2"></a>
 #### Parser Configuration
 
@@ -398,6 +418,7 @@ Gitdown will throw an error if the anchor is not found.
 | --- | --- | --- |
 | `anchor.exclude` | Array of paths to exclude. | `['./dist/*']` |
 
+<a name="user-content-features-variables"></a>
 <a name="features-variables"></a>
 ### Variables
 
@@ -410,6 +431,7 @@ Gitdown will throw an error if the anchor is not found.
 
 Prints the value of a property defined under a parser `variable.scope` configuration property. Throws an error if property is not set.
 
+<a name="user-content-features-variables-example-1"></a>
 <a name="features-variables-example-1"></a>
 #### Example
 
@@ -434,6 +456,7 @@ gitdown.setConfig({
 ```
 
 
+<a name="user-content-features-variables-json-configuration-2"></a>
 <a name="features-variables-json-configuration-2"></a>
 #### JSON Configuration
 
@@ -441,6 +464,7 @@ gitdown.setConfig({
 | --- | --- | --- |
 | `name` | Name of the property defined under a parser `variable.scope` configuration property. | N/A |
 
+<a name="user-content-features-variables-parser-configuration-3"></a>
 <a name="features-variables-parser-configuration-3"></a>
 #### Parser Configuration
 
@@ -448,6 +472,7 @@ gitdown.setConfig({
 | --- | --- | --- |
 | `variable.scope` | Variable scope object. | `{}` |
 
+<a name="user-content-features-include-file"></a>
 <a name="features-include-file"></a>
 ### Include File
 
@@ -462,11 +487,13 @@ Includes the contents of the file to the document.
 
 The included file can have Gitdown JSON hooks.
 
+<a name="user-content-features-include-file-example-2"></a>
 <a name="features-include-file-example-2"></a>
 #### Example
 
 See source code of [./.README/README.md](https://github.com/gajus/gitdown/blob/master/.README/README.md).
 
+<a name="user-content-features-include-file-json-configuration-3"></a>
 <a name="features-include-file-json-configuration-3"></a>
 #### JSON Configuration
 
@@ -474,6 +501,7 @@ See source code of [./.README/README.md](https://github.com/gajus/gitdown/blob/m
 | --- | --- | --- |
 | `file` | Path to the file. The path is relative to the root of the repository. | N/A |
 
+<a name="user-content-features-get-file-size"></a>
 <a name="features-get-file-size"></a>
 ### Get File Size
 
@@ -486,6 +514,7 @@ See source code of [./.README/README.md](https://github.com/gajus/gitdown/blob/m
 
 Returns file size formatted in human friendly format.
 
+<a name="user-content-features-get-file-size-example-3"></a>
 <a name="features-get-file-size-example-3"></a>
 #### Example
 
@@ -500,11 +529,12 @@ Returns file size formatted in human friendly format.
 Generates:
 
 ```markdown
-8.47 KB
-2.54 KB
+9.24 kB
+2.76 kB
 
 ```
 
+<a name="user-content-features-get-file-size-json-configuration-4"></a>
 <a name="features-get-file-size-json-configuration-4"></a>
 #### JSON Configuration
 
@@ -513,6 +543,7 @@ Generates:
 | `file` | Path to the file. The path is relative to the root of the repository. | N/A |
 | `gzip` | A boolean value indicating whether to gzip the file first. | `false` |
 
+<a name="user-content-features-generate-badges"></a>
 <a name="features-generate-badges"></a>
 ### Generate Badges
 
@@ -527,6 +558,7 @@ Gitdown generates markdown for badges using the environment variables, e.g. if i
 
 Badges are generated using http://shields.io/.
 
+<a name="user-content-features-generate-badges-supported-services"></a>
 <a name="features-generate-badges-supported-services"></a>
 #### Supported Services
 
@@ -546,6 +578,7 @@ Badges are generated using http://shields.io/.
 
 What service are you missing? [Raise an issue](https://github.com/gajus/gitdown/issues).
 
+<a name="user-content-features-generate-badges-example-4"></a>
 <a name="features-generate-badges-example-4"></a>
 #### Example
 
@@ -562,11 +595,12 @@ Generates:
 
 ```markdown
 [![NPM version](http://img.shields.io/npm/v/gitdown.svg?style=flat-square)](https://www.npmjs.org/package/gitdown)
-[![Travis build status](http://img.shields.io/travis/gajus/gitdown/master.svg?style=flat-square)](https://travis-ci.org/gajus/gitdown)
-[![Dependency Status](https://img.shields.io/david/gajus/gitdown.svg?style=flat-square)](https://david-dm.org/gajus/gitdown)
+[![Travis build status](http://img.shields.io/travis/brettz9/gitdown/esm.svg?style=flat-square)](https://travis-ci.org/brettz9/gitdown)
+[![Dependency Status](https://img.shields.io/david/brettz9/gitdown.svg?style=flat-square)](https://david-dm.org/brettz9/gitdown)
 
 ```
 
+<a name="user-content-features-generate-badges-json-configuration-5"></a>
 <a name="features-generate-badges-json-configuration-5"></a>
 #### JSON Configuration
 
@@ -574,6 +608,7 @@ Generates:
 | --- | --- | --- |
 | `name` | Name of the service. | N/A |
 
+<a name="user-content-features-print-date"></a>
 <a name="features-print-date"></a>
 ### Print Date
 
@@ -586,6 +621,7 @@ Generates:
 
 Prints a string formatted according to the given [moment format](http://momentjs.com/docs/#/displaying/format/) string using the current time.
 
+<a name="user-content-features-print-date-example-5"></a>
 <a name="features-print-date-example-5"></a>
 #### Example
 
@@ -605,6 +641,7 @@ Generates:
 
 ```
 
+<a name="user-content-features-print-date-json-configuration-6"></a>
 <a name="features-print-date-json-configuration-6"></a>
 #### JSON Configuration
 
@@ -612,6 +649,7 @@ Generates:
 | --- | --- | --- |
 | `format` | [Moment format](http://momentjs.com/docs/#/displaying/format/). | `X` (UNIX timestamp) |
 
+<a name="user-content-features-gitinfo"></a>
 <a name="features-gitinfo"></a>
 ### Gitinfo
 
@@ -624,6 +662,7 @@ Generates:
 
 [Gitinfo](https://github.com/gajus/gitinfo) gets info about the local GitHub repository.
 
+<a name="user-content-features-gitinfo-example-6"></a>
 <a name="features-gitinfo-example-6"></a>
 #### Example
 
@@ -638,13 +677,14 @@ Generates:
 
 
 ```
-gajus
+brettz9
 gitdown
-https://github.com/gajus/gitdown
-master
+https://github.com/brettz9/gitdown
+esm
 
 ```
 
+<a name="user-content-features-gitinfo-supported-properties"></a>
 <a name="features-gitinfo-supported-properties"></a>
 #### Supported Properties
 
@@ -655,6 +695,7 @@ master
 |`url`|Repository URL.|
 |`branch`|Current branch name.|
 
+<a name="user-content-features-gitinfo-json-configuration-7"></a>
 <a name="features-gitinfo-json-configuration-7"></a>
 #### JSON Configuration
 
@@ -662,6 +703,7 @@ master
 |---|---|---|
 |`name`|Name of the property.|N/A|
 
+<a name="user-content-features-gitinfo-parser-configuration-4"></a>
 <a name="features-gitinfo-parser-configuration-4"></a>
 #### Parser Configuration
 
@@ -671,9 +713,11 @@ master
 |`gitinfo.gitPath`|Path to the `.git/` directory or a descendant. | `__dirname` of the script constructing an instance of `Gitdown`.|
 
 
+<a name="user-content-recipes"></a>
 <a name="recipes"></a>
 ## Recipes
 
+<a name="user-content-recipes-automating-gitdown"></a>
 <a name="recipes-automating-gitdown"></a>
 ### Automating Gitdown
 

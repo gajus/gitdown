@@ -1,7 +1,7 @@
-const helper = {};
-const _ = require('lodash');
+import _ from 'lodash';
 
-helper.compile = (config = {}, context) => {
+const variable = {};
+variable.compile = (config = {}, context) => {
   const scope = context.gitdown.getConfig().variable.scope;
 
   if (!config.name) {
@@ -18,6 +18,6 @@ helper.compile = (config = {}, context) => {
   return value;
 };
 
-helper.weight = 10;
+variable.weight = 10;
 
-module.exports = helper;
+export default variable;

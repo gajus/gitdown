@@ -1,17 +1,26 @@
-const fs = require('fs');
-const Path = require('path');
-const expect = require('chai').expect;
-const requireNew = require('require-uncached');
+import {
+  expect,
+} from 'chai';
+import fs from 'fs';
+import Path from 'path';
+import {
+  fileURLToPath,
+} from 'url';
+
+const dirname = Path.dirname(fileURLToPath(import.meta.url));
+const importFresh = (moduleName) => {
+  return import(`${moduleName}?${Date.now()}`);
+};
 
 xdescribe('Locator', () => {
   let Locator;
 
-  beforeEach(() => {
-    Locator = requireNew('../src/locator');
+  beforeEach(async () => {
+    Locator = (await importFresh('../src/locator.js')).Parser;
   });
   describe('.gitPath()', () => {
     it('returns absolute path to the .git/ directory', () => {
-      expect(Locator.gitPath()).to.equal(fs.realpathSync(Path.resolve(__dirname, './../.git')));
+      expect(Locator.gitPath()).to.equal(fs.realpathSync(Path.resolve(dirname, './../.git')));
     });
   });
   describe('.repositoryPath()', () => {

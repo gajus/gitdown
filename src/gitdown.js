@@ -1,28 +1,37 @@
+import contents from './helpers/contents.js';
+import gitinfo from './helpers/gitinfo.js';
+import Parser from './Parser.js';
+import Promise from 'bluebird';
+import Deadlink from 'deadlink';
+import fs from 'fs';
+import getUrls from 'get-urls';
+import _ from 'lodash';
+import MarkdownContents from 'markdown-contents';
+import {
+  marked,
+} from 'marked';
+import path from 'path';
+import StackTrace from 'stack-trace';
+import {
+  fileURLToPath,
+} from 'url';
+
+const dirname = path.dirname(fileURLToPath(import.meta.url));
+
 const Gitdown = {};
-const fs = require('fs');
-const path = require('path');
-const Promise = require('bluebird');
-const Deadlink = require('deadlink');
-const getUrls = require('get-urls');
-const _ = require('lodash');
-const MarkdownContents = require('markdown-contents');
-const marked = require('marked');
-const StackTrace = require('stack-trace');
-const contents = require('./helpers/contents');
-const gitinfo = require('./helpers/gitinfo');
-const Parser = require('./parser');
 
 /**
  * @param {string} input Gitdown flavored markdown.
+ * @param {object} [gitInfo]
  */
-Gitdown.read = (input) => {
+Gitdown.read = async (input, gitInfo) => {
   let instanceConfig;
   let instanceLogger;
 
   instanceConfig = {};
 
   const gitdown = {};
-  const parser = Parser(gitdown);
+  const parser = await Parser(gitdown);
 
   /**
    * Process template.
@@ -43,7 +52,7 @@ Gitdown.read = (input) => {
 
     await gitdown.resolveURLs(markdown);
 
-    return markdown.replace(/<!--\sgitdown:\s(:?off|on)\s-->/g, '');
+    return markdown.replaceAll(/<!--\sgitdown:\s(:?off|on)\s-->/gu, '');
   };
 
   /**
@@ -83,7 +92,7 @@ Gitdown.read = (input) => {
     while (index++ < stackTraceLength) {
       const stackDirectory = path.dirname(stackTrace[index].getFileName());
 
-      if (__dirname !== stackDirectory) {
+      if (dirname !== stackDirectory) {
         return stackDirectory;
       }
     }
@@ -99,7 +108,15 @@ Gitdown.read = (input) => {
     let promises;
     let urls;
 
-    const repositoryURL = gitinfo.compile({name: 'url'}, {gitdown}) + '/tree/' + gitinfo.compile({name: 'branch'}, {gitdown});
+    const repositoryURL = gitinfo.compile({
+      name: 'url',
+    }, {
+      gitdown,
+    }) + '/tree/' + gitinfo.compile({
+      name: 'branch',
+    }, {
+      gitdown,
+    });
     const deadlink = Deadlink();
 
     urls = Array.from(getUrls(markdown));
@@ -218,7 +235,7 @@ Gitdown.read = (input) => {
       findDeadFragmentIdentifiers: false,
       findDeadURLs: false,
     },
-    gitinfo: {
+    gitinfo: gitInfo || {
       gitPath: gitdown.executionContext(),
     },
     headingNesting: {
@@ -239,7 +256,7 @@ Gitdown.read = (input) => {
  * @param {string} fileName
  * @returns {Gitdown}
  */
-Gitdown.readFile = (fileName) => {
+Gitdown.readFile = async (fileName) => {
   if (!path.isAbsolute(fileName)) {
     throw new Error('fileName must be an absolute path.');
   }
@@ -248,15 +265,12 @@ Gitdown.readFile = (fileName) => {
     encoding: 'utf8',
   });
 
-  const gitdown = Gitdown.read(input);
-
   const directoryName = path.dirname(fileName);
-
+  const gitdown = await Gitdown.read(input, {
+    gitPath: directoryName,
+  });
   gitdown.setConfig({
     baseDirectory: directoryName,
-    gitinfo: {
-      gitPath: directoryName,
-    },
   });
 
   return gitdown;
@@ -270,7 +284,7 @@ Gitdown.readFile = (fileName) => {
  * @returns {string}
  */
 Gitdown.prefixRelativeUrls = (inputMarkdown) => {
-  return inputMarkdown.replace(/\[(.*?)]\(#(.*?)\)/gm, (match, text, anchor) => {
+  return inputMarkdown.replaceAll(/\[(.*?)\]\(#(.*?)\)/gum, (match, text, anchor) => {
     return `[${text}](#user-content-${anchor})`;
   });
 };
@@ -291,13 +305,13 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
 
   outputMarkdown = inputMarkdown;
 
-  outputMarkdown = outputMarkdown.replace(/^```[\S\s]*?\n```/gm, (match) => {
+  outputMarkdown = outputMarkdown.replaceAll(/^```[\S\s]*?\n```/gum, (match) => {
     codeblocks.push(match);
 
     return '⊂⊂⊂C:' + codeblocks.length + '⊃⊃⊃';
   });
 
-  outputMarkdown = outputMarkdown.replace(/^(#+)(.*$)/gm, (match, level, name) => {
+  outputMarkdown = outputMarkdown.replaceAll(/^(#+)(.*$)/gum, (match, level, name) => {
     let normalizedName;
 
     const normalizedLevel = level.length;
@@ -308,7 +322,7 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
       // `foo bar`
       // -foo-bar-
       // foo-bar
-      id: _.trim(normalizedName.toLowerCase().replace(/\W+/g, '-'), '-'),
+      id: _.trim(normalizedName.toLowerCase().replaceAll(/\W+/gu, '-'), '-'),
       level: normalizedLevel,
       name: normalizedName,
     });
@@ -326,14 +340,14 @@ Gitdown.nestHeadingIds = (inputMarkdown) => {
 ${_.repeat('#', normalizedLevel)} ${normalizedName}`;
   });
 
-  outputMarkdown = outputMarkdown.replace(/^⊂⊂⊂C:(\d+)⊃⊃⊃/gm, () => {
+  outputMarkdown = outputMarkdown.replaceAll(/^⊂⊂⊂C:(\d+)⊃⊃⊃/gum, () => {
     return codeblocks.shift();
   });
 
   const tree = contents.nestIds(MarkdownContents.tree(articles));
 
   Gitdown.nestHeadingIds.iterateTree(tree, (index, article) => {
-    outputMarkdown = outputMarkdown.replace(new RegExp('⊂⊂⊂H:' + index + '⊃⊃⊃', 'g'), article.id);
+    outputMarkdown = outputMarkdown.replaceAll(new RegExp('⊂⊂⊂H:' + index + '⊃⊃⊃', 'gu'), article.id);
   });
 
   return outputMarkdown;
@@ -350,16 +364,15 @@ Gitdown.nestHeadingIds.iterateTree = (tree, callback, index = 1) => {
 
   nextIndex = index;
 
-  tree.forEach((article) => {
-    // eslint-disable-next-line promise/prefer-await-to-callbacks
+  for (const article of tree) {
     callback(nextIndex++, article);
 
     if (article.descendants) {
       nextIndex = Gitdown.nestHeadingIds.iterateTree(article.descendants, callback, nextIndex);
     }
-  });
+  }
 
   return nextIndex;
 };
 
-module.exports = Gitdown;
+export default Gitdown;
