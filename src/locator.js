@@ -1,3 +1,4 @@
+/* eslint-disable canonical/filename-match-exported */
 import fs from 'fs';
 import Path from 'path';
 import {

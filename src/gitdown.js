@@ -1,3 +1,4 @@
+/* eslint-disable canonical/filename-match-exported */
 import contents from './helpers/contents.js';
 import gitinfo from './helpers/gitinfo.js';
 import Parser from './Parser.js';
