@@ -63,5 +63,5 @@
     "lint": "eslint --report-unused-disable-directives ./src ./tests",
     "test": "c8 mocha \"./tests/**/*.js\" --timeout 9000"
   },
-  "version": "2.5.2"
+  "version": "3.0.0"
 }
