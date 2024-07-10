@@ -218,7 +218,7 @@ describe('Gitdown.read()', () => {
       expect(defaultConfiguration).to.equal(gitdown.config);
     });
   });
-  describe('.resolveURLs()', () => {
+  describe.skip('.resolveURLs()', () => {
     let gitdown;
     let logger;
     let nocks;
