@@ -51,7 +51,7 @@ Gitdown.read = async (input, gitInfo) => {
 
     markdown = Gitdown.prefixRelativeUrls(markdown);
 
-    await gitdown.resolveURLs(markdown);
+    // await gitdown.resolveURLs(markdown); // Disabling until may remove
 
     return markdown.replaceAll(/<!--\sgitdown:\s(:?off|on)\s-->/gu, '');
   };
