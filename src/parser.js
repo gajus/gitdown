@@ -1,6 +1,6 @@
 /* eslint-disable canonical/filename-match-exported */
 /* eslint-disable canonical/no-use-extend-native */
-import Locator from './Locator.js';
+import Locator from './locator.js';
 import Promise from 'bluebird';
 import {
   glob,
